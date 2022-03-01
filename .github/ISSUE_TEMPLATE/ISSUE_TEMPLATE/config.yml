@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 問題
+    url: https://github.com/Youzi9601/YZB-DiscordBot/issues
+    about: 你可以開啟Issues，我們很快就會為您提供支援！
+  - name: 💬 聊天
+    url: https://discord.gg/Vq3F8DUNzf
+    about: 想要與探索更多有關我的的事情嗎？加入我們的伺服器吧！

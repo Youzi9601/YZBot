@@ -1,0 +1,26 @@
+name: "回報漏洞"
+description: 回報漏洞
+body:
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: 當前行為
+      description: 包括螢幕截圖、堆疊追蹤、審核日誌等的描述
+      placeholder: 當前...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: desired-behavior
+    attributes:
+      label: 預期行為
+      description: 對於預期行為的詳細描述
+      placeholder: 機器人應該...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: other
+    attributes:
+      label: 其他細節
+      placeholder: 有任何其他細節嗎？

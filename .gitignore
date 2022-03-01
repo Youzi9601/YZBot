@@ -1,0 +1,10 @@
+# Node rules:
+##忽略npm安裝資料夾：
+node_modules/
+.vscode/
+.git/
+##忽略檔案：
+json.sqlite
+.env
+##忽略的設定檔：
+#無

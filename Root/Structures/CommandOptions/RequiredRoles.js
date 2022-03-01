@@ -1,0 +1,25 @@
+module.exports = async function(message, command, Discord) {
+    if (!command.requiredRoles) return false;
+    const missing = [];
+    command.requiredRoles.forEach(role => {
+        if (!message.member.roles.cache.has(role)) missing.push(`<@&${role}>`);
+    });
+    if (missing.length == 0) return false;
+    else {
+        if (command.returnRequiredRoles == false || command.returnNoErrors) return true;
+        else message.reply({
+            embeds: [new Discord.MessageEmbed()
+                .setAuthor({
+                    name: message.member.user.tag,
+                    iconURL: message.member.user.displayAvatarURL({ dynamic: true }),
+                })
+                .setColor('#FF0000')
+                .setTimestamp()
+                .setDescription(`您需要擁有這些角色才能運行此命令。\n• ${missing.join('\n• ')}`)],
+            allowedMentions: {
+                repliedUser: false,
+            },
+        });
+        return true;
+    }
+};
