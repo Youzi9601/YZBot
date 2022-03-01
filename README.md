@@ -24,7 +24,7 @@
 >    <img alt="NPM" src="https://img.shields.io/badge/NPM-v16.0.0+-blue.svg?style=for-the-badge&logo=npm" />
 >
 >   </a>
->    <img alt="語言" src="https://img.shields.io/github/languages/top/Youzi9601/YZB-DiscordBot?label=%E8%AA%9E%E8%A8%80&style=for-the-badge" />
+>    <img alt="語言" src="https://img.shields.io/github/languages/top/Youzi9601/YZBot?label=%E8%AA%9E%E8%A8%80&style=for-the-badge" />
 >
 >   </a>
 
@@ -34,13 +34,13 @@
 >   <p>資訊
 >   </p>
 >
->  <a href="https://github.com/Youzi9601/YZB-DiscordBot/issues">
->    <img alt="GitHub 問題" src="https://img.shields.io/github/issues/Youzi9601/YZB-DiscordBot?style=for-the-badge&logo=github&label=%E5%95%8F%E9%A1%8C" /></a>
->   <a href="https://github.com/Youzi9601/YZB-DiscordBot">
->    <img alt="GitHub 分叉" src="https://img.shields.io/github/forks/Youzi9601/YZB-DiscordBot?style=for-the-badge&logo=github&label=%E5%88%86%E6%94%AF" /></a>
-> <img src="https://img.shields.io/github/downloads/Youzi9601/YZB-DiscordBot/total?label=%E4%B8%8B%E8%BC%89%E6%95%B8%E9%87%8F&logo=Github&style=for-the-badge" alt="下載數量"></a>
-> <img src="https://img.shields.io/github/languages/code-size/Youzi9601/YZB-DiscordBot?label=%E4%BB%A3%E7%A2%BC%E5%A4%A7%E5%B0%8F&logo=github&style=for-the-badge" alt="代碼大小"></a>
-> <img src="https://img.shields.io/circleci/build/github/Youzi9601/YZB-DiscordBot.svg?&label=%E6%9C%8D%E5%8B%99%E6%B8%AC%E8%A9%A6&style=for-the-badge&logo=Circleci" alt="服務測試"></a>
+>  <a href="https://github.com/Youzi9601/YZBot/issues">
+>    <img alt="GitHub 問題" src="https://img.shields.io/github/issues/Youzi9601/YZBot?style=for-the-badge&logo=github&label=%E5%95%8F%E9%A1%8C" /></a>
+>   <a href="https://github.com/Youzi9601/YZBot">
+>    <img alt="GitHub 分叉" src="https://img.shields.io/github/forks/Youzi9601/YZBot?style=for-the-badge&logo=github&label=%E5%88%86%E6%94%AF" /></a>
+> <img src="https://img.shields.io/github/downloads/Youzi9601/YZBot/total?label=%E4%B8%8B%E8%BC%89%E6%95%B8%E9%87%8F&logo=Github&style=for-the-badge" alt="下載數量"></a>
+> <img src="https://img.shields.io/github/languages/code-size/Youzi9601/YZBot?label=%E4%BB%A3%E7%A2%BC%E5%A4%A7%E5%B0%8F&logo=github&style=for-the-badge" alt="代碼大小"></a>
+> <img src="https://img.shields.io/circleci/build/github/Youzi9601/YZBot.svg?&label=%E6%9C%8D%E5%8B%99%E6%B8%AC%E8%A9%A6&style=for-the-badge&logo=Circleci" alt="服務測試"></a>
 >
 >   </a>
 
@@ -101,4 +101,4 @@ npm run lint
 
 重複此步驟直到 ESLint 沒有報錯為止。
 
-3. 恭喜！你可以到 [這裡](https://github.com/Youzi9601/YZB-DiscordBot/pulls) 開啟一個 Pull Request。
+3. 恭喜！你可以到 [這裡](https://github.com/Youzi9601/YZBot/pulls) 開啟一個 Pull Request。
