@@ -79,6 +79,7 @@
 # 安裝並啟動
 
 <details>
+
   <summary>安裝方式(點我打開)</summary>
 
 1. 下載最新的檔案 [`(點我下載)`](https://github.com/Youzi9601/YZBot/archive/refs/heads/master.zip) ，並解壓縮
@@ -89,12 +90,14 @@
    ( token 以及 Client ID 可以從 <https://discord.com/developers/applications> 找到 )
 
 4. 運行 `Bot.js` 讓機器人註冊指令並開始運行，此時機器人會上線 (注意：註冊命令需要一些時間！)。
+
 </details>
 
 
 # 製作日誌
 
 <details>
+
   <summary>這裡有機器人的更新日誌(點我打開)</summary>
 
 ### 正式發布
@@ -104,10 +107,13 @@
 
 > * `/bot` 系列命令新增
 > * `Readme.md` 檔案撰寫
+
 </details>
 
 # 貢獻你的想法
+
 <details>
+
   <summary>貢獻你的想法吧！(點我打開)</summary>
 如果想要把你的想法貢獻給我們，請先注意：
 
