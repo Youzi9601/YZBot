@@ -2,9 +2,7 @@
  <img width="100px" src="https://media.discordapp.net/attachments/941663439879802893/947385760183627786/YZB-5.png" align="center" alt="YZB" />
  
  <h2 align="center">[=|  YZB  |=]</h2>
-
----
-
+ 
  <p align="center"> 一個簡單、有趣、實用的Discord機器人 </p>
  <p align= "center">
  <a href="https://github.com/Youzi9601">
