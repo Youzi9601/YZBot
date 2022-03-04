@@ -2,7 +2,7 @@
  <img width="100px" src="https://media.discordapp.net/attachments/941663439879802893/947385760183627786/YZB-5.png" align="center" alt="YZB" />
  
  <h2 align="center">[=|  YZB  |=]</h2>
- 
+
  <p align="center"> 一個簡單、有趣、實用的Discord機器人 </p>
  <p align= "center">
  <a href="https://github.com/Youzi9601">
@@ -15,16 +15,12 @@
 >   </p>
 >
 >   <a href="https://nodejs.org/">
->    <img alt="Node.js" src="https://img.shields.io/badge/Node.js-v17.*-blue.svg?style=for-the-badge&logo=node.js" />
+>    <img alt="Node.js" src="https://img.shields.io/badge/Node.js-v17.*-blue.svg?style=for-the-badge&logo=node.js" /></a>
 >
->   </a>
 >   <a href="https://www.npmjs.com/">
->    <img alt="NPM" src="https://img.shields.io/badge/NPM-v16.0.0+-blue.svg?style=for-the-badge&logo=npm" />
+>    <img alt="NPM" src="https://img.shields.io/badge/NPM-v16.0.0+-blue.svg?style=for-the-badge&logo=npm" /></a>
 >
->   </a>
->    <img alt="語言" src="https://img.shields.io/github/languages/top/Youzi9601/YZBot?logo=javascript&style=for-the-badge" />
->
->   </a>
+> <img alt="語言" src="https://img.shields.io/github/languages/top/Youzi9601/YZBot?logo=javascript&style=for-the-badge" /></a>
 
 <p align="center"> 
      </p>
@@ -33,9 +29,10 @@
 >   </p>
 >
 >  <a href="https://github.com/Youzi9601/YZBot/issues">
->    <img alt="GitHub 問題" src="https://img.shields.io/github/issues/Youzi9601/YZBot?style=for-the-badge&logo=github&label=%E5%95%8F%E9%A1%8C" /></a>
->   <a href="https://github.com/Youzi9601/YZBot">
->    <img alt="GitHub 分叉" src="https://img.shields.io/github/forks/Youzi9601/YZBot?style=for-the-badge&logo=github&label=%E5%88%86%E6%94%AF" /></a>
+>    <img src="https://img.shields.io/github/issues/Youzi9601/YZBot?style=for-the-badge&logo=github&label=%E5%95%8F%E9%A1%8C" alt="GitHub 問題回報" /></a>
+>
+>   <a href="https://github.com/Youzi9601/YZBot/pulls"><img src="https://img.shields.io/github/forks/Youzi9601/YZBot?style=for-the-badge&logo=github&label=%E5%88%86%E6%94%AF" alt="GitHub 分叉"  /></a>
+>
 > <img src="https://img.shields.io/github/downloads/Youzi9601/YZBot/total?label=%E4%B8%8B%E8%BC%89%E6%95%B8%E9%87%8F&logo=github&style=for-the-badge" alt="下載數量"></a>
 > <img src="https://img.shields.io/github/watchers/Youzi9601/YZBot?label=%E8%B7%9F%E8%B9%A4&logo=Github&style=for-the-badge" alt="跟蹤"></a>
 > <img src="https://img.shields.io/github/license/Youzi9601/YZBot?label=%E8%A8%B1%E5%8F%AF%E8%AD%89&logo=Github&style=for-the-badge" alt="許可證"></a>
@@ -60,14 +57,13 @@
 
 <p align="center">
 
-
-
 </p>
 
 # 目錄
-* [介紹](#介紹)
-* [安裝並啟動](#安裝並啟動)
-* [貢獻你的想法](#貢獻你的想法)
+
+- [介紹](#介紹)
+- [安裝並啟動](#安裝並啟動)
+- [貢獻你的想法](#貢獻你的想法)
 
 # 介紹
 
@@ -82,7 +78,7 @@
 
 1. 下載最新的檔案 [`(點我下載)`](https://github.com/Youzi9601/YZBot/archive/refs/heads/master.zip) ，並解壓縮
 
-2. 解壓縮，並於**終端機**執行 `npm install` 
+2. 解壓縮，並於**終端機**執行 `npm install`
 
 3. 將您的機器人設定填入 `Config.js` 中 (內有使用說明)
    ( token 以及 Client ID 可以從 <https://discord.com/developers/applications> 找到 )
@@ -91,7 +87,6 @@
 
 </details>
 
-
 # 製作日誌
 
 <details>
@@ -99,12 +94,13 @@
   <summary>這裡有機器人的更新日誌(點我打開)</summary>
 
 ### 正式發布
+
 > v0.0.0 - 無
 
 #### 正式發布前
 
-> * `/bot` 系列命令新增
-> * `Readme.md` 檔案撰寫
+> - `/bot` 系列命令新增
+> - `Readme.md` 檔案撰寫
 
 </details>
 
