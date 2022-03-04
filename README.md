@@ -58,50 +58,63 @@
 >    <img src="https://img.shields.io/discord/849809683085525032?style=for-the-badge&logo=discord&label=%E6%94%AF%E6%8F%B4%E4%BC%BA%E6%9C%8D%E5%99%A8" alt="前往Discord"></a>
 >
 
+---
+
+<p align="center">
+
+
+
+</p>
+
+# 目錄
+* [介紹](#介紹)
+* [安裝並啟動](#安裝並啟動)
+* [貢獻你的想法](#貢獻你的想法)
+
 # 介紹
 
 一個由 Youzi9601 所製作的機器人，
 內涵各種管理命令以及其他有趣的小功能。
 
-# 使用說明
+# 安裝並啟動
 
-1. 使用前請先下載所有檔案(要解壓縮！)，並在終端機輸入以下指令：
+<details>
+  <summary>安裝方式(點我打開)</summary>
 
-```txt
-npm install
-```
+1. 下載最新的檔案 [`(點我下載)`](https://github.com/Youzi9601/YZBot/archive/refs/heads/master.zip) ，並解壓縮
 
-2. 將您的機器人設定填入 Config.js 中(內有使用說明)
-   ( token 以及 client-ID 可以從 <https://discord.com/developers/applications> 找到 )
+2. 解壓縮，並於**終端機**執行 `npm install` 
 
-3. 運行 `bot.js` 讓機器人註冊指令並開始運行，此時機器人會上線。
+3. 將您的機器人設定填入 `Config.js` 中 (內有使用說明)
+   ( token 以及 Client ID 可以從 <https://discord.com/developers/applications> 找到 )
 
-## 製作日誌
+4. 運行 `Bot.js` 讓機器人註冊指令並開始運行，此時機器人會上線 (注意：註冊命令需要一些時間！)。
+</details>
 
-暫時沒有
 
-## 貢獻你的想法
+# 製作日誌
 
+<details>
+  <summary>這裡有機器人的更新日誌(點我打開)</summary>
+
+### 正式發布
+> v0.0.0 - 無
+
+#### 正式發布前
+
+> * `/bot` 系列命令新增
+> * `Readme.md` 檔案撰寫
+</details>
+
+# 貢獻你的想法
+<details>
+  <summary>貢獻你的想法吧！(點我打開)</summary>
 如果想要把你的想法貢獻給我們，請先注意：
 
-1. 拉取檔案後，如果沒有安裝 `npm-check-updates` 或 `eslint` 套件，請在終端機執行：
+1. 拉取檔案後，如果沒有安裝 `npm-check-updates` 或 `eslint` 套件，請在終端機執行 `npm run dev` 來安裝套件
 
-```txt
-npm run dev
-```
+2. 在終端機執行指令: `npm run check` ，如果 ESLint 報出錯誤，則依 ESLint 的提示修改。修改完後執行 `npm run lint` ，重複此步驟直到 ESLint 沒有報錯為止。
 
-2. 在終端機執行下列指令：
+3. 恭喜！你可以到 [這裡](https://github.com/Youzi9601/YZBot/pulls) 開啟一個 Pull Request，讓我們知道你的想法！
 
-```txt
-npm run check
-```
-
-如果 ESLint 報出錯誤，則依 ESLint 的提示修改。修改完後執行：
-
-```txt
-npm run lint
-```
-
-重複此步驟直到 ESLint 沒有報錯為止。
-
-3. 恭喜！你可以到 [這裡](https://github.com/Youzi9601/YZBot/pulls) 開啟一個 Pull Request。
+</details>
