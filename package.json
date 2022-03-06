@@ -35,6 +35,7 @@
     "cli-box": "^6.0.10",
     "discord-player": "^5.2.2",
     "discord.js": "^13.6.0",
+    "discordjs-button-pagination": "^3.0.1",
     "dotenv": "^16.0.0",
     "fs": "^0.0.1-security",
     "fs-extra": "^10.0.0",

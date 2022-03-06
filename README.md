@@ -28,16 +28,22 @@
 >   <p>資訊
 >   </p>
 >
->  <a href="https://github.com/Youzi9601/YZBot/issues">
->    <img src="https://img.shields.io/github/issues/Youzi9601/YZBot?style=for-the-badge&logo=github&label=%E5%95%8F%E9%A1%8C" alt="GitHub 問題回報" /></a>
+> [![資訊卡](https://github-readme-stats.vercel.app/api/pin/?username=Youzi9601&repo=YZBot&locale=cn&theme=apprentice)](https://github.com/Youzi9601/YZBot/)
+> <a href="https://github.com/Youzi9601/YZBot/issues">
+> <img src="https://img.shields.io/github/issues/Youzi9601/YZBot?style=for-the-badge&logo=github&label=%E5%95%8F%E9%A1%8C" alt="GitHub 問題回報" /></a>
 >
->   <a href="https://github.com/Youzi9601/YZBot/pulls"><img src="https://img.shields.io/github/forks/Youzi9601/YZBot?style=for-the-badge&logo=github&label=%E5%88%86%E6%94%AF" alt="GitHub 分叉"  /></a>
+> <a href="https://github.com/Youzi9601/YZBot/pulls"><img src="https://img.shields.io/github/forks/Youzi9601/YZBot?style=for-the-badge&logo=github&label=%E5%88%86%E6%94%AF" alt="GitHub 分叉"  /></a>
 >
-> <img src="https://img.shields.io/github/downloads/Youzi9601/YZBot/total?label=%E4%B8%8B%E8%BC%89%E6%95%B8%E9%87%8F&logo=github&style=for-the-badge" alt="下載數量"></a>
-> <img src="https://img.shields.io/github/watchers/Youzi9601/YZBot?label=%E8%B7%9F%E8%B9%A4&logo=Github&style=for-the-badge" alt="跟蹤"></a>
-> <img src="https://img.shields.io/github/license/Youzi9601/YZBot?label=%E8%A8%B1%E5%8F%AF%E8%AD%89&logo=Github&style=for-the-badge" alt="許可證"></a>
-> <img src="https://img.shields.io/github/languages/code-size/Youzi9601/YZBot?label=%E4%BB%A3%E7%A2%BC%E5%A4%A7%E5%B0%8F&logo=github&style=for-the-badge" alt="代碼大小"></a>
-> <img src="https://img.shields.io/github/stars/Youzi9601/YZBot?label=%E8%A9%95%E5%88%86&logo=Github&style=for-the-badge" alt="評分"></a>
+> <img src="https://img.shields.io/github/downloads/Youzi9601/YZBot/total?label=%E4%B8%8B%E8%BC%89%E6%95%B8%E9%87%8F&logo=github&style=for-the-badge" alt="下載數量"></a> 
+> 
+> <img src="https://img.shields.io/github/watchers/Youzi9601/YZBot?label=%E8%B7%9F%E8%B9%A4&logo=Github&style=for-the-badge" alt="跟蹤"></a> 
+> 
+> <img src="https://img.shields.io/github/license/Youzi9601/YZBot?label=%E8%A8%B1%E5%8F%AF%E8%AD%89&logo=Github&style=for-the-badge" alt="許可證"></a> 
+> 
+> <img src="https://img.shields.io/github/languages/code-size/Youzi9601/YZBot?label=%E4%BB%A3%E7%A2%BC%E5%A4%A7%E5%B0%8F&logo=github&style=for-the-badge" alt="代碼大小"></a> 
+> 
+> <img src="https://img.shields.io/github/stars/Youzi9601/YZBot?label=%E8%A9%95%E5%88%86&logo=Github&style=for-the-badge" alt="評分"></a> 
+> 
 > <img src="https://img.shields.io/circleci/build/github/Youzi9601/YZBot?label=%E6%9C%8D%E5%8B%99%E6%B8%AC%E8%A9%A6&logo=circleci&style=for-the-badge&token=2998169653316f89caa76cda45c0c8fff9a48983"></a>
 >
 >   </a>

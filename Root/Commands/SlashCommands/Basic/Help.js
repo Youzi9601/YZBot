@@ -1,18 +1,18 @@
 const {
-    Client,
-    Interaction,
-    MessageActionRow,
-    MessageButton,
-    MessageEmbed,
+  Client,
+  Interaction,
+  MessageActionRow,
+  MessageButton,
+  MessageEmbed,
 } = require('discord.js');
 const fs = require('fs-extra');
 
 module.exports = {
-    name: 'help',
-    description: '機器人的使用手冊',
-    clientPermissions: ['SEND_MESSAGES'],
-    cooldown: 10000,
-    run: async (client, interaction, container) => {
+  name: 'help',
+  description: '機器人的使用手冊',
+  clientPermissions: ['SEND_MESSAGES'],
+  cooldown: 10000,
+  run: async (client, interaction, container) => {
     /*
     await interaction.deferReply();
     let res = new MessageEmbed()
@@ -163,5 +163,51 @@ module.exports = {
           });
       });
       */
-    },
+
+    // Import the discordjs-button-pagination package
+    const paginationEmbed = require('discordjs-button-pagination');
+
+    // Use MessageEmbed to make pages
+    // Keep in mind that Embeds should't have their footers set since the pagination method sets page info there
+    const { MessageEmbed, MessageButton } = require('discord.js');
+    const embed1 = new MessageEmbed()
+      .setTitle('First Page')
+      .setDescription('This is the first page');
+
+    const embed2 = new MessageEmbed()
+      .setTitle('Second Page')
+      .setDescription('This is the second page');
+
+    const Previous_button = new MessageButton()
+      .setCustomId('previousbtn')
+      .setLabel('上一頁 ⇀')
+      .setStyle('DANGER');
+
+    const Next_button = new MessageButton()
+      .setCustomId('nextbtn')
+      .setLabel('↼ 下一頁')
+      .setStyle('SUCCESS');
+
+    // Create an array of embeds
+    pages = [
+      embed1,
+      embed2,
+      //....
+      //embedN
+    ];
+
+    //create an array of buttons
+
+    buttonList = [
+      button1,
+      button2
+    ]
+
+
+    // Call the paginationEmbed method, first three arguments are required
+    // timeout is the time till the reaction collectors are active, after this you can't change pages (in ms), defaults to 120000
+    paginationEmbed(interaction, pages, buttonList, timeout);
+    // There you go, now you have paged embeds
+
+  },
 };
