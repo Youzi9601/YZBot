@@ -171,12 +171,12 @@ module.exports = {
     // Keep in mind that Embeds should't have their footers set since the pagination method sets page info there
     const { MessageEmbed, MessageButton } = require('discord.js');
     const embed1 = new MessageEmbed()
-      .setTitle('First Page')
-      .setDescription('This is the first page');
+      .setTitle('Help 命令列表')
+      .setDescription('目前正在維修中...');
 
     const embed2 = new MessageEmbed()
-      .setTitle('Second Page')
-      .setDescription('This is the second page');
+      .setTitle('Help 命令列表')
+      .setDescription('目前正在維修... ==');
 
     const Previous_button = new MessageButton()
       .setCustomId('previousbtn')
