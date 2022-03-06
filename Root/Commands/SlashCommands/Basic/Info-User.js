@@ -7,6 +7,7 @@ const {
     MessageEmbed,
     MessageSelectMenu,
 } = require('discord.js');
+const lang = require('../../../../language')
 module.exports = {
     name: 'userinfo',
     description: '使用者資訊',
@@ -15,45 +16,65 @@ module.exports = {
     cooldown: 10000,
     run: async (client, interaction, container) => {
         // 取得成員
-        const user = interaction.options.getMember('user') || client.user.id
+        const user = interaction.options.getMember('user') || interaction.user || client.user
+        const member = await interaction.guild.members.fetch(user).catch(() => {});
         // 取得時間
         const DISCORD_EPOCH = 1420070400000;
 
         function convertSnowflakeToDate(snowflake) {
             return new Date(snowflake / 4194304 + DISCORD_EPOCH);
         }
-        const input = `${user}`;
-        const snowflake = Number(input.replace(/[^0-9]+/g, ''));
-        const timestamp = convertSnowflakeToDate(snowflake);
-        const create_at = `${Math.floor(timestamp.getTime() / 1000)}`;
+        const user_input = `${user}`;
+        const user_snowflake = Number(user_input.replace(/[^0-9]+/g, ''));
+        const user_timestamp = convertSnowflakeToDate(user_snowflake);
+        const create_at = `${Math.floor(user_timestamp.getTime() / 1000)}`;
+        const member_input = `${member.joinedAt}`;
+        const member_snowflake = Number(member_input.replace(/[^0-9]+/g, ''));
+        const member_timestamp = convertSnowflakeToDate(member_snowflake);
+        const join_at = `${Math.floor(member_timestamp.getTime() / 1000)}`;
         // 嵌入
         const userinfo = new container.Discord.MessageEmbed()
             .setColor('RANDOM')
             .setTimestamp()
             .setTitle('成員資訊')
             .setThumbnail(
-                `${interaction.guild.iconURL() || client.user.displayAvatarURL()}`,
+                `${member.displayAvatarURL()}`,
             )
             .setDescription(' ')
             .setFooter({
-                text: `${interaction.member.user.tag}`,
-                iconURL: `${interaction.member.user.displayAvatarURL({
+                text: `${interaction.user.tag}`,
+                iconURL: `${interaction.user.displayAvatarURL({
                     dynamic: true,
                 })}`,
             })
             .addFields({
                 name: '名稱',
-                value: `${interaction.user.tag}`,
+                value: `${user.username}`,
+                inline: true,
+            })
+            .addFields({
+                name: '識別碼',
+                value: `${user.discriminator}`,
                 inline: true,
             })
             .addFields({
                 name: 'ID',
-                value: `${interaction.user.id}`,
+                value: `${member.id}`,
                 inline: true,
             })
             .addFields({
                 name: '創建時間',
                 value: `<t:${create_at}:R>`,
+            })
+            .addFields({
+                name: '機器人',
+                value: `${member.bot ? lang.boolean.yes : lang.boolean.no }`,
+                inline: true,
+            })
+            .addFields({
+                name: '加入時間',
+                value: `<t:${join_at}:R>`,
+                inline: true,
             })
 
         // 返回訊息

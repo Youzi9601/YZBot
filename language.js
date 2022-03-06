@@ -20,7 +20,16 @@ module.exports = {
      * 基本
      *
      */
+    // 時間格式
     date_front: process.env.lang_date || 'YYYY-MM-DD hh:mm:ss',
+    boolean: {
+        // 傳回
+        yes: "是",
+        no: "否",
+        // 布林值
+        true: "真",
+        false: "假",
+    },
     /**
      *
      * 機器人的啟動控制
@@ -30,7 +39,7 @@ module.exports = {
         on: '啟動',
         off: '關閉',
         reon: '重新啟動',
-    }
+    },
     /**
      *
      * 機器人的警報系統
@@ -38,5 +47,25 @@ module.exports = {
      */
 
     //
+
+    /**
+     *
+     * 命令
+     *
+     */
+    commands: {
+        help: {
+            name: '幫助列表'
+        },
+        info: {
+            user: {
+                name: '成員資訊',
+                no_game: '沒有遊玩的遊戲',
+            },
+            server: {
+                name: '伺服器資訊'
+            },
+        },
+    },
 };
 
