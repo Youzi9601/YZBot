@@ -17,7 +17,7 @@ module.exports = {
     run: async (client, interaction, container) => {
         // 取得成員
         const user = interaction.options.getMember('user') || interaction.user || client.user
-        const member = await interaction.guild.members.fetch(user).catch(() => {});
+        const member = await interaction.guild.members.fetch(user).catch(() => { });
         // 取得時間
         const DISCORD_EPOCH = 1420070400000;
 
@@ -28,7 +28,8 @@ module.exports = {
         const user_snowflake = Number(user_input.replace(/[^0-9]+/g, ''));
         const user_timestamp = convertSnowflakeToDate(user_snowflake);
         const create_at = `${Math.floor(user_timestamp.getTime() / 1000)}`;
-        const join_at = `${Math.round(new Date(member.joined_at).getTime() / 1000)}`;
+        const user_joinedtime = `${member.joinedTimestamp}`;
+        const join_at = `${Math.floor(member.joinedTimestamp / 1000)}`;
         // 嵌入
         const userinfo = new container.Discord.MessageEmbed()
             .setColor('RANDOM')
@@ -50,6 +51,11 @@ module.exports = {
                 inline: true,
             })
             .addFields({
+                name: '匿名',
+                value: `${user.nickname || "沒有暱稱"}`,
+                inline: true,
+            })
+            .addFields({
                 name: '識別碼',
                 value: `${user.discriminator}`,
                 inline: true,
@@ -60,18 +66,17 @@ module.exports = {
                 inline: true,
             })
             .addFields({
+                name: '機器人',
+                value: `${member.bot ? lang.boolean.yes : lang.boolean.no}`,
+                inline: true,
+            })
+            .addFields({
                 name: '創建時間',
                 value: `<t:${create_at}:R>`,
             })
             .addFields({
-                name: '機器人',
-                value: `${member.bot ? lang.boolean.yes : lang.boolean.no }`,
-                inline: true,
-            })
-            .addFields({
                 name: '加入時間',
                 value: `<t:${join_at}:R>`,
-                inline: true,
             })
 
         // 返回訊息
