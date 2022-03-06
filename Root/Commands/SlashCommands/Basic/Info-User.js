@@ -28,10 +28,7 @@ module.exports = {
         const user_snowflake = Number(user_input.replace(/[^0-9]+/g, ''));
         const user_timestamp = convertSnowflakeToDate(user_snowflake);
         const create_at = `${Math.floor(user_timestamp.getTime() / 1000)}`;
-        const member_input = `${member.joinedAt}`;
-        const member_snowflake = Number(member_input.replace(/[^0-9]+/g, ''));
-        const member_timestamp = convertSnowflakeToDate(member_snowflake);
-        const join_at = `${Math.floor(member_timestamp.getTime() / 1000)}`;
+        const join_at = `${Math.round(new Date(member.joined_at).getTime() / 1000)}`;
         // 嵌入
         const userinfo = new container.Discord.MessageEmbed()
             .setColor('RANDOM')
