@@ -7,7 +7,7 @@ module.exports = {
     name: 'reconnecting',
     once: true,
     run: async (client) => {
-        console.log(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + chalk.bgYellow.bold('機器人重新連線！'));
+        console.log(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + chalk.bgYellow.bold('客戶端嘗試重新連接到 WebSocket'));
 
     // end
     },

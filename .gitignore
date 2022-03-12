@@ -1,8 +1,9 @@
 # Node rules:
-##忽略npm安裝資料夾：
+##忽略資料夾：
 node_modules/
 .vscode/
 .git/
+logs/*.txt
 ##忽略檔案：
 json.sqlite
 .env
