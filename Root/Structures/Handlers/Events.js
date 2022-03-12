@@ -4,7 +4,6 @@ const Discord = require('discord.js');
 const { path, config } = require('../../../bot');
 const moment = require('moment');
 const chalk = require('chalk');
-const findRemoveSync = require('find-remove')
 
 module.exports = async function (client) {
     const container = {
@@ -51,12 +50,35 @@ module.exports = async function (client) {
             } else {
                 // 執行清除
                 var dir = 'logs/'
-                var clear = findRemoveSync(`${dir}`, {
-                    age: { days: `${config.console_clear}` },
-                    extensions: '.log',
-                    limit: 100
-                  })
-                  console.log(clear)
+                // 取得檔案時間排序
+                fs.readdir(dir, function (err, files) {
+                    files = files.map(function (fileName) {
+                        return {
+                            name: fileName,
+                            time: fs.statSync(dir + '/' + fileName).mtime.getTime()
+                        };
+                    })
+                        .sort(function (a, b) {
+                            return a.time - b.time;
+                        })
+                        .map(function (v) {
+                            return v.name;
+                        });
+                });
+                console.log(files)
+                for (let i = 0; i < config.console_clear; i++) {
+                    const log = files[i];
+                    fs.unlink(`${dir}/${log}`, (err) => {
+                        if (err) {
+                            console.error(err)
+                            return
+                        }
+
+
+                        //file removed
+                    });
+
+                }
             }
             /**
              * log 檔案 end
