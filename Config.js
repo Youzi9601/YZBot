@@ -35,21 +35,24 @@ module.exports = {
     botName: process.env.botName || '機器人名稱',
     // 機器人狀態
     botPresence: {
-    /**
-     * 已廢棄
-    activities: [
-      {
-        // 名稱
-        name: `${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者`,
-      },
-    ],
-    */
+        /**
+         * 已廢棄
+        activities: [
+          {
+            // 名稱
+            name: `${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者`,
+          },
+        ],
+        */
 
         // 狀態
         status: 'idle',
     },
     // 控制台日誌前綴名稱(可為空)
     console_prefix: process.env.console_prefix || '',
+
+    // 控制台日誌文件紀錄天數(單位：天(= logs/ 的子目錄下的檔案數量)｜0 為永久保存紀錄｜過了這時間以後就會自動刪除)
+    console_clear: process.env.console_clear || '',
 
     // 伺服器邀請 (https://discord.gg/${邀請代碼})
     invite_code: process.env.invite_code || '邀請代碼',
@@ -62,7 +65,7 @@ module.exports = {
     ServerID: process.env.serverid || '伺服器ID',
     // 紀錄伺服器的相關頻道
     Channels: {
-    // 機器人啟動時會記錄在這個頻道 (填入ID)
+        // 機器人啟動時會記錄在這個頻道 (填入ID)
         ClientOn: process.env.ClientOnChannel || 'ID',
         // 若有錯誤的回報會記錄在這個頻道 (填入ID)
         report: process.env.reportChannel || 'ID',
@@ -77,7 +80,7 @@ module.exports = {
    * 音樂 (尚未完成！)
    */
     music: {
-    // 前綴名稱
+        // 前綴名稱
         px: process.env.prefix_music || 'm>',
 
         opt: {
@@ -140,7 +143,7 @@ module.exports = {
    * 機器人控制台設定
    */
     console: {
-    // 是否報告 Discord Error 錯誤訊息
+        // 是否報告 Discord Error 錯誤訊息
         error: process.env.console_error || true,
         // 是否報告 Discord Warn 警告訊息
         warn: process.env.console_warn || true,

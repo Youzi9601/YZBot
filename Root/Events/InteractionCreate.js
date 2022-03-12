@@ -5,7 +5,7 @@ const fs = require('fs');
 module.exports = {
     name: 'interactionCreate',
     run: async (interaction, client) => {
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.txt`, `\n | ${interaction.member.user.tag}(${interaction.member.user.id}) 於 ${interaction.guild.name}(${interaction.guild.id}) #${interaction.channel.name}(${interaction.channel.id}) 中使用 ${interaction}`, function (err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${interaction.member.user.tag}(${interaction.member.user.id}) 於 ${interaction.guild.name}(${interaction.guild.id}) #${interaction.channel.name}(${interaction.channel.id}) 中使用 ${interaction}`, function (err) {
             if (err)
                 console.log(err);
         });
