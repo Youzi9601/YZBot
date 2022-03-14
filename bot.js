@@ -78,7 +78,7 @@
         autoupdater.on('git-clone', function () {
             console.log(chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-            ) + "您有一個git的克隆。採用'git pull'更新到最新！");
+            ) + "您有一個git-clone，我們推薦你使用。使用'git pull'更新到最新版本！");
         });
         autoupdater.on('check.up-to-date', function (v) {
             console.info(chalk.gray(
