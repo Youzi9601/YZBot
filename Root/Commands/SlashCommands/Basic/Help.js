@@ -180,13 +180,13 @@ module.exports = {
 
     const Previous_button = new MessageButton()
       .setCustomId('previousbtn')
-      .setLabel('上一頁 ⇀')
-      .setStyle('DANGER');
+      .setLabel('↼ 上一頁')
+      .setStyle('PRIMARY');
 
     const Next_button = new MessageButton()
       .setCustomId('nextbtn')
-      .setLabel('↼ 下一頁')
-      .setStyle('SUCCESS');
+      .setLabel('下一頁 ⇀')
+      .setStyle('PRIMARY');
 
     // Create an array of embeds
     pages = [
@@ -199,10 +199,11 @@ module.exports = {
     //create an array of buttons
 
     buttonList = [
-      button1,
-      button2
+      Previous_button,
+      Next_button
     ]
-
+    
+    timeout = `120000`
 
     // Call the paginationEmbed method, first three arguments are required
     // timeout is the time till the reaction collectors are active, after this you can't change pages (in ms), defaults to 120000

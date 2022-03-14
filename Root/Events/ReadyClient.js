@@ -2,6 +2,7 @@ const chalk = require('chalk');
 const Box = require('cli-box');
 const config = require('./../../Config.js');
 const moment = require('moment');
+const fs = require('fs');
 
 module.exports = {
     name: 'ready',
@@ -137,6 +138,10 @@ Client 事件      ::     ${client.events.size} 個
           ' 機器人啟動成功```',
             );
         } catch (error) {}
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人成功上線！`, function (err) {
+            if (err)
+                console.log(err)
+        });
 
         // CI
         const ci = process.env.CI;

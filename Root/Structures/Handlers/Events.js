@@ -66,7 +66,7 @@ module.exports = async function (client) {
                                         console.error(err)
                                         return
                                     }
-                                    console.log(`${log} 成功被刪除`)
+                                    console.log(`${moment().format('YYYY/MM/DD HH:mm:ss')} ${log} 成功被刪除`)
 
                                     //file removed
                                 });

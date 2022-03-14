@@ -2,8 +2,9 @@ const Discord = require('discord.js');
 const { path, config } = require('../../../bot');
 const chalk = require('chalk');
 const moment = require('moment');
+const fs = require('fs')
 
-module.exports = async function(
+module.exports = async function (
     client,
     message,
     command,
@@ -49,7 +50,7 @@ module.exports = async function(
         return;
     // 執行命令(斜線/文字)
     else {
-    // Log紀錄命令使用
+        // Log紀錄命令使用
         const consolelogchannel = client.channels.cache.get(
             config.Channels.commandRec,
         );
@@ -58,14 +59,18 @@ module.exports = async function(
             consolelogchannel.send(
                 `> ${message.user.tag} 於﹝ ${message.guild.name} ﹞#${message.channel.name} (${message.guild.id} ${message.channel.id}) \n> 使用命令： ${message}  `,
             );
-        } catch (error) {}
+        } catch (error) { }
 
         console.log(
             chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
             ) +
-        `${message.user.tag} 於﹝ ${message.guild.name} ﹞#${message.channel.name} (${message.guild.id} ${message.channel.id}) 使用命令： ${message}  `,
+            `${message.user.tag} 於﹝ ${message.guild.name} ﹞#${message.channel.name} (${message.guild.id} ${message.channel.id}) 使用命令： ${message}  `,
         );
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag}(${message.user.id}) 於 ${message.guild.name}(${message.guild.id}) #${message.channel.name}(${message.channel.id}) 中使用 ${message}`, function (err) {
+            if (err)
+                console.log(err);
+        });
         // 執行斜線命令
         if (isInteraction) command.run(client, message, container);
         //
@@ -79,10 +84,10 @@ module.exports = async function(
                     .trim()
                     .split(' ')[0];
                 const command =
-          client.commands.messageCommands.get(cmdName) ??
-          client.commands.messageCommands.get(
-              client.commands.messageCommands.aliases.get(cmdName),
-          );
+                    client.commands.messageCommands.get(cmdName) ??
+                    client.commands.messageCommands.get(
+                        client.commands.messageCommands.aliases.get(cmdName),
+                    );
                 if (!command) return;
                 let args = message.content.slice(prefix.length).trim();
                 if (args.toLowerCase().startsWith(cmdName))

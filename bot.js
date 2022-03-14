@@ -137,7 +137,7 @@
     // 錯誤事件抓取
     if (config.console.error) {
         client.on('error', (e) => {
-            console.error(e)
+            console.error(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR\n`) + `${e}`)
             fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function (err) {
                 if (err)
                     console.log(err)
@@ -148,7 +148,7 @@
     }
     if (config.console.warn) {
         client.on('warn', (e) => {
-            console.warn(e)
+            console.warn(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN\n`) + `${e}`)
             fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN｜${e}`, function (err) {
                 if (err)
                     console.log(err)
@@ -157,7 +157,7 @@
     }
     if (config.console.debug) {
         client.on('debug', (e) => {
-            console.info(e)
+            console.info(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG\n`) + `${e}`)
             fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG｜${e}`, function (err) {
                 if (err)
                     console.log(err)
