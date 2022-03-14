@@ -142,6 +142,29 @@
                 if (err)
                     console.log(err)
             })
+
+            // 發送回報
+            const reportChannel = client.channels.cache.get(
+                config.Channels.reportChannel,
+            );
+            reportChannel.send({
+                content: `<@!${require('../setup/config.json').ownerId}>`,
+                embeds: [new MessageEmbed()
+                    .setTitle(`${e.name} 錯誤！`)
+                    .setDescription(`錯誤訊息：${e.message}`)
+                    .setFields({
+                        name: '出現位置',
+                        value:
+                            e?.fileName
+                                ? `${e?.fileName}${e?.lineNumber
+                                    ? `:${e?.lineNumber}${e?.columnNumber
+                                        ? `:${e?.columnNumber}`
+                                        : ''}`
+                                    : ''}`
+                                : '沒有這種東西',
+                    }),
+                ],
+            });
         }
         );
 
