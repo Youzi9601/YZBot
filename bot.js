@@ -148,7 +148,7 @@
                 config.Channels.reportChannel,
             );
             reportChannel.send({
-                content: `<@!${require('../setup/config.json').ownerId}>`,
+                content: `<@!${require('Config.js').ownerId}>`,
                 embeds: [new MessageEmbed()
                     .setTitle(`${e.name} 錯誤！`)
                     .setDescription(`錯誤訊息：${e.message}`)
@@ -165,6 +165,7 @@
                     }),
                 ],
             });
+
         }
         );
 
