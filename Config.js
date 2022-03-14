@@ -52,7 +52,7 @@ module.exports = {
     console_prefix: process.env.console_prefix || '',
 
     // 控制台日誌文件紀錄天數(單位：天(= logs/ 的子目錄下的檔案數量)｜0 為永久保存紀錄｜過了這時間以後就會自動刪除)
-    console_clear: process.env.console_clear || '',
+    console_clear: process.env.console_clear || 0,
 
     // 伺服器邀請 (https://discord.gg/${邀請代碼})
     invite_code: process.env.invite_code || '邀請代碼',

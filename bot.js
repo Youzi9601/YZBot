@@ -1,8 +1,9 @@
 (async () => {
     const moment = require('moment');
+    const fs = require('fs');
     const Discord = require('discord.js');
     const {
-    // Collection,
+        // Collection,
         Client,
         // Formatters,
         MessageActionRow,
@@ -135,13 +136,33 @@
     );
     // 錯誤事件抓取
     if (config.console.error) {
-        client.on('error', (e) => console.error(e));
+        client.on('error', (e) => {
+            console.error(e)
+            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function (err) {
+                if (err)
+                    console.log(err)
+            })
+        }
+        );
+
     }
     if (config.console.warn) {
-        client.on('warn', (e) => console.warn(e));
+        client.on('warn', (e) => {
+            console.warn(e)
+            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN｜${e}`, function (err) {
+                if (err)
+                    console.log(err)
+            })
+        });
     }
     if (config.console.debug) {
-        client.on('debug', (e) => console.info(e));
+        client.on('debug', (e) => {
+            console.info(e)
+            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG｜${e}`, function (err) {
+                if (err)
+                    console.log(err)
+            })
+        });
     }
 
     /**
@@ -158,8 +179,8 @@
             chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
             ) +
-      chalk.green('進退變動 > ') +
-      `加入 ${guild.name}`,
+            chalk.green('進退變動 > ') +
+            `加入 ${guild.name}`,
         );
 
         client.user.setPresence({
@@ -219,9 +240,9 @@
                 // 進退變動 加入
                 invitechannel.send(
                     '```diff' +
-          `\n+ 機器人已加入：${guild.name}` +
-          '\n```' +
-          `https://discord.gg/${invite_code}`,
+                    `\n+ 機器人已加入：${guild.name}` +
+                    '\n```' +
+                    `https://discord.gg/${invite_code}`,
                 );
             });
     });
@@ -231,8 +252,8 @@
             chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
             ) +
-      chalk.green('進退變動 > ') +
-      `離開 ${guild.name}`,
+            chalk.green('進退變動 > ') +
+            `離開 ${guild.name}`,
         );
         client.user.setPresence({
             activities: [
