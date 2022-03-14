@@ -58,7 +58,94 @@
     client.commands.buttonCommands = new Discord.Collection();
     client.commands.selectMenus = new Discord.Collection();
 
+    updater();
+    // 檢查機器人更新
+    function updater() {
 
+        var AutoUpdater = require('auto-updater');
+
+        var autoupdater = new AutoUpdater({
+            pathToJson: '',
+            autoupdate: config.autoupdate,
+            checkgit: true,
+            jsonhost: 'raw.githubusercontent.com',
+            contenthost: 'codeload.github.com',
+            progressDebounce: 0,
+            devmode: false
+        });
+
+        // 陳述事件
+        autoupdater.on('git-clone', function () {
+            console.log(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + "您有一個git的克隆。採用'git pull'更新到最新！");
+        });
+        autoupdater.on('check.up-to-date', function (v) {
+            console.info(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + "您擁有最新版本： " + v);
+        });
+        autoupdater.on('check.out-dated', function (v_old, v) {
+            console.warn(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + "您的版本已過時。 您的版本：" + v_old + " 最新版本：" + v);
+            autoupdater.fire('download-update'); // 如果 autoupdate: false，您必須手動執行此操作。
+            // 也許會問是否願意下載更新。
+        });
+        autoupdater.on('update.downloaded', function () {
+            console.log(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + "更新已下載並準備安裝");
+            autoupdater.fire('extract'); // 如果 autoupdate: false，您必須手動執行此操作。
+        });
+        autoupdater.on('update.not-installed', function () {
+            console.log(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + "更新已在您的文件夾中！已讀取安裝");
+            autoupdater.fire('extract'); // 如果 autoupdate: false，您必須手動執行此操作。
+        });
+        autoupdater.on('update.extracted', function () {
+            console.log(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + "更新提取成功！");
+            console.warn(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + "重啟機器人！");
+        });
+        autoupdater.on('download.start', function (name) {
+            console.log(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + "開始下載： " + name);
+        });
+        autoupdater.on('download.progress', function (name, perc) {
+            process.stdout.write(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + "下載中... " + perc + "% \033[0G");
+        });
+        autoupdater.on('download.end', function (name) {
+            console.log(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + "已下載！ " + name);
+        });
+        autoupdater.on('download.error', function (err) {
+            console.error(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + "下載時出現了錯誤： " + err);
+        });
+        autoupdater.on('end', function () {
+            console.log(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + "該應用程序已準備好運行！");
+        });
+        autoupdater.on('error', function (name, e) {
+            console.error(chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + name, e);
+        });
+
+        // 開始檢查更新
+        autoupdater.fire('check');
+    }
     // 執行讀取
     const Handler = require(`${path}/Root/Structures/Handlers/Handler`);
     console.log(
@@ -299,6 +386,9 @@
     /**
    * 特殊事件執行 (End)
    */
+    process.on('unhandledRejection', error => {
+        console.error('ERROR｜未處理的承諾拒絕：', error);
+    });
 
     //
 })();

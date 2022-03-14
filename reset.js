@@ -1,3 +1,4 @@
+// 此檔案用於刪除所有命令！
 (async () => {
     // const moment = require("moment");
 

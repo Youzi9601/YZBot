@@ -6,11 +6,15 @@ module.exports = {
    * > 這是一個設定檔案，裡面的相關設定可以自由填寫！
    *
    * 格式：
-   * //敘述內容
+   * // 敘述內容
    * 設定名稱: process.env.設定名稱(我們預設的) || "您要填寫的內容"
    * (process.env.設定名稱 的設定檔案位在 ".env" 檔案裡面！)
    *
    */
+
+    // 自動更新?
+    autoupdate: process.env.autoupdate || true,
+
 
     /**
    * 基本設定

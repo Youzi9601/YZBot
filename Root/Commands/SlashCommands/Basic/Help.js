@@ -171,12 +171,47 @@ module.exports = {
     // Keep in mind that Embeds should't have their footers set since the pagination method sets page info there
     const { MessageEmbed, MessageButton } = require('discord.js');
     const embed1 = new MessageEmbed()
-      .setTitle('Help 命令列表')
-      .setDescription('目前正在維修中...');
+      .setTitle('Help 命令列表｜基本')
+      .setDescription(
+        ['目前正在製作中...敬請期待！',
+          `\`<>\` - 必填｜\`[]\` - 可選`,
+          ``,
+          `**基本**`,
+          `\`\`\`diff`,
+          `/help 取得這個幫助列表`,
+          `/info 資訊`,
+          `    ◟ user [user] 查看成員的資訊`,
+          `    ◟ server 查看伺服器的資訊`,
+          `    ◟ bot 查看機器人的資訊`,
+          `/ping 查看機器人的連線`,
+          `\`\`\``,
+        ].join(`\n`));
 
     const embed2 = new MessageEmbed()
-      .setTitle('Help 命令列表')
-      .setDescription('目前正在維修... ==');
+      .setTitle('Help 命令列表｜管理')
+      .setDescription(
+        [
+          `\`<>\` - 必填｜\`[]\` - 可選`,
+          ``,
+          `**管理**`,
+          `\`\`\`diff`,
+          `/ban <user> [reason] 封禁成員，`,
+          `/? 敬請期待！`,
+          `\`\`\``,
+        ].join(`\n`));
+
+    const embed3 = new MessageEmbed()
+      .setTitle('Help 命令列表｜控制')
+      .setDescription(
+        [
+          `\`<>\` - 必填｜\`[]\` - 可選`,
+          ``,
+          `**控制**`,
+          `\`\`\`diff`,
+          `/? 敬請期待！`,
+          `\`\`\``,
+        ].join(`\n`));
+
 
     const Previous_button = new MessageButton()
       .setCustomId('previousbtn')
@@ -192,6 +227,7 @@ module.exports = {
     pages = [
       embed1,
       embed2,
+      embed3,
       //....
       //embedN
     ];
@@ -202,7 +238,7 @@ module.exports = {
       Previous_button,
       Next_button
     ]
-    
+
     timeout = `120000`
 
     // Call the paginationEmbed method, first three arguments are required
