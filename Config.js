@@ -26,6 +26,9 @@ module.exports = {
     // 機器人註冊 [ / ] 斜線命令 會使用這個機器人ID (填入機器人ID 或者Developer Portal的Application ID，其實都一樣。)
     clientID: process.env.clientID || '機器人ID',
 
+    // 語言(可於 ./language 中自訂語言)
+    language: "zh_TW",
+
     // 機器人訊息命令前綴(訊息觸發，允許多個前綴！)
     // 例: ["前綴1","前綴2"]
     // 使用方式: "!ping"、">ping"
