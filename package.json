@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Youzi9601/Youzi-Discord-Bot.git"
+    "url": "git+https://github.com/Youzi9601/YZBot.git"
   },
   "keywords": [
     "Yes"
@@ -25,9 +25,9 @@
   "author": "柚子Youzi",
   "license": "GNU GPL",
   "bugs": {
-    "url": "https://github.com/Youzi9601/Youzi-Discord-Bot/issues"
+    "url": "https://github.com/Youzi9601/YZBot/issues"
   },
-  "homepage": "https://github.com/Youzi9601/Youzi-Discord-Bot#readme",
+  "homepage": "https://github.com/Youzi9601/YZBot#readme",
   "dependencies": {
     "@discordjs/rest": "^0.3.0",
     "auto-updater": "^1.0.2",
