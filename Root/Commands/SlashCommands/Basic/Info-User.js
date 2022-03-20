@@ -7,7 +7,7 @@ const {
     MessageEmbed,
     MessageSelectMenu,
 } = require('discord.js');
-const lang = require('../../../../language')
+const lang = require('../../../../Language')
 module.exports = {
     name: 'userinfo',
     description: '使用者資訊',
