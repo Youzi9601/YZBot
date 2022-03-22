@@ -7,7 +7,6 @@ const {
     MessageEmbed,
     MessageSelectMenu,
 } = require('discord.js');
-const lang = require('../../../../Language')
 module.exports = {
     name: 'userinfo',
     description: '使用者資訊',
@@ -67,7 +66,7 @@ module.exports = {
             })
             .addFields({
                 name: '機器人',
-                value: `${member.bot ? lang.boolean.yes : lang.boolean.no}`,
+                value: `${member.bot ? "是" : "否"}`,
                 inline: true,
             })
             .addFields({
