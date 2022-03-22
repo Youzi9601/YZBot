@@ -25,9 +25,16 @@ module.exports = async function (client) {
                          * log 檔案 start
                          */
                 // 讀取檔案&寫入
+                try {
+                    fs.mkdirSync(`logs`)
+
+                } catch (error) {
+                    // 代表有創建了
+                }
                 fs.readFile(`logs/${moment().format('YYYY-MM-DD')}.log`, function (err, data) {
                     // 如果錯誤，將會創建新的檔案
                     if (err) {
+
                         console.log(
                             chalk.gray(
                                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
@@ -55,7 +62,7 @@ module.exports = async function (client) {
                     // 執行清除
                     // 取得檔案時間排序
                     const logfiles = fs.readdirSync('logs').filter(file => file.endsWith('.log'));
-                    console.log(logfiles)
+                    //console.log(logfiles)
                     // 清除
                     if (logfiles) {
                         if (logfiles.length > config.console_clear) {
