@@ -8,4 +8,5 @@ logs/*.log
 json.sqlite
 .env
 ##忽略的設定檔：
+Root/Language/
 #無
