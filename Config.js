@@ -25,7 +25,11 @@ module.exports = {
 
     // 機器人註冊 [ / ] 斜線命令 會使用這個機器人ID (填入機器人ID 或者Developer Portal的Application ID，其實都一樣。)
     clientID: process.env.clientID || '機器人ID',
+    clientSECRET: process.env.clientSECRET || '機器人機密',
 
+    // 網頁 
+    web: process.env.web || false,
+    License_ID: process.env.License_ID || '許可代碼',
     // 語言(可於 ./language 中自訂語言)
     language: "zh_TW",
 
