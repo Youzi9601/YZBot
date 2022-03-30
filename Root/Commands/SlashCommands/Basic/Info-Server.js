@@ -14,7 +14,7 @@ module.exports = {
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
     cooldown: 10000,
     run: async (client, interaction, container) => {
-    // 取得時間
+        // 取得時間
         const DISCORD_EPOCH = 1420070400000;
 
         function convertSnowflakeToDate(snowflake) {
@@ -50,10 +50,8 @@ module.exports = {
                     `> <t:${create_at}:R>,`,
                     '**人數**',
                     `> 總共 ${interaction.guild.memberCount} 人`,
-                    `> 成員 ${
-                        interaction.guild.members.cache.filter((m) => !m.user.bot).size
-                    } 人 / 機器人 ${
-                        interaction.guild.members.cache.filter((m) => m.user.bot).size
+                    `> 成員 ${interaction.guild.members.cache.filter((m) => !m.user.bot).size
+                    } 人 / 機器人 ${interaction.guild.members.cache.filter((m) => m.user.bot).size
                     } 人`,
                     '**加成**',
                     `> ${interaction.guild.premiumTier} 等級`,
@@ -70,40 +68,33 @@ module.exports = {
                 name: '頻道',
                 value: [
                     '**統計**',
-                    `> ${
-                        interaction.guild.channels.cache.filter(
-                            (c) => c.type === 'GUILD_TEXT',
-                        ).size
+                    `> ${interaction.guild.channels.cache.filter(
+                        (c) => c.type === 'GUILD_TEXT',
+                    ).size
                     } 個文字頻道`,
-                    `> ╰ ${
-                        interaction.guild.channels.cache.filter(
-                            (c) => c.type === 'GUILD_PUBLIC_THREAD',
-                        ).size
+                    `> ╰ ${interaction.guild.channels.cache.filter(
+                        (c) => c.type === 'GUILD_PUBLIC_THREAD',
+                    ).size
                     } 個討論串`,
-                    `> ${
-                        interaction.guild.channels.cache.filter(
-                            (c) => c.type === 'GUILD_VOICE',
-                        ).size
+                    `> ${interaction.guild.channels.cache.filter(
+                        (c) => c.type === 'GUILD_VOICE',
+                    ).size
                     } 個語音頻道`,
-                    `> ${
-                        interaction.guild.channels.cache.filter(
-                            (c) => c.type === 'GUILD_NEWS',
-                        ).size
+                    `> ${interaction.guild.channels.cache.filter(
+                        (c) => c.type === 'GUILD_NEWS',
+                    ).size
                     } 個公告頻道`,
-                    `> ╰ ${
-                        interaction.guild.channels.cache.filter(
-                            (c) => c.type === 'GUILD_NEWS_THREAD',
-                        ).size
+                    `> ╰ ${interaction.guild.channels.cache.filter(
+                        (c) => c.type === 'GUILD_NEWS_THREAD',
+                    ).size
                     } 個討論串`,
-                    `> ${
-                        interaction.guild.channels.cache.filter(
-                            (c) => c.type === 'GUILD_STAGE_VOICE',
-                        ).size
+                    `> ${interaction.guild.channels.cache.filter(
+                        (c) => c.type === 'GUILD_STAGE_VOICE',
+                    ).size
                     } 個活動頻道`,
-                    `> ${
-                        interaction.guild.channels.cache.filter(
-                            (c) => c.type === 'GUILD_CATEGORY',
-                        ).size
+                    `> ${interaction.guild.channels.cache.filter(
+                        (c) => c.type === 'GUILD_CATEGORY',
+                    ).size
                     } 個類別`,
                     '**規則頻道**',
                     `> <#${interaction.guild.rulesChannelId}>`,
@@ -111,7 +102,8 @@ module.exports = {
                     `> <#${interaction.guild.afkChannelId}>`,
                     '**小工具頻道**',
                     `> <#${interaction.guild.widgetChannelId}>`,
-                    '**系統頻道**'`> <#${interaction.guild.systemChannelId}>`,
+                    '**系統頻道**',
+                    `> <#${interaction.guild.systemChannelId}>`,
                     '**Discord更新頻道**',
                     `> <#${interaction.guild.publicUpdatesChannelId}>`,
                 ].join('\n'),

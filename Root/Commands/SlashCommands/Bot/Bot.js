@@ -38,7 +38,7 @@ module.exports = {
         {
             type: 1,
             name: 'edit-message',
-            description: '讓機器人給予訊息一個反應！',
+            description: '讓機器人編輯訊息！',
             options: [
                 {
                     type: 3,
