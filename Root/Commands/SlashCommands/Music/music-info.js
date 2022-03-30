@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders")
 const { MessageEmbed } = require("discord.js")
 
 module.exports = {
-	name: "info",
+	name: "music-info",
 	description: "顯示有​​關當前播放歌曲的信息",
 	options: [
 	],

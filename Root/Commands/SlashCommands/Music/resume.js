@@ -15,6 +15,6 @@ module.exports = {
 		if (!queue) return await interaction.editReply("隊列中沒有歌曲")
 
 		queue.setPaused(false)
-        await interaction.editReply("音樂已暫停！使用`/pause`恢復音樂")
+        await interaction.editReply("音樂繼續撥放！使用`/pause`暫停音樂")
 	},
 }
