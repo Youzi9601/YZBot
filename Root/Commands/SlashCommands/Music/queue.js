@@ -20,7 +20,7 @@ module.exports = {
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'MOVE_MEMBERS', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS'],
 
     run: async (client, interaction, container) => {
-        interaction.deferReply()
+        await interaction.deferReply()
         const queue = client.player.getQueue(interaction.guildId)
         if (!queue || !queue.playing) {
             return await interaction.editReply("隊列中沒有歌曲")

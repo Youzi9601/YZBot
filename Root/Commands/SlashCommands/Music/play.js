@@ -64,7 +64,7 @@ module.exports = {
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'MOVE_MEMBERS', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS'],
 
     run: async (client, interaction, container) => {
-        interaction.deferReply()
+        await interaction.deferReply()
         // 內容
         if (!interaction.member.voice.channel) return interaction.editReply("您需要在 VC 中才能使用此命令")
 

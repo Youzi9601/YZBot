@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/Youzi9601/YZBot#readme",
   "dependencies": {
+    "@discordjs/opus": "^0.7.0",
     "@discordjs/rest": "^0.3.0",
     "@distube/spotify": "^1.2.1",
     "auto-updater": "^1.0.2",
