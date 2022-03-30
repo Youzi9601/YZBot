@@ -13,7 +13,7 @@ module.exports = {
         await interaction.deferReply()
 		const queue = client.player.getQueue(interaction.guildId)
 
-		if (!queue) return await interaction.editReply("隊列中沒有歌曲")
+		if (!queue) return await interaction.editReply("列隊中沒有歌曲")
 
         const currentSong = queue.current
 

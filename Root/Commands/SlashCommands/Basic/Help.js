@@ -199,8 +199,31 @@ module.exports = {
           `/? 敬請期待！`,
           `\`\`\``,
         ].join(`\n`));
-
     const embed3 = new MessageEmbed()
+      .setTitle('Help 命令列表｜音樂')
+      .setDescription(
+        [
+          `\`<>\` - 必填｜\`[]\` - 可選`,
+          ``,
+          `**音樂**`,
+          `\`\`\`diff`,
+          `/play 播放`,
+          `    ◟ song <url> 撥放音樂`,
+          `    ◟ playlist <url> 撥放音樂清單`,
+          `    ◟ search <關鍵字> 搜尋音樂`,
+          `/pause 暫停音樂`,
+          `/resume 恢復音樂`,
+          `/queue 顯示當前列隊`,
+          `/leave 離開語音`,
+          `/music-info 顯示音樂撥放進度`,
+          `/shuffle 隨機打亂音樂撥放順序`,
+          `/skip 跳過此首音樂`
+          `/skipto <順位> 跳到指定順位的歌曲`
+          `/? 敬請期待！`,
+          `\`\`\``,
+        ].join(`\n`));
+
+    const embedN = new MessageEmbed()
       .setTitle('Help 命令列表｜控制')
       .setDescription(
         [
@@ -228,6 +251,7 @@ module.exports = {
       embed1,
       embed2,
       embed3,
+      embedN,
       //....
       //embedN
     ];

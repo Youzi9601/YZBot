@@ -85,7 +85,7 @@ module.exports = {
             const song = result.tracks[0]
             await queue.addTrack(song)
             embed
-                .setDescription(`**[${song.title}](${song.url})** 已加入隊列`)
+                .setDescription(`**[${song.title}](${song.url})** 已加入列隊`)
                 .setThumbnail(song.thumbnail)
                 .setFooter({ text: `時長: ${song.duration}` })
 
@@ -102,7 +102,7 @@ module.exports = {
             const playlist = result.playlist
             await queue.addTracks(result.tracks)
             embed
-                .setDescription(`**${result.tracks.length} 歌曲來自 [${playlist.title}](${playlist.url})** 已添加到隊列中`)
+                .setDescription(`**${result.tracks.length} 歌曲來自 [${playlist.title}](${playlist.url})** 已添加到列隊中`)
                 .setThumbnail(playlist.thumbnail)
         } else if (interaction.options.getSubcommand() === "search") {
             let url = interaction.options.getString("searchterms")
@@ -117,7 +117,7 @@ module.exports = {
             const song = result.tracks[0]
             await queue.addTrack(song)
             embed
-                .setDescription(`**[${song.title}](${song.url})** 已加入隊列`)
+                .setDescription(`**[${song.title}](${song.url})** 已加入列隊`)
                 .setThumbnail(song.thumbnail)
                 .setFooter({ text: ` 時長: ${song.duration}` })
         }

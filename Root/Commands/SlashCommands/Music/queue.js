@@ -23,7 +23,7 @@ module.exports = {
         await interaction.deferReply()
         const queue = client.player.getQueue(interaction.guildId)
         if (!queue || !queue.playing) {
-            return await interaction.editReply("隊列中沒有歌曲")
+            return await interaction.editReply("列隊中沒有歌曲")
         }
 
         const totalPages = Math.ceil(queue.tracks.length / 10) || 1
@@ -43,7 +43,7 @@ module.exports = {
                 new MessageEmbed()
                     .setDescription(`**目前正在播放**\n` +
                         (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.title} -- <@${currentSong.requestedBy.id}>` : "無") +
-                        `\n\n**隊列**\n${queueString}`
+                        `\n\n**列隊**\n${queueString}`
                     )
                     .setFooter({
                         text: `第 ${page + 1} 頁，共 ${totalPages}`
