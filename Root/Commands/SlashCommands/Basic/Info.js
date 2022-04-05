@@ -32,6 +32,13 @@ module.exports = {
             options: [
             ],
         },
+        {
+            type: 1,
+            name: 'bot',
+            description: '取得機器人資訊',
+            options: [
+            ],
+        },
     ],
     // #endregion
     OnlyRunOnGuilds: true,
@@ -174,17 +181,17 @@ module.exports = {
                 })
                 .addFields({
                     name: '名稱',
-                    value: `${user.username}`,
+                    value: `${member.username}`,
                     inline: true,
                 })
                 .addFields({
                     name: '匿名',
-                    value: `${user.nickname || "沒有暱稱"}`,
+                    value: `${member.nickname || "沒有暱稱"}`,
                     inline: true,
                 })
                 .addFields({
                     name: '識別碼',
-                    value: `${user.discriminator}`,
+                    value: `${member.discriminator}`,
                     inline: true,
                 })
                 .addFields({
