@@ -412,7 +412,6 @@
      */
 
     //#region 網站
-    if (config.web) {
 
 
         let DBD = require('discord-dashboard');
@@ -426,6 +425,7 @@
         DBD.Dashboard = DBD.UpdatedClass();
 
         const Dashboard = new DBD.Dashboard({
+            noCreateServer: config.web,
             acceptPrivacyPolicy: true,
             minimizedConsoleLogs: true,
 
@@ -660,6 +660,6 @@
         //#endregion
         //
         // #endregion 
-    }
+    
 })();
 
