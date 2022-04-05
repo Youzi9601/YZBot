@@ -1,4 +1,5 @@
 (async () => {
+    // #region 啟動設定
     const moment = require('moment');
     const fs = require('fs');
     const Discord = require('discord.js');
@@ -232,6 +233,8 @@
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + chalk.green('完成讀取！'),
     );
+    // #endregion 
+    // #region 事件
     // 錯誤事件抓取
     if (config.console.error) {
         client.on('error', (e) => {
@@ -400,7 +403,8 @@
     process.on('unhandledRejection', error => {
         console.error('ERROR｜未處理的承諾拒絕：\n', error);
     });
-
+    // #endregion
+    // #region 網頁
     /**
      * 
      * 網頁
@@ -412,6 +416,12 @@
 
 
         let DBD = require('discord-dashboard');
+
+        const DarkDashboard = require('dbd-dark-dashboard');
+        let web = {}
+        let langsSettings = {}
+        let embedjoin = {}
+
         await DBD.useLicense(`${config.License_ID}`);
         DBD.Dashboard = DBD.UpdatedClass();
 
@@ -443,6 +453,7 @@
                     loggedIn: "登錄成功！",
                     mainColor: "#29FB77",
                     subColor: "#187AFD",
+                    preloader: "正在加載..."
                 },
                 popupMsg: {
                     savedSettings: "變更已儲存！",
@@ -580,15 +591,80 @@
                         },
                     ]
                 },
+                {
+                    categoryId: 'msg',
+                    categoryName: "訊息設定",
+                    categoryDescription: "設定機器人的各種訊息",
+                    categoryOptionsList: [
+                        {
+                            optionId: 'join',
+                            optionName: "加入訊息",
+                            optionDescription: "成員加入時所顯示的訊息",
+                            optionType: DBD.formTypes.embedBuilder(
+                                //
+                                {
+                                    username: client.user.username,
+                                    avatarURL: client.user.displayAvatarURL(),
+                                    defaultJson: {
+                                        content: "",
+                                        embed: {
+                                            timestamp: new Date().toISOString(),
+                                            title: "歡迎 {{username}} 加入伺服器！",
+                                            description: "你是第 {{member_count}} 位！",
+
+                                        }
+                                    }
+                                }
+                                //
+                            ),
+                            getActualSet: async ({ guild }) => {
+                                return embedjoin[guild.id] || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                embedjoin[guild.id] = newData;
+                                return;
+                            }
+                        },
+                        {
+                            optionId: 'leave',
+                            optionName: "離開訊息",
+                            optionDescription: "成員加入時所顯示的訊息",
+                            optionType: DBD.formTypes.embedBuilder(
+                                //
+                                {
+                                    username: client.user.username,
+                                    avatarURL: client.user.displayAvatarURL(),
+                                    defaultJson: {
+                                        content: "",
+                                        embed: {
+                                            content: "",
+                                            embed: {
+                                                timestamp: new Date().toISOString(),
+                                                title: "再見 {{username}} 離開伺服器！",
+                                                description: "剩下 {{member_count}} 位！",
+
+                                            }
+                                        }
+                                    }
+                                }
+                                //
+                            ),
+                            getActualSet: async ({ guild }) => {
+                                return embedjoin[guild.id] || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                embedjoin[guild.id] = newData;
+                                return;
+                            }
+                        },
+                    ]
+                },
             ]
         });
         Dashboard.init();
         //#endregion
         //
-
+        // #endregion 
     }
 })();
 
-
-const DarkDashboard = require('dbd-dark-dashboard');
-let langsSettings = {};
