@@ -47,7 +47,7 @@ module.exports = {
         {
             type: 1,
             name: "search",
-            description: "根據提供的關鍵字搜索 sogn",
+            description: "根據提供的關鍵字搜索音樂",
             options: [
                 {
                     choices: undefined,
