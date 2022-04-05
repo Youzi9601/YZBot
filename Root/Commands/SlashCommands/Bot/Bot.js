@@ -657,7 +657,7 @@ module.exports = {
                 });
                 interaction.reply({
                     embeds: [
-                        new Discord.MessageEmbed()
+                        new container.Discord.MessageEmbed()
                             .setAuthor({
                                 name: message.member.user.tag,
                                 iconURL: message.member.user.displayAvatarURL({
@@ -676,7 +676,7 @@ module.exports = {
             } else {
                 interaction.reply({
                     embeds: [
-                        new Discord.MessageEmbed()
+                        new container.Discord.MessageEmbed()
                             .setAuthor({
                                 name: message.member.user.tag,
                                 iconURL: message.member.user.displayAvatarURL({

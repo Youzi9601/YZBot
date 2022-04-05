@@ -212,8 +212,9 @@ module.exports = {
                     name: '加入時間',
                     value: `<t:${join_at}:R>`,
                 })
-            if (member.id == `${client.user.id}`) {
-                userinfo = container.Discord.MessageEmbed()
+            /**
+             if (member.id == `${client.user.id}`) {
+                userinfo = new container.Discord.MessageEmbed()
                 .addFields({
                     name: `更多資訊`,
                     value: [
@@ -226,6 +227,7 @@ module.exports = {
                     ].join(`\n`),
                 })
             }
+             */
             // 返回訊息
             interaction.reply({ embeds: [userinfo] });
             // #endregion 
