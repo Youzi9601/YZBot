@@ -3,6 +3,7 @@
   "version": "0.0.3",
   "description": "一個實用、有趣的機器人",
   "main": "bot.js",
+  "engines": { "node": "^16.x"},
   "scripts": {
     "start": "node bot.js",
     "exit": "echo \"Error: no test specified\" && exit 1",
@@ -59,7 +60,7 @@
     "ytdl-core": "^4.11.0"
   },
   "auto-updater": {
-    "repo": "/Youzi9601/YZBot",
+    "repo": "Youzi9601/YZBot/",
     "branch": "master"
   }
 }
