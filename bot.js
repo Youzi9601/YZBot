@@ -636,12 +636,9 @@
                                     defaultJson: {
                                         content: "",
                                         embed: {
-                                            content: "",
-                                            embed: {
-                                                timestamp: new Date().toISOString(),
-                                                title: "再見 {{username}} 離開伺服器！",
-                                                description: "剩下 {{member_count}} 位！"
-                                            }
+                                            timestamp: new Date().toISOString(),
+                                            title: "再見 {{username}} 離開伺服器！",
+                                            description: "剩下 {{member_count}} 位！"
                                         }
                                     }
                                 }
