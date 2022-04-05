@@ -181,7 +181,7 @@ module.exports = {
                 })
                 .addFields({
                     name: '名稱',
-                    value: `${member.username}`,
+                    value: `${member.user.username}`,
                     inline: true,
                 })
                 .addFields({
@@ -191,7 +191,7 @@ module.exports = {
                 })
                 .addFields({
                     name: '識別碼',
-                    value: `${member.discriminator}`,
+                    value: `${member.user.discriminator}`,
                     inline: true,
                 })
                 .addFields({
@@ -201,7 +201,7 @@ module.exports = {
                 })
                 .addFields({
                     name: '機器人',
-                    value: `${member.bot ? "是" : "否"}`,
+                    value: `${member.user.bot ? "是" : "否"}`,
                     inline: true,
                 })
                 .addFields({
@@ -212,7 +212,20 @@ module.exports = {
                     name: '加入時間',
                     value: `<t:${join_at}:R>`,
                 })
-
+            if (member.id == `${client.user.id}`) {
+                userinfo = container.Discord.MessageEmbed()
+                .addFields({
+                    name: `更多資訊`,
+                    value: [
+                        `伺服器數量`,
+                        `${client.guilds.cache.size}`,
+                        `成員數量`,
+                        `${client.users.cache.size}`,
+                        `Node.JS版本`,
+                        `${process.version}`,
+                    ].join(`\n`),
+                })
+            }
             // 返回訊息
             interaction.reply({ embeds: [userinfo] });
             // #endregion 
@@ -238,7 +251,7 @@ module.exports = {
             const userinfo = new container.Discord.MessageEmbed()
                 .setColor('RANDOM')
                 .setTimestamp()
-                .setTitle('機器人資訊')
+                .setTitle('成員資訊')
                 .setThumbnail(
                     `${member.displayAvatarURL()}`,
                 )
@@ -251,17 +264,17 @@ module.exports = {
                 })
                 .addFields({
                     name: '名稱',
-                    value: `${user.username}`,
+                    value: `${member.user.username}`,
                     inline: true,
                 })
                 .addFields({
                     name: '匿名',
-                    value: `${user.nickname || "沒有暱稱"}`,
+                    value: `${member.nickname || "沒有暱稱"}`,
                     inline: true,
                 })
                 .addFields({
                     name: '識別碼',
-                    value: `${user.discriminator}`,
+                    value: `${member.user.discriminator}`,
                     inline: true,
                 })
                 .addFields({
@@ -271,7 +284,7 @@ module.exports = {
                 })
                 .addFields({
                     name: '機器人',
-                    value: `${member.bot ? "是" : "否"}`,
+                    value: `${member.user.bot ? "是" : "否"}`,
                     inline: true,
                 })
                 .addFields({
@@ -285,9 +298,12 @@ module.exports = {
                 .addFields({
                     name: `更多資訊`,
                     value: [
-                        `伺服器數量       ::    ${client.guilds.cache.size}`,
-                        `成員數量         ::    ${client.users.cache.size}`,
-                        `Node.JS版本      ::    ${process.version}`,
+                        `伺服器數量`,
+                        `${client.guilds.cache.size}`,
+                        `成員數量`,
+                        `${client.users.cache.size}`,
+                        `Node.JS版本`,
+                        `${process.version}`,
                     ].join(`\n`),
                 })
 
