@@ -610,8 +610,7 @@
                                         embed: {
                                             timestamp: new Date().toISOString(),
                                             title: "歡迎 {{username}} 加入伺服器！",
-                                            description: "你是第 {{member_count}} 位！",
-
+                                            description: "你是第 {{member_count}} 位！"
                                         }
                                     }
                                 }
@@ -641,8 +640,7 @@
                                             embed: {
                                                 timestamp: new Date().toISOString(),
                                                 title: "再見 {{username}} 離開伺服器！",
-                                                description: "剩下 {{member_count}} 位！",
-
+                                                description: "剩下 {{member_count}} 位！"
                                             }
                                         }
                                     }
