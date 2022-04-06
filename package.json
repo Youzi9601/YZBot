@@ -39,7 +39,7 @@
     "chalk": "4.0.0",
     "child_process": "^1.0.2",
     "cli-box": "^6.0.10",
-    "dbd-dark-dashboard": "^1.6.47",
+    "dbd-dark-dashboard": "^1.6.491",
     "discord-api-types": "^0.30.0",
     "discord-player": "^5.2.2",
     "discord.js": "^13.6.0",

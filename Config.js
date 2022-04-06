@@ -28,7 +28,7 @@ module.exports = {
     clientSECRET: process.env.clientSECRET || '機器人機密',
 
     // 網頁 
-    web: process.env.web || false,
+    noweb: process.env.noweb || true,
     License_ID: process.env.License_ID || '許可代碼',
     // 語言(可於 ./language 中自訂語言)
     language: "zh_TW",
