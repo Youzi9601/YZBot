@@ -39,9 +39,16 @@ module.exports = {
             .setStyle('LINK')
             .setURL(`https://discord.gg/${config.invite_code}`)
             .setDisabled(false);
+        
+        const invitebot_button = new MessageButton()
+            .setLabel('邀請機器人')
+            .setStyle('LINK')
+            .setURL(`https://discord.com/api/oauth2/authorize?client_id=${config.clientID}&permissions=8&scope=bot%20applications.commands`)
 
+        
         // 合併Components
-        const row = new MessageActionRow().addComponents(invitemsg_button);
+        const row = new MessageActionRow().addComponents(invitemsg_button)
+        .addComponents(invitebot_button);
         /** 設定加入訊息 End*/
 
 
