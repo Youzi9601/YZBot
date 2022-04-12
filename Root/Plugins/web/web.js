@@ -200,12 +200,18 @@ module.exports = {
                             optionId: 'lang',
                             optionName: "語言",
                             optionDescription: "更改機器人的語言",
-                            optionType: DBD.formTypes.select({ "zh_TW": 'zh_TW', "English": 'en' }),
+                            optionType: DBD.formTypes.select({ "繁體中文": 'zh_TW', "English": 'en' }),
                             getActualSet: async ({ guild }) => {
-                                return langsSettings[guild.id] || null;
+                                let langsSettings = await db.get(
+                                    `websystem.${guild.id}.setting.lang`,
+                                ) ?? 'zh_TW';
+                                return langsSettings || null;
                             },
                             setNew: async ({ guild, newData }) => {
-                                langsSettings[guild.id] = newData;
+                                await db.set(
+                                    `websystem.${guild.id}.setting.lang`,
+                                    newData,
+                                )
                                 return;
                             }
                         },
@@ -237,10 +243,16 @@ module.exports = {
                                 //
                             ),
                             getActualSet: async ({ guild }) => {
-                                return embedjoin[guild.id] || null;
+                                let embedjoin = await db.get(
+                                    `websystem.${guild.id}.msg.join`,
+                                ) ?? null;
+                                return embedjoin || null;
                             },
                             setNew: async ({ guild, newData }) => {
-                                embedjoin[guild.id] = newData;
+                                await db.set(
+                                    `websystem.${guild.id}.msg.join`,
+                                    newData,
+                                )
                                 return;
                             }
                         },
@@ -265,10 +277,16 @@ module.exports = {
                                 //
                             ),
                             getActualSet: async ({ guild }) => {
-                                return embedjoin[guild.id] || null;
+                                let embedleave = await db.get(
+                                    `websystem.${guild.id}.msg.leave`,
+                                ) ?? null;
+                                return embedleave || null;
                             },
                             setNew: async ({ guild, newData }) => {
-                                embedjoin[guild.id] = newData;
+                                await db.set(
+                                    `websystem.${guild.id}.msg.leave`,
+                                    newData,
+                                )
                                 return;
                             }
                         },
