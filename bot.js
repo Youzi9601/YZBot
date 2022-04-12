@@ -230,7 +230,8 @@
     await Handler.loadSelectMenus(client, path);
 
     // 處理網頁
-    await require('./Root/Plugins/web/web.js')(client)
+    const web = require('./Root/Plugins/web/web.js');
+    await web.web(client)
     //
 
     console.log(
