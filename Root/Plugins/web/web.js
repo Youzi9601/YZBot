@@ -1,5 +1,7 @@
 const db = require('quick.db');
 
+const moment = require('moment')
+const chalk = require('chalk')
 const {
     Client,
     Interaction,
@@ -16,6 +18,11 @@ const config = require("./../../../Config")
 
 module.exports = {
     web: async (client) => {
+        console.log(
+            chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + chalk.green('讀取網頁中！'),
+        );
         // #region 網頁
         /**
          * 

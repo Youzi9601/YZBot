@@ -160,6 +160,11 @@
 
     // 處理網頁
     const web = require('./Root/Plugins/web/web.js');
+    console.log(
+        chalk.gray(
+            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+        ) + chalk.white('讀取網站...'),
+    );
     await web.web(client)
     //
 
