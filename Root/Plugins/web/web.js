@@ -42,7 +42,7 @@ module.exports = {
         DBD.Dashboard = DBD.UpdatedClass();
 
         const Dashboard = new DBD.Dashboard({
-            noCreateServer: config.web.noweb,
+            //noCreateServer: config.web.noweb,
             acceptPrivacyPolicy: true,
             minimizedConsoleLogs: true,
 
