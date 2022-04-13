@@ -29,15 +29,13 @@ module.exports = {
         let DBD = require('discord-dashboard');
 
         const DarkDashboard = require('dbd-dark-dashboard');
-        let web = {}
-        let langsSettings = {}
-        let embedjoin = {}
 
-        await DBD.useLicense(`${config.License_ID}`);
+
+        await DBD.useLicense(`${config.web.License_ID}`);
         DBD.Dashboard = DBD.UpdatedClass();
 
         const Dashboard = new DBD.Dashboard({
-            noCreateServer: config.web,
+            noCreateServer: config.web.noweb,
             acceptPrivacyPolicy: true,
             minimizedConsoleLogs: true,
 

@@ -28,8 +28,10 @@ module.exports = {
     clientSECRET: process.env.clientSECRET || '機器人機密',
 
     // 網頁 
-    noweb: process.env.noweb || true,
-    License_ID: process.env.License_ID || '許可代碼',
+    web: {
+        noweb: process.env.noweb || true,
+        License_ID: process.env.License_ID || '許可代碼',
+    },
     // 語言(可於 ./language 中自訂語言)
     language: "zh_TW",
 
@@ -88,8 +90,8 @@ module.exports = {
         inviteChannel: process.env.inviteChannel || 'ID',
     },
     /**
-   * 音樂 (尚未完成！)
-   */
+    * 音樂 (尚未完成！)
+    */
     music: {
         // 前綴名稱
         px: process.env.prefix_music || 'm>',
@@ -137,8 +139,8 @@ module.exports = {
     },
 
     /**
-   * 雜項
-   */
+    * 雜項
+    */
 
     // 調整時差
     // 在GMT-8區為"-8",在GMT+8為"8"

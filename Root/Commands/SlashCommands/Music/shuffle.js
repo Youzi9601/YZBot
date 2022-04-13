@@ -3,8 +3,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders")
 module.exports = {
 	name: "shuffle",
 	description: "洗牌列隊",
-	options: [
-	],
+	options: [],
 	default_permission: undefined,
 	clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'MOVE_MEMBERS', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS'],
 
