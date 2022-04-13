@@ -31,6 +31,8 @@ module.exports = {
     web: {
         noweb: process.env.noweb || true,
         License_ID: process.env.License_ID || '許可代碼',
+        // 網站位置
+        domain: 'http://localhost' //網域
     },
     // 語言(可於 ./language 中自訂語言)
     language: "zh_TW",
