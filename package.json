@@ -35,7 +35,6 @@
     "@discordjs/opus": "^0.7.0",
     "@discordjs/rest": "^0.3.0",
     "@distube/spotify": "^1.2.1",
-    "async": ">=2.6.4",
     "auto-updater": "^1.0.2",
     "chalk": "4.0.0",
     "child_process": "^1.0.2",
