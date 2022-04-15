@@ -6,6 +6,7 @@ const {
     MessageButton,
     MessageEmbed,
     MessageSelectMenu,
+    Interaction,
 } = require('discord.js');
 const config = require('../../../../Config.js');
 
@@ -13,7 +14,7 @@ module.exports = {
     name: 'bot',
     description: '用機器人的身分執行',
     options: [
-    // #region reactions-create
+        // #region reactions-create
         {
             type: 1,
             name: 'reactions-create',
@@ -98,7 +99,7 @@ module.exports = {
                     type: 3,
                     name: 'color',
                     description:
-            '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
+                        '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
                     required: false,
                 },
                 {
@@ -141,7 +142,7 @@ module.exports = {
                     type: 3,
                     name: 'fields',
                     description:
-            '使用json文本創建 | {name:標題,value: 內容,inline:true},',
+                        '使用json文本創建 | {name:標題,value: 內容,inline:true},',
                     required: false,
                 },
                 {
@@ -330,7 +331,7 @@ module.exports = {
                     type: 3,
                     name: 'color',
                     description:
-            '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
+                        '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
                     required: false,
                 },
                 {
@@ -373,7 +374,7 @@ module.exports = {
                     type: 3,
                     name: 'fields',
                     description:
-            '使用json文本創建 | {name:標題,value: 內容,inline:true},',
+                        '使用json文本創建 | {name:標題,value: 內容,inline:true},',
                     required: false,
                 },
                 {
@@ -425,7 +426,7 @@ module.exports = {
                     type: 3,
                     name: 'color',
                     description:
-            '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
+                        '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
                     required: false,
                 },
                 {
@@ -468,7 +469,7 @@ module.exports = {
                     type: 3,
                     name: 'fields',
                     description:
-            '使用json文本創建 | {name:標題,value: 內容,inline:true},',
+                        '使用json文本創建 | {name:標題,value: 內容,inline:true},',
                     required: false,
                 },
                 {
@@ -485,19 +486,25 @@ module.exports = {
                 },
             ],
         },
-    // #endregion clone
+        // #endregion clone
     ],
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
     userPermissions: ['ADMINISTRATOR'],
+    /**
+     * 
+     * @param {Client} client 
+     * @param {interactionCreate} interaction 
+     * @param {container} container 
+     */
     run: async (client, interaction, container) => {
-    // 取得子指令
+        // 取得子指令
         const subcommand = interaction.options.getSubcommand();
         // 執行
         // #region reactions-create
         if (subcommand == 'reactions-create') {
             // 取得命令內容
             const channel_id =
-        interaction.options.getString('channel_id') || interaction.channel.id;
+                interaction.options.getString('channel_id') || interaction.channel.id;
             const emoji = interaction.options.getString('emoji');
             const message_id = interaction.options.getString('message_id');
             msg = {
@@ -533,9 +540,9 @@ module.exports = {
         else if (subcommand == 'say') {
             // 取得指令內容
             const channel =
-        client.channels.cache.get(
-            interaction.options.getString('channel_id'),
-        ) || interaction.channel;
+                client.channels.cache.get(
+                    interaction.options.getString('channel_id'),
+                ) || interaction.channel;
             const content = interaction.options.getString('contents') || '';
             const embed = {};
             // EMBED
@@ -545,34 +552,34 @@ module.exports = {
                 embed.title = embed_title;
             }
             const embed_description =
-        interaction.options.getString('description') || undefined;
+                interaction.options.getString('description') || undefined;
             if (embed_description) {
                 embed.description = embed_description;
             }
             const embed_title_url =
-        interaction.options.getString('title_url') || undefined;
+                interaction.options.getString('title_url') || undefined;
             if (embed_title_url) {
                 embed.url = embed_title_url;
             }
             // author
             const embed_author_name =
-        interaction.options.getString('author_name') || undefined;
+                interaction.options.getString('author_name') || undefined;
             if (embed_author_name) {
                 embed.author.name = embed_author_name;
             }
             const embed_author_icon =
-        interaction.options.getString('author_icon') || undefined;
+                interaction.options.getString('author_icon') || undefined;
             if (embed_author_icon) {
                 embed.author.icon = embed_author_icon;
             }
             const embed_author_url =
-        interaction.options.getString('author_url') || undefined;
+                interaction.options.getString('author_url') || undefined;
             if (embed_author_url) {
                 embed.author.url = embed_author_url;
             }
             // thumbnail
             const embed_thumbnail =
-        interaction.options.getString('thumbnail') || undefined;
+                interaction.options.getString('thumbnail') || undefined;
             if (embed_thumbnail) {
                 embed.thumbnail.url = embed_thumbnail;
             }
@@ -583,18 +590,18 @@ module.exports = {
             }
             // footer
             const embed_footer_text =
-        interaction.options.getString('footer_text') || undefined;
+                interaction.options.getString('footer_text') || undefined;
             if (embed_footer_text) {
                 embed.footer.text = embed_footer_text;
             }
             const embed_footer_icon =
-        interaction.options.getString('footer_icon') || undefined;
+                interaction.options.getString('footer_icon') || undefined;
             if (embed_footer_icon) {
                 embed.footer.icon_url = embed_footer_icon;
             }
             // fields
             const embed_fields =
-        interaction.options.getString('footer_text') || undefined;
+                interaction.options.getString('footer_text') || undefined;
             if (embed_fields) {
                 embed.fields = embed_fields;
             }
@@ -606,11 +613,11 @@ module.exports = {
 
             if (
                 embed.title ||
-        embed.description ||
-        embed.footer ||
-        embed.image ||
-        embed.thumbnail ||
-        embed.fields
+                embed.description ||
+                embed.footer ||
+                embed.image ||
+                embed.thumbnail ||
+                embed.fields
             ) {
                 // timestamp & color
                 const embed_color = interaction.options.getString('color') || '000000';
@@ -618,7 +625,7 @@ module.exports = {
                     embed.color = '0x' + embed_color;
                 }
                 const embed_timestamp =
-          interaction.options.getString('timestamp') || false;
+                    interaction.options.getString('timestamp') || false;
                 if (embed_timestamp == true) {
                     embed.timestamp = new Date();
                 } else {
@@ -693,6 +700,6 @@ module.exports = {
                 });
             }
         }
-    // #endregion
+        // #endregion
     },
 };
