@@ -87,7 +87,15 @@ Client 事件      ::     ${client.events.size} 個
                 '\n───────────────────────────────機器人控制台───────────────────────────────\n\n',
             ),
         );
-
+        console.log(
+            [" __   ___________    ____  _                       _   ____        _    ",
+                " \\ \\ / /__  / __ )  |  _ \\(_)___  ___ ___  _ __ __| | | __ )  ___ | |_  ",
+                "  \\ V /  / /|  _ \\  | | | | / __|/ __/ _ \\| '__/ _` | |  _ \\ / _ \\| __| ",
+                "   | |  / /_| |_) | | |_| | \\__ \\ (_| (_) | | | (_| | | |_) | (_) | |_  ",
+                "   |_| /____|____/  |____/|_|___/\\___\\___/|_|  \\__,_| |____/ \\___/ \\__| ",
+                "                                                                        ",
+            ].join('\n')
+        )
         //
         // 調整時差
         const Today = new Date();
@@ -104,41 +112,41 @@ Client 事件      ::     ${client.events.size} 個
             chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
             ) +
-        chalk.greenBright('啟動') +
-        chalk.white('於 ') +
-        Today.getFullYear() +
-        ' 年 ' +
-        (Today.getMonth() + 1) +
-        ' 月 ' +
-        day +
-        ' 日 ' +
-        hours +
-        ' 時 ' +
-        Today.getMinutes() +
-        ' 分 ' +
-        Today.getSeconds() +
-        ' 秒',
+            chalk.greenBright('啟動') +
+            chalk.white('於 ') +
+            Today.getFullYear() +
+            ' 年 ' +
+            (Today.getMonth() + 1) +
+            ' 月 ' +
+            day +
+            ' 日 ' +
+            hours +
+            ' 時 ' +
+            Today.getMinutes() +
+            ' 分 ' +
+            Today.getSeconds() +
+            ' 秒',
         );
         try {
             const conchannel = client.channels.cache.get(config.Channels.ClientOn);
             conchannel.send(
                 '```' +
-          Today.getFullYear() +
-          ' 年 ' +
-          (Today.getMonth() + 1) +
-          ' 月 ' +
-          day +
-          ' 日 ' +
-          hours +
-          ' 時 ' +
-          Today.getMinutes() +
-          ' 分 ' +
-          Today.getSeconds() +
-          ' 秒' +
-          ' 機器人啟動成功```',
+                Today.getFullYear() +
+                ' 年 ' +
+                (Today.getMonth() + 1) +
+                ' 月 ' +
+                day +
+                ' 日 ' +
+                hours +
+                ' 時 ' +
+                Today.getMinutes() +
+                ' 分 ' +
+                Today.getSeconds() +
+                ' 秒' +
+                ' 機器人啟動成功```',
             );
-        } catch (error) {}
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人成功上線！`, function(err) {
+        } catch (error) { }
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人成功上線！`, function (err) {
             if (err)
                 console.log(err);
         });
@@ -154,7 +162,7 @@ Client 事件      ::     ${client.events.size} 個
             process.exit();
         }
         if (ci === 'true') return cie();
-    //
-    // end
+        //
+        // end
     },
 };
