@@ -659,8 +659,8 @@ module.exports = {
                     embeds: [
                         new container.Discord.MessageEmbed()
                             .setAuthor({
-                                name: message.member.user.tag,
-                                iconURL: message.member.user.displayAvatarURL({
+                                name: interaction.member.user.tag,
+                                iconURL: interaction.member.user.displayAvatarURL({
                                     dynamic: true,
                                 }),
                             })
@@ -678,8 +678,8 @@ module.exports = {
                     embeds: [
                         new container.Discord.MessageEmbed()
                             .setAuthor({
-                                name: message.member.user.tag,
-                                iconURL: message.member.user.displayAvatarURL({
+                                name: interaction.member.user.tag,
+                                iconURL: interaction.member.user.displayAvatarURL({
                                     dynamic: true,
                                 }),
                             })
