@@ -1,27 +1,27 @@
-const { SlashCommandBuilder } = require("@discordjs/builders")
-const { MessageEmbed } = require("discord.js")
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-	name: "skip",
-    description: "跳過當前歌曲",
+    name: 'skip',
+    description: '跳過當前歌曲',
     options: [
     ],
     default_permission: undefined,
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'MOVE_MEMBERS', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS'],
 
     run: async (client, interaction, container) => {
-        await interaction.deferReply()
-		const queue = client.player.getQueue(interaction.guildId)
+        await interaction.deferReply();
+        const queue = client.player.getQueue(interaction.guildId);
 
-		if (!queue) return await interaction.editReply("列隊中沒有歌曲")
+        if (!queue) return await interaction.editReply('列隊中沒有歌曲');
 
-        const currentSong = queue.current
+        const currentSong = queue.current;
 
-		queue.skip()
+        queue.skip();
         await interaction.editReply({
             embeds: [
-                new MessageEmbed().setDescription(`${currentSong.title} 已被跳過！`).setThumbnail(currentSong.thumbnail)
-            ]
-        })
-	},
-}
+                new MessageEmbed().setDescription(`${currentSong.title} 已被跳過！`).setThumbnail(currentSong.thumbnail),
+            ],
+        });
+    },
+};

@@ -13,8 +13,8 @@
         MessageEmbed,
         MessageSelectMenu,
     } = require('discord.js');
-    const { REST } = require("@discordjs/rest")
-    const { Routes } = require("discord-api-types/v9")
+    const { REST } = require('@discordjs/rest');
+    const { Routes } = require('discord-api-types/v9');
     const config = require('./Config');
     const path = __dirname;
     const client = new Discord.Client({
@@ -35,31 +35,31 @@
         ws: { properties: { $browser: 'Discord iOS' } },
     });
 
-    const { Player } = require("discord-player")
-    client.slashcommands = new Discord.Collection()
+    const { Player } = require('discord-player');
+    client.slashcommands = new Discord.Collection();
     client.player = new Player(client, {
         ytdlOptions: {
-            quality: "highestaudio",
-            highWaterMark: 1 << 25
-        }
-    })
+            quality: 'highestaudio',
+            highWaterMark: 1 << 25,
+        },
+    });
     const chalk = require('chalk');
 
 
-    //#region 自動更新
-    var AutoUpdater = require('auto-updater');
+    // #region 自動更新
+    const AutoUpdater = require('auto-updater');
 
-    var autoupdater = new AutoUpdater({
+    const autoupdater = new AutoUpdater({
         pathToJson: '',
         autoupdate: config.autoupdate,
         checkgit: true,
         jsonhost: 'raw.githubusercontent.com',
         contenthost: 'codeload.github.com',
         progressDebounce: 0,
-        devmode: false
+        devmode: false,
     });
 
-    //#endregion
+    // #endregion
 
     //
     exports.client = client;
@@ -165,7 +165,7 @@
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + chalk.white('讀取網站...'),
     );
-    await web.web(client)
+    await web.web(client);
     //
 
     console.log(
@@ -173,16 +173,16 @@
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + chalk.green('完成讀取！'),
     );
-    // #endregion 
+    // #endregion
     // #region 事件
     // 錯誤事件抓取
     if (config.console.error) {
         client.on('error', (e) => {
-            console.error(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR\n`) + `${e}`)
-            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function (err) {
+            console.error(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR\n`) + `${e}`);
+            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function(err) {
                 if (err)
-                    console.log(err)
-            })
+                    console.log(err);
+            });
 
             // 發送回報
             const reportChannel = client.channels.cache.get(
@@ -207,26 +207,26 @@
                 ],
             });
 
-        }
+        },
         );
 
     }
     if (config.console.warn) {
         client.on('warn', (e) => {
-            console.warn(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN\n`) + `${e}`)
-            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN｜${e}`, function (err) {
+            console.warn(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN\n`) + `${e}`);
+            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN｜${e}`, function(err) {
                 if (err)
-                    console.log(err)
-            })
+                    console.log(err);
+            });
         });
     }
     if (config.console.debug) {
         client.on('debug', (e) => {
-            console.info(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG\n`) + `${e}`)
-            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG｜${e}`, function (err) {
+            console.info(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG\n`) + `${e}`);
+            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG｜${e}`, function(err) {
                 if (err)
-                    console.log(err)
-            })
+                    console.log(err);
+            });
         });
     }
 
@@ -236,70 +236,70 @@
     /**
      *  檢查更新
      */
-    //#region 自動更新
-    autoupdater.on('git-clone', function () {
+    // #region 自動更新
+    autoupdater.on('git-clone', function() {
         console.log(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + "您有一個git-clone，我們推薦你使用。使用'git pull'更新到最新版本！");
+        ) + '您有一個git-clone，我們推薦你使用。使用\'git pull\'更新到最新版本！');
     });
-    autoupdater.on('check.up-to-date', function (v) {
+    autoupdater.on('check.up-to-date', function(v) {
         console.info(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + "您擁有最新版本： " + v);
+        ) + '您擁有最新版本： ' + v);
     });
-    autoupdater.on('check.out-dated', function (v_old, v) {
+    autoupdater.on('check.out-dated', function(v_old, v) {
         console.warn(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + "您的版本已過時。 您的版本：" + v_old + " 最新版本：" + v);
+        ) + '您的版本已過時。 您的版本：' + v_old + ' 最新版本：' + v);
         autoupdater.fire('download-update'); // 如果 autoupdate: false，您必須手動執行此操作。
         // 也許會問是否願意下載更新。
     });
-    autoupdater.on('update.downloaded', function () {
+    autoupdater.on('update.downloaded', function() {
         console.log(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + "更新已下載並準備安裝");
+        ) + '更新已下載並準備安裝');
         autoupdater.fire('extract'); // 如果 autoupdate: false，您必須手動執行此操作。
     });
-    autoupdater.on('update.not-installed', function () {
+    autoupdater.on('update.not-installed', function() {
         console.log(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + "更新已在您的文件夾中！已讀取安裝");
+        ) + '更新已在您的文件夾中！已讀取安裝');
         autoupdater.fire('extract'); // 如果 autoupdate: false，您必須手動執行此操作。
     });
-    autoupdater.on('update.extracted', function () {
+    autoupdater.on('update.extracted', function() {
         console.log(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + "更新提取成功！");
+        ) + '更新提取成功！');
         console.warn(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + "重啟機器人！");
+        ) + '重啟機器人！');
     });
-    autoupdater.on('download.start', function (name) {
+    autoupdater.on('download.start', function(name) {
         console.log(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + "開始下載： " + name);
+        ) + '開始下載： ' + name);
     });
-    autoupdater.on('download.progress', function (name, perc) {
+    autoupdater.on('download.progress', function(name, perc) {
         process.stdout.write(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + "下載中... " + perc + "% \033[0G");
+        ) + '下載中... ' + perc + '% \033[0G');
     });
-    autoupdater.on('download.end', function (name) {
+    autoupdater.on('download.end', function(name) {
         console.log(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + "已下載！ " + name);
+        ) + '已下載！ ' + name);
     });
-    autoupdater.on('download.error', function (err) {
+    autoupdater.on('download.error', function(err) {
         console.error(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + "下載時出現了錯誤： " + err);
+        ) + '下載時出現了錯誤： ' + err);
     });
-    autoupdater.on('end', function () {
+    autoupdater.on('end', function() {
         console.log(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + "該應用程序已準備好運行！");
+        ) + '該應用程序已準備好運行！');
     });
-    autoupdater.on('error', function (name, e) {
+    autoupdater.on('error', function(name, e) {
         console.error(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + name, e);
@@ -309,7 +309,7 @@
     autoupdater.fire('check');
 
 
-    //#endregion
+    // #endregion
 
     /**
    *

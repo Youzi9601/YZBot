@@ -491,10 +491,10 @@ module.exports = {
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
     userPermissions: ['ADMINISTRATOR'],
     /**
-     * 
-     * @param {Client} client 
-     * @param {interactionCreate} interaction 
-     * @param {container} container 
+     *
+     * @param {Client} client
+     * @param {interactionCreate} interaction
+     * @param {container} container
      */
     run: async (client, interaction, container) => {
         // 取得子指令
