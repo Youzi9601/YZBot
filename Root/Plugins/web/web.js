@@ -56,6 +56,8 @@ module.exports = {
             domain: 'http://localhost',
             bot: client,
             theme: DarkDashboard({
+                colourUpperCase: 'Color',
+                colourLowerCase: 'color',
                 information: {
                     createdBy: `${config.botName}`,
                     websiteTitle: `${config.botName} 機器人設定網頁`,
@@ -187,10 +189,10 @@ module.exports = {
                     cardDescription: "在這裡您可以管理公會的所有設置：",
                     customFooterCard:
                     {
-                        subtitle: "記得儲存喔！",
-                        title: "也可多加利用 [ / ]斜線命令 來快速設定！",
-                        customHTML: "",
-                        footer: "設定小提醒",
+                        subtitle: "也可多加利用 [ / ]斜線命令 來快速設定！",
+                        title: "變數轉換表",
+                        customHTML: "目前正在製作中！",
+                        footer: "設定小提示",
                     },
 
                 },
@@ -205,7 +207,7 @@ module.exports = {
                             optionId: 'lang',
                             optionName: "語言",
                             optionDescription: "更改機器人的語言",
-                            optionType: DBD.formTypes.select({ "繁體中文": 'zh_TW', "English": 'en' }),
+                            optionType: DBD.formTypes.select({ "繁體中文": 'zh_TW', "English(尚未完成！)": 'en' }),
                             getActualSet: async ({ guild }) => {
                                 let langsSettings = await db.get(
                                     `websystem.${guild.id}.setting.lang`,
@@ -213,11 +215,32 @@ module.exports = {
                                 return langsSettings || null;
                             },
                             setNew: async ({ guild, newData }) => {
-                                await db.set(
-                                    `websystem.${guild.id}.setting.lang`,
-                                    newData,
-                                )
-                                return;
+                                const db_data = `websystem.${guild.id}.setting.lang`
+                                newdate_update(newData, db_data)
+                            }
+                        },
+                    ]
+                },
+                {
+                    categoryId: 'channels',
+                    categoryName: "頻道指向設定",
+                    categoryDescription: "設定頻道的相關功能",
+                    categoryOptionsList: [
+                        {
+                            optionId: 'ai.say',
+                            optionName: "聊天系統",
+                            optionDescription: "與機器人互動",
+                            optionType: DBD.formTypes.channelsSelect(false, channelTypes = ['GUILD_TEXT']),
+                            getActualSet: async ({ guild }) => {
+                                const db_data = `websystem.${guild.id}.guild.channel.ai.channel`
+                                let channel = await db.get(db_data) ?? null;
+                                return channel || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                // 檢查是否要清除
+                                const db_data = `websystem.${guild.id}.guild.channel.ai.channel`
+                                newdate_update(newData, db_data)
+
                             }
                         },
                     ]
@@ -227,9 +250,46 @@ module.exports = {
                     categoryName: "訊息設定",
                     categoryDescription: "設定機器人的各種訊息",
                     categoryOptionsList: [
+                        //
+
+                        // 加入
                         {
-                            optionId: 'join',
-                            optionName: "加入訊息",
+                            optionId: 'join.disabled',
+                            optionName: "成員加入",
+                            optionDescription: "啟用此功能?",
+                            optionType: DBD.formTypes.switch(false),
+
+                            getActualSet: async ({ guild }) => {
+                                let disabled = await db.get(
+                                    `websystem.${guild.id}.guild.join.disabled`,
+                                ) ?? null;
+                                return disabled || true;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const db_data = `websystem.${guild.id}.guild.join.disabled`
+                                newdate_update(newData, db_data)
+                            }
+                        },
+                        {
+                            optionId: 'join.channel',
+                            optionName: "",
+                            optionDescription: "當成員加入時，歡迎訊息所發送的頻道",
+                            optionType: DBD.formTypes.channelsSelect(false, channelTypes = ['GUILD_TEXT']),
+
+                            getActualSet: async ({ guild }) => {
+                                let embedjoin = await db.get(
+                                    `websystem.${guild.id}.guild.join.channel`,
+                                ) ?? null;
+                                return embedjoin || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const db_data = `websystem.${guild.id}.guild.join.channel`
+                                newdate_update(newData, db_data)
+                            }
+                        },
+                        {
+                            optionId: 'join.msg',
+                            optionName: "",
                             optionDescription: "成員加入時所顯示的訊息",
                             optionType: DBD.formTypes.embedBuilder(
                                 //
@@ -249,22 +309,55 @@ module.exports = {
                             ),
                             getActualSet: async ({ guild }) => {
                                 let embedjoin = await db.get(
-                                    `websystem.${guild.id}.msg.join`,
+                                    `websystem.${guild.id}.guild.join.msg`,
                                 ) ?? null;
                                 return embedjoin || null;
                             },
                             setNew: async ({ guild, newData }) => {
-                                await db.set(
-                                    `websystem.${guild.id}.msg.join`,
-                                    newData,
-                                )
-                                return;
+                                const db_data = `websystem.${guild.id}.guild.join.msg`
+                                newdate_update(newData, db_data)
+                            }
+                        },
+                        // 離開
+                        {
+                            optionId: 'leave.disabled',
+                            optionName: "成員離開",
+                            optionDescription: "啟用此功能?",
+                            optionType: DBD.formTypes.switch(false),
+
+                            getActualSet: async ({ guild }) => {
+                                let disabled = await db.get(
+                                    `websystem.${guild.id}.guild.leave.disabled`,
+                                ) ?? null;
+                                return disabled || true;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const db_data = `websystem.${guild.id}.guild.leave.disabled`
+                                newdate_update(newData, db_data)
                             }
                         },
                         {
-                            optionId: 'leave',
-                            optionName: "離開訊息",
-                            optionDescription: "成員加入時所顯示的訊息",
+                            optionId: 'join.channel',
+                            optionName: "",
+                            optionDescription: "當成員加入時，歡迎訊息所發送的頻道",
+                            optionType: DBD.formTypes.channelsSelect(false, channelTypes = ['GUILD_TEXT']),
+
+                            getActualSet: async ({ guild }) => {
+                                let embedleave = await db.get(
+                                    `websystem.${guild.id}.guild.leave.channel`,
+                                ) ?? null;
+                                return embedleave || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+
+                                const db_data = `websystem.${guild.id}.guild.leave.channel`
+                                newdate_update(newData, db_data)
+                            }
+                        },
+                        {
+                            optionId: 'leave.msg',
+                            optionName: "",
+                            optionDescription: "成員離開時所顯示的訊息",
                             optionType: DBD.formTypes.embedBuilder(
                                 //
                                 {
@@ -274,27 +367,27 @@ module.exports = {
                                         content: "",
                                         embed: {
                                             timestamp: new Date().toISOString(),
-                                            title: "再見 {{username}} 離開伺服器！",
-                                            description: "剩下 {{member_count}} 位！"
+                                            title: "感謝 {{username}} 離開伺服器！",
+                                            description: "成員人數： {{member_count}} 位！"
                                         }
                                     }
                                 }
                                 //
                             ),
                             getActualSet: async ({ guild }) => {
-                                let embedleave = await db.get(
-                                    `websystem.${guild.id}.msg.leave`,
+                                let embedjoin = await db.get(
+                                    `websystem.${guild.id}.guild.leave.msg`,
                                 ) ?? null;
-                                return embedleave || null;
+                                return embedjoin || null;
                             },
                             setNew: async ({ guild, newData }) => {
-                                await db.set(
-                                    `websystem.${guild.id}.msg.leave`,
-                                    newData,
-                                )
-                                return;
+
+                                const db_data = `websystem.${guild.id}.guild.leave.msg`
+                                newdate_update(newData, db_data)
+
                             }
                         },
+                        //
                     ]
                 },
             ]
@@ -306,3 +399,16 @@ module.exports = {
 
     },
 };
+
+
+function newdate_update(newData, db_data) {
+    if (newData === '' && db.get(db_data)) {
+        db.delete(db_data)
+        return
+    } else if (newData === '' && !db.get(db_data)) {
+        return
+    } else {
+        db.set(db_data, newData)
+        return
+    }
+}
