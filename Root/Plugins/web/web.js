@@ -55,6 +55,7 @@ module.exports = {
             redirectUri: 'http://localhost/discord/callback',
             domain: 'http://localhost',
             bot: client,
+            requiredPermissions: [DBD.DISCORD_FLAGS.Permissions.ADMINISTRATOR],
             theme: DarkDashboard({
                 colourUpperCase: 'Color',
                 colourLowerCase: 'color',
@@ -73,7 +74,7 @@ module.exports = {
                     mainColor: "#29FB77",
                     subColor: "#187AFD",
                     //preloader: "owo..."
-                    preloader: "正在加載..."
+                    preloader: `${config.botName}正在加載...`
                 },
                 popupMsg: {
                     savedSettings: "變更已儲存！",
@@ -285,7 +286,16 @@ module.exports = {
                             setNew: async ({ guild, newData }) => {
                                 const db_data = `websystem.${guild.id}.guild.join.channel`
                                 newdate_update(newData, db_data)
+                            },
+                            /*檢查*/
+                            /*
+                            allowedCheck: async ({ guild, user }) => {
+                                if ((await db.get(
+                                    `websystem.${guild.id}.guild.join.disabled`,
+                                ) ?? true) == false) return { allowed: false, errorMessage: '請開啟"啟用"的控制紐！' };
+                                return { allowed: true, errorMessage: null };
                             }
+                            */
                         },
                         {
                             optionId: 'join.msg',
