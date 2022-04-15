@@ -150,7 +150,7 @@ module.exports = {
             // #region user
 
             // 取得成員
-            const user = interaction.options.getMember('user') || interaction.user || client.user
+            const user = interaction.options.getMember('user') || interaction.user || client.user;
             const member = await interaction.guild.members.fetch(user).catch(() => { });
             // 取得時間
             const DISCORD_EPOCH = 1420070400000;
@@ -186,7 +186,7 @@ module.exports = {
                 })
                 .addFields({
                     name: '匿名',
-                    value: `${member.nickname || "沒有暱稱"}`,
+                    value: `${member.nickname || '沒有暱稱'}`,
                     inline: true,
                 })
                 .addFields({
@@ -201,7 +201,7 @@ module.exports = {
                 })
                 .addFields({
                     name: '機器人',
-                    value: `${member.user.bot ? "是" : "否"}`,
+                    value: `${member.user.bot ? '是' : '否'}`,
                     inline: true,
                 })
                 .addFields({
@@ -211,7 +211,7 @@ module.exports = {
                 .addFields({
                     name: '加入時間',
                     value: `<t:${join_at}:R>`,
-                })
+                });
             /**
              if (member.id == `${client.user.id}`) {
                 userinfo = new container.Discord.MessageEmbed()
@@ -230,12 +230,12 @@ module.exports = {
              */
             // 返回訊息
             interaction.reply({ embeds: [userinfo] });
-            // #endregion 
+            // #endregion
         } else if (subcommand == 'bot') {
             // #region bot
 
             // 取得成員
-            const user = client.user
+            const user = client.user;
             const member = await interaction.guild.members.fetch(user).catch(() => { });
             // 取得時間
             const DISCORD_EPOCH = 1420070400000;
@@ -271,7 +271,7 @@ module.exports = {
                 })
                 .addFields({
                     name: '匿名',
-                    value: `${member.nickname || "沒有暱稱"}`,
+                    value: `${member.nickname || '沒有暱稱'}`,
                     inline: true,
                 })
                 .addFields({
@@ -286,7 +286,7 @@ module.exports = {
                 })
                 .addFields({
                     name: '機器人',
-                    value: `${member.user.bot ? "是" : "否"}`,
+                    value: `${member.user.bot ? '是' : '否'}`,
                     inline: true,
                 })
                 .addFields({
@@ -298,20 +298,20 @@ module.exports = {
                     value: `<t:${join_at}:R>`,
                 })
                 .addFields({
-                    name: `更多資訊`,
+                    name: '更多資訊',
                     value: [
-                        `伺服器數量`,
+                        '伺服器數量',
                         `${client.guilds.cache.size}`,
-                        `成員數量`,
+                        '成員數量',
                         `${client.users.cache.size}`,
-                        `Node.JS版本`,
+                        'Node.JS版本',
                         `${process.version}`,
-                    ].join(`\n`),
-                })
+                    ].join('\n'),
+                });
 
             // 返回訊息
             interaction.reply({ embeds: [userinfo] });
-            // #endregion 
+            // #endregion
         }
     },
 };

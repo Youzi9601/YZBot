@@ -27,15 +27,15 @@ module.exports = {
     clientID: process.env.clientID || '機器人ID',
     clientSECRET: process.env.clientSECRET || '機器人機密',
 
-    // 網頁 
+    // 網頁
     web: {
         noweb: process.env.noweb || true,
         License_ID: process.env.License_ID || '許可代碼',
         // 網站位置
-        domain: 'http://localhost' //網域
+        domain: 'http://localhost', // 網域
     },
     // 語言(可於 ./language 中自訂語言)
-    language: "zh_TW",
+    language: 'zh_TW',
 
     // 機器人訊息命令前綴(訊息觸發，允許多個前綴！)
     // 例: ["前綴1","前綴2"]
