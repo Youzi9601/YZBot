@@ -1,6 +1,6 @@
 ---
-name: 問題報告
-about: 創建報告以幫助我們改進
+name: 問題回報
+about: 創建報告以幫助我們改進！
 title: 新問題
 labels: ''
 assignees: 柚子Youzi
