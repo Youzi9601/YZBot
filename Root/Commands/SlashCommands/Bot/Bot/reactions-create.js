@@ -16,4 +16,4 @@ function reactions_create(client, interaction, container) {
     };
     msg.react(emoji);
 }
-module.exports = { reactions_create }
+module.exports = { reactions_create };

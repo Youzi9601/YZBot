@@ -501,11 +501,11 @@ module.exports = {
     run: async (client, interaction, container) => {
         // 取得子指令
         const subcommand = interaction.options.getSubcommand();
-        require(`./Bot/${subcommand}`)
+        require(`./Bot/${subcommand}`);
         // 執行
         // #region reactions-create
         if (subcommand == 'reactions-create') {
-            reactions_create(client, interaction, container)
+            reactions_create(client, interaction, container);
             /**
             // 取得命令內容
             const channel_id =
@@ -546,7 +546,7 @@ module.exports = {
         // #region say
         else if (subcommand == 'say') {
             // 取得指令內容
-            say(client, interaction, container)
+            say(client, interaction, container);
         }
         // #endregion
         // #region set-status

@@ -8,22 +8,22 @@ const chalk = require('chalk');
 const Box = require('cli-box');
 const config = require('../../Config.js');
 const moment = require('moment');
-const db = require('quick.db')
+const db = require('quick.db');
 /**
- * 
+ *
  */
 module.exports = {
-	name: 'guildMemberAdd',
-	/**
-	 * 
-	 * @param {guildMemberAdd} member 
+    name: 'guildMemberAdd',
+    /**
+	 *
+	 * @param {guildMemberAdd} member
 	 * @param {Client} client
 	 */
-	run: async (member, client, container) => {
-		const guildData = await client.findOrCreateGuild({ id: member.guild.id });
-		member.guild.data = guildData;
+    run: async (member, client, container) => {
+        const guildData = await client.findOrCreateGuild({ id: member.guild.id });
+        member.guild.data = guildData;
 
-		console.log(`\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 新的成員加入： ${member.tag}`)
+        console.log(`\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 新的成員加入： ${member.tag}`);
 
-	}
+    },
 };
