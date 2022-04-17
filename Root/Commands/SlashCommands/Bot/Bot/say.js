@@ -106,4 +106,4 @@ function say(client, interaction, container) {
         ephemeral: true,
     });
 }
-module.exports = { say }
+module.exports = { say };
