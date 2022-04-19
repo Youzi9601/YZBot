@@ -52,8 +52,8 @@ module.exports = {
                 id: `${config.clientID}`,
                 secret: `${config.clientSECRET}`,
             },
-            redirectUri: 'http://localhost/discord/callback',
-            domain: 'http://localhost',
+            redirectUri: `${config.web.domain}/discord/callback`,
+            domain: `${config.web.domain}`,
             bot: client,
             requiredPermissions: [DBD.DISCORD_FLAGS.Permissions.ADMINISTRATOR],
             theme: DarkDashboard({
@@ -63,8 +63,8 @@ module.exports = {
                     createdBy: `${config.botName}`,
                     websiteTitle: `${config.botName} 機器人設定網頁`,
                     websiteName: `${config.botName}`,
-                    websiteUrl: 'https:/www.youzi-tw.tk',
-                    dashboardUrl: 'http://localhost:3000/',
+                    websiteUrl: `${config.web.domain}`,
+                    dashboardUrl: `${config.web.domain}`,
                     supporteMail: 'yoyowu9601.tw@gmail.com',
                     supportServer: `https://discord.gg/${config.invite_code}`,
                     imageFavicon: `${client.user.displayAvatarURL()}`,
@@ -74,7 +74,7 @@ module.exports = {
                     mainColor: '#29FB77',
                     subColor: '#187AFD',
                     // preloader: "owo..."
-                    preloader: `${config.botName}正在加載...`,
+                    preloader: `${config.botName} 正在加載...`,
                 },
                 popupMsg: {
                     savedSettings: '變更已儲存！',
