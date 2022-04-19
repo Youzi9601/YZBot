@@ -15,7 +15,7 @@
 >   </p>
 >
 >   <a href="https://nodejs.org/">
->    <img alt="Node.js" src="https://img.shields.io/badge/Node.js-v17.*-blue.svg?style=for-the-badge&logo=node.js" /></a>
+>    <img alt="Node.js" src="https://img.shields.io/badge/Node.js-v16.*-blue.svg?style=for-the-badge&logo=node.js" /></a>
 >
 >   <a href="https://www.npmjs.com/">
 >    <img alt="NPM" src="https://img.shields.io/badge/NPM-v16.0.0+-blue.svg?style=for-the-badge&logo=npm" /></a>
