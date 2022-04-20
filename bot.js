@@ -176,7 +176,7 @@
         await web.web(client);
         console.log(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + chalk.white(`請將以下網址複製到`) + chalk.blue(`https://discord.com/developers/applications/${config.clientID}/oauth2/general`) + chalk.white(` 中的 Redirects ！`) + chalk.blue(`\n${config.web.domain}${config.web.port = 80 ? '' : ':' + config.web.port}/discord/callback`))
+        ) + chalk.white('請將以下網址複製到') + chalk.blue(`https://discord.com/developers/applications/${config.clientID}/oauth2/general`) + chalk.white(' 中的 Redirects ！') + chalk.blue(`\n${config.web.domain}${config.web.port = 80 ? '' : ':' + config.web.port}/discord/callback`));
     }
 
     //
