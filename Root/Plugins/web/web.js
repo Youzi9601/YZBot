@@ -47,12 +47,12 @@ module.exports = {
             minimizedConsoleLogs: true,
 
 
-            port: 80,
+            port: config.web.port,
             client: {
                 id: `${config.clientID}`,
                 secret: `${config.clientSECRET}`,
             },
-            redirectUri: `${config.web.domain}/discord/callback`,
+            redirectUri: `${config.web.domain}${config.web.port = 80 ? '' : ':' + config.web.port}/discord/callback`,
             domain: `${config.web.domain}`,
             bot: client,
             requiredPermissions: [DBD.DISCORD_FLAGS.Permissions.ADMINISTRATOR],
