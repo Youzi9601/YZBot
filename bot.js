@@ -46,22 +46,31 @@
     });
     const chalk = require('chalk');
 
+
+    // #region 自動更新
+    const aufg = require('auto-update-from-github');
+
+    aufg({
+        git: 'Youzi9601/YZBot', // 遠程git地址
+        dir: './', // 本地路徑
+        type: 'commit', // 檢測類型 version | commit
+        freq: 3000 // 刷新頻率
+    });
     /*
-        // #region 自動更新
-        const AutoUpdater = require('auto-updater');
-    
-        const autoupdater = new AutoUpdater({
-            pathToJson: '',
-            autoupdate: config.autoupdate,
-            checkgit: true,
-            jsonhost: 'raw.githubusercontent.com',
-            contenthost: 'codeload.github.com',
-            progressDebounce: 0,
-            devmode: false,
-        });
-    
-        // #endregion
-    */
+    const AutoUpdater = require('auto-updater');
+ 
+    const autoupdater = new AutoUpdater({
+        pathToJson: '',
+        autoupdate: config.autoupdate,
+        checkgit: true,
+        jsonhost: 'raw.githubusercontent.com',
+        contenthost: 'codeload.github.com',
+        progressDebounce: 0,
+        devmode: false,
+    });
+*/
+    // #endregion
+
     //
     exports.client = client;
     exports.path = path;
@@ -124,13 +133,9 @@
 
     // eula 認證
 
-    const eula_pass = fs.readFile('./eula.txt', function(err, data) {
+    const eula_pass = fs.readFile('./eula.txt', function (err, data) {
         if (err) {
-<<<<<<< HEAD
             fs.writeFile('./eula.txt', ``, function (err) {
-=======
-            fs.writeFile('./eula.txt', 'eula=false', function(err) {
->>>>>>> 28b097b77c009d3cb5a0588b33af6b759132e6bf
             });
             console.error(
                 chalk.bgRed(
@@ -225,7 +230,7 @@
     if (config.console.error) {
         client.on('error', (e) => {
             console.error(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR\n`) + `${e}`);
-            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function(err) {
+            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function (err) {
                 if (err)
                     console.log(err);
             });
@@ -260,7 +265,7 @@
     if (config.console.warn) {
         client.on('warn', (e) => {
             console.warn(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN\n`) + `${e}`);
-            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN｜${e}`, function(err) {
+            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN｜${e}`, function (err) {
                 if (err)
                     console.log(err);
             });
@@ -269,7 +274,7 @@
     if (config.console.debug) {
         client.on('debug', (e) => {
             console.info(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG\n`) + `${e}`);
-            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG｜${e}`, function(err) {
+            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG｜${e}`, function (err) {
                 if (err)
                     console.log(err);
             });
@@ -283,92 +288,7 @@
      *  檢查更新
      */
     // #region 自動更新
-<<<<<<< HEAD
-    const gau = require('github-app-updater');
 
-    gau.checkForUpdate({
-        currentVersion: require('./package.json').version,
-        repo: 'https://api.github.com/repos/Youzi9601/YZBot/releases/latest',
-        assetMatch: /.+setup.+exe/i
-=======
-    autoupdater.on('git-clone', function() {
-        console.log(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + '您有一個git-clone，我們推薦你使用。使用\'git pull\'更新到最新版本！');
-    });
-    autoupdater.on('check.up-to-date', function(v) {
-        console.info(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + '您擁有最新版本： ' + v);
-    });
-    autoupdater.on('check.out-dated', function(v_old, v) {
-        console.warn(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + '您的版本已過時。 您的版本：' + v_old + ' 最新版本：' + v);
-        autoupdater.fire('download-update'); // 如果 autoupdate: false，您必須手動執行此操作。
-        // 也許會問是否願意下載更新。
-    });
-    autoupdater.on('update.downloaded', function() {
-        console.log(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + '更新已下載並準備安裝');
-        autoupdater.fire('extract'); // 如果 autoupdate: false，您必須手動執行此操作。
-    });
-    autoupdater.on('update.not-installed', function() {
-        console.log(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + '更新已在您的文件夾中！已讀取安裝');
-        autoupdater.fire('extract'); // 如果 autoupdate: false，您必須手動執行此操作。
-    });
-    autoupdater.on('update.extracted', function() {
-        console.log(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + '更新提取成功！');
-        console.warn(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + '重啟機器人！');
-    });
-    autoupdater.on('download.start', function(name) {
-        console.log(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + '開始下載： ' + name);
-    });
-    autoupdater.on('download.progress', function(name, perc) {
-        process.stdout.write(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + '下載中... ' + perc + '% \033[0G');
-    });
-    autoupdater.on('download.end', function(name) {
-        console.log(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + '已下載！ ' + name);
-    });
-    autoupdater.on('download.error', function(err) {
-        console.error(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + '下載時出現了錯誤： ' + err);
-    });
-    autoupdater.on('end', function() {
-        console.log(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + '該應用程序已準備好運行！');
-    });
-    autoupdater.on('error', function(name, e) {
-        console.error(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + name, e);
->>>>>>> 28b097b77c009d3cb5a0588b33af6b759132e6bf
-    });
-
-    gau.onUpdateAvailable = (version, asset) => {
-        console.log(`新版本 ${version} 可用！`);
-        gau.downloadNewVersion(asset);
-    };
-
-    gau.onNewVersionReadyToInstall = (file) => {
-        console.log(`準備安裝 ${file}`);
-        gau.executeUpdate(file);
-    };
     // #endregion
 
     /**
