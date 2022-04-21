@@ -33,7 +33,7 @@ module.exports = {
         License_ID: process.env.License_ID || '許可代碼',
         // 網站位置
         domain: process.env.domain || 'http://localhost', // 網域
-        port: 25506,
+        port: process.env.port || 80,
     },
     // 語言(可於 ./language 中自訂語言)
     language: 'zh_TW',

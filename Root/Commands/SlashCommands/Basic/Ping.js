@@ -18,8 +18,7 @@ module.exports = {
             .setTimestamp()
             .setTitle('🏓| Pong! 延遲資訊')
             .setDescription(
-                `🏠| Websocket 延遲: ${client.ws.ping}ms\n🤖| 機器人延遲: ${
-                    Date.now() - interaction.createdTimestamp
+                `🏠| Websocket 延遲: ${client.ws.ping}ms\n🤖| 機器人延遲: ${Date.now() - interaction.createdTimestamp
                 }ms`,
             );
         interaction.reply({ embeds: [ping] });
