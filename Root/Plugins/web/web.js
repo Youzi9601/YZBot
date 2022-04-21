@@ -12,9 +12,9 @@ const {
 const fs = require('fs-extra');
 const config = require('./../../../Config');
 
-let port80 = false
+let port80 = false;
 if (config.web.port == 80) {
-    port80 = true
+    port80 = true;
 
 }
 
