@@ -12,6 +12,12 @@ const {
 const fs = require('fs-extra');
 const config = require('./../../../Config');
 
+let port80 = false
+if (config.web.port == 80) {
+    port80 = true
+
+}
+
 /**
  * @param {Client} client
  */
@@ -52,7 +58,7 @@ module.exports = {
                 id: `${config.clientID}`,
                 secret: `${config.clientSECRET}`,
             },
-            redirectUri: `${config.web.domain}${config.web.port = 80 ? '' : ':' + config.web.port}/discord/callback`,
+            redirectUri: `${config.web.domain}${port80 ? '' : `:${config.web.port}`}/discord/callback`,
             domain: `${config.web.domain}`,
             bot: client,
             requiredPermissions: [DBD.DISCORD_FLAGS.Permissions.ADMINISTRATOR],
@@ -63,8 +69,8 @@ module.exports = {
                     createdBy: `${config.botName}`,
                     websiteTitle: `${config.botName} 機器人設定網頁`,
                     websiteName: `${config.botName}`,
-                    websiteUrl: `${config.web.domain}`,
-                    dashboardUrl: `${config.web.domain}`,
+                    websiteUrl: `${config.web.domain}${port80 ? '' : `:${config.web.port}`}`,
+                    dashboardUrl: `${config.web.domain}${port80 ? '' : `:${config.web.port}`}`,
                     supporteMail: 'yoyowu9601.tw@gmail.com',
                     supportServer: `https://discord.gg/${config.invite_code}`,
                     imageFavicon: `${client.user.displayAvatarURL()}`,
