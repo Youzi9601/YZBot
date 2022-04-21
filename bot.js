@@ -1,4 +1,3 @@
-
 (async () => {
     // #region 啟動設定
     const moment = require('moment');
@@ -54,11 +53,11 @@
         git: 'Youzi9601/YZBot', // 遠程git地址
         dir: './', // 本地路徑
         type: 'commit', // 檢測類型 version | commit
-        freq: 3000 // 刷新頻率
+        freq: 3000, // 刷新頻率
     });
     /*
     const AutoUpdater = require('auto-updater');
- 
+
     const autoupdater = new AutoUpdater({
         pathToJson: '',
         autoupdate: config.autoupdate,
@@ -133,9 +132,9 @@
 
     // eula 認證
 
-    const eula_pass = fs.readFile('./eula.txt', function (err, data) {
+    const eula_pass = fs.readFile('./eula.txt', function(err, data) {
         if (err) {
-            fs.writeFile('./eula.txt', ``, function (err) {
+            fs.writeFile('./eula.txt', '', function(err) {
             });
             console.error(
                 chalk.bgRed(
@@ -212,14 +211,14 @@
             ) + chalk.white('連線網站...'),
         );
         await web.web(client);
-        let port80 = false
+        let port80 = false;
         if (config.web.port == 80) {
-            port80 = true
+            port80 = true;
         }
         console.log(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + chalk.white('請將以下網址複製到') + chalk.blue(` https://discord.com/developers/applications/${config.clientID}/oauth2/general`) + chalk.white(' 中的 Redirects ！') + chalk.blue(`\n${config.web.domain}${port80 ? '' : `:${config.web.port}`}/discord/callback`));
-        //console.log(`${config.web.domain}${port80 ? '' : `:${config.web.port}`}`)
+        // console.log(`${config.web.domain}${port80 ? '' : `:${config.web.port}`}`)
 
     }
 
@@ -230,7 +229,7 @@
     if (config.console.error) {
         client.on('error', (e) => {
             console.error(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR\n`) + `${e}`);
-            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function (err) {
+            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function(err) {
                 if (err)
                     console.log(err);
             });
@@ -265,7 +264,7 @@
     if (config.console.warn) {
         client.on('warn', (e) => {
             console.warn(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN\n`) + `${e}`);
-            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN｜${e}`, function (err) {
+            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN｜${e}`, function(err) {
                 if (err)
                     console.log(err);
             });
@@ -274,7 +273,7 @@
     if (config.console.debug) {
         client.on('debug', (e) => {
             console.info(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG\n`) + `${e}`);
-            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG｜${e}`, function (err) {
+            fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG｜${e}`, function(err) {
                 if (err)
                     console.log(err);
             });
