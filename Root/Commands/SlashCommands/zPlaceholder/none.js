@@ -8,8 +8,10 @@ const {
     MessageSelectMenu,
 } = require('discord.js');
 module.exports = {
-    name: 'none',
-    description: '一個未知的命令',
+    command: {
+        name: 'none',
+        description: '一個未知的命令',
+    },
     ownerOnly: true,
     ignoreFile: true,
     run: async (client, interaction, container) => {

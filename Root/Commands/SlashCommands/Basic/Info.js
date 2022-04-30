@@ -6,44 +6,53 @@ const {
     MessageButton,
     MessageEmbed,
     MessageSelectMenu,
+    CommandInteraction,
 } = require('discord.js');
 module.exports = {
-    name: 'info',
-    description: '資訊',
-    options: [
-        // #region info
-        {
-            type: 1,
-            name: 'user',
-            description: '取得成員資訊',
-            options: [
-                {
-                    type: 6,
-                    name: 'user',
-                    description: '成員',
-                    required: false,
-                },
-            ],
-        },
-        {
-            type: 1,
-            name: 'server',
-            description: '取得伺服器資訊',
-            options: [
-            ],
-        },
-        {
-            type: 1,
-            name: 'bot',
-            description: '取得機器人資訊',
-            options: [
-            ],
-        },
-    ],
-    // #endregion
+    command: {
+        name: 'info',
+        description: '資訊',
+        options: [
+            // #region info
+            {
+                type: 1,
+                name: 'user',
+                description: '取得成員資訊',
+                options: [
+                    {
+                        type: 6,
+                        name: 'user',
+                        description: '成員',
+                        required: false,
+                    },
+                ],
+            },
+            {
+                type: 1,
+                name: 'server',
+                description: '取得伺服器資訊',
+                options: [
+                ],
+            },
+            {
+                type: 1,
+                name: 'bot',
+                description: '取得機器人資訊',
+                options: [
+                ],
+            },
+        ],
+        // #endregion
+    },
     OnlyRunOnGuilds: true,
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
     cooldown: 10000,
+    /**
+     * 
+     * @param {Client} client 
+     * @param {CommandInteraction} interaction 
+     * @param {*} container 
+     */
     run: async (client, interaction, container) => {
         const subcommand = interaction.options.getSubcommand();
         if (subcommand == 'server') {

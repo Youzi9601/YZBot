@@ -6,20 +6,32 @@ const {
     MessageButton,
     MessageEmbed,
     MessageSelectMenu,
+    CommandInteraction,
 } = require('discord.js');
+const { connection } = require('mongoose')
 module.exports = {
-    name: 'ping',
-    description: '檢查機器人是否回應',
+    command: {
+        name: 'ping',
+        description: '檢查機器人是否回應',
+    },
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
     cooldown: 5000,
+    /**
+     * 
+     * @param {Client} client 
+     * @param {CommandInteraction} interaction 
+     * @param {*} container 
+     */
     run: async (client, interaction, container) => {
         const ping = new container.Discord.MessageEmbed()
             .setColor('RANDOM')
             .setTimestamp()
-            .setTitle('🏓| Pong! 延遲資訊')
-            .setDescription(
-                `🏠| Websocket 延遲: ${client.ws.ping}ms\n🤖| 機器人延遲: ${Date.now() - interaction.createdTimestamp
-                }ms`,
+            .setTitle('🏓| Pong! 機器人狀態')
+            .setDescription([
+                `🏠| Websocket 延遲: ${client.ws.ping}ms`,
+                `🤖| 機器人延遲: ${Date.now() - interaction.createdTimestamp}ms`,
+                ``
+            ].join('\n')
             );
         interaction.reply({ embeds: [ping] });
     },

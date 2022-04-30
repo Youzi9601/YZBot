@@ -11,55 +11,57 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { QueryType } = require('discord-player');
 
 module.exports = {
-    name: 'play',
-    description: '從 youtube 加載歌曲',
-    options: [
-        {
-            type: 1,
-            name: 'song',
-            description: '從 url 加載一首歌曲',
-            options: [
-                {
-                    choices: undefined,
-                    autocomplete: undefined,
-                    type: 3,
-                    name: 'url',
-                    description: '這首歌的網址',
-                    required: true,
-                },
-            ],
-        },
-        {
-            type: 1,
-            name: 'playlist',
-            description: '從 url 加載歌曲的播放列表',
-            options: [
-                {
-                    choices: undefined,
-                    autocomplete: undefined,
-                    type: 3,
-                    name: 'url',
-                    description: '播放列表的網址',
-                    required: true,
-                },
-            ],
-        },
-        {
-            type: 1,
-            name: 'search',
-            description: '根據提供的關鍵字搜索音樂',
-            options: [
-                {
-                    choices: undefined,
-                    autocomplete: undefined,
-                    type: 3,
-                    name: 'searchterms',
-                    description: '搜索關鍵字',
-                    required: true,
-                },
-            ],
-        },
-    ],
+    command: {
+        name: 'play',
+        description: '從 youtube 加載歌曲',
+        options: [
+            {
+                type: 1,
+                name: 'song',
+                description: '從 url 加載一首歌曲',
+                options: [
+                    {
+                        choices: undefined,
+                        autocomplete: undefined,
+                        type: 3,
+                        name: 'url',
+                        description: '這首歌的網址',
+                        required: true,
+                    },
+                ],
+            },
+            {
+                type: 1,
+                name: 'playlist',
+                description: '從 url 加載歌曲的播放列表',
+                options: [
+                    {
+                        choices: undefined,
+                        autocomplete: undefined,
+                        type: 3,
+                        name: 'url',
+                        description: '播放列表的網址',
+                        required: true,
+                    },
+                ],
+            },
+            {
+                type: 1,
+                name: 'search',
+                description: '根據提供的關鍵字搜索音樂',
+                options: [
+                    {
+                        choices: undefined,
+                        autocomplete: undefined,
+                        type: 3,
+                        name: 'searchterms',
+                        description: '搜索關鍵字',
+                        required: true,
+                    },
+                ],
+            },
+        ],
+    },
     default_permission: undefined,
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'MOVE_MEMBERS', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS'],
 

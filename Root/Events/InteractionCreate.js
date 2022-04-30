@@ -1,9 +1,14 @@
 const moment = require('moment');
 const chalk = require('chalk');
 const fs = require('fs');
-
+const { CommandInteraction, Client } = require('discord.js')
 module.exports = {
     name: 'interactionCreate',
+    /**
+     * 
+     * @param {CommandInteraction} interaction 
+     * @param {Client} client 
+     */
     run: async (interaction, client) => {
         const loadCommandOptions = require('../Structures/CommandOptions/loadCommandOptions');
         if (interaction.isButton()) loadCommandOptions(client, interaction, client.commands.buttonCommands.get(interaction.customId), true, 'Button');

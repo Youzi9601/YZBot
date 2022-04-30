@@ -2,10 +2,12 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: 'skip',
-    description: '跳過當前歌曲',
-    options: [
-    ],
+    command: {
+        name: 'skip',
+        description: '跳過當前歌曲',
+        options: [
+        ],
+    },
     default_permission: undefined,
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'MOVE_MEMBERS', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS'],
 

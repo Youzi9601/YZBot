@@ -1,20 +1,22 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
-    name: 'skipto',
-    description: '跳到某個曲目',
-    options: [
-        {
-            maxValue: undefined,
-            minValue: 1,
-            choices: undefined,
-            autocomplete: undefined,
-            type: 10,
-            name: 'tracknumber',
-            description: '要跳到的曲目',
-            required: true,
-        },
-    ],
+    command: {
+        name: 'skipto',
+        description: '跳到某個曲目',
+        options: [
+            {
+                maxValue: undefined,
+                minValue: 1,
+                choices: undefined,
+                autocomplete: undefined,
+                type: 10,
+                name: 'tracknumber',
+                description: '要跳到的曲目',
+                required: true,
+            },
+        ],
+    },
     default_permission: undefined,
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'MOVE_MEMBERS', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS'],
 

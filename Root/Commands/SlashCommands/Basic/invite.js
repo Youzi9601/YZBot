@@ -9,8 +9,10 @@ const {
 } = require('discord.js');
 const config = require('../../../../Config');
 module.exports = {
-    name: 'invite',
-    description: '邀請機器人',
+    command: {
+        name: 'invite',
+        description: '邀請機器人',
+    },
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
     cooldown: 5000,
     run: async (client, interaction, container) => {

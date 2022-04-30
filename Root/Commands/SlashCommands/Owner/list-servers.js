@@ -10,10 +10,20 @@ const {
 const moment = require('moment');
 const chalk = require('chalk');
 const config = require('../../../../Config.js');
-
+//
 module.exports = {
-    name: 'list-servers',
-    description: '列出所有的伺服器於控制台中',
+    command: {
+        name: 'list-servers',
+        description: '列出所有的伺服器於控制台中',
+        defaultPermission: false,
+        permissions: [
+            {
+                id: `${config.developers[0]}`,
+                type: 'USER',
+                permission: true,
+            },
+        ],
+    },
     ownerOnly: true,
     run: async (client, interaction, container) => {
         client.guilds.cache.forEach((guild) => {
@@ -21,12 +31,10 @@ module.exports = {
                 chalk.gray(
                     `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
                 ) +
-          chalk.gray('└ ') +
-          `${guild.name} | ${guild.id} | 所有者 ${
-              guild.ownerId
-          } \n                        └ 總共${guild.memberCount}人 | 成員${
-              guild.members.cache.filter((m) => !m.user.bot).size
-          }人 | 機器人${guild.members.cache.filter((m) => m.user.bot).size}人`,
+                chalk.gray('└ ') +
+                `${guild.name} | ${guild.id} | 所有者 ${guild.ownerId
+                } \n                        └ 總共${guild.memberCount}人 | 成員${guild.members.cache.filter((m) => !m.user.bot).size
+                }人 | 機器人${guild.members.cache.filter((m) => m.user.bot).size}人`,
             );
         });
 

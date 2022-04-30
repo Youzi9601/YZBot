@@ -1,5 +1,13 @@
+const { messageCreate, Client } = require('discord.js')
+
 module.exports = {
     name: 'messageCreate',
+    /**
+     * 
+     * @param {messageCreate} message 
+     * @param {Client} client 
+     * @param {*} container 
+     */
     run: async (message, client, container) => {
         const loadCommandOptions = require('../Structures/CommandOptions/loadCommandOptions');
         container.Config.prefix.forEach(prefix => {
@@ -13,5 +21,6 @@ module.exports = {
             else if (!message.guild) return;
             else loadCommandOptions(client, message, command, false);
         });
+
     },
 };

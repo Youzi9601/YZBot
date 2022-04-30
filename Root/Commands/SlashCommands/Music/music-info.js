@@ -2,10 +2,12 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: 'music-info',
-    description: '顯示有​​關當前播放歌曲的信息',
-    options: [
-    ],
+    command: {
+        name: 'music-info',
+        description: '顯示有​​關當前播放歌曲的信息',
+        options: [
+        ],
+    },
     default_permission: undefined,
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'MOVE_MEMBERS', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS'],
 

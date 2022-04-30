@@ -8,28 +8,30 @@ const {
     MessageSelectMenu,
 } = require('discord.js');
 module.exports = {
-    name: 'ban',
-    description: '從伺服器封鎖指定的成員',
-    options: [
-        {
-            name: 'user',
-            type: 'USER',
-            description: '指定的成員',
-            required: true,
-        },
-        {
-            name: 'reason',
-            type: 'STRING',
-            description: '原因',
-            required: false,
-        },
-    ],
+    command: {
+        name: 'ban',
+        description: '從伺服器封鎖指定的成員',
+        options: [
+            {
+                name: 'user',
+                type: 'USER',
+                description: '指定的成員',
+                required: true,
+            },
+            {
+                name: 'reason',
+                type: 'STRING',
+                description: '原因',
+                required: false,
+            },
+        ],
+    },
     cooldown: 10000,
     OnlyRunOnGuilds: true,
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'BAN_MEMBERS'],
     userPermissions: ['BAN_MEMBERS'],
     run: async (client, interaction, container) => {
-    // 內容
+        // 內容
 
         const user = interaction.options.getMember('user');
         if (user.permissions.has('BAN_MEMBERS')) {

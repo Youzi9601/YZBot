@@ -11,483 +11,485 @@ const {
 const config = require('../../../../Config.js');
 
 module.exports = {
-    name: 'bot',
-    description: '用機器人的身分執行',
-    options: [
-        // #region reactions-create
-        {
-            type: 1,
-            name: 'reactions-create',
-            description: '讓機器人給予訊息一個反應！',
-            options: [
-                {
-                    type: 3,
-                    name: 'emoji',
-                    description: '表情符號',
-                    required: true,
-                },
-                {
-                    type: 3,
-                    name: 'message_id',
-                    description: '訊息的ID',
-                    required: true,
-                },
-            ],
-        },
-        // #endregion
-        // #region edit-message
-        {
-            type: 1,
-            name: 'edit-message',
-            description: '讓機器人編輯訊息！',
-            options: [
-                {
-                    type: 3,
-                    name: 'context',
-                    description: '表情符號',
-                    required: true,
-                },
-                {
-                    type: 3,
-                    name: 'message_id',
-                    description: '訊息的ID',
-                    required: true,
-                },
-            ],
-        },
-        // #endregion
-        // #region nick
-        {
-            type: 1,
-            name: 'nick',
-            description: '設定機器人的暱稱',
-            options: [
-                {
-                    type: 3,
-                    name: 'nickname',
-                    description: '暱稱',
-                    required: true,
-                },
-            ],
-        },
-        // #endregion
-        // #region say
-        {
-            type: 1,
-            name: 'say',
-            description: '說出訊息(包含嵌入訊息)',
-            options: [
-                {
-                    type: 3,
-                    name: 'contents',
-                    description: '純文字',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'title',
-                    description: '標題',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'description',
-                    description: '內文',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'color',
-                    description:
-                        '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'title_url',
-                    description: '超連結(限定 http(s):// )',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'author_name',
-                    description: '作者',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'author_icon',
-                    description: '圖標(限定 http(s):// )',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'author_url',
-                    description: '超連結(限定 http(s):// )',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'thumbnail',
-                    description: '圖片(右側)',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'image',
-                    description: '圖片(下方)',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'fields',
-                    description:
-                        '使用json文本創建 | {name:標題,value: 內容,inline:true},',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'timestamp',
-                    description: '啟用時間? (預設為否)',
-                    required: false,
-                    choices: [
-                        {
-                            name: 'True',
-                            value: 'true',
-                        },
-                        {
-                            name: 'False',
-                            value: 'false',
-                        },
-                    ],
-                },
-                {
-                    type: 3,
-                    name: 'footer_text',
-                    description: '底部文字',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'footer_icon',
-                    description: '底部文字的頭像',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'reply_id',
-                    description: '回覆的訊息ID',
-                    required: false,
-                },
-            ],
-        },
-        // #endregion
-        // #region delete-msg
-        {
-            type: 1,
-            name: 'delete-msg',
-            description: '刪除訊息',
-            options: [
-                {
-                    type: 3,
-                    name: 'message_id',
-                    description: '訊息ID',
-                    required: true,
-                },
-            ],
-        },
-        // #endregion
-        // #region set-status
-        {
-            type: 1,
-            name: 'set-status',
-            description: '設定機器人狀態[限定機器人擁有者]',
-            options: [
-                {
-                    type: 3,
-                    name: 'name',
-                    description: '活動名稱',
-                    required: true,
-                },
-                {
-                    choices: [
-                        {
-                            name: '在線',
-                            value: 'online',
-                        },
-                        {
-                            name: '閒置',
-                            value: 'idle',
-                        },
-                        {
-                            name: '勿擾',
-                            value: 'dnd',
-                        },
-                        {
-                            name: '隱形',
-                            value: 'invisible',
-                        },
-                    ],
-                    type: 3,
-                    name: 'status',
-                    description: '狀態',
-                    required: true,
-                },
-                {
-                    choices: [
-                        {
-                            name: '正在玩',
-                            value: 'PLAYING',
-                        },
-                        {
-                            name: '正在看',
-                            value: 'WATCHING',
-                        },
-                        {
-                            name: '正在聽',
-                            value: 'LISTENING',
-                        },
-                        {
-                            name: '競爭',
-                            value: 'COMPETING',
-                        },
-                        {
-                            name: '直播',
-                            value: 'STREAMING',
-                        },
-                    ],
-                    type: 3,
-                    name: 'type',
-                    description: '活動選擇',
-                    required: true,
-                },
-                {
-                    type: 3,
-                    name: 'url',
-                    description: '直播連結',
-                    required: false,
-                },
-            ],
-        },
-        // #endregion
-        // #region update
-        {
-            type: 1,
-            name: 'update',
-            description: '更新機器人[限定機器人擁有者]',
-            options: [
-                {
-                    type: 3,
-                    name: 'title',
-                    description: '更新的重點',
-                    required: true,
-                },
-                {
-                    type: 3,
-                    name: 'description',
-                    description: '更新的內容',
-                    required: true,
-                },
-            ],
-        },
-        // #endregion
-        // #region webhook
-        {
-            type: 1,
-            name: 'webhook',
-            description: '使用webhook發送訊息',
-            options: [
-                {
-                    type: 3,
-                    name: 'name',
-                    description: '名稱',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'avatar',
-                    description: '頭像(限用http://或是https://)',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'contents',
-                    description: '純文字',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'title',
-                    description: '標題',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'description',
-                    description: '內文',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'color',
-                    description:
-                        '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'title_url',
-                    description: '超連結(限定 http(s):// )',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'author_name',
-                    description: '作者',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'author_icon',
-                    description: '圖標(限定 http(s):// )',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'author_url',
-                    description: '超連結(限定 http(s):// )',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'thumbnail',
-                    description: '圖片(右側)',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'image',
-                    description: '圖片(下方)',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'fields',
-                    description:
-                        '使用json文本創建 | {name:標題,value: 內容,inline:true},',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'timestamp',
-                    description: '限用數字表示',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'footer',
-                    description: '底部文字',
-                    required: false,
-                },
-            ],
-        },
-        // #endregion
-        // #region clone
-        {
-            type: 1,
-            name: 'clone',
-            description: '以特定人士發送訊息',
-            options: [
-                {
-                    name: 'user',
-                    description: '成員',
-                    required: false,
-                    type: 6,
-                },
-                {
-                    type: 3,
-                    name: 'contents',
-                    description: '純文字',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'title',
-                    description: '標題',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'description',
-                    description: '內文',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'color',
-                    description:
-                        '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'title_url',
-                    description: '超連結(限定 http(s):// )',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'author_name',
-                    description: '作者',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'author_icon',
-                    description: '圖標(限定 http(s):// )',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'author_url',
-                    description: '超連結(限定 http(s):// )',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'thumbnail',
-                    description: '圖片(右側)',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'image',
-                    description: '圖片(下方)',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'fields',
-                    description:
-                        '使用json文本創建 | {name:標題,value: 內容,inline:true},',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'timestamp',
-                    description: '限用數字表示',
-                    required: false,
-                },
-                {
-                    type: 3,
-                    name: 'footer',
-                    description: '底部文字',
-                    required: false,
-                },
-            ],
-        },
-        // #endregion clone
-    ],
+    command: {
+        name: 'bot',
+        description: '用機器人的身分執行',
+        options: [
+            // #region reactions-create
+            {
+                type: 1,
+                name: 'reactions-create',
+                description: '讓機器人給予訊息一個反應！',
+                options: [
+                    {
+                        type: 3,
+                        name: 'emoji',
+                        description: '表情符號',
+                        required: true,
+                    },
+                    {
+                        type: 3,
+                        name: 'message_id',
+                        description: '訊息的ID',
+                        required: true,
+                    },
+                ],
+            },
+            // #endregion
+            // #region edit-message
+            {
+                type: 1,
+                name: 'edit-message',
+                description: '讓機器人編輯訊息！',
+                options: [
+                    {
+                        type: 3,
+                        name: 'context',
+                        description: '表情符號',
+                        required: true,
+                    },
+                    {
+                        type: 3,
+                        name: 'message_id',
+                        description: '訊息的ID',
+                        required: true,
+                    },
+                ],
+            },
+            // #endregion
+            // #region nick
+            {
+                type: 1,
+                name: 'nick',
+                description: '設定機器人的暱稱',
+                options: [
+                    {
+                        type: 3,
+                        name: 'nickname',
+                        description: '暱稱',
+                        required: true,
+                    },
+                ],
+            },
+            // #endregion
+            // #region say
+            {
+                type: 1,
+                name: 'say',
+                description: '說出訊息(包含嵌入訊息)',
+                options: [
+                    {
+                        type: 3,
+                        name: 'contents',
+                        description: '純文字',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'title',
+                        description: '標題',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'description',
+                        description: '內文',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'color',
+                        description:
+                            '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'title_url',
+                        description: '超連結(限定 http(s):// )',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'author_name',
+                        description: '作者',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'author_icon',
+                        description: '圖標(限定 http(s):// )',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'author_url',
+                        description: '超連結(限定 http(s):// )',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'thumbnail',
+                        description: '圖片(右側)',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'image',
+                        description: '圖片(下方)',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'fields',
+                        description:
+                            '使用json文本創建 | {name:標題,value: 內容,inline:true},',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'timestamp',
+                        description: '啟用時間? (預設為否)',
+                        required: false,
+                        choices: [
+                            {
+                                name: 'True',
+                                value: 'true',
+                            },
+                            {
+                                name: 'False',
+                                value: 'false',
+                            },
+                        ],
+                    },
+                    {
+                        type: 3,
+                        name: 'footer_text',
+                        description: '底部文字',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'footer_icon',
+                        description: '底部文字的頭像',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'reply_id',
+                        description: '回覆的訊息ID',
+                        required: false,
+                    },
+                ],
+            },
+            // #endregion
+            // #region delete-msg
+            {
+                type: 1,
+                name: 'delete-msg',
+                description: '刪除訊息',
+                options: [
+                    {
+                        type: 3,
+                        name: 'message_id',
+                        description: '訊息ID',
+                        required: true,
+                    },
+                ],
+            },
+            // #endregion
+            // #region set-status
+            {
+                type: 1,
+                name: 'set-status',
+                description: '設定機器人狀態[限定機器人擁有者]',
+                options: [
+                    {
+                        type: 3,
+                        name: 'name',
+                        description: '活動名稱',
+                        required: true,
+                    },
+                    {
+                        choices: [
+                            {
+                                name: '在線',
+                                value: 'online',
+                            },
+                            {
+                                name: '閒置',
+                                value: 'idle',
+                            },
+                            {
+                                name: '勿擾',
+                                value: 'dnd',
+                            },
+                            {
+                                name: '隱形',
+                                value: 'invisible',
+                            },
+                        ],
+                        type: 3,
+                        name: 'status',
+                        description: '狀態',
+                        required: true,
+                    },
+                    {
+                        choices: [
+                            {
+                                name: '正在玩',
+                                value: 'PLAYING',
+                            },
+                            {
+                                name: '正在看',
+                                value: 'WATCHING',
+                            },
+                            {
+                                name: '正在聽',
+                                value: 'LISTENING',
+                            },
+                            {
+                                name: '競爭',
+                                value: 'COMPETING',
+                            },
+                            {
+                                name: '直播',
+                                value: 'STREAMING',
+                            },
+                        ],
+                        type: 3,
+                        name: 'type',
+                        description: '活動選擇',
+                        required: true,
+                    },
+                    {
+                        type: 3,
+                        name: 'url',
+                        description: '直播連結',
+                        required: false,
+                    },
+                ],
+            },
+            // #endregion
+            // #region update
+            {
+                type: 1,
+                name: 'update',
+                description: '更新機器人[限定機器人擁有者]',
+                options: [
+                    {
+                        type: 3,
+                        name: 'title',
+                        description: '更新的重點',
+                        required: true,
+                    },
+                    {
+                        type: 3,
+                        name: 'description',
+                        description: '更新的內容',
+                        required: true,
+                    },
+                ],
+            },
+            // #endregion
+            // #region webhook
+            {
+                type: 1,
+                name: 'webhook',
+                description: '使用webhook發送訊息',
+                options: [
+                    {
+                        type: 3,
+                        name: 'name',
+                        description: '名稱',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'avatar',
+                        description: '頭像(限用http://或是https://)',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'contents',
+                        description: '純文字',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'title',
+                        description: '標題',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'description',
+                        description: '內文',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'color',
+                        description:
+                            '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'title_url',
+                        description: '超連結(限定 http(s):// )',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'author_name',
+                        description: '作者',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'author_icon',
+                        description: '圖標(限定 http(s):// )',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'author_url',
+                        description: '超連結(限定 http(s):// )',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'thumbnail',
+                        description: '圖片(右側)',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'image',
+                        description: '圖片(下方)',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'fields',
+                        description:
+                            '使用json文本創建 | {name:標題,value: 內容,inline:true},',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'timestamp',
+                        description: '限用數字表示',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'footer',
+                        description: '底部文字',
+                        required: false,
+                    },
+                ],
+            },
+            // #endregion
+            // #region clone
+            {
+                type: 1,
+                name: 'clone',
+                description: '以特定人士發送訊息',
+                options: [
+                    {
+                        name: 'user',
+                        description: '成員',
+                        required: false,
+                        type: 6,
+                    },
+                    {
+                        type: 3,
+                        name: 'contents',
+                        description: '純文字',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'title',
+                        description: '標題',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'description',
+                        description: '內文',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'color',
+                        description:
+                            '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'title_url',
+                        description: '超連結(限定 http(s):// )',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'author_name',
+                        description: '作者',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'author_icon',
+                        description: '圖標(限定 http(s):// )',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'author_url',
+                        description: '超連結(限定 http(s):// )',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'thumbnail',
+                        description: '圖片(右側)',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'image',
+                        description: '圖片(下方)',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'fields',
+                        description:
+                            '使用json文本創建 | {name:標題,value: 內容,inline:true},',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'timestamp',
+                        description: '限用數字表示',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'footer',
+                        description: '底部文字',
+                        required: false,
+                    },
+                ],
+            },
+            // #endregion clone
+        ],
+    },
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
     userPermissions: ['ADMINISTRATOR'],
     /**

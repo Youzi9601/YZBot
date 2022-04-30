@@ -2,20 +2,22 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-    name: 'queue',
-    description: '顯示當前歌曲列隊',
-    options: [
-        {
-            maxValue: undefined,
-            minValue: 1,
-            choices: undefined,
-            autocomplete: undefined,
-            type: 10,
-            name: 'page',
-            description: '列隊的頁碼',
-            required: false,
-        },
-    ],
+    command: {
+        name: 'queue',
+        description: '顯示當前歌曲列隊',
+        options: [
+            {
+                maxValue: undefined,
+                minValue: 1,
+                choices: undefined,
+                autocomplete: undefined,
+                type: 10,
+                name: 'page',
+                description: '列隊的頁碼',
+                required: false,
+            },
+        ],
+    },
     default_permission: undefined,
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'MOVE_MEMBERS', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS'],
 

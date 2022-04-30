@@ -1,9 +1,11 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
-    name: 'resume',
-    description: '恢復音樂',
-    options: [],
+    command: {
+        name: 'resume',
+        description: '恢復音樂',
+        options: [],
+    },
     default_permission: undefined,
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'MOVE_MEMBERS', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS'],
 
