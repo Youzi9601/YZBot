@@ -42,7 +42,7 @@ module.exports = async function (client, path) {
                                     options: cmd.command.options ?? [],
                                     type: cmd.command.type ?? 'CHAT_INPUT',
                                     // 權限
-                                    defaultPermission: cmd.command.defaultPermission ?? true,
+                                    default_permission: cmd.command.default_permission ?? true,
                                     permissions: cmd.command.permissions ?? [],
                                     dm_permission: cmd.command.dm_permission ?? false,
                                     // 本地化
@@ -58,7 +58,7 @@ module.exports = async function (client, path) {
                                     options: cmd.command.options ?? [],
                                     type: cmd.command.type ?? 'CHAT_INPUT',
                                     // 權限
-                                    defaultPermission: cmd.command.defaultPermission ?? true,
+                                    default_permission: cmd.command.default_permission ?? true,
                                     permissions: cmd.command.permissions ?? [],
                                     dm_permission: cmd.command.dm_permission ?? false,
                                     // 本地化
@@ -80,12 +80,13 @@ module.exports = async function (client, path) {
                             options: cmd.command.options ?? [],
                             type: cmd.command.type ?? 'CHAT_INPUT',
                             // 權限
-                            defaultPermission: cmd.command.defaultPermission ?? true,
+                            default_permission: cmd.command.default_permission ?? true,
                             permissions: cmd.command.permissions ?? [],
                             dm_permission: cmd.command.dm_permission ?? false,
                             // 本地化
                             name_localizations: cmd.command.name_localizations ?? {},
                             description_localizations: cmd.command.description_localizations ?? {},
+
                         });
                     else
                         await client.application.commands.create({
@@ -95,7 +96,7 @@ module.exports = async function (client, path) {
                             options: cmd.command.options ?? [],
                             type: cmd.command.type ?? 'CHAT_INPUT',
                             // 權限
-                            defaultPermission: cmd.command.defaultPermission ?? true,
+                            default_permission: cmd.command.default_permission ?? true,
                             permissions: cmd.command.permissions ?? [],
                             dm_permission: cmd.command.dm_permission ?? false,
                             // 本地化
