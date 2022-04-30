@@ -48,10 +48,10 @@ module.exports = {
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
     cooldown: 10000,
     /**
-     * 
-     * @param {Client} client 
-     * @param {CommandInteraction} interaction 
-     * @param {*} container 
+     *
+     * @param {Client} client
+     * @param {CommandInteraction} interaction
+     * @param {*} container
      */
     run: async (client, interaction, container) => {
         const subcommand = interaction.options.getSubcommand();
