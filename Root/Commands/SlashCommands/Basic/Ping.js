@@ -8,7 +8,7 @@ const {
     MessageSelectMenu,
     CommandInteraction,
 } = require('discord.js');
-const { connection } = require('mongoose')
+const { connection } = require('mongoose');
 module.exports = {
     command: {
         name: 'ping',
@@ -17,10 +17,10 @@ module.exports = {
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
     cooldown: 5000,
     /**
-     * 
-     * @param {Client} client 
-     * @param {CommandInteraction} interaction 
-     * @param {*} container 
+     *
+     * @param {Client} client
+     * @param {CommandInteraction} interaction
+     * @param {*} container
      */
     run: async (client, interaction, container) => {
         const ping = new container.Discord.MessageEmbed()
@@ -30,8 +30,8 @@ module.exports = {
             .setDescription([
                 `🏠| Websocket 延遲: ${client.ws.ping}ms`,
                 `🤖| 機器人延遲: ${Date.now() - interaction.createdTimestamp}ms`,
-                ``
-            ].join('\n')
+                '',
+            ].join('\n'),
             );
         interaction.reply({ embeds: [ping] });
     },

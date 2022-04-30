@@ -1,12 +1,12 @@
-const { messageCreate, Client } = require('discord.js')
+const { messageCreate, Client } = require('discord.js');
 
 module.exports = {
     name: 'messageCreate',
     /**
-     * 
-     * @param {messageCreate} message 
-     * @param {Client} client 
-     * @param {*} container 
+     *
+     * @param {messageCreate} message
+     * @param {Client} client
+     * @param {*} container
      */
     run: async (message, client, container) => {
         const loadCommandOptions = require('../Structures/CommandOptions/loadCommandOptions');
