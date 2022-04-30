@@ -295,7 +295,7 @@
    * 伺服器進退
    *
    */
-  
+
     // 新增 (取消)
     client.on('-guildCreate', async (guild) => {
         console.log(

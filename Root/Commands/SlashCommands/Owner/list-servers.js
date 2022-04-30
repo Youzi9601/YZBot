@@ -17,11 +17,11 @@ module.exports = {
         description: 'List all servers in the console',
         defaultPermission: false,
         locales: {
-            "default": "en",
-            "zh-TW": {
-                "name": "列出伺服器",
-                "description": "列出所在的所有伺服器",
-            }
+            'default': 'en',
+            'zh-TW': {
+                'name': '列出伺服器',
+                'description': '列出所在的所有伺服器',
+            },
         },
         permissions: [
             {

@@ -3,7 +3,7 @@ const Box = require('cli-box');
 const config = require('../../../../Config.js');
 const moment = require('moment');
 const { Client } = require('discord.js');
-const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js')
+const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
 const fs = require('fs');
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
     run: async (e, client) => {
         if (config.console.warn == false) return;
         console.warn(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN\n`) + `${e}`);
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN｜${e}`, function (err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN｜${e}`, function(err) {
             if (err)
                 console.log(err);
         });
