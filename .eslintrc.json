@@ -45,7 +45,7 @@
         "max-nested-callbacks": [
             "error",
             {
-                "max": 4 
+                "max": 6
             }
         ],
 		"max-statements-per-line": [

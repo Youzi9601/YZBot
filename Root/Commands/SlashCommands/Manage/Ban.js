@@ -25,6 +25,7 @@ module.exports = {
                 required: false,
             },
         ],
+        default_member_permissions: ['BAN_MEMBERS'],
     },
     cooldown: 10000,
     OnlyRunOnGuilds: true,

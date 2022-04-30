@@ -227,7 +227,7 @@
     // #region 事件
     // 錯誤事件抓取
     if (config.console.error) {
-        client.on('error', (e) => {
+        client.on('-error', (e) => {
             console.error(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR\n`) + `${e}`);
             fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function(err) {
                 if (err)
@@ -262,7 +262,7 @@
 
     }
     if (config.console.warn) {
-        client.on('warn', (e) => {
+        client.on('-warn', (e) => {
             console.warn(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN\n`) + `${e}`);
             fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN｜${e}`, function(err) {
                 if (err)
@@ -271,7 +271,7 @@
         });
     }
     if (config.console.debug) {
-        client.on('debug', (e) => {
+        client.on('-debug', (e) => {
             console.info(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG\n`) + `${e}`);
             fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG｜${e}`, function(err) {
                 if (err)
@@ -295,8 +295,9 @@
    * 伺服器進退
    *
    */
-    // 新增
-    client.on('guildCreate', async (guild) => {
+  
+    // 新增 (取消)
+    client.on('-guildCreate', async (guild) => {
         console.log(
             chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
@@ -368,8 +369,8 @@
                 );
             });
     });
-    // 刪除
-    client.on('guildDelete', async (guild) => {
+    // 刪除 (取消)
+    client.on('-guildDelete', async (guild) => {
         console.log(
             chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
