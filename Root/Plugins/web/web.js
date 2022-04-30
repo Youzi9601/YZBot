@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const db = require('quick.db');
 
 const moment = require('moment');
@@ -237,7 +238,7 @@ module.exports = {
                             optionId: 'ai.say',
                             optionName: '聊天系統',
                             optionDescription: '與機器人互動',
-                            optionType: DBD.formTypes.channelsSelect(false, channelTypes = ['GUILD_TEXT']),
+                            optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
                             getActualSet: async ({ guild }) => {
                                 const db_data = `websystem.${guild.id}.guild.channel.ai.channel`;
                                 const channel = await db.get(db_data) ?? null;
@@ -281,7 +282,7 @@ module.exports = {
                             optionId: 'join.channel',
                             optionName: '',
                             optionDescription: '當成員加入時，歡迎訊息所發送的頻道',
-                            optionType: DBD.formTypes.channelsSelect(false, channelTypes = ['GUILD_TEXT']),
+                            optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
 
                             getActualSet: async ({ guild }) => {
                                 const embedjoin = await db.get(
@@ -356,7 +357,7 @@ module.exports = {
                             optionId: 'join.channel',
                             optionName: '',
                             optionDescription: '當成員加入時，歡迎訊息所發送的頻道',
-                            optionType: DBD.formTypes.channelsSelect(false, channelTypes = ['GUILD_TEXT']),
+                            optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
 
                             getActualSet: async ({ guild }) => {
                                 const embedleave = await db.get(
