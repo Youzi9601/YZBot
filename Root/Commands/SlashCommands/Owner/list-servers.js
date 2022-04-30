@@ -17,12 +17,12 @@ module.exports = {
         description: 'List all servers in the console',
         defaultPermission: false,
         name_localizations: {
-            "zh-CN": "伺服器列表",
-            "zh-TW": "伺服器列表",
+            'zh-CN': '伺服器列表',
+            'zh-TW': '伺服器列表',
         },
         description_localizations: {
-            "zh-CN": "列出所有的伺服器于控制台中",
-            "zh-TW": "列出所有的伺服器於控制台中",
+            'zh-CN': '列出所有的伺服器于控制台中',
+            'zh-TW': '列出所有的伺服器於控制台中',
         },
         permissions: [
             {
