@@ -734,12 +734,7 @@ module.exports = {
                 // 設定
                 msg.embeds = [embed];
             }
-<<<<<<< HEAD
             interaction.channel.messages.fetch({ around: interaction.options.getString("message_id"), limit: 1 })
-=======
-            const edit = msg;
-            interaction.channel.messages.fetch({ around: interaction.options.getString('message_id'), limit: 1 })
->>>>>>> deeac77441534e24680a6d7b05cfa42b4f0d1ceb
                 .then(message => {
 
                     const fetchedMsg = message.first();
