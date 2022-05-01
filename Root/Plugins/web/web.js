@@ -49,7 +49,7 @@ module.exports = {
         DBD.Dashboard = DBD.UpdatedClass();
 
         const Dashboard = new DBD.Dashboard({
-            // noCreateServer: config.web.noweb,
+            // noCreateServer: config.web.noWeb,
             acceptPrivacyPolicy: true,
             minimizedConsoleLogs: true,
 

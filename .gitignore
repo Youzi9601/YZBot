@@ -9,5 +9,5 @@ json.sqlite
 .env
 eula.txt
 ##忽略的設定檔：
-Root/Language/
+#Root/Language/
 #無

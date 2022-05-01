@@ -1,24 +1,28 @@
 require('dotenv').config();
 module.exports = {
     /**
-   *
-   * Config 設定檔案
-   * > 這是一個設定檔案，裡面的相關設定可以自由填寫！
-   *
-   * 格式：
-   * // 敘述內容
-   * 設定名稱: process.env.設定名稱(我們預設的) || "您要填寫的內容"
-   * (process.env.設定名稱 的設定檔案位在 ".env" 檔案裡面！)
-   *
-   */
+     *
+     * Config 設定檔案
+     * > 這是一個設定檔案，裡面的相關設定可以自由填寫！
+     *
+     * 格式：
+     * // 敘述內容
+     * 設定名稱: process.env.設定名稱(我們預設的) || "您要填寫的內容"
+     * (process.env.設定名稱 的設定檔案位在 ".env" 檔案裡面！)
+     *
+     * 建議：
+     * 可多加利用 伺服器->設定->整合->機器人整合
+     * 來調整相關命令的使用權限喔！
+     * 
+     */
 
     // 自動更新?
     autoupdate: process.env.autoupdate || true,
 
 
     /**
-   * 基本設定
-   */
+    * 基本設定
+    */
 
     // 啟動時會使用這個金鑰登入 (也就是機器人token)
     token: process.env.token || '你的機器人Token',
@@ -27,15 +31,7 @@ module.exports = {
     clientID: process.env.clientID || '機器人ID',
     clientSECRET: process.env.clientSECRET || '機器人機密',
 
-    // 網頁
-    web: {
-        noweb: process.env.noweb || true,
-        License_ID: process.env.License_ID || '許可代碼',
-        // 網站位置
-        domain: process.env.domain || 'http://localhost', // 網域
-        port: process.env.port || 80,
-    },
-    // 語言(可於 ./language 中自訂語言)
+    // 語言(可於 ./Root/language 中自訂語言)
     language: 'zh_TW',
 
     // 機器人訊息命令前綴(訊息觸發，允許多個前綴！)
@@ -73,9 +69,21 @@ module.exports = {
     // 伺服器邀請 (https://discord.gg/${邀請代碼})
     invite_code: process.env.invite_code || '邀請代碼',
 
+        
     /**
-   * 機器人傳輸頻道設定
-   */
+     * 網頁
+     */
+    // 網頁
+    web: {
+        noWeb: process.env.noWeb || true,
+        License_ID: process.env.License_ID || '許可代碼',
+        // 網站位置
+        domain: process.env.domain || 'http://localhost', // 網域
+        port: process.env.port || 80,
+    },
+    /**
+    * 機器人傳輸頻道設定
+    */
 
     // 紀錄伺服器的ID
     ServerID: process.env.serverid || '伺服器ID',
@@ -92,54 +100,6 @@ module.exports = {
         // 機器人被邀請進入伺服器的紀錄會記錄在這個頻道 (填入ID)
         inviteChannel: process.env.inviteChannel || 'ID',
     },
-    /**
-    * 音樂 (尚未完成！)
-    */
-    music: {
-        // 前綴名稱
-        px: process.env.prefix_music || 'm>',
-
-        opt: {
-            // 音樂DJ(如果沒啟用此區可跳過)
-            DJ: {
-                // 是否啟用DJ?
-                enabled: false,
-
-                // 身分組[名稱]
-                roleName: 'DJ',
-
-                // 允許DJ使用的命令(反之其他人不可使用)
-                commands: [
-                    'back',
-                    'clear',
-                    'filter',
-                    'loop',
-                    'pause',
-                    'resume',
-                    'seek',
-                    'shuffle',
-                    'skip',
-                    'stop',
-                    'volume',
-                ],
-            },
-            // 其他音樂設定
-
-            // 音樂的最大音量
-            maxVol: 100,
-
-            // 如果音樂播放的消息應該在循環播放啟用時發送
-            loopMessage: false,
-
-            // 此區請物設定
-            discordPlayer: {
-                ytdlOptions: {
-                    quality: 'highestaudio',
-                    highWaterMark: 1 << 25,
-                },
-            },
-        },
-    },
 
     /**
     * 雜項
@@ -149,15 +109,10 @@ module.exports = {
     // 在GMT-8區為"-8",在GMT+8為"8"
     GMT: process.env.GMT || 8,
 
-    /**
-   * 此選項已廢棄
-  // 第一次啟動請用true，否則請用false(清空字串)，如果為true則會註冊機器人互動應用程式指令([ / ] 斜線命令)
-  slashcmdreg: process.env.slashcmdreg || true,
-  */
 
     /**
-   * 機器人控制台設定
-   */
+    * 機器人控制台設定
+    */
     console: {
         // 是否報告 Discord Error 錯誤訊息
         error: process.env.console_error || true,

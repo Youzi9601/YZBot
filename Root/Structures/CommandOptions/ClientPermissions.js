@@ -1,8 +1,10 @@
-module.exports = async function(message, command, Discord) {
+const { translate_Permissions } = require('../../Language/Language')
+
+module.exports = async function (message, command, Discord) {
     if (!command.clientPermissions) return false;
     const missing = [];
     command.clientPermissions.forEach(i => {
-        if (!message.guild.me.permissions.has(i)) missing.push(i);
+        if (!message.guild.me.permissions.has(i)) missing.push(translate_Permissions(i, 'zh-TW'));
     });
     if (missing.length == 0) return false;
     else {
