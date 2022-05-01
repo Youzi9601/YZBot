@@ -734,7 +734,7 @@ module.exports = {
                 // 設定
                 msg.embeds = [embed];
             }
-            interaction.channel.messages.fetch({ around: interaction.options.getString("message_id"), limit: 1 })
+            interaction.channel.messages.fetch({ around: interaction.options.getString('message_id'), limit: 1 })
                 .then(message => {
 
                     const fetchedMsg = message.first();
@@ -927,11 +927,11 @@ module.exports = {
             }
         }
         // #endregion
-        //#region delete-msg
+        // #region delete-msg
 
         else if (subcommand == 'delete-msg') {
             // 取得指令內容
-            interaction.channel.messages.fetch({ around: interaction.options.getString("message_id"), limit: 1 })
+            interaction.channel.messages.fetch({ around: interaction.options.getString('message_id'), limit: 1 })
                 .then(message => {
                     const fetchedMsg = message.first();
                     fetchedMsg.delete();
