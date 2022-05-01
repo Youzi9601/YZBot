@@ -9,7 +9,7 @@ module.exports = {
      * @param {*} container
      */
     run: async (message, client, container) => {
-        //執行命令
+        // 執行命令
         const loadCommandOptions = require('../Structures/CommandOptions/loadCommandOptions');
         container.Config.prefix.forEach(prefix => {
             if (!message.content.toLowerCase().startsWith(prefix)) return;
@@ -22,7 +22,7 @@ module.exports = {
             else if (!message.guild) return;
             else loadCommandOptions(client, message, command, false);
         });
-        //其他工作
+        // 其他工作
 
 
     },
