@@ -132,9 +132,9 @@
 
     // eula 認證
 
-    const eula_pass = fs.readFile('./eula.txt', function (err, data) {
+    const eula_pass = fs.readFile('./eula.txt', function(err, data) {
         if (err) {
-            fs.writeFile('./eula.txt', '', function (err) {
+            fs.writeFile('./eula.txt', '', function(err) {
             });
             console.error(
                 chalk.bgRed(

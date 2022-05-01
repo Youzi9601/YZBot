@@ -598,11 +598,11 @@ module.exports = {
         // #region reactions-create
         if (subcommand == 'reactions-create') {
             // 取得命令內容
-            //const channel_id =
+            // const channel_id =
             //    interaction.options.getString('channel_id') || interaction.channel.id;
             const emoji = interaction.options.getString('emoji');
             const message_id = interaction.options.getString('message_id');
-            //const { getChannel } = require('../../../Plugins/discord/message/functions');
+            // const { getChannel } = require('../../../Plugins/discord/message/functions');
             // const msg = getMessage(message_id, channel_id, client)
             // .then(msg => {
             //    msg.react(`${emoji}`)
@@ -734,14 +734,14 @@ module.exports = {
                 // 設定
                 msg.embeds = [embed];
             }
-            const edit = msg
-            interaction.channel.messages.fetch({ around: interaction.options.getString("message_id"), limit: 1 })
+            const edit = msg;
+            interaction.channel.messages.fetch({ around: interaction.options.getString('message_id'), limit: 1 })
                 .then(message => {
 
                     const fetchedMsg = message.first();
-                    fetchedMsg.edit(msg)
-                    console.log(msg)
-                    console.log(fetchedMsg.content)
+                    fetchedMsg.edit(msg);
+                    console.log(msg);
+                    console.log(fetchedMsg.content);
                     interaction.reply({
                         content: '已經成功編輯指定訊息',
                         ephemeral: true,
