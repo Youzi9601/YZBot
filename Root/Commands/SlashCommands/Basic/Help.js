@@ -190,7 +190,6 @@ module.exports = {
                     '```',
                 ].join('\n'));
 
-<<<<<<< HEAD
     const embed2 = new MessageEmbed()
       .setTitle('Help 命令列表｜管理')
       .setDescription(
@@ -262,68 +261,12 @@ module.exports = {
       .setCustomId('previousbtn')
       .setLabel('↼ 上一頁')
       .setStyle('PRIMARY');
-=======
-        const embed2 = new MessageEmbed()
-            .setTitle('Help 命令列表｜管理')
-            .setDescription(
-                [
-                    '`<>` - 必填｜`[]` - 可選',
-                    '',
-                    '**管理**',
-                    '```diff',
-                    '/ban <user> [reason] 封禁成員，',
-                    '/kick <user> [reason] 踢出成員',
-                    '```',
-                ].join('\n'));
-        const embed3 = new MessageEmbed()
-            .setTitle('Help 命令列表｜音樂')
-            .setDescription(
-                [
-                    '`<>` - 必填｜`[]` - 可選',
-                    '',
-                    '**音樂**',
-                    '```diff',
-                    '/play 播放',
-                    '    ◟ song <url> 撥放音樂',
-                    '    ◟ playlist <url> 撥放音樂清單',
-                    '    ◟ search <關鍵字> 搜尋音樂',
-                    '/pause 暫停音樂',
-                    '/resume 恢復音樂',
-                    '/queue 顯示當前列隊',
-                    '/leave 離開語音',
-                    '/music-info 顯示音樂撥放進度',
-                    '/shuffle 隨機打亂音樂撥放順序',
-                    '/skip 跳過此首音樂',
-                    '/skipto <順位> 跳到指定順位的歌曲',
-                    '/? 敬請期待！',
-                    '```',
-                ].join('\n'));
-
-        const embedN = new MessageEmbed()
-            .setTitle('Help 命令列表｜控制')
-            .setDescription(
-                [
-                    '`<>` - 必填｜`[]` - 可選',
-                    '',
-                    '**控制**',
-                    '```diff',
-                    '/? 敬請期待！',
-                    '```',
-                ].join('\n'));
-
-
-        const Previous_button = new MessageButton()
-            .setCustomId('previousbtn')
-            .setLabel('↼ 上一頁')
-            .setStyle('PRIMARY');
->>>>>>> deeac77441534e24680a6d7b05cfa42b4f0d1ceb
 
         const Next_button = new MessageButton()
             .setCustomId('nextbtn')
             .setLabel('下一頁 ⇀')
             .setStyle('PRIMARY');
 
-<<<<<<< HEAD
     // Create an array of embeds
     pages = [
       embed1,
@@ -334,17 +277,6 @@ module.exports = {
       // ....
       // embedN
     ];
-=======
-        // Create an array of embeds
-        pages = [
-            embed1,
-            embed2,
-            embed3,
-            embedN,
-            // ....
-            // embedN
-        ];
->>>>>>> deeac77441534e24680a6d7b05cfa42b4f0d1ceb
 
         // create an array of buttons
 
