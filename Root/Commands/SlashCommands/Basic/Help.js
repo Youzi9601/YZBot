@@ -222,6 +222,22 @@ module.exports = {
           '/shuffle 隨機打亂音樂撥放順序',
           '/skip 跳過此首音樂',
           '/skipto <順位> 跳到指定順位的歌曲',
+          '```',
+        ].join('\n'));
+
+    const embed4 = new MessageEmbed()
+      .setTitle('Help 命令列表｜控制')
+      .setDescription(
+        [
+          '`<>` - 必填｜`[]` - 可選',
+          '',
+          '**控制**',
+          '```diff',
+          '/bot 機器人',
+          '   ◟ reactions-create <emoji> <message_id> 以機器人身分對訊息做反應',
+          '   ◟ edit-message <message_id> ... 以機器人身分編輯訊息',
+          '   ◟ say ... 以機器人身分發送訊息',
+          '   ◟ delete-msg <message_id> 以機器人身分刪除訊息',
           '/? 敬請期待！',
           '```',
         ].join('\n'));
@@ -232,11 +248,13 @@ module.exports = {
         [
           '`<>` - 必填｜`[]` - 可選',
           '',
-          '**控制**',
+          '**其他**',
           '```diff',
+
           '/? 敬請期待！',
           '```',
         ].join('\n'));
+
 
 
     const Previous_button = new MessageButton()
@@ -254,6 +272,7 @@ module.exports = {
       embed1,
       embed2,
       embed3,
+      embed4,
       embedN,
       // ....
       // embedN

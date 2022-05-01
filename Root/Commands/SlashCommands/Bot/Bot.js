@@ -734,7 +734,6 @@ module.exports = {
                 // 設定
                 msg.embeds = [embed];
             }
-            const edit = msg
             interaction.channel.messages.fetch({ around: interaction.options.getString("message_id"), limit: 1 })
                 .then(message => {
 
@@ -928,5 +927,35 @@ module.exports = {
             }
         }
         // #endregion
+        //#region delete-msg
+
+        else if (subcommand == 'delete-msg') {
+            // 取得指令內容
+            interaction.channel.messages.fetch({ around: interaction.options.getString("message_id"), limit: 1 })
+                .then(message => {
+                    const fetchedMsg = message.first();
+                    fetchedMsg.delete();
+                    interaction.reply({
+                        content: '已經成功刪除指定訊息',
+                        ephemeral: true,
+                    });
+                });
+            /*
+            interaction.channel.messages
+                .fetch(interaction.options.getString("message_id"))
+                .then(message => {
+                    console.log(message.content)
+                    const fetchedMsg = message[0]
+                    fetchedMsg.edit(msg);
+                    interaction.reply({
+                        content: '已經成功發送指定訊息',
+                        ephemeral: true,
+                    });
+                });
+    */
+
+        }
+        // #endregion
+
     },
 };
