@@ -9,7 +9,7 @@ const Box = require('cli-box');
 const config = require('../../../../Config.js');
 const moment = require('moment');
 const db = require('quick.db');
-const { GuildMember, Client } = require('discord.js')
+const { GuildMember, Client } = require('discord.js');
 /**
  *
  */
@@ -21,7 +21,7 @@ module.exports = {
      * @param {Client} client
      */
     run: async (member, client, container) => {
-        const guild = client.guilds.cache(`${member.guild.id}`)
+        const guild = client.guilds.cache(`${member.guild.id}`);
 
         console.log(`\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 新的成員加入 ${guild.name}： ${member.user.tag}`);
 

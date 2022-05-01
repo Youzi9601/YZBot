@@ -228,9 +228,124 @@
     /**
      * 主命令區
      */
+<<<<<<< HEAD
     
     // #region 事件
     // 處理錯誤
+=======
+    // #region 自動更新
+
+    // #endregion
+
+    /**
+   *
+   * 伺服器進退
+   *
+   */
+
+    // 新增 (取消)
+    client.on('-guildCreate', async (guild) => {
+        console.log(
+            chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) +
+            chalk.green('進退變動 > ') +
+            `加入 ${guild.name}`,
+        );
+
+        client.user.setPresence({
+            activities: [
+                {
+                    name: `${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者`,
+                },
+            ],
+            status: `${config.botPresence.status}`,
+        });
+
+        // console 頻道
+        const invitechannel = client.channels.cache.get(
+            config.Channels.inviteChannel,
+        );
+        /** 設定加入訊息 Home*/
+        const invitemsg_embed = new MessageEmbed()
+            .setColor(0xe4fff6)
+            .setTitle(`${config.botName}`)
+            .setDescription(`感謝您邀請${config.botName}到您的伺服器`)
+            .setThumbnail(`${client.user.displayAvatarURL()}`)
+            .addFields(
+                { name: '\u200B', value: '\u200B' },
+                {
+                    name: '使用 [ / ] 呼叫斜線指令',
+                    value: '或使用 `/help` 獲取機器人的指令列表',
+                },
+                {
+                    name: '如果有任何問題',
+                    value: `您可以到 [支援伺服器](https://discord.gg/${config.invite_code}) 來找我們喔！`,
+                },
+            )
+            .setFooter({
+                text: `${config.botName}`,
+                iconURL: `${client.user.displayAvatarURL()}`,
+            });
+        const invitemsg_button = new MessageButton()
+            .setLabel('加入伺服器')
+            .setStyle('LINK')
+            .setURL(`https://discord.gg/${config.invite_code}`)
+            .setDisabled(false);
+
+        // 合併Components
+        const row = new MessageActionRow().addComponents(invitemsg_button);
+        /** 設定加入訊息 End*/
+        if (!guild.systemChannel) return;
+        guild.systemChannel.sendTyping();
+        await guild.systemChannel.send({
+            embeds: [invitemsg_embed],
+            components: [row],
+        });
+
+        await guild.systemChannel
+            .createInvite({ unique: true, maxAge: 0, maxUses: 0 })
+            .then((invite) => {
+                const invite_code = invite.code;
+                // 進退變動 加入
+                invitechannel.send(
+                    '```diff' +
+                    `\n+ 機器人已加入：${guild.name}` +
+                    '\n```' +
+                    `https://discord.gg/${invite_code}`,
+                );
+            });
+    });
+    // 刪除 (取消)
+    client.on('-guildDelete', async (guild) => {
+        console.log(
+            chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) +
+            chalk.green('進退變動 > ') +
+            `離開 ${guild.name}`,
+        );
+        client.user.setPresence({
+            activities: [
+                {
+                    name: `${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者`,
+                },
+            ],
+            status: `${config.botPresence.status}`,
+        });
+
+        // console 頻道
+        const invitechannel = client.channels.cache.get(
+            config.Channels.inviteChannel,
+        );
+        // 進退變動 離開
+        invitechannel.send('```diff' + `\n- 機器人已離開：${guild.name}` + '\n```');
+    });
+
+    /**
+   * 特殊事件執行 (End)
+   */
+>>>>>>> d75022b2e95ed65155fec5edda1a628d3982bbf2
     process.on('unhandledRejection', error => {
         console.error('ERROR｜未處理的承諾拒絕：\n', error);
         try {
