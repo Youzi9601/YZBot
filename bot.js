@@ -132,9 +132,9 @@
 
     // eula 認證
 
-    const eula_pass = fs.readFile('./eula.txt', function(err, data) {
+    const eula_pass = fs.readFile('./eula.txt', function (err, data) {
         if (err) {
-            fs.writeFile('./eula.txt', '', function(err) {
+            fs.writeFile('./eula.txt', '', function (err) {
             });
             console.error(
                 chalk.bgRed(
@@ -231,28 +231,50 @@
 
     // #region 事件
     // 處理錯誤
-    process.on('unhandledRejection', error => {
-        console.error('ERROR｜未處理的承諾拒絕：\n', error);
-        try {
-            // console 頻道
-            const error_channel = client.channels.cache.get(
-                config.Channels.report,
-            );
+    process
+        .on('unhandledRejection', (reason, promise) => {
+            console.error('ERROR｜未處理的承諾拒絕：\n', ' ', promise, '\n原因：', reason + '\n');
+            try {
+                // console 頻道
+                const error_channel = client.channels.cache.get(
+                    config.Channels.report,
+                );
 
-            const msg = {};
-            const embed = {};
-            msg.content = `<@${config.developers[0]}>`;
-            embed.title = 'ERROR｜錯誤';
-            embed.description = `\`\`\`js\n${error}\n${error.request || ' '}\n\`\`\``;
-            embed.color = '0x' + 'FF0000';
-            msg.embeds = [embed];
-            // 進退變動 離開
-            error_channel.send(msg);
-        } catch (error) {
-            // none
-        }
+                const msg = {};
+                const embed = {};
+                msg.content = `<@${config.developers[0]}>`;
+                embed.title = `ERROR｜錯誤 - ${reason.message}`;
+                embed.description = `\`\`\`js\n${reason ? `\n${reason.stack}${reason.request ? `\n${reason.request}` : ''}` : ''}\n\`\`\``;
+                embed.color = '0x' + 'FF0000';
+                embed.timestamp = new Date();
+                msg.embeds = [embed];
+                error_channel.send(msg);
+            } catch (error) {
+                // none
+            }
 
-    });
+        })
+        .on('uncaughtException', (reason, promise) => {
+            console.error('ERROR｜未處理的承諾拒絕：\n', ' ', promise, '\n原因：', reason + '\n');
+            try {
+                // console 頻道
+                const error_channel = client.channels.cache.get(
+                    config.Channels.report,
+                );
+
+                const msg = {};
+                const embed = {};
+                msg.content = `<@${config.developers[0]}>`;
+                embed.title = `ERROR｜錯誤 - ${reason.message}`;
+                embed.description = `\`\`\`js\n${reason ? `\n${reason.stack}${reason.request ? `\n${reason.request}` : ''}` : ''}\n\`\`\``;
+                embed.color = '0x' + 'FF0000';
+                embed.timestamp = new Date();
+                msg.embeds = [embed];
+                error_channel.send(msg);
+            } catch (error) {
+                // none
+            }
+        });
     // #endregion
 
 })();

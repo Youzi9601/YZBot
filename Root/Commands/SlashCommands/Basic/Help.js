@@ -1,20 +1,20 @@
 const {
-    Client,
-    Interaction,
-    MessageActionRow,
-    MessageButton,
-    MessageEmbed,
+  Client,
+  Interaction,
+  MessageActionRow,
+  MessageButton,
+  MessageEmbed,
 } = require('discord.js');
 const fs = require('fs-extra');
 
 module.exports = {
-    command: {
-        name: 'help',
-        description: '機器人的使用手冊',
-    },
-    clientPermissions: ['SEND_MESSAGES'],
-    cooldown: 10000,
-    run: async (client, interaction, container) => {
+  command: {
+    name: 'help',
+    description: '機器人的使用手冊',
+  },
+  clientPermissions: ['SEND_MESSAGES'],
+  cooldown: 10000,
+  run: async (client, interaction, container) => {
     /*
     await interaction.deferReply();
     let res = new MessageEmbed()
@@ -166,111 +166,112 @@ module.exports = {
       });
       */
 
-        // Import the discordjs-button-pagination package
-        const paginationEmbed = require('discordjs-button-pagination');
+    //導入 discordjs-button-pagination 包        
+    const paginationEmbed = require('discordjs-button-pagination');
 
-        // Use MessageEmbed to make pages
-        // Keep in mind that Embeds should't have their footers set since the pagination method sets page info there
-        const { MessageEmbed, MessageButton } = require('discord.js');
-        const embed1 = new MessageEmbed()
-            .setTitle('Help 命令列表｜基本')
-            .setDescription(
-                ['目前正在製作中...敬請期待！',
-                    '`<>` - 必填｜`[]` - 可選',
-                    '',
-                    '**基本**',
-                    '```diff',
-                    '/help 取得這個幫助列表',
-                    '/info 資訊',
-                    '    ◟ user [user] 查看成員的資訊',
-                    '    ◟ server 查看伺服器的資訊',
-                    '    ◟ bot 查看機器人的資訊',
-                    '/ping 查看機器人的連線',
-                    '```',
-                ].join('\n'));
+    //使用 MessageEmbed 製作頁面
+    //請記住，嵌入不應設置其頁腳，因為分頁方法在那裡設置頁面信息        
+    const { MessageEmbed, MessageButton } = require('discord.js');
+    const embed1 = new MessageEmbed()
+      .setTitle('Help 命令列表｜基本')
+      .setDescription(
+        ['目前正在製作中...敬請期待！',
+          '`<>` - 必填｜`[]` - 可選',
+          '',
+          '**基本**',
+          '```diff',
+          '/help 取得這個幫助列表',
+          '/info 資訊',
+          '    ◟ user [user] 查看成員的資訊',
+          '    ◟ server 查看伺服器的資訊',
+          '    ◟ bot 查看機器人的資訊',
+          '/ping 查看機器人的連線',
+          '/invite 邀請我！',
+          '```',
+        ].join('\n'));
 
-        const embed2 = new MessageEmbed()
-            .setTitle('Help 命令列表｜管理')
-            .setDescription(
-                [
-                    '`<>` - 必填｜`[]` - 可選',
-                    '',
-                    '**管理**',
-                    '```diff',
-                    '/ban <user> [reason] 封禁成員，',
-                    '/? 敬請期待！',
-                    '```',
-                ].join('\n'));
-        const embed3 = new MessageEmbed()
-            .setTitle('Help 命令列表｜音樂')
-            .setDescription(
-                [
-                    '`<>` - 必填｜`[]` - 可選',
-                    '',
-                    '**音樂**',
-                    '```diff',
-                    '/play 播放',
-                    '    ◟ song <url> 撥放音樂',
-                    '    ◟ playlist <url> 撥放音樂清單',
-                    '    ◟ search <關鍵字> 搜尋音樂',
-                    '/pause 暫停音樂',
-                    '/resume 恢復音樂',
-                    '/queue 顯示當前列隊',
-                    '/leave 離開語音',
-                    '/music-info 顯示音樂撥放進度',
-                    '/shuffle 隨機打亂音樂撥放順序',
-                    '/skip 跳過此首音樂',
-                    '/skipto <順位> 跳到指定順位的歌曲',
-                    '/? 敬請期待！',
-                    '```',
-                ].join('\n'));
+    const embed2 = new MessageEmbed()
+      .setTitle('Help 命令列表｜管理')
+      .setDescription(
+        [
+          '`<>` - 必填｜`[]` - 可選',
+          '',
+          '**管理**',
+          '```diff',
+          '/ban <user> [reason] 封禁成員，',
+          '/kick <user> [reason] 踢出成員',
+          '```',
+        ].join('\n'));
+    const embed3 = new MessageEmbed()
+      .setTitle('Help 命令列表｜音樂')
+      .setDescription(
+        [
+          '`<>` - 必填｜`[]` - 可選',
+          '',
+          '**音樂**',
+          '```diff',
+          '/play 播放',
+          '    ◟ song <url> 撥放音樂',
+          '    ◟ playlist <url> 撥放音樂清單',
+          '    ◟ search <關鍵字> 搜尋音樂',
+          '/pause 暫停音樂',
+          '/resume 恢復音樂',
+          '/queue 顯示當前列隊',
+          '/leave 離開語音',
+          '/music-info 顯示音樂撥放進度',
+          '/shuffle 隨機打亂音樂撥放順序',
+          '/skip 跳過此首音樂',
+          '/skipto <順位> 跳到指定順位的歌曲',
+          '/? 敬請期待！',
+          '```',
+        ].join('\n'));
 
-        const embedN = new MessageEmbed()
-            .setTitle('Help 命令列表｜控制')
-            .setDescription(
-                [
-                    '`<>` - 必填｜`[]` - 可選',
-                    '',
-                    '**控制**',
-                    '```diff',
-                    '/? 敬請期待！',
-                    '```',
-                ].join('\n'));
+    const embedN = new MessageEmbed()
+      .setTitle('Help 命令列表｜控制')
+      .setDescription(
+        [
+          '`<>` - 必填｜`[]` - 可選',
+          '',
+          '**控制**',
+          '```diff',
+          '/? 敬請期待！',
+          '```',
+        ].join('\n'));
 
 
-        const Previous_button = new MessageButton()
-            .setCustomId('previousbtn')
-            .setLabel('↼ 上一頁')
-            .setStyle('PRIMARY');
+    const Previous_button = new MessageButton()
+      .setCustomId('previousbtn')
+      .setLabel('↼ 上一頁')
+      .setStyle('PRIMARY');
 
-        const Next_button = new MessageButton()
-            .setCustomId('nextbtn')
-            .setLabel('下一頁 ⇀')
-            .setStyle('PRIMARY');
+    const Next_button = new MessageButton()
+      .setCustomId('nextbtn')
+      .setLabel('下一頁 ⇀')
+      .setStyle('PRIMARY');
 
-        // Create an array of embeds
-        pages = [
-            embed1,
-            embed2,
-            embed3,
-            embedN,
-            // ....
-            // embedN
-        ];
+    // Create an array of embeds
+    pages = [
+      embed1,
+      embed2,
+      embed3,
+      embedN,
+      // ....
+      // embedN
+    ];
 
-        // create an array of buttons
+    // create an array of buttons
 
-        buttonList = [
-            Previous_button,
-            Next_button,
-        ];
+    buttonList = [
+      Previous_button,
+      Next_button,
+    ];
 
-        timeout = '120000';
+    timeout = '120000';
 
-        // Call the paginationEmbed method, first three arguments are required
-        // timeout is the time till the reaction collectors are active, after this you can't change pages (in ms), defaults to 120000
-        paginationEmbed(interaction, pages, buttonList, timeout);
-        // There you go, now you have paged embeds
+    // Call the paginationEmbed method, first three arguments are required
+    // timeout is the time till the reaction collectors are active, after this you can't change pages (in ms), defaults to 120000
+    paginationEmbed(interaction, pages, buttonList, timeout);
+    // There you go, now you have paged embeds
 
-    },
+  },
 };

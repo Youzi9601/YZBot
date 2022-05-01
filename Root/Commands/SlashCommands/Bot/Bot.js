@@ -47,15 +47,105 @@ module.exports = {
                 options: [
                     {
                         type: 3,
-                        name: 'context',
-                        description: '表情符號',
+                        name: 'message_id',
+                        description: '訊息的ID',
                         required: true,
                     },
                     {
                         type: 3,
-                        name: 'message_id',
-                        description: '訊息的ID',
-                        required: true,
+                        name: 'contents',
+                        description: '純文字',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'title',
+                        description: '標題',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'description',
+                        description: '內文',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'color',
+                        description:
+                            '顏色 | 白FFFFFF、黑000000、紅FF0000、綠00FF00、藍0000FF',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'title_url',
+                        description: '超連結(限定 http(s):// )',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'author_name',
+                        description: '作者',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'author_icon',
+                        description: '圖標(限定 http(s):// )',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'author_url',
+                        description: '超連結(限定 http(s):// )',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'thumbnail',
+                        description: '圖片(右側)',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'image',
+                        description: '圖片(下方)',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'fields',
+                        description:
+                            '使用json文本創建 | {name:標題,value: 內容,inline:true},',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'timestamp',
+                        description: '啟用時間? (預設為否)',
+                        required: false,
+                        choices: [
+                            {
+                                name: 'True',
+                                value: 'true',
+                            },
+                            {
+                                name: 'False',
+                                value: 'false',
+                            },
+                        ],
+                    },
+                    {
+                        type: 3,
+                        name: 'footer_text',
+                        description: '底部文字',
+                        required: false,
+                    },
+                    {
+                        type: 3,
+                        name: 'footer_icon',
+                        description: '底部文字的頭像',
+                        required: false,
                     },
                 ],
             },
@@ -508,11 +598,11 @@ module.exports = {
         // #region reactions-create
         if (subcommand == 'reactions-create') {
             // 取得命令內容
-            const channel_id =
-                interaction.options.getString('channel_id') || interaction.channel.id;
+            //const channel_id =
+            //    interaction.options.getString('channel_id') || interaction.channel.id;
             const emoji = interaction.options.getString('emoji');
             const message_id = interaction.options.getString('message_id');
-            const { getChannel } = require('../../../Plugins/discord/message/functions');
+            //const { getChannel } = require('../../../Plugins/discord/message/functions');
             // const msg = getMessage(message_id, channel_id, client)
             // .then(msg => {
             //    msg.react(`${emoji}`)
@@ -547,122 +637,235 @@ module.exports = {
         // #endregion
         // #region edit-message
         else if (subcommand == 'edit-message') {
-            // await interaction.reply("訊息已編輯！");
+
+            // 取得指令內容
+            const channel =
+                client.channels.cache.get(
+                    interaction.options.getString('channel_id'),
+                ) || interaction.channel;
+            const content = interaction.options.getString('contents') || '';
+            const embed = {};
+            // EMBED
+            // main
+            const embed_title = interaction.options.getString('title') || undefined;
+            if (embed_title) {
+                embed.title = embed_title;
+            }
+            const embed_description =
+                interaction.options.getString('description') || undefined;
+            if (embed_description) {
+                embed.description = embed_description;
+            }
+            const embed_title_url =
+                interaction.options.getString('title_url') || undefined;
+            if (embed_title_url) {
+                embed.url = embed_title_url;
+            }
+            // author
+            const embed_author_name =
+                interaction.options.getString('author_name') || undefined;
+            if (embed_author_name) {
+                embed.author.name = embed_author_name;
+            }
+            const embed_author_icon =
+                interaction.options.getString('author_icon') || undefined;
+            if (embed_author_icon) {
+                embed.author.icon = embed_author_icon;
+            }
+            const embed_author_url =
+                interaction.options.getString('author_url') || undefined;
+            if (embed_author_url) {
+                embed.author.url = embed_author_url;
+            }
+            // thumbnail
+            const embed_thumbnail =
+                interaction.options.getString('thumbnail') || undefined;
+            if (embed_thumbnail) {
+                embed.thumbnail.url = embed_thumbnail;
+            }
+            // image
+            const embed_image = interaction.options.getString('image') || undefined;
+            if (embed_image) {
+                embed.image.url = embed_image;
+            }
+            // footer
+            const embed_footer_text =
+                interaction.options.getString('footer_text') || undefined;
+            if (embed_footer_text) {
+                embed.footer.text = embed_footer_text;
+            }
+            const embed_footer_icon =
+                interaction.options.getString('footer_icon') || undefined;
+            if (embed_footer_icon) {
+                embed.footer.icon_url = embed_footer_icon;
+            }
+            // fields
+            const embed_fields =
+                interaction.options.getString('footer_text') || undefined;
+            if (embed_fields) {
+                embed.fields = embed_fields;
+            }
+            // 取得訊息內容
+            const msg = {};
+            if (content) {
+                msg.content = content;
+            }
+
+            if (
+                embed.title ||
+                embed.description ||
+                embed.footer ||
+                embed.image ||
+                embed.thumbnail ||
+                embed.fields
+            ) {
+                // timestamp & color
+                const embed_color = interaction.options.getString('color') || '000000';
+                if (embed_color) {
+                    embed.color = '0x' + embed_color;
+                }
+                const embed_timestamp =
+                    interaction.options.getString('timestamp') || false;
+                if (embed_timestamp == true) {
+                    embed.timestamp = new Date();
+                } else {
+                    // 不新增
+                }
+                // 設定
+                msg.embeds = [embed];
+            }
+            const edit = msg
+            interaction.channel.messages.fetch({ around: interaction.options.getString("message_id"), limit: 1 })
+                .then(message => {
+
+                    const fetchedMsg = message.first();
+                    fetchedMsg.edit(msg)
+                    console.log(msg)
+                    console.log(fetchedMsg.content)
+                    interaction.reply({
+                        content: '已經成功編輯指定訊息',
+                        ephemeral: true,
+                    });
+                });
+            /*
+            interaction.channel.messages
+                .fetch(interaction.options.getString("message_id"))
+                .then(message => {
+                    console.log(message.content)
+                    const fetchedMsg = message[0]
+                    fetchedMsg.edit(msg);
+                    interaction.reply({
+                        content: '已經成功發送指定訊息',
+                        ephemeral: true,
+                    });
+                });
+*/
+
         }
         // #endregion
         // #region say
         else if (subcommand == 'say') {
             // 取得指令內容
-            say(client, interaction, container);
-            /**
- *
- * @param {Client} client
- * @param {interactionCreate} interaction
- * @param {container} container
- */
-            function say(client, interaction, container) {
-                const channel =
-                    client.channels.cache.get(
-                        interaction.options.getString('channel_id'),
-                    ) || interaction.channel;
-                const content = interaction.options.getString('contents') || '';
-                const embed = {};
-                // EMBED
-                // main
-                const embed_title = interaction.options.getString('title') || undefined;
-                if (embed_title) {
-                    embed.title = embed_title;
-                }
-                const embed_description =
-                    interaction.options.getString('description') || undefined;
-                if (embed_description) {
-                    embed.description = embed_description;
-                }
-                const embed_title_url =
-                    interaction.options.getString('title_url') || undefined;
-                if (embed_title_url) {
-                    embed.url = embed_title_url;
-                }
-                // author
-                const embed_author_name =
-                    interaction.options.getString('author_name') || undefined;
-                if (embed_author_name) {
-                    embed.author.name = embed_author_name;
-                }
-                const embed_author_icon =
-                    interaction.options.getString('author_icon') || undefined;
-                if (embed_author_icon) {
-                    embed.author.icon = embed_author_icon;
-                }
-                const embed_author_url =
-                    interaction.options.getString('author_url') || undefined;
-                if (embed_author_url) {
-                    embed.author.url = embed_author_url;
-                }
-                // thumbnail
-                const embed_thumbnail =
-                    interaction.options.getString('thumbnail') || undefined;
-                if (embed_thumbnail) {
-                    embed.thumbnail.url = embed_thumbnail;
-                }
-                // image
-                const embed_image = interaction.options.getString('image') || undefined;
-                if (embed_image) {
-                    embed.image.url = embed_image;
-                }
-                // footer
-                const embed_footer_text =
-                    interaction.options.getString('footer_text') || undefined;
-                if (embed_footer_text) {
-                    embed.footer.text = embed_footer_text;
-                }
-                const embed_footer_icon =
-                    interaction.options.getString('footer_icon') || undefined;
-                if (embed_footer_icon) {
-                    embed.footer.icon_url = embed_footer_icon;
-                }
-                // fields
-                const embed_fields =
-                    interaction.options.getString('footer_text') || undefined;
-                if (embed_fields) {
-                    embed.fields = embed_fields;
-                }
-                // 取得訊息內容
-                const msg = {};
-                if (content) {
-                    msg.content = content;
-                }
-
-                if (
-                    embed.title ||
-                    embed.description ||
-                    embed.footer ||
-                    embed.image ||
-                    embed.thumbnail ||
-                    embed.fields
-                ) {
-                    // timestamp & color
-                    const embed_color = interaction.options.getString('color') || '000000';
-                    if (embed_color) {
-                        embed.color = '0x' + embed_color;
-                    }
-                    const embed_timestamp =
-                        interaction.options.getString('timestamp') || false;
-                    if (embed_timestamp == true) {
-                        embed.timestamp = new Date();
-                    } else {
-                        // 不新增
-                    }
-                    // 設定
-                    msg.embeds = [embed];
-                }
-                channel.send(msg);
-                interaction.reply({
-                    content: '已經成功發送指定訊息',
-                    ephemeral: true,
-                });
+            const channel =
+                client.channels.cache.get(
+                    interaction.options.getString('channel_id'),
+                ) || interaction.channel;
+            const content = interaction.options.getString('contents') || '';
+            const embed = {};
+            // EMBED
+            // main
+            const embed_title = interaction.options.getString('title') || undefined;
+            if (embed_title) {
+                embed.title = embed_title;
+            }
+            const embed_description =
+                interaction.options.getString('description') || undefined;
+            if (embed_description) {
+                embed.description = embed_description;
+            }
+            const embed_title_url =
+                interaction.options.getString('title_url') || undefined;
+            if (embed_title_url) {
+                embed.url = embed_title_url;
+            }
+            // author
+            const embed_author_name =
+                interaction.options.getString('author_name') || undefined;
+            if (embed_author_name) {
+                embed.author.name = embed_author_name;
+            }
+            const embed_author_icon =
+                interaction.options.getString('author_icon') || undefined;
+            if (embed_author_icon) {
+                embed.author.icon = embed_author_icon;
+            }
+            const embed_author_url =
+                interaction.options.getString('author_url') || undefined;
+            if (embed_author_url) {
+                embed.author.url = embed_author_url;
+            }
+            // thumbnail
+            const embed_thumbnail =
+                interaction.options.getString('thumbnail') || undefined;
+            if (embed_thumbnail) {
+                embed.thumbnail.url = embed_thumbnail;
+            }
+            // image
+            const embed_image = interaction.options.getString('image') || undefined;
+            if (embed_image) {
+                embed.image.url = embed_image;
+            }
+            // footer
+            const embed_footer_text =
+                interaction.options.getString('footer_text') || undefined;
+            if (embed_footer_text) {
+                embed.footer.text = embed_footer_text;
+            }
+            const embed_footer_icon =
+                interaction.options.getString('footer_icon') || undefined;
+            if (embed_footer_icon) {
+                embed.footer.icon_url = embed_footer_icon;
+            }
+            // fields
+            const embed_fields =
+                interaction.options.getString('footer_text') || undefined;
+            if (embed_fields) {
+                embed.fields = embed_fields;
+            }
+            // 取得訊息內容
+            const msg = {};
+            if (content) {
+                msg.content = content;
             }
 
+            if (
+                embed.title ||
+                embed.description ||
+                embed.footer ||
+                embed.image ||
+                embed.thumbnail ||
+                embed.fields
+            ) {
+                // timestamp & color
+                const embed_color = interaction.options.getString('color') || '000000';
+                if (embed_color) {
+                    embed.color = '0x' + embed_color;
+                }
+                const embed_timestamp =
+                    interaction.options.getString('timestamp') || false;
+                if (embed_timestamp == true) {
+                    embed.timestamp = new Date();
+                } else {
+                    // 不新增
+                }
+                // 設定
+                msg.embeds = [embed];
+            }
+            channel.send(msg);
+            interaction.reply({
+                content: '已經成功發送指定訊息',
+                ephemeral: true,
+            });
         }
         // #endregion
         // #region set-status
