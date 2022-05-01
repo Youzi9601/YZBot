@@ -490,7 +490,7 @@ module.exports = {
             // #endregion clone
         ],
     },
-    clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
+    clientPermissions: ['SEND_MESSAGES', 'ADMINISTRATOR'],
     userPermissions: ['ADMINISTRATOR'],
     /**
      *

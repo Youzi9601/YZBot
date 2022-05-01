@@ -45,7 +45,7 @@ module.exports = {
         // #endregion
     },
     OnlyRunOnGuilds: true,
-    clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
+    clientPermissions: ['SEND_MESSAGES'],
     cooldown: 10000,
     /**
      *

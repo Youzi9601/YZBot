@@ -14,7 +14,7 @@ module.exports = {
         name: 'ping',
         description: '檢查機器人是否回應',
     },
-    clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
+    clientPermissions: ['SEND_MESSAGES'],
     cooldown: 5000,
     /**
      *
