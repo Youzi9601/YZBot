@@ -69,7 +69,7 @@ module.exports = {
     // 伺服器邀請 (https://discord.gg/${邀請代碼})
     invite_code: process.env.invite_code || '邀請代碼',
 
-        
+
     /**
      * 網頁
      */

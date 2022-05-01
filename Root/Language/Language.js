@@ -20,6 +20,9 @@ function translate_CommandOptions(text, lang) {
     let output = translate[text] || 'ERROR: No translate text!'
     return output
 }
+
+
+// 輸出
 module.exports = {
     translate_Permissions,
     translate_CommandOptions

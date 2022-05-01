@@ -86,7 +86,7 @@ module.exports = {
                     name: '基本',
                     value: [
                         '**伺服器名稱**',
-                        `> ${interaction.guild.name} (ID: \`${interaction.guild.id}\`)`,
+                        `> ${interaction.guild.name} \n(ID: \`${interaction.guild.id}\`)`,
                         '**擁有者**',
                         `> <@${interaction.guild.ownerId}>`,
                         '**創建時間**',

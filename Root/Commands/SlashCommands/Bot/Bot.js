@@ -7,6 +7,9 @@ const {
     MessageEmbed,
     MessageSelectMenu,
     Interaction,
+    //
+    CommandInteraction,
+    ReactionCollector,
 } = require('discord.js');
 const config = require('../../../../Config.js');
 
@@ -495,7 +498,7 @@ module.exports = {
     /**
      *
      * @param {Client} client
-     * @param {interactionCreate} interaction
+     * @param {CommandInteraction} interaction
      * @param {container} container
      */
     run: async (client, interaction, container) => {
@@ -504,37 +507,24 @@ module.exports = {
         // 執行
         // #region reactions-create
         if (subcommand == 'reactions-create') {
-            reactions_create(client, interaction, container);
-            /**
-      *
-    * @param {Client} client
- * @param {interactionCreate} interaction
- * @param {container} container
- */
-            function reactions_create(client, interaction, container) {
-                // 取得命令內容
-                const channel_id =
-                    interaction.options.getString('channel_id') || interaction.channel.id;
-                const emoji = interaction.options.getString('emoji');
-                const message_id = interaction.options.getString('message_id');
-                msg = {
-                    channel: channel_id,
-                    message: message_id,
-                };
-                msg.react(emoji);
-            }
-            /**
             // 取得命令內容
             const channel_id =
                 interaction.options.getString('channel_id') || interaction.channel.id;
             const emoji = interaction.options.getString('emoji');
             const message_id = interaction.options.getString('message_id');
-            msg = {
-                channel: channel_id,
-                message: message_id,
-            };
-            msg.react(emoji);
-             */
+            const { getChannel } = require('../../../Plugins/discord/message/functions')
+            //const msg = getMessage(message_id, channel_id, client)
+            //.then(msg => {
+            //    msg.react(`${emoji}`)
+            //})
+            interaction.channel.messages.fetch(message_id)
+                .then(message => {
+                    console.log(message.content)
+                    message.react(`${emoji}`)
+                })
+                .catch(console.error);
+            //console.log(msg)
+            interaction.reply(`已新增反應！`)
 
             /*
         //取得頻道

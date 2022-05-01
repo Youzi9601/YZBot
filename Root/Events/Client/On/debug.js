@@ -22,10 +22,10 @@ module.exports = {
         });
 
         // 發送回報
-        const reportChannel = client.channels.cache.get(
-            config.Channels.reportChannel,
+        const report = client.channels.cache.get(
+            config.Channels.report,
         );
-        reportChannel.send({
+        report.send({
             content: `<@!${require('Config.js').ownerId}>`,
             embeds: [new MessageEmbed()
                 .setTitle(`${e.name} DeBug!`)
