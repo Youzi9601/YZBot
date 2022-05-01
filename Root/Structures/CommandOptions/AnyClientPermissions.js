@@ -1,15 +1,15 @@
-const { translate_Permissions } = require('../../Language/Language')
+const { translate_Permissions } = require('../../Language/Language');
 
-module.exports = async function (message, command, Discord) {
+module.exports = async function(message, command, Discord) {
     if (!command.anyClientPermission) return false;
     if (command.anyClientPermission.some(i => message.member.permissions.has(i))) return false;
     else {
         if (command.returnAnyClientPermissions == false || command.returnNoErrors) return true;
         else {
-            const perm = []
+            const perm = [];
             for (let i = 0; i < command.anyClientPermissionF.length; i++) {
                 const ver = command.anyClientPermission[i];
-                perm.push(translate_Permissions(ver, 'zh-TW'))
+                perm.push(translate_Permissions(ver, 'zh-TW'));
             }
             message.reply({
                 embeds: [new Discord.MessageEmbed()

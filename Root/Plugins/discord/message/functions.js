@@ -1,37 +1,37 @@
-const { Client, Channel, Message, ReactionEmoji } = require('discord.js')
+const { Client, Channel, Message, ReactionEmoji } = require('discord.js');
 
 /**
- * 
+ *
  * @param {Client} Client 機器人
  * @param {Channel.id} channel_id 頻道id
  * @returns 頻道資訊
  */
 function getChannel(channel_id, Client) {
-  //取得頻道資訊
-  Client.channels
-    .fetch(channel_id)
-    .then(channel => { //取得頻道
-      return channel
-    })
+    // 取得頻道資訊
+    Client.channels
+        .fetch(channel_id)
+        .then(channel => { // 取得頻道
+            return channel;
+        });
 
 }
 /**
- * 
+ *
  * @param {Client} Client 機器人
  * @param {Message.id} message_id 訊息id
  * @param {Channel} channel 頻道id
  * @returns 訊息資訊
- * @died 
+ * @died
  */
 function getMessage(message_id, channel, Client) {
-  //取得訊息
-  channel.fetch
-  channel.messages.fetch(message_id)
-    .then(message => {
-      console.log(message.content)
-      return message
-    })
-    .catch(console.error);
+    // 取得訊息
+    channel.fetch;
+    channel.messages.fetch(message_id)
+        .then(message => {
+            console.log(message.content);
+            return message;
+        })
+        .catch(console.error);
 }
 /**
 
@@ -42,6 +42,6 @@ messages.fetch({ limit: 100 }).then(messages => {
 })*/
 
 module.exports = {
-  getChannel,
-  getMessage
-}
+    getChannel,
+    getMessage,
+};

@@ -1,6 +1,6 @@
-const { translate_Permissions } = require('../../Language/Language')
+const { translate_Permissions } = require('../../Language/Language');
 
-module.exports = async function (message, command, Discord) {
+module.exports = async function(message, command, Discord) {
     if (!command.clientPermissions) return false;
     const missing = [];
     command.clientPermissions.forEach(i => {

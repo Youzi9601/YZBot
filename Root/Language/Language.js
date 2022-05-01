@@ -1,29 +1,29 @@
 /**
- * 
+ *
  * @param {string} text Permissions名稱
  * @param {string} lang 語言
  * @returns 翻譯結果
  */
 function translate_Permissions(text, lang) {
-    const translate = require(`./${lang}/error.json`).error.Permissions
-    let output = translate[text] || 'ERROR: No translate text!'
-    return output
+    const translate = require(`./${lang}/error.json`).error.Permissions;
+    const output = translate[text] || 'ERROR: No translate text!';
+    return output;
 }
 /**
- * 
+ *
  * @param {string} text 錯誤訊息名稱
  * @param {string} lang 語言
  * @returns 翻譯結果
  */
 function translate_CommandOptions(text, lang) {
-    const translate = require(`./${lang}/error.json`).error.CommandOptions
-    let output = translate[text] || 'ERROR: No translate text!'
-    return output
+    const translate = require(`./${lang}/error.json`).error.CommandOptions;
+    const output = translate[text] || 'ERROR: No translate text!';
+    return output;
 }
 
 
 // 輸出
 module.exports = {
     translate_Permissions,
-    translate_CommandOptions
-}
+    translate_CommandOptions,
+};

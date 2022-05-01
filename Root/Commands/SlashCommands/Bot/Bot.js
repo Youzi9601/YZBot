@@ -512,19 +512,19 @@ module.exports = {
                 interaction.options.getString('channel_id') || interaction.channel.id;
             const emoji = interaction.options.getString('emoji');
             const message_id = interaction.options.getString('message_id');
-            const { getChannel } = require('../../../Plugins/discord/message/functions')
-            //const msg = getMessage(message_id, channel_id, client)
-            //.then(msg => {
+            const { getChannel } = require('../../../Plugins/discord/message/functions');
+            // const msg = getMessage(message_id, channel_id, client)
+            // .then(msg => {
             //    msg.react(`${emoji}`)
-            //})
+            // })
             interaction.channel.messages.fetch(message_id)
                 .then(message => {
-                    console.log(message.content)
-                    message.react(`${emoji}`)
+                    console.log(message.content);
+                    message.react(`${emoji}`);
                 })
                 .catch(console.error);
-            //console.log(msg)
-            interaction.reply(`已新增反應！`)
+            // console.log(msg)
+            interaction.reply('已新增反應！');
 
             /*
         //取得頻道
