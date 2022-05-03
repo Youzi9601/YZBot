@@ -51,9 +51,9 @@
 
     aufg({
         git: 'Youzi9601/YZBot', // 遠程git地址
-        dir: './', // 本地路徑
-        type: 'commit', // 檢測類型 version | commit
-        freq: 0, // 刷新頻率0
+        dir: '.', // 本地路徑
+        type: 'version', // 檢測類型 version | commit
+        freq: 3600000, // 刷新頻率0
     });
     /*
     const AutoUpdater = require('auto-updater');
@@ -132,29 +132,31 @@
 
     // eula 認證
 
-    const eula_pass = fs.readFile('./eula.txt', function(err, data) {
-        if (err) {
-            fs.writeFile('./eula.txt', '', function(err) {
-            });
-            console.error(
-                chalk.bgRed(
-                    '沒有同意合約！我們將會為您生成一個！',
-                ),
-            );
+    if (ci === 'false') { // 避免CI測試進入驗證
+        const eula_pass = fs.readFile('./eula.txt', function (err, data) {
+            if (err) {
+                fs.writeFile('./eula.txt', '', function (err) {
+                });
+                console.error(
+                    chalk.bgRed(
+                        '沒有同意合約！我們將會為您生成一個！',
+                    ),
+                );
 
-            process.exit(0);
-        }
+                process.exit(0);
+            }
 
-        console.log(data.toString());
-        if (data.toString() != 'true') {
-            console.error(
-                chalk.bgRed(
-                    '沒有同意合約！請將 eula.txt 的內容改成 true ！',
-                ),
-            );
-            process.exit(0);
-        }
-    });
+            console.log(data.toString());
+            if (data.toString() != 'true') {
+                console.error(
+                    chalk.bgRed(
+                        '沒有同意合約！請將 eula.txt 的內容改成 true ！',
+                    ),
+                );
+                process.exit(0);
+            }
+        });
+    }
 
 
     await client.login(config.token);

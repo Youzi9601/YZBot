@@ -1,6 +1,6 @@
 {
   "name": "youzi-bot",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "一個實用、有趣的機器人",
   "main": "bot.js",
   "engines": {
@@ -16,7 +16,10 @@
     "lint": "eslint .",
     "dev": "npm i -g npm-check-updates eslint",
     "check": "npm run update && npm run lint",
-    "reset": "echo \"刪除所有命令\" && node reset.js"
+    "reset": "echo \"刪除所有命令\" && node reset.js",
+    "update_patch": "npm version patch",
+    "update_minor": "npm version minor",
+    "update_major": "npm version major"
   },
   "repository": {
     "type": "git",
