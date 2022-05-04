@@ -52,7 +52,7 @@
     aufg({
         git: 'Youzi9601/YZBot', // 遠程git地址
         dir: '.', // 本地路徑
-        type: 'version', // 檢測類型 version | commit
+        type: 'commit', // 檢測類型 version | commit
         freq: 3600000, // 刷新頻率0
     });
     /*

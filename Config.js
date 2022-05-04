@@ -89,6 +89,8 @@ module.exports = {
     ServerID: process.env.serverid || '伺服器ID',
     // 紀錄伺服器的相關頻道
     Channels: {
+        // 機器人所有記錄會在這個頻道 (填入ID)
+        All: process.env.All || 'ID',
         // 機器人啟動時會記錄在這個頻道 (填入ID)
         ClientOn: process.env.ClientOnChannel || 'ID',
         // 若有錯誤的回報會記錄在這個頻道 (填入ID)
