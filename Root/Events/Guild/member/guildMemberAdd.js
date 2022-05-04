@@ -22,7 +22,7 @@ module.exports = {
      */
     run: async (member, client, container) => {
 
-        const guild = member.guild
+        const guild = member.guild;
         console.log(`\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 新的成員加入 ${guild.name}： ${member.user.tag}`);
 
     },
