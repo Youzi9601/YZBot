@@ -52,7 +52,7 @@
     aufg({
         git: 'Youzi9601/YZBot', // 遠程git地址
         dir: '.', // 本地路徑
-        type: 'commit', // 檢測類型 version | commit
+        type: 'version', // 檢測類型 version | commit
         freq: 3600000, // 刷新頻率0
     });
     /*
@@ -133,9 +133,9 @@
     // eula 認證
 
     if (ci === 'false') { // 避免CI測試進入驗證
-        const eula_pass = fs.readFile('./eula.txt', function(err, data) {
+        const eula_pass = fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
