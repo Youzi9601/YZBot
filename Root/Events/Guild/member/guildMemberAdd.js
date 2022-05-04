@@ -21,8 +21,8 @@ module.exports = {
      * @param {Client} client
      */
     run: async (member, client, container) => {
-        const guild = client.guilds.cache(`${member.guild.id}`);
 
+        const guild = member.guild
         console.log(`\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 新的成員加入 ${guild.name}： ${member.user.tag}`);
 
     },
