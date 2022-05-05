@@ -22,9 +22,6 @@ jobs:
       - name: Install ESLint
         run: npm install -g eslint prettier
 
-      - name: Update patch
-        run: npm version patch
-
       - name: Run linters
         uses: wearerequired/lint-action@v1
         with:
