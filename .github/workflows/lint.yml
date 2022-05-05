@@ -23,7 +23,7 @@ jobs:
         run: npm install -g eslint prettier
 
       - name: Update patch
-        run: npm update_patch
+        run: npm patch
 
       - name: Run linters
         uses: wearerequired/lint-action@v1
