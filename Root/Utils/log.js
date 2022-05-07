@@ -4,7 +4,7 @@ const config = require('../../Config');
 const chalk = require('chalk');
 const { Client, Message } = require('discord.js');
 
-module.exports = { log }
+module.exports = { log };
 
 /**
  *
@@ -20,7 +20,7 @@ function log(level, msg, SendToDiscord, discordmsg, client) {
             config.Channels.All,
         );
         // 發送訊息
-        let send = {}
+        const send = {};
         if (!discordmsg.content) send.content = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} [${level}] ${msg}`;
         log_channel.send(send);
     }
@@ -43,7 +43,7 @@ function log(level, msg, SendToDiscord, discordmsg, client) {
         ) + msg);
     }
 
-    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg}`, function (err) {
+    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg}`, function(err) {
         // none
     });
-};
+}

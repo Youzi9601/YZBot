@@ -7,7 +7,7 @@ module.exports = {
     name: 'channelCreate',
     once: false,
     /**
-     * 
+     *
      * @param {Channel} channel 頻道
      */
     run: async (channel) => {
