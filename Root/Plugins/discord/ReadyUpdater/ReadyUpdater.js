@@ -28,7 +28,7 @@ async function updater(message, oldmsg, client) {
                     conjunction: ', ',
                     language: 'zh_TW',
                 })}`,
-                `> ．最後更新: <t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:T>)`,
+                `> ．最後更新: <t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`,
             ].join('\n'),
         };
         message.edit(msg);
