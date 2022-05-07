@@ -3,7 +3,7 @@ const Box = require('cli-box');
 const config = require('../../../../Config.js');
 const moment = require('moment');
 const { Channel } = require('discord.js');
-const { log } = require('./../../../Utils/log')
+const { log } = require('./../../../Utils/log');
 module.exports = {
     name: 'channelDelete',
     once: false,
@@ -16,6 +16,6 @@ module.exports = {
             'info',
             `${channel.tag} (${channel.id}) 已刪除！`,
             true,
-            client)
+            client);
     },
 };

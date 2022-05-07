@@ -3,7 +3,7 @@ const Box = require('cli-box');
 const config = require('../../../../Config.js');
 const moment = require('moment');
 const { Client, GuildChannel } = require('discord.js');
-const { log } = require('./../../../Utils/log')
+const { log } = require('./../../../Utils/log');
 
 module.exports = {
     name: 'channelUpdate',
@@ -73,7 +73,7 @@ module.exports = {
             'info',
             `頻道類別變更：${msg}`,
             true,
-            client)
+            client);
 
         //
     },

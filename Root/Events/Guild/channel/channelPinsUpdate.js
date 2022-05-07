@@ -3,7 +3,7 @@ const Box = require('cli-box');
 const config = require('../../../../Config.js');
 const moment = require('moment');
 const { TextChannel } = require('discord.js');
-const { log } = require('./../../../Utils/log')
+const { log } = require('./../../../Utils/log');
 module.exports = {
     name: 'channelPinsUpdate',
     once: false,
@@ -17,6 +17,6 @@ module.exports = {
             'info',
             `${channel.tag} 於${time}更新了釘選訊息`,
             true,
-            client)
+            client);
     },
 };

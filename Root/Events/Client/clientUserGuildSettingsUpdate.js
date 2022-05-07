@@ -5,7 +5,7 @@ module.exports = {
     name: 'clientUserGuildSettingsUpdate',
     once: false,
     /**
-     * 
+     *
      * @param {clientUserGuildSettings} clientUserGuildSettings
      */
     run: async (clientUserGuildSettings) => {
@@ -13,6 +13,6 @@ module.exports = {
             'info',
             chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人的伺服器設定被更改！`),
             true,
-            client)
+            client);
     },
 };

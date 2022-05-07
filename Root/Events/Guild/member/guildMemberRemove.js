@@ -4,7 +4,7 @@ const config = require('../../../../Config.js');
 const moment = require('moment');
 const db = require('quick.db');
 const { GuildMember, Client } = require('discord.js');
-const { log } = require('./../../../Utils/log')
+const { log } = require('./../../../Utils/log');
 /**
  *
  */
@@ -21,7 +21,7 @@ module.exports = {
             'info',
             `新的成員離開 ${guild.name}： ${member.user.tag}`,
             true,
-            client)
+            client);
 
     },
 };

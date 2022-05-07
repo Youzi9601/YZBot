@@ -1,6 +1,6 @@
 const moment = require('moment');
 const { Emoji } = require('discord.js');
-const { log } = require('./../../../Utils/log')
+const { log } = require('./../../../Utils/log');
 module.exports = {
     name: 'emojiUpdate',
     once: false,
@@ -15,6 +15,6 @@ module.exports = {
             'info',
             `表情符號 ${oldEmoji.name} -> ${newEmoji.name} 變更！`,
             true,
-            client)
+            client);
     },
 };

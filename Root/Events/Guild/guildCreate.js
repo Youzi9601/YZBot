@@ -3,7 +3,7 @@ const Box = require('cli-box');
 const config = require('../../../Config.js');
 const moment = require('moment');
 const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
-const { log } = require('./../../Utils/log')
+const { log } = require('./../../Utils/log');
 module.exports = {
     name: 'guildCreate',
     once: false,
@@ -12,7 +12,7 @@ module.exports = {
             'info',
             chalk.green('進退變動 > ') + `加入 ${guild.name}`,
             true,
-            client)
+            client);
 
         client.user.setPresence({
             activities: [

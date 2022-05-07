@@ -6,7 +6,7 @@ module.exports = {
     name: 'clientUserSettingsUpdate',
     once: false,
     /**
-     * 
+     *
      * @param {clientUserSettings} clientUserSettings
      */
     run: async (clientUserSettings) => {
@@ -14,6 +14,6 @@ module.exports = {
             'info',
             chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人的設定被更改！`),
             true,
-            client)
+            client);
     },
 };
