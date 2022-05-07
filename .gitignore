@@ -9,5 +9,6 @@ json.sqlite
 .env
 eula.txt
 ##忽略的設定檔：
+Root/Plugins/TaiwanEarthQuake/
 #Root/Language/
 #無

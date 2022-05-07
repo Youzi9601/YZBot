@@ -3,6 +3,8 @@ const Box = require('cli-box');
 const config = require('../../../../Config.js');
 const moment = require('moment');
 const { Client, GuildChannel } = require('discord.js');
+const { log } = require('./../../../Utils/log')
+
 module.exports = {
     name: 'channelUpdate',
     once: false,
@@ -67,11 +69,11 @@ module.exports = {
             // + `${change.permissionOverwrites ? `\n權限變更: \`${change.permissionOverwrites}` : ''}`
             + `${change.topic ? `\n主題變更: ${change.topic}` : ''}`
             + `${change.viewable ? `\n可見變更: ${change.viewable}` : ''}`;
-        console.log(
-            `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 頻道類別變更：`
-            + msg,
-
-        );
+        log(
+            'info',
+            `頻道類別變更：${msg}`,
+            true,
+            client)
 
         //
     },

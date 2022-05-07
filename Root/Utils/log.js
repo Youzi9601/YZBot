@@ -14,36 +14,40 @@ module.exports = { log };
  * @param {Message} discordmsg 訊息內容
  * @param {Client} client 機器人
  */
-function log(level, msg, SendToDiscord, discordmsg, client) {
+function log(level, msg, SendToDiscord, client, discordmsg) {
     if (config.Channels.All && SendToDiscord) {
         const log_channel = client.channels.cache.get(
             config.Channels.All,
         );
         // 發送訊息
         const send = {};
-        if (!discordmsg.content) send.content = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} [${level}] ${msg}`;
+        if (!discordmsg) {
+            send.content = `> [${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜ ${msg}`;
+        } else {
+            send = discordmsg;
+        }
         log_channel.send(send);
     }
     // info
     if (level == 'info') {
         console.log(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`,
         ) + msg);
     }
     // warn
     else if (level == 'warn') {
         console.warn(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`,
         ) + msg);
     }
     // error
     else if (level == 'error') {
         console.error(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`,
         ) + msg);
     }
 
-    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg}`, function(err) {
+    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg}`, function (err) {
         // none
     });
 }

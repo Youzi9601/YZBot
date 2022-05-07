@@ -3,6 +3,7 @@ const Box = require('cli-box');
 const config = require('../../../../Config.js');
 const moment = require('moment');
 const { Channel } = require('discord.js');
+const { log } = require('./../../../Utils/log')
 module.exports = {
     name: 'channelDelete',
     once: false,
@@ -10,9 +11,11 @@ module.exports = {
      *
      * @param {Channel} channel 頻道
      */
-    run: async (channel) => {
-        // console.log(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + chalk.bgYellow.bold('客戶端嘗試重新連接到 WebSocket'));
-        console.log(`\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${channel.tag} (${channel.type}) 已創建！`);
-        // end
+    run: async (channel, client) => {
+        log(
+            'info',
+            `${channel.tag} (${channel.id}) 已刪除！`,
+            true,
+            client)
     },
 };

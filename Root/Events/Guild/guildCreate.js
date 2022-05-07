@@ -3,17 +3,16 @@ const Box = require('cli-box');
 const config = require('../../../Config.js');
 const moment = require('moment');
 const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
+const { log } = require('./../../Utils/log')
 module.exports = {
     name: 'guildCreate',
     once: false,
     run: async (guild, client, container) => {
-        console.log(
-            chalk.gray(
-                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-            ) +
-            chalk.green('進退變動 > ') +
-            `加入 ${guild.name}`,
-        );
+        log(
+            'info',
+            chalk.green('進退變動 > ') + `加入 ${guild.name}`,
+            true,
+            client)
 
         client.user.setPresence({
             activities: [
