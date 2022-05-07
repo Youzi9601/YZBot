@@ -1,6 +1,6 @@
 (async () => {
     // #region 啟動設定
-    //const { log } = require('./Root/Utils/log')
+    // const { log } = require('./Root/Utils/log')
     const moment = require('moment');
     const fs = require('fs');
     const Discord = require('discord.js');
@@ -45,7 +45,7 @@
         },
     });
     const chalk = require('chalk');
-    // #endregion 
+    // #endregion
 
     // #region 自動更新
     const aufg = require('auto-update-from-github');
@@ -69,7 +69,7 @@
     /**
    *
    * 運轉
-   * 
+   *
    */
     console.log(
         chalk.gray(
@@ -77,7 +77,7 @@
         ) + '讀取運轉文件...(可能需要花上很多時間)',
     );
     client.commands = {};
-    client.events = new Discord.Collection(); //[${moment().format("YYYY-MM-DD HH:mm:ss")}] 為時間截
+    client.events = new Discord.Collection(); // [${moment().format("YYYY-MM-DD HH:mm:ss")}] 為時間截
     client.commands.messageCommands = new Discord.Collection();
     client.commands.messageCommands.aliases = new Discord.Collection();
     client.commands.contextMenus = new Discord.Collection();
@@ -122,9 +122,9 @@
     // eula 認證
 
     if (ci === 'false') { // 避免CI測試進入驗證
-        const eula_pass = fs.readFile('./eula.txt', function (err, data) {
+        const eula_pass = fs.readFile('./eula.txt', function(err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function (err) {
+                fs.writeFile('./eula.txt', '', function(err) {
                 });
                 console.error(
                     chalk.bgRed(
@@ -157,9 +157,9 @@
     // #endregion
 
     /**
-     * 
+     *
      * 登入機器人後所執行的事情
-     * 
+     *
      */
     // 執行登入命令
     console.log(

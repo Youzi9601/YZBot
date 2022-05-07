@@ -7,7 +7,7 @@ module.exports = {
     name: 'channelPinsUpdate',
     once: false,
     /**
-     * 
+     *
      * @param {TextChannel} channel 頻道
      * @param {Pin} time 釘選時間
      */
