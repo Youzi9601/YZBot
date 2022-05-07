@@ -266,7 +266,7 @@ module.exports = {
             .setStyle('PRIMARY');
 
         // Create an array of embeds
-        let pages = [
+        const pages = [
             embed1,
             embed2,
             embed3,
@@ -278,12 +278,12 @@ module.exports = {
 
         // create an array of buttons
 
-        let buttonList = [
+        const buttonList = [
             Previous_button,
             Next_button,
         ];
 
-        let timeout = '120000';
+        const timeout = '120000';
 
         // Call the paginationEmbed method, first three arguments are required
         // timeout is the time till the reaction collectors are active, after this you can't change pages (in ms), defaults to 120000
