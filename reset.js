@@ -1,5 +1,4 @@
 // 此檔案用於刪除所有命令！
-// 非常危險
 (async () => {
     // const moment = require("moment");
 
