@@ -18,7 +18,7 @@ module.exports = {
     cooldown: 5000,
     /**
      *
-     * @param {Client} client
+     * @param {import('discord.js').Client} client 機器人
      * @param {CommandInteraction} interaction
      * @param {*} container
      */

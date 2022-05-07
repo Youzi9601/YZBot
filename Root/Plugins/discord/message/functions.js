@@ -2,7 +2,7 @@ const { Client, Channel, Message, ReactionEmoji } = require('discord.js');
 
 /**
  *
- * @param {Client} Client 機器人
+ * @param {import('discord.js').Client} client 機器人
  * @param {Channel.id} channel_id 頻道id
  * @returns 頻道資訊
  */
@@ -17,7 +17,7 @@ function getChannel(channel_id, Client) {
 }
 /**
  *
- * @param {Client} Client 機器人
+ * @param {import('discord.js').Client} client 機器人
  * @param {Message.id} message_id 訊息id
  * @param {Channel} channel 頻道id
  * @returns 訊息資訊

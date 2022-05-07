@@ -5,7 +5,7 @@ module.exports = {
     /**
      *
      * @param {messageCreate} message
-     * @param {Client} client
+     * @param {import('discord.js').Client} client 機器人
      * @param {*} container
      */
     run: async (message, client, container) => {

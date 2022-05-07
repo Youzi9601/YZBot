@@ -10,7 +10,7 @@ module.exports = {
     name: 'error',
     once: false,
     /**
-     * @param {Client} client
+     * @param {import('discord.js').Client} client 機器人
      * @param {error} e
      */
     run: async (e, client) => {

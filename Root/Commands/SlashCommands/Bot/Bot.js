@@ -587,7 +587,7 @@ module.exports = {
     userPermissions: ['ADMINISTRATOR'],
     /**
      *
-     * @param {Client} client
+     * @param {import('discord.js').Client} client 機器人
      * @param {CommandInteraction} interaction
      * @param {container} container
      */

@@ -7,7 +7,7 @@ module.exports = {
     /**
      *
      * @param {CommandInteraction} interaction
-     * @param {Client} client
+     * @param {import('discord.js').Client} client 機器人
      */
     run: async (interaction, client) => {
         const loadCommandOptions = require('../Structures/CommandOptions/loadCommandOptions');

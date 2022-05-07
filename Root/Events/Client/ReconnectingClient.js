@@ -9,7 +9,7 @@ module.exports = {
     once: true,
     /**
      *
-     * @param {Client} client
+     * @param {import('discord.js').Client} client 機器人
      */
     run: async (client) => {
         console.log(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + chalk.bgYellow.bold('客戶端嘗試重新連接到 WebSocket'));

@@ -20,7 +20,7 @@ if (config.web.port == 80) {
 }
 
 /**
- * @param {Client} client
+ * @param {import('discord.js').Client} client 機器人
  */
 
 module.exports = {
