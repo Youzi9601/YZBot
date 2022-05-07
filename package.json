@@ -17,9 +17,9 @@
     "dev": "npm i -g npm-check-updates eslint",
     "check": "npm run update && npm run lint",
     "reset": "echo \"刪除所有命令\" && node reset.js",
-    "update_patch": "npm version patch",
-    "update_minor": "npm version minor",
-    "update_major": "npm version major"
+    "update_patch": "npm version patch && npm i",
+    "update_minor": "npm version minor && npm i",
+    "update_major": "npm version major && npm i"
   },
   "repository": {
     "type": "git",
