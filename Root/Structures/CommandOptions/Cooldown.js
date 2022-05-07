@@ -1,6 +1,6 @@
 const db = require('quick.db');
 const humanizeDuration = require('humanize-duration');
-module.exports = async function (
+module.exports = async function(
     client,
     message,
     command,

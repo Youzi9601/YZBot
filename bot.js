@@ -1,6 +1,6 @@
 (async () => {
     // #region 啟動設定
-    //const { log } = require('./Root/Utils/log')
+    // const { log } = require('./Root/Utils/log')
     const chalk = require('chalk');
     const moment = require('moment');
     const fs = require('fs');
@@ -34,8 +34,8 @@
             Discord.Intents.FLAGS.GUILD_BANS,
         ],
         partials: ['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'GUILD_SCHEDULED_EVENT'],
-        //ws可用於讓機器人上線狀態為使用"手機"
-        //ws: { properties: { $browser: 'Discord iOS' } },
+        // ws可用於讓機器人上線狀態為使用"手機"
+        // ws: { properties: { $browser: 'Discord iOS' } },
     });
 
     const { Player } = require('discord-player');
@@ -46,7 +46,7 @@
             highWaterMark: 1 << 25,
         },
     });
-    // #endregion 
+    // #endregion
 
     // #region 自動更新
     const aufg = require('auto-update-from-github');
