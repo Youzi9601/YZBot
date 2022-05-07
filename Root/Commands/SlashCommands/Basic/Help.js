@@ -171,7 +171,6 @@ module.exports = {
 
         // 使用 MessageEmbed 製作頁面
         // 請記住，嵌入不應設置其頁腳，因為分頁方法在那裡設置頁面信息
-        const { MessageEmbed, MessageButton } = require('discord.js');
         const embed1 = new MessageEmbed()
             .setTitle('Help 命令列表｜基本')
             .setDescription(
@@ -267,7 +266,7 @@ module.exports = {
             .setStyle('PRIMARY');
 
         // Create an array of embeds
-        pages = [
+        let pages = [
             embed1,
             embed2,
             embed3,
@@ -279,12 +278,12 @@ module.exports = {
 
         // create an array of buttons
 
-        buttonList = [
+        let buttonList = [
             Previous_button,
             Next_button,
         ];
 
-        timeout = '120000';
+        let timeout = '120000';
 
         // Call the paginationEmbed method, first three arguments are required
         // timeout is the time till the reaction collectors are active, after this you can't change pages (in ms), defaults to 120000
