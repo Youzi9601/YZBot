@@ -1,6 +1,7 @@
-/* eslint-disable no-unused-vars */
+/**
+ * 網頁設定
+ */
 const db = require('quick.db');
-
 const moment = require('moment');
 const chalk = require('chalk');
 const {
