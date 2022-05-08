@@ -10,8 +10,8 @@ module.exports = {
     once: false,
     run: async (guild, client, container) => {
         const discordmsg = {
-            content: `進退變動 > 加入 ${guild.name}`
-        }
+            content: `進退變動 > 加入 ${guild.name}`,
+        };
         log(
             'info',
             chalk.green('進退變動 > ') + `離開 ${guild.name}`,
