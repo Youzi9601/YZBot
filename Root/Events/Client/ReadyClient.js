@@ -8,6 +8,11 @@ const db = require('quick.db');
 module.exports = {
     name: 'ready',
     once: true,
+    /**
+     * 
+     * @param {import('discord.js').Client} client 
+     * @returns null
+     */
     run: async (client) => {
         console.log(
             chalk.gray(
@@ -18,11 +23,12 @@ module.exports = {
         client.user.setPresence({
             activities: [
                 {
-                    name: `${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者`,
+                    name: `${client.user.username} 啟動中...`,
+                    //${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                 },
             ],
-            browser: 'DISCORD IOS',
-            status: 'idle',
+            //browser: 'DISCORD IOS',
+            status: 'idle', //還在啟動中
         });
 
         const ClientBox = new Box(
@@ -148,9 +154,20 @@ Client 事件      ::     ${client.events.size} 個
             const { updater } = require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater');
             updater(readymsg, msg, client);
         } catch (error) { console.log(error); }
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人成功上線！`, function(err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人成功上線！`, function (err) {
             if (err)
                 console.log(err);
+        });
+        //設定狀態
+        client.user.setPresence({
+            activities: [
+                {
+                    name: `${client.user.username} 啟動成功！`,
+                    //${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
+                },
+            ],
+            //browser: 'DISCORD IOS',
+            status: 'online', //還沒啟動成功
         });
 
         // CI

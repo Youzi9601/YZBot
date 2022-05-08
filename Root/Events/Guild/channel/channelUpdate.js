@@ -1,8 +1,4 @@
-const chalk = require('chalk');
-const Box = require('cli-box');
-const config = require('../../../../Config.js');
-const moment = require('moment');
-const { Client, GuildChannel } = require('discord.js');
+const { GuildChannel } = require('discord.js');
 const { log } = require('./../../../Utils/log');
 
 module.exports = {
@@ -71,7 +67,7 @@ module.exports = {
             + `${change.viewable ? `\n可見變更: ${change.viewable}` : ''}`;
         log(
             'info',
-            `頻道類別變更：${msg}`,
+            `CHANNEL｜${newChannel.guild.name}(${newChannel.id}) 的頻道類別變更：${msg}`,
             true,
             client);
 
