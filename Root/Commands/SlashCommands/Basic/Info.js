@@ -8,6 +8,7 @@ const {
     MessageSelectMenu,
     CommandInteraction,
 } = require('discord.js');
+const { translate_Level } = require('./../../../Language/Language')
 module.exports = {
     command: {
         name: 'info',
@@ -100,7 +101,7 @@ module.exports = {
                         `> ${interaction.guild.premiumTier} 等級`,
                         `> ${interaction.guild.premiumSubscriptionCount} 個加成`,
                         '**驗證等級**',
-                        `> ${interaction.guild.verificationLevel}`,
+                        `> ${translate_Level(interaction.guild.verificationLevel, 'zh-TW')}`,
                         '**語言環境**',
                         `> ${interaction.guild.preferredLocale}`,
                     ].join('\n'),

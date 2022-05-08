@@ -32,6 +32,16 @@ async function updater(message, oldmsg, client) {
             ].join('\n'),
         };
         message.edit(msg);
+        client.user.setPresence({
+            activities: [
+                {
+                    name: `${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者`,
+                    // 
+                },
+            ],
+            // browser: 'DISCORD IOS',
+            status: 'online', // 還沒啟動成功
+        });
     }
 
     //

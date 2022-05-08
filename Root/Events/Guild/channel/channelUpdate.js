@@ -64,7 +64,8 @@ module.exports = {
             + `${change.position ? `\n順位變更: ${change.position}` : ''}`
             // + `${change.permissionOverwrites ? `\n權限變更: \`${change.permissionOverwrites}` : ''}`
             + `${change.topic ? `\n主題變更: ${change.topic}` : ''}`
-            + `${change.viewable ? `\n可見變更: ${change.viewable}` : ''}`;
+            + `${change.viewable ? `\n可見變更: ${change.viewable}` : ''}`
+            + `${change.permissionOverwrites ? `\n權限變更: 請看"審核日誌"` : ''}`;
         log(
             'info',
             `CHANNEL｜${newChannel.guild.name}(${newChannel.id}) 的頻道類別變更：${msg}`,

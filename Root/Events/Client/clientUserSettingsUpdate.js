@@ -10,10 +10,14 @@ module.exports = {
      * @param {clientUserSettings} clientUserSettings
      */
     run: async (clientUserSettings) => {
+        const discordmsg = {
+            content: `機器人的設定被更改！`
+        }
         log(
             'info',
-            chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人的設定被更改！`),
+            chalk.gray(`機器人的設定被更改！`),
             true,
-            client);
+            client,
+            discordmsg);
     },
 };
