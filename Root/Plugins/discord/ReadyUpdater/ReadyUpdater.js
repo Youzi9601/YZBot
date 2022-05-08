@@ -1,8 +1,6 @@
 module.exports = { updater };
-const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
 const config = require('../../../../Config');
-const { stat } = require('fs');
 const axios = require('axios');
 
 /**
