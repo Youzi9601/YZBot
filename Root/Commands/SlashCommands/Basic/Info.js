@@ -8,7 +8,7 @@ const {
     MessageSelectMenu,
     CommandInteraction,
 } = require('discord.js');
-const { translate_Level } = require('./../../../Language/Language')
+const { translate_Level } = require('./../../../Language/Language');
 module.exports = {
     command: {
         name: 'info',
