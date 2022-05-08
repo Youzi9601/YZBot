@@ -5,7 +5,6 @@ node_modules/
 .git/
 logs/*.log
 ##忽略檔案：
-Config.js
 json.sqlite
 .env
 eula.txt
