@@ -78,12 +78,14 @@
 
 2. 解壓縮，並於**終端機**執行 `npm install`
 
-3. 將您的機器人設定填入 `Config.js` 中 (內有使用說明)
+3. 將 `Ex.Config.js` 改成 `Config.js`
+
+4. 將您的機器人設定填入 `Config.js` 中 (內有使用說明)
    ( token 以及 Client ID 可以從 <https://discord.com/developers/applications> 找到 )
 
-4. [可選] 如果你想要使用網頁，可以將 `noWeb` 設定為 "null"(無定義) 即可啟用網頁！
+5. [可選] 如果你想要使用網頁，可以將 `noWeb` 設定為 "null"(無定義) 即可啟用網頁！
 
-5. 運行 `Bot.js` (執行 `node bot.js` 或 `node .`) 讓機器人註冊指令並開始運行，此時機器人會上線 (注意：註冊命令需要一些時間！)。
+6. 運行 `Bot.js` (執行 `node bot.js` 或 `node .`) 讓機器人註冊指令並開始運行，此時機器人會上線 (注意：註冊命令需要一些時間！)。
 
 </details>
 

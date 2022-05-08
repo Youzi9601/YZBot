@@ -148,7 +148,7 @@
     } else {
         console.error(
             chalk.bgGray.white(
-                '跳過eula檢查',
+                '跳過eula檢查......',
             ),
         );
     }
