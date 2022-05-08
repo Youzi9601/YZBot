@@ -37,7 +37,7 @@ async function updater(message, oldmsg, client) {
         };
         message.edit(msg);
 
-        //更新狀態
+        // 更新狀態
         /**
                     const message = guildData.plugins.welcome.message
                     .replace(/{user}/g, member)
@@ -51,9 +51,9 @@ async function updater(message, oldmsg, client) {
         const subSet = superSet.match(/\d+/g); // \{"label"\:".*?"\}
         /* 如果通道名稱與 subs 相同，則停止執行 */
         const subs = `${subSet[0]}`;
-        //處理狀態
+        // 處理狀態
         const status =
-            config.botPresence.activities[Math.floor(Math.random() * config.botPresence.activities.length)]
+            config.botPresence.activities[Math.floor(Math.random() * config.botPresence.activities.length)];
         status.name =
             status.name
                 .replace(/{bot.name}/g, client.user.name)
@@ -63,10 +63,10 @@ async function updater(message, oldmsg, client) {
                     conjunction: ' ',
                     language: 'zh_TW',
                 }))
-                .replace(/{Youtube.subs}/g, subs)
-        status.type = status.type.toUpperCase()
-        //const browser = { browser: config.botPresence.browser || undefined }
-        /*client.user.setPresence({
+                .replace(/{Youtube.subs}/g, subs);
+        status.type = status.type.toUpperCase();
+        // const browser = { browser: config.botPresence.browser || undefined }
+        /* client.user.setPresence({
             activities: [
                 {
                     name: `${status.name}`,
@@ -84,10 +84,10 @@ async function updater(message, oldmsg, client) {
             {
                 name: status.name,
                 type: status.type,
-                url: `${status.url || 'https://www.twitch.tv/Youzi9601'}`
-            }
-        )
-        //等待
+                url: `${status.url || 'https://www.twitch.tv/Youzi9601'}`,
+            },
+        );
+        // 等待
         await sleep(10000);
 
     }
