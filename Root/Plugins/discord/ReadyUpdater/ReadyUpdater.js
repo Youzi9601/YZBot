@@ -1,6 +1,9 @@
 module.exports = { updater };
 const moment = require('moment');
 const humanizeDuration = require('humanize-duration');
+const config = require('../../../../Config');
+const { stat } = require('fs');
+const axios = require('axios');
 
 /**
  *
@@ -20,28 +23,73 @@ async function updater(message, oldmsg, client) {
         });
     };
     for (let i = 0; true; i++) {
-        await sleep(30000);
+
+        // 更新訊息
         const msg = {
             content: [oldmsg,
                 `> ．Websocket 延遲: ${client.ws.ping}ms`,
                 `> ．運行時間: ${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
-                    conjunction: ', ',
+                    conjunction: ' ',
                     language: 'zh_TW',
                 })}`,
                 `> ．最後更新: <t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`,
             ].join('\n'),
         };
         message.edit(msg);
-        client.user.setPresence({
+
+        //更新狀態
+        /**
+                    const message = guildData.plugins.welcome.message
+                    .replace(/{user}/g, member)
+                    .replace(/{server}/g, member.guild.name)
+                    .replace(/{membercount}/g, member.guild.memberCount)
+        */
+        /* 獲取網站的 Html 數據 */
+        const rawHtml = await axios(config.youtube).then((res) => res.data);
+        /* 將使用正則表達式來獲取訂閱人數 */
+        const superSet = rawHtml.match(/"subscriberCountText".+?(?="tvBanner":)/s)[0];
+        const subSet = superSet.match(/\d+/g); // \{"label"\:".*?"\}
+        /* 如果通道名稱與 subs 相同，則停止執行 */
+        const subs = `${subSet[0]}`;
+        //處理狀態
+        const status =
+            config.botPresence.activities[Math.floor(Math.random() * config.botPresence.activities.length)]
+        status.name =
+            status.name
+                .replace(/{bot.name}/g, client.user.name)
+                .replace(/{count.guilds}/g, client.guilds.cache.size)
+                .replace(/{count.members}/g, client.users.cache.size)
+                .replace(/{bot.uptime}/g, humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+                    conjunction: ' ',
+                    language: 'zh_TW',
+                }))
+                .replace(/{Youtube.subs}/g, subs)
+        status.type = status.type.toUpperCase()
+        //const browser = { browser: config.botPresence.browser || undefined }
+        /*client.user.setPresence({
             activities: [
                 {
-                    name: `${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者`,
-                    // 
+                    name: `${status.name}`,
+                    type: `${status.type}` || undefined,
+                    url: `${status.url}` || undefined,
                 },
             ],
-            // browser: 'DISCORD IOS',
-            status: 'online', // 還沒啟動成功
-        });
+            // browser: "DISCORD IOS",
+            status: `${config.botPresence.status}`,
+            browser
+        });*/
+        client.user.setStatus(`${config.botPresence.status}`);
+        client.user.setActivity(
+            `${status.name}`,
+            {
+                name: status.name,
+                type: status.type,
+                url: `${status.url || 'https://www.twitch.tv/Youzi9601'}`
+            }
+        )
+        //等待
+        await sleep(10000);
+
     }
 
     //

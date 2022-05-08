@@ -875,7 +875,7 @@ module.exports = {
                 const type = interaction.options.getString('type');
                 const url = undefined;
                 if (type == 'STREAMING') {
-                    url = `${interaction.options.getString('url')}`;
+                    url = { url: `${interaction.options.getString('url')}` };
                 }
                 client.user.setPresence({
                     activities: [
