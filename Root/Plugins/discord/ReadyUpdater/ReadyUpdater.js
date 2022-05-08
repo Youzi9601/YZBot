@@ -36,7 +36,7 @@ async function updater(message, oldmsg, client) {
             activities: [
                 {
                     name: `${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者`,
-                    // 
+                    //
                 },
             ],
             // browser: 'DISCORD IOS',

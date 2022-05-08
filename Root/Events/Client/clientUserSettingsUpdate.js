@@ -11,11 +11,11 @@ module.exports = {
      */
     run: async (clientUserSettings) => {
         const discordmsg = {
-            content: `機器人的設定被更改！`
-        }
+            content: '機器人的設定被更改！',
+        };
         log(
             'info',
-            chalk.gray(`機器人的設定被更改！`),
+            chalk.gray('機器人的設定被更改！'),
             true,
             client,
             discordmsg);
