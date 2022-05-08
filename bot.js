@@ -121,11 +121,10 @@
     }
 
     // eula 認證
-
-    if (ci === 'false') { // 避免CI測試進入驗證
-        const eula_pass = fs.readFile('./eula.txt', function(err, data) {
+    if (ci == 'false') { // 避免CI測試進入驗證
+        const eula_pass = fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
@@ -146,6 +145,12 @@
                 process.exit(0);
             }
         });
+    } else {
+        console.error(
+            chalk.bgGray.white(
+                '跳過eula檢查',
+            ),
+        );
     }
 
 
