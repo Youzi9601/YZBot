@@ -123,9 +123,9 @@
     // eula 認證
 
     if (ci === 'false') { // 避免CI測試進入驗證
-        const eula_pass = fs.readFile('./eula.txt', function (err, data) {
+        const eula_pass = fs.readFile('./eula.txt', function(err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function (err) {
+                fs.writeFile('./eula.txt', '', function(err) {
                 });
                 console.error(
                     chalk.bgRed(
@@ -150,16 +150,16 @@
 
 
     await client.login(config.token);
-    //設定尚未完成
+    // 設定尚未完成
     client.user.setPresence({
         activities: [
             {
                 name: `${client.user.username} 暫停服務...`,
-                //${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
+                // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
             },
         ],
-        //browser: 'DISCORD IOS',
-        status: 'dnd', //還沒啟動完成
+        // browser: 'DISCORD IOS',
+        status: 'dnd', // 還沒啟動完成
     });
     console.log(
         chalk.gray(
