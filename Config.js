@@ -51,7 +51,7 @@ module.exports = {
         activities: [
             /**
              * 例：
-             * 
+             *
              * {
              * // 名稱
              *   name: `狀態名稱`,
@@ -60,7 +60,7 @@ module.exports = {
              * // 如果type為"Streaming"可使用以下來輸入網址！(如果沒有則無效)
              *   url: `網址`,
              * }
-             * 
+             *
              * // 可用變數：
              * {bot.name} - 機器人名字
              * {bot.uptime} - 機器人運作時間
@@ -69,22 +69,22 @@ module.exports = {
              * {Youtube.subs} - Youtube 訂閱者數量 (需要在 "Youtube.url" 的選項中輸入連結！)
              */
             {
-                type: "WATCHING",
-                name: `{count.guilds}個伺服器&{count.members}個使用者`,
+                type: 'WATCHING',
+                name: '{count.guilds}個伺服器&{count.members}個使用者',
             },
             {
-                type: "PLAYING",
-                name: `上線時間: {bot.uptime}`,
+                type: 'PLAYING',
+                name: '上線時間: {bot.uptime}',
             },
             {
-                name: `訂閱 Youzi9601 ！`,
-                type: `STREAMING`,
+                name: '訂閱 Youzi9601 ！',
+                type: 'STREAMING',
                 url: 'https://www.twitch.tv/Youzi9601',
             },
             {
-                name: `Youzi9601 訂閱數：{Youtube.subs}位！`,
-                type: `COMPETING`,
-            }
+                name: 'Youzi9601 訂閱數：{Youtube.subs}位！',
+                type: 'COMPETING',
+            },
         ],
         // 狀態
         status: 'idle',
@@ -92,9 +92,9 @@ module.exports = {
 
 
     /**
-     * 
+     *
      * 日誌輸出
-     * 
+     *
      */
     // 控制台日誌前綴名稱(可為空)
     console_prefix: process.env.console_prefix || '',
@@ -156,20 +156,20 @@ module.exports = {
     // 調整時差
     // 在GMT-8區為"-8",在GMT+8為"8"
     GMT: process.env.GMT || 8,
-    youtube: "https://www.youtube.com/channel/UCGLbazmDlVg22pO6aGuSRsw",
+    youtube: 'https://www.youtube.com/channel/UCGLbazmDlVg22pO6aGuSRsw',
 
 
     /**
-     * 
+     *
      * 開發(測試)版本
      * // 這功能絕大部分都不能使用！
      */
     beta: {
         // RPC為Discord遊戲狀態顯示系統，目前為測試版
         rpc: {
-            run: false
-        }
+            run: false,
+        },
 
-    }
+    },
 };
 
