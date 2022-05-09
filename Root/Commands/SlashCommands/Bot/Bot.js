@@ -649,12 +649,12 @@ module.exports = {
             // main
             const embed_title = interaction.options.getString('title') || undefined;
             if (embed_title) {
-                embed.title = embed_title.replace('\n', '\n');;
+                embed.title = embed_title.replace('\n', '\n');
             }
             const embed_description =
                 interaction.options.getString('description') || undefined;
             if (embed_description) {
-                embed.description = embed_description.replace('\n', '\n');;
+                embed.description = embed_description.replace('\n', '\n');
             }
             const embed_title_url =
                 interaction.options.getString('title_url') || undefined;
@@ -708,7 +708,7 @@ module.exports = {
             // 取得訊息內容
             const msg = {};
             if (content) {
-                msg.content = content.replace('\n', '\n');;
+                msg.content = content.replace('\n', '\n');
             }
 
             if (
@@ -775,12 +775,12 @@ module.exports = {
             // main
             const embed_title = interaction.options.getString('title') || undefined;
             if (embed_title) {
-                embed.title = embed_title.replace('\n', '\n');;
+                embed.title = embed_title.replace('\n', '\n');
             }
             const embed_description =
                 interaction.options.getString('description') || undefined;
             if (embed_description) {
-                embed.description = embed_description.replace('\n', '\n');;
+                embed.description = embed_description.replace('\n', '\n');
             }
             const embed_title_url =
                 interaction.options.getString('title_url') || undefined;
