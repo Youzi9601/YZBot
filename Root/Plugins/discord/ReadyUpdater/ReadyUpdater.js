@@ -22,12 +22,12 @@ async function updater(message, oldmsg, client) {
     for (let i = 0; true; i++) {
 
         // 更新訊息
-        let embed = {
+        const embed = {
             color: 0x808080,
             description: oldmsg,
             author: {
                 name: `${client.user.username} - 機器人運作資訊`,
-                iconURL: client.user.displayAvatarURL()
+                iconURL: client.user.displayAvatarURL(),
             },
             fields: [
                 { name: '\u200B', value: '\u200B' },
@@ -37,8 +37,8 @@ async function updater(message, oldmsg, client) {
                         conjunction: ' ',
                         language: 'zh_TW',
                     })
-                        } `,
-                    inline: true
+                    } `,
+                    inline: true,
                 },
                 { name: '最後更新:', value: `<t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`, inline: true },
             ],
@@ -65,7 +65,7 @@ async function updater(message, oldmsg, client) {
         .replace(/{server}/g, member.guild.name)
         .replace(/{membercount}/g, member.guild.memberCount)
         */
-        var subs = ''
+        var subs = '';
         try {
 
             /* 獲取網站的 Html 數據 */
@@ -76,7 +76,7 @@ async function updater(message, oldmsg, client) {
             /* 如果通道名稱與 subs 相同，則停止執行 */
             subs = `${subSet[0]}`;
         } catch (error) {
-            subs = '--'
+            subs = '--';
         }
         // 處理狀態
         const status =
