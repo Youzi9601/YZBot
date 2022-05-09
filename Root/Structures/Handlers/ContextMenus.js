@@ -4,13 +4,13 @@ const config = require('../../../Config');
 const chalk = require('chalk');
 const moment = require('moment');
 
-module.exports = async function(client, path) {
-    console.log(
+module.exports = async function (client, path) {
+    console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '互動程式註冊開始！',
     );
-    Filer(`${path}/Root/Commands/ContextMenus`, async function(err, res) {
+    Filer(`${path}/Root/Commands/ContextMenus`, async function (err, res) {
         res.forEach((file) => {
             if (fs.statSync(file).isDirectory()) return;
             const cmd = require(file);
@@ -18,8 +18,8 @@ module.exports = async function(client, path) {
             client.commands.contextMenus.set(require(file).name, require(file));
         });
         let promise = Promise.resolve();
-        res.forEach(async function(file) {
-            promise = promise.then(async function() {
+        res.forEach(async function (file) {
+            promise = promise.then(async function () {
                 const interval = 5000;
                 if (fs.statSync(file).isDirectory()) return;
                 const cmd = require(file);
@@ -29,8 +29,8 @@ module.exports = async function(client, path) {
                     cmd.guilds.forEach((guildID) => {
                         (async () => {
                             const guild =
-                client.guilds.cache.get(guildID) ??
-                (await client.guilds.fetch(guildID));
+                                client.guilds.cache.get(guildID) ??
+                                (await client.guilds.fetch(guildID));
                             const verifier = guild.commands.cache.find(
                                 (x) => x.name == cmd.name,
                             );
@@ -66,14 +66,14 @@ module.exports = async function(client, path) {
                         });
                 }
 
-                return new Promise(function(resolve) {
+                return new Promise(function (resolve) {
                     setTimeout(resolve, interval);
                 });
             });
         });
     });
 
-    console.log(
+    console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '互動程式註冊完成！',

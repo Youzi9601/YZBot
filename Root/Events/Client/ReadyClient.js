@@ -115,7 +115,7 @@ Client 事件      ::     ${client.events.size} 個
         }
 
         // 終端紀錄
-        console.log(
+        console.info(
             chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
             ) +
@@ -159,10 +159,10 @@ Client 事件      ::     ${client.events.size} 個
             const readymsg = await conchannel.send({ embeds: [embed] });
             const { updater } = require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater');
             updater(readymsg, msg, client);
-        } catch (error) { console.log(error); }
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人成功上線！`, function(err) {
+        } catch (error) { console.info(error); }
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人成功上線！`, function (err) {
             if (err)
-                console.log(err);
+                console.info(err);
         });
         // 設定狀態
         client.user.setPresence({
@@ -179,7 +179,7 @@ Client 事件      ::     ${client.events.size} 個
         // CI
         const ci = process.env.CI;
         function cie() {
-            console.log(
+            console.info(
                 chalk.gray(
                     `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
                 ) + 'CI機器人測試成功! 關閉機器人...',

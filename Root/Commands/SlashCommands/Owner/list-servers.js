@@ -34,7 +34,7 @@ module.exports = {
     ownerOnly: true,
     run: async (client, interaction, container) => {
         client.guilds.cache.forEach((guild) => {
-            console.log(
+            console.info(
                 chalk.gray(
                     `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
                 ) +

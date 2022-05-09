@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const moment = require('moment');
 const fs = require('fs');
 
-module.exports = async function(
+module.exports = async function (
     client,
     message,
     command,
@@ -61,15 +61,15 @@ module.exports = async function(
             );
         } catch (error) { }
 
-        console.log(
+        console.info(
             chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
             ) +
             `${message.user.tag} 於﹝ ${message.guild.name} ﹞#${message.channel.name} (${message.guild.id} ${message.channel.id}) 使用命令： ${message}  `,
         );
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag}(${message.user.id}) 於 ${message.guild.name}(${message.guild.id}) #${message.channel.name}(${message.channel.id}) 中使用 ${message}`, function(err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag}(${message.user.id}) 於 ${message.guild.name}(${message.guild.id}) #${message.channel.name}(${message.channel.id}) 中使用 ${message}`, function (err) {
             if (err)
-                console.log(err);
+                console.info(err);
         });
         // 執行斜線命令
         if (isInteraction) command.run(client, message, container);

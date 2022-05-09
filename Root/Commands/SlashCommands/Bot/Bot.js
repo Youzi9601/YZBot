@@ -609,11 +609,11 @@ module.exports = {
             // })
             interaction.channel.messages.fetch(message_id)
                 .then(message => {
-                    console.log(message.content);
+                    console.info(message.content);
                     message.react(`${emoji}`);
                 })
                 .catch(console.error);
-            // console.log(msg)
+            // console.info(msg)
             interaction.reply('已新增反應！');
 
             /*
@@ -627,10 +627,10 @@ module.exports = {
             /**
         //創建反應
         client.addReaction(channel_id, message_id, emoji, function (data) {
-          console.log(data);
+          console.info(data);
         });
         client.sendMessage(channel_id, "owo", function (data) {
-          console.log(data);
+          console.info(data);
         });
         */
         }
@@ -739,8 +739,8 @@ module.exports = {
 
                     const fetchedMsg = message.first();
                     fetchedMsg.edit(msg);
-                    console.log(msg);
-                    console.log(fetchedMsg.content);
+                    console.info(msg);
+                    console.info(fetchedMsg.content);
                     interaction.reply({
                         content: '已經成功編輯指定訊息',
                         ephemeral: true,
@@ -750,7 +750,7 @@ module.exports = {
             interaction.channel.messages
                 .fetch(interaction.options.getString("message_id"))
                 .then(message => {
-                    console.log(message.content)
+                    console.info(message.content)
                     const fetchedMsg = message[0]
                     fetchedMsg.edit(msg);
                     interaction.reply({
@@ -944,7 +944,7 @@ module.exports = {
             interaction.channel.messages
                 .fetch(interaction.options.getString("message_id"))
                 .then(message => {
-                    console.log(message.content)
+                    console.info(message.content)
                     const fetchedMsg = message[0]
                     fetchedMsg.edit(msg);
                     interaction.reply({

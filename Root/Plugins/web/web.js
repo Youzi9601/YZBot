@@ -26,7 +26,7 @@ if (config.web.port == 80) {
 
 module.exports = {
     web: async (client) => {
-        console.log(
+        console.info(
             chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
             ) + chalk.green('讀取網頁中！'),

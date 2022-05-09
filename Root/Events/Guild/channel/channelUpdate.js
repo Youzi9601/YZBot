@@ -53,8 +53,8 @@ module.exports = {
         if (oldChannel.viewable !== newChannel.viewable) {
             change.viewable = `\`${oldChannel.viewable}\` -> \`${newChannel.viewable}\``;
         }
-        // console.log(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + chalk.bgYellow.bold('客戶端嘗試重新連接到 WebSocket'));
-        // console.log(`\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${oldChannel.name} (${oldChannel.type}) 已變更`);
+        // console.info(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + chalk.bgYellow.bold('客戶端嘗試重新連接到 WebSocket'));
+        // console.info(`\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${oldChannel.name} (${oldChannel.type}) 已變更`);
         // end
         const msg =
             ''

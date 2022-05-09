@@ -73,7 +73,7 @@
    * 運轉
    *
    */
-    console.log(
+    console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '讀取運轉文件...(可能需要花上很多時間)',
@@ -89,7 +89,7 @@
 
     // 執行讀取
     const Handler = require(`${path}/Root/Structures/Handlers/Handler`);
-    console.log(
+    console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '讀取事件觸發...',
@@ -98,19 +98,21 @@
 
     // 執行登入
     const ci = process.env.CI;
-    if (ci === 'true') console.log(chalk.gray(
+    if (ci === 'true') console.info(chalk.gray(
         `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
     ) + chalk.red('CI測試事件> ') + 'CI測試進行中...');
-    console.log(
+    console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '機器人檔案讀取中...',
     );
-    console.log(
+    console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '取得Token中...',
     );
+
+
 
     if (!config.token) {
         console.error(
@@ -123,9 +125,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        const eula_pass = fs.readFile('./eula.txt', function(err, data) {
+        const eula_pass = fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
@@ -136,7 +138,7 @@
                 process.exit(0);
             }
 
-            console.log(data.toString());
+            console.info(data.toString());
             if (data.toString() != 'true') {
                 console.error(
                     chalk.bgRed(
@@ -147,7 +149,7 @@
             }
         });
     } else {
-        console.error(
+        console.info(
             chalk.bgGray.white(
                 '跳過eula檢查......',
             ),
@@ -184,32 +186,33 @@
      * 登入機器人後所執行的事情
      *
      */
+    // #region 運作
     // 執行登入命令
-    console.log(
+    console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '讀取訊息命令...',
     );
     await Handler.loadMessageCommands(client, path);
-    console.log(
+    console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '載入斜線命令...',
     );
     await Handler.loadSlashCommands(client, path);
-    console.log(
+    console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '載入互動選單...',
     );
     await Handler.loadContextMenus(client, path);
-    console.log(
+    console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '讀取按鈕交互...',
     );
     await Handler.loadButtonCommands(client, path);
-    console.log(
+    console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '讀取選單交互...',
@@ -217,7 +220,7 @@
     await Handler.loadSelectMenus(client, path);
 
 
-    console.log(
+    console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + chalk.green('完成讀取！'),
@@ -226,7 +229,7 @@
     // 處理網頁
     if (config.web.noWeb != true || config.web.noWeb == 'false') {
         const web = require('./Root/Plugins/web/web.js');
-        console.log(
+        console.info(
             chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
             ) + chalk.white('連線網站...'),
@@ -236,10 +239,10 @@
         if (config.web.port == 80) {
             port80 = true;
         }
-        console.log(chalk.gray(
+        console.info(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + chalk.white('請將以下網址複製到') + chalk.blue(` https://discord.com/developers/applications/${config.clientID}/oauth2/general`) + chalk.white(' 中的 Redirects ！') + chalk.blue(`\n${config.web.domain}${port80 ? '' : `:${config.web.port}`}/discord/callback`));
-        // console.log(`${config.web.domain}${port80 ? '' : `:${config.web.port}`}`)
+        // console.info(`${config.web.domain}${port80 ? '' : `:${config.web.port}`}`)
     }
 
     //

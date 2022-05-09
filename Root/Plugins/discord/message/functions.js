@@ -28,7 +28,7 @@ function getMessage(message_id, channel, Client) {
     channel.fetch;
     channel.messages.fetch(message_id)
         .then(message => {
-            console.log(message.content);
+            console.info(message.content);
             return message;
         })
         .catch(console.error);
@@ -36,9 +36,9 @@ function getMessage(message_id, channel, Client) {
 /**
 
 messages.fetch({ limit: 100 }).then(messages => {
-  console.log(`Received ${messages.size} messages`);
+  console.info(`Received ${messages.size} messages`);
   //Iterate through the messages here with the variable "messages".
-  messages.forEach(message => console.log(message.content))
+  messages.forEach(message => console.info(message.content))
 })*/
 
 module.exports = {

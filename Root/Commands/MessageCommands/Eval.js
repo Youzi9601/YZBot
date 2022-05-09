@@ -1,8 +1,8 @@
 const { inspect } = require('util');
 module.exports = {
-    name : 'eval',
+    name: 'eval',
     ownerOnly: true,
-    run : async (client, message, args, container) => {
+    run: async (client, message, args, container) => {
         Object.assign(this, container);
         const row = new container.Discord.MessageActionRow()
             .addComponents(
@@ -25,16 +25,16 @@ module.exports = {
             if (String(code).includes(container.Config.token)) code = 'This message contained client\'s token.';
             if (originalCode.includes('--silent')) return;
             else message.reply({
-                content:`\`\`\`js\n${code}\n\`\`\``,
+                content: `\`\`\`js\n${code}\n\`\`\``,
                 components: [row],
                 allowedMentions: {
                     repliedUser: false,
                 },
             });
         } catch (error) {
-            console.log(error);
+            console.info(error);
             message.channel.send({
-                content:`\`\`\`js\n${error}\n\`\`\``,
+                content: `\`\`\`js\n${error}\n\`\`\``,
                 components: [row],
             });
         }

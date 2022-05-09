@@ -37,8 +37,14 @@ function log(level, msg, SendToDiscord, client, discordmsg) {
         log_channel.send(send);
     }
     // info
-    if (level == 'info') {
+    if (level == 'log') {
         console.log(chalk.gray(
+            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`,
+        ) + msg);
+    }
+    // info
+    else if (level == 'info') {
+        console.info(chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`,
         ) + msg);
     }
@@ -55,7 +61,7 @@ function log(level, msg, SendToDiscord, client, discordmsg) {
         ) + msg);
     }
 
-    fs.appendFile(`logs / ${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function(err) {
+    fs.appendFile(`logs / ${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function (err) {
         // none
     });
 }

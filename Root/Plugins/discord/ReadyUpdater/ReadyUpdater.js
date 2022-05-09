@@ -9,7 +9,7 @@ const axios = require('axios');
  * @param {import('discord.js').Client} client
  */
 async function updater(message, oldmsg, client) {
-    // console.log('執行UpDater')
+    // console.info('執行UpDater')
     //
     // 更新機器人狀態
     const sleep = async (ms) => {
@@ -37,7 +37,7 @@ async function updater(message, oldmsg, client) {
                         conjunction: ' ',
                         language: 'zh_TW',
                     })
-                    } `,
+                        } `,
                     inline: true,
                 },
                 { name: '最後更新:', value: `<t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`, inline: true },

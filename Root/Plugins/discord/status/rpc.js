@@ -19,7 +19,7 @@ async function rpc() {
     });
     await ipc.login({ clientId })
         .catch(err => {
-            console.log(err);
+            console.info(err);
         }); // 使用提供的 Client ID 登入
     /*
     const scopes = ['rpc', 'rpc.api', 'messages.read'];
@@ -27,8 +27,8 @@ async function rpc() {
     const client = new RPC.Client({ transport: 'websocket' });
 
     client.on('ready', () => {
-      console.log('Logged in as', client.application.name);
-      console.log('Authed for user', client.user.username);
+      console.info('Logged in as', client.application.name);
+      console.info('Authed for user', client.user.username);
 
       client.selectVoiceChannel('81384788862181376');
     });

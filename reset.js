@@ -20,7 +20,7 @@
             Discord.Intents.FLAGS.GUILD_BANS,
         ],
         partials: ['CHANNEL'],
-    // ws: { properties: { $browser: "Discord iOS" } }
+        // ws: { properties: { $browser: "Discord iOS" } }
     });
     const { SlashCommandBuilder } = require('@discordjs/builders');
     const { REST } = require('@discordjs/rest');
@@ -43,11 +43,10 @@
     rest.get(Routes.applicationCommands(config.clientID)).then((data) => {
         const promises = [];
         for (const command of data) {
-            const deleteUrl = `${Routes.applicationCommands(config.clientID)}/${
-                command.id
-            }`;
+            const deleteUrl = `${Routes.applicationCommands(config.clientID)}/${command.id
+                }`;
             promises.push(rest.delete(deleteUrl));
-            console.log(deleteUrl);
+            console.info(deleteUrl);
         }
         return Promise.all(promises);
     });

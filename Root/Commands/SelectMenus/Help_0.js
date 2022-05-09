@@ -10,7 +10,7 @@ const {
 module.exports = {
     name: 'help-menu',
     run: async (client, interaction, container) => {
-        console.log('hi');
+        console.info('hi');
         const embed = new container.Discord.MessageEmbed()
             .setColor('RANDOM')
             .setTimestamp()
