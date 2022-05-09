@@ -10,7 +10,10 @@ module.exports = {
     once: false,
     run: async (guild, client, container) => {
         const discordmsg = {
-            content: `進退變動 > 離開 ${guild.name}`,
+            embeds: [{
+                description: `進退變動 > 離開 ${guild.name}`,
+                color: 0x808080,
+            }],
         };
         log(
             'info',

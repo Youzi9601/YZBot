@@ -20,9 +20,12 @@ function log(level, msg, SendToDiscord, client, discordmsg) {
             config.Channels.All,
         );
         // 發送訊息
-        const send = {};
+        let send = {
+            content: 'ERROR: 未知的訊息'
+        };
         if (!discordmsg) {
             // send.content = `> \`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜ ${msg}\`\`\``;
+            send.content = null;
             send.embeds = [
                 {
                     color: 0x808080,
@@ -32,7 +35,7 @@ function log(level, msg, SendToDiscord, client, discordmsg) {
                 },
             ];
         } else {
-            send = discordmsg;
+            send = discordmsg || 'ERROR: 未知的訊息';
         }
         log_channel.send(send);
     }
@@ -61,7 +64,7 @@ function log(level, msg, SendToDiscord, client, discordmsg) {
         ) + msg);
     }
 
-    fs.appendFile(`logs / ${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function(err) {
+    fs.appendFile(`logs / ${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function (err) {
         // none
     });
 }
