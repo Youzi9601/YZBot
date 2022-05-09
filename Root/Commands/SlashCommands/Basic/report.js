@@ -92,8 +92,6 @@ module.exports = {
     },
     clientPermissions: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'READ_MESSAGE_HISTORY'],
     userPermissions: ['SEND_MESSAGES'],
-    ownerOnly: true,
-    ignoreFile: true,
     /**
      *
      * @param {import('discord.js').Client} client
@@ -103,7 +101,9 @@ module.exports = {
     run: async (client, interaction, container) => {
         // 內容
         const subcommand = interaction.options.getSubcommand();
-        interaction.deferReply();
+        interaction.deferReply({
+            ephemeral: true,
+        });
         // bug
         if (subcommand == 'bug') {
 
@@ -124,7 +124,6 @@ module.exports = {
             reportChannel.send({ embeds: [report_embed] });
             interaction.editreply({
                 content: '已回報錯誤！感謝您的回報讓我們可以更好！',
-                ephemeral: true,
             });
             const report_info = new MessageEmbed()
                 .setColor('0x808080')
@@ -164,7 +163,6 @@ module.exports = {
             reportChannel.send({ embeds: [report_embed] });
             interaction.editreply({
                 content: '已回報錯誤！感謝您的回報讓我們可以更好！',
-                ephemeral: true,
             });
             const report_info = new MessageEmbed()
                 .setColor('0x808080')
@@ -187,7 +185,6 @@ module.exports = {
         else if (subcommand == 'other') {
             interaction.editreply({
                 content: '此功能尚未完成！ :/',
-                ephemeral: true,
             });
 
         }
