@@ -22,12 +22,22 @@ async function updater(message, oldmsg, client) {
     for (let i = 0; true; i++) {
 
         // 更新訊息
+<<<<<<< HEAD
         let embed = {
             color: 0x808080,
             description: oldmsg,
             author: {
                 name: `${client.user.username} - 機器人運作資訊`,
                 iconURL: client.user.displayAvatarURL()
+=======
+
+        const embed = {
+            color: 0x808080,
+            description: oldmsg,
+            author: {
+                name: '機器人運作資訊',
+                iconURL: client.user.avatarURL.toString,
+>>>>>>> da383da94647cb1fd9f5c11784b30539104c2043
             },
             fields: [
                 { name: '\u200B', value: '\u200B' },
@@ -36,14 +46,19 @@ async function updater(message, oldmsg, client) {
                     name: '運行時間:', value: `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
                         conjunction: ' ',
                         language: 'zh_TW',
+<<<<<<< HEAD
                     })
                         } `,
                     inline: true
+=======
+                    })}`,
+                    inline: true,
+>>>>>>> da383da94647cb1fd9f5c11784b30539104c2043
                 },
                 { name: '最後更新:', value: `<t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`, inline: true },
             ],
             timestamp: new Date(),
-        }
+        };
         /*
          let owo = {
             content: [oldmsg,
