@@ -153,7 +153,7 @@ module.exports = {
     run: async (client, interaction, container) => {
         // 取得子指令
         const subcommand = interaction.options.getSubcommand();
-        interaction.editreply({
+        interaction.editReply({
             content: '此功能尚未完成！ :/',
             ephemeral: true,
         });

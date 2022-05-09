@@ -958,7 +958,7 @@ module.exports = {
         // #endregion
         else {
             try { interaction.deferReply(); } catch { }
-            interaction.editreply({
+            interaction.editReply({
                 content: '此功能尚未完成！ :/',
             });
 
