@@ -2,6 +2,7 @@ module.exports = { updater };
 const humanizeDuration = require('humanize-duration');
 const config = require('../../../../Config');
 const axios = require('axios');
+const { MessageEmbed } = require('discord.js');
 
 /**
  *
@@ -23,17 +24,41 @@ async function updater(message, oldmsg, client) {
     for (let i = 0; true; i++) {
 
         // 更新訊息
-        const msg = {
-            content: [oldmsg,
-                `> ．Websocket 延遲: ${client.ws.ping}ms`,
-                `> ．運行時間: ${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
-                    conjunction: ' ',
-                    language: 'zh_TW',
-                })}`,
-                `> ．最後更新: <t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`,
-            ].join('\n'),
-        };
-        message.edit(msg);
+
+        let embed = {
+            color: 0x808080,
+            description: oldmsg,
+            author: {
+                name: '機器人運作資訊',
+                iconURL: client.user.avatarURL.toString
+            },
+            fields: [
+                { name: '\u200B', value: '\u200B' },
+                { name: 'Websocket 延遲:', value: `${client.ws.ping}ms`, inline: true },
+                {
+                    name: '運行時間:', value: `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+                        conjunction: ' ',
+                        language: 'zh_TW',
+                    })}`,
+                    inline: true
+                },
+                { name: '最後更新:', value: `<t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`, inline: true },
+            ],
+            timestamp: new Date(),
+        }
+        /*
+         let owo = {
+             content: [oldmsg,
+                 `> ．Websocket 延遲: ${client.ws.ping}ms`,
+                 `> ．運行時間: ${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+                     conjunction: ' ',
+                     language: 'zh_TW',
+                 })}`,
+                 `> ．最後更新: <t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`,
+             ].join('\n'),
+         };
+         */
+        message.edit({ embeds: [embed] });
 
         // 更新狀態
         /**

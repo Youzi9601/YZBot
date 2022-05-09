@@ -135,6 +135,7 @@ Client 事件      ::     ${client.events.size} 個
             ' 秒',
         );
         try {
+
             const conchannel = client.channels.cache.get(config.Channels.ClientOn);
             const msg = '```' +
                 Today.getFullYear() +
@@ -150,7 +151,12 @@ Client 事件      ::     ${client.events.size} 個
                 Today.getSeconds() +
                 ' 秒' +
                 ' 機器人啟動成功```';
-            const readymsg = await conchannel.send(msg);
+            const embed = {
+                color: 0x808080,
+                description: msg,
+            }
+
+            const readymsg = await conchannel.send({ embeds: [embed] });
             const { updater } = require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater');
             updater(readymsg, msg, client);
         } catch (error) { console.log(error); }
