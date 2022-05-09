@@ -7,7 +7,7 @@ const {
     MessageEmbed,
     MessageSelectMenu,
 } = require('discord.js');
-const config = require('../../../../Config')
+const config = require('../../../../Config');
 module.exports = {
     command: {
         name: 'report',
@@ -88,22 +88,22 @@ module.exports = {
                 ],
             },
             // #endregion
-        ]
+        ],
     },
     clientPermissions: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'READ_MESSAGE_HISTORY'],
     userPermissions: ['SEND_MESSAGES'],
     ownerOnly: true,
     ignoreFile: true,
     /**
-     * 
-     * @param {import('discord.js').Client} client 
-     * @param {import('discord.js').CommandInteraction} interaction 
-     * @param {*} container 
+     *
+     * @param {import('discord.js').Client} client
+     * @param {import('discord.js').CommandInteraction} interaction
+     * @param {*} container
      */
     run: async (client, interaction, container) => {
         // 內容
         const subcommand = interaction.options.getSubcommand();
-        interaction.deferReply()
+        interaction.deferReply();
         // bug
         if (subcommand == 'bug') {
 
@@ -112,32 +112,32 @@ module.exports = {
             );
             const what_happen = interaction.options.getString('what_happen').replace(/\\n/g, '\n');
             const message_link = interaction.options.getString('message_link').replace(/\n/g, '\n') || undefined;
-            let report_embed = new MessageEmbed()
+            const report_embed = new MessageEmbed()
                 .setColor('0x808080')
                 .setTimestamp()
                 .setAuthor({
                     name: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    icon: interaction.member.avatarURL
+                    icon: interaction.member.avatarURL,
                 })
-                .setTitle(`有新的問題回報錯誤！`)
-                .setDescription(`${what_happen}${message_link ? `\n[連結](${message_link})` : ''}`)
+                .setTitle('有新的問題回報錯誤！')
+                .setDescription(`${what_happen}${message_link ? `\n[連結](${message_link})` : ''}`);
             reportChannel.send({ embeds: [report_embed] });
             interaction.editreply({
                 content: '已回報錯誤！感謝您的回報讓我們可以更好！',
                 ephemeral: true,
-            })
-            let report_info = new MessageEmbed()
+            });
+            const report_info = new MessageEmbed()
                 .setColor('0x808080')
                 .setTimestamp()
                 .setAuthor({
                     name: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    icon: interaction.member.avatarURL
+                    icon: interaction.member.avatarURL,
                 })
-                .setTitle(`回報錯誤副本`)
-                .setDescription(`${what_happen}${message_link ? `\n[連結](${message_link})` : ''}`)
+                .setTitle('回報錯誤副本')
+                .setDescription(`${what_happen}${message_link ? `\n[連結](${message_link})` : ''}`);
             try {
                 // 嘗試DM成員
-                interaction.member.user.send({ embeds: [report_info] })
+                interaction.member.user.send({ embeds: [report_info] });
             } finally {
                 // 無
             }
@@ -152,32 +152,32 @@ module.exports = {
             const reason = interaction.options.getString('reason').replace(/\n/g, '\n') || undefined;
             const message_link = interaction.options.getString('message_link').replace(/\n/g, '\n') || undefined;
 
-            let report_embed = new MessageEmbed()
+            const report_embed = new MessageEmbed()
                 .setColor('0x808080')
                 .setTimestamp()
                 .setAuthor({
                     name: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    icon: interaction.member.avatarURL
+                    icon: interaction.member.avatarURL,
                 })
-                .setTitle(`有新的舉報訊息！`)
-                .setDescription(`被檢舉者：${user}\n原因：${reason}${message_link ? `\n[連結](${message_link})` : ''}`)
+                .setTitle('有新的舉報訊息！')
+                .setDescription(`被檢舉者：${user}\n原因：${reason}${message_link ? `\n[連結](${message_link})` : ''}`);
             reportChannel.send({ embeds: [report_embed] });
             interaction.editreply({
                 content: '已回報錯誤！感謝您的回報讓我們可以更好！',
                 ephemeral: true,
-            })
-            let report_info = new MessageEmbed()
+            });
+            const report_info = new MessageEmbed()
                 .setColor('0x808080')
                 .setTimestamp()
                 .setAuthor({
                     name: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    icon: interaction.member.avatarURL
+                    icon: interaction.member.avatarURL,
                 })
-                .setTitle(`檢舉成員副本`)
-                .setDescription(`被檢舉者：${user}\n原因：${reason}${message_link ? `\n[連結](${message_link})` : ''}`)
+                .setTitle('檢舉成員副本')
+                .setDescription(`被檢舉者：${user}\n原因：${reason}${message_link ? `\n[連結](${message_link})` : ''}`);
             try {
                 // 嘗試DM成員
-                interaction.member.user.send({ embeds: [report_info] })
+                interaction.member.user.send({ embeds: [report_info] });
             } finally {
                 // 無
             }
@@ -188,7 +188,7 @@ module.exports = {
             interaction.editreply({
                 content: '此功能尚未完成！ :/',
                 ephemeral: true,
-            })
+            });
 
         }
     },

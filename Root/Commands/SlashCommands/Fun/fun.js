@@ -19,6 +19,6 @@ module.exports = {
         interaction.editreply({
             content: '此功能尚未完成！ :/',
             ephemeral: true,
-        })
+        });
     },
 };
