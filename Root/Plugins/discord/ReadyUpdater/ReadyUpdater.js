@@ -25,12 +25,12 @@ async function updater(message, oldmsg, client) {
 
         // 更新訊息
 
-        let embed = {
+        const embed = {
             color: 0x808080,
             description: oldmsg,
             author: {
                 name: '機器人運作資訊',
-                iconURL: client.user.avatarURL.toString
+                iconURL: client.user.avatarURL.toString,
             },
             fields: [
                 { name: '\u200B', value: '\u200B' },
@@ -40,12 +40,12 @@ async function updater(message, oldmsg, client) {
                         conjunction: ' ',
                         language: 'zh_TW',
                     })}`,
-                    inline: true
+                    inline: true,
                 },
                 { name: '最後更新:', value: `<t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`, inline: true },
             ],
             timestamp: new Date(),
-        }
+        };
         /*
          let owo = {
              content: [oldmsg,

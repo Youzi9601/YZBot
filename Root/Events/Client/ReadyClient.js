@@ -154,7 +154,7 @@ Client 事件      ::     ${client.events.size} 個
             const embed = {
                 color: 0x808080,
                 description: msg,
-            }
+            };
 
             const readymsg = await conchannel.send({ embeds: [embed] });
             const { updater } = require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater');
