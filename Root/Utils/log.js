@@ -21,7 +21,7 @@ function log(level, msg, SendToDiscord, client, discordmsg) {
         );
         // 發送訊息
         let send = {
-            content: 'ERROR: 未知的訊息'
+            content: 'ERROR: 未知的訊息',
         };
         if (!discordmsg) {
             // send.content = `> \`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜ ${msg}\`\`\``;
@@ -64,7 +64,7 @@ function log(level, msg, SendToDiscord, client, discordmsg) {
         ) + msg);
     }
 
-    fs.appendFile(`logs / ${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function (err) {
+    fs.appendFile(`logs / ${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function(err) {
         // none
     });
 }
