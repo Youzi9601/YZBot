@@ -1,12 +1,5 @@
 name: Lint
-on:
-  push:
-    tags:
-      - v*
-  pull_request:
-    tags:
-      - v*
-  fork:
+on: [push, pull_request]
 permissions: write-all
 
 jobs:
