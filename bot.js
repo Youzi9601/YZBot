@@ -48,17 +48,18 @@
     });
     // #endregion
 
-    // #region 自動更新
-    const aufg = require('auto-update-from-github');
+    if (config.autoupdate == true) {
+        // #region 自動更新
+        const aufg = require('auto-update-from-github');
 
-    aufg({
-        git: 'Youzi9601/YZBot', // 遠程git地址
-        dir: '.', // 本地路徑
-        type: 'version', // 檢測類型 version | commit
-        freq: 3600000, // 刷新頻率0
-    });
-    // #endregion
-
+        aufg({
+            git: 'Youzi9601/YZBot', // 遠程git地址
+            dir: '.', // 本地路徑
+            type: 'version', // 檢測類型 version | commit
+            freq: 3600000, // 刷新頻率0
+        });
+        // #endregion
+    }
     // #region 變數輸出
     // 輸出檔案
     exports.client = client;
@@ -122,9 +123,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        const eula_pass = fs.readFile('./eula.txt', function(err, data) {
+        const eula_pass = fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(

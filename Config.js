@@ -17,8 +17,7 @@ module.exports = {
      */
 
     // 自動更新?
-    autoupdate: process.env.autoupdate || true,
-
+    autoupdate: process.env.autoupdate || false,
 
     /**
     * 基本設定
