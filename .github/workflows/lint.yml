@@ -27,6 +27,6 @@ jobs:
         with:
           eslint: true
           prettier: true
-          auto_fix: true
+          auto_fix: false
           git_name: "ESLint"
           commit_message: "使用 ${linter} 改進代碼格式"
