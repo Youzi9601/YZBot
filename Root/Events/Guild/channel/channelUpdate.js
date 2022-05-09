@@ -68,7 +68,7 @@ module.exports = {
             + `${change.permissionOverwrites ? '\n權限變更: 請看"審核日誌"' : ''}`;
         log(
             'info',
-            `CHANNEL｜${newChannel.guild.name}(${newChannel.id}) 的頻道類別變更：${msg}`,
+            `CHANNEL｜${newChannel.guild.name} - ${newChannel.name} (${newChannel.id}) 的頻道類別變更：${msg}`,
             true,
             client);
 

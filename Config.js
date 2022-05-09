@@ -156,9 +156,20 @@ module.exports = {
     // 調整時差
     // 在GMT-8區為"-8",在GMT+8為"8"
     GMT: process.env.GMT || 8,
-    youtube: "https://www.youtube.com/channel/UCGLbazmDlVg22pO6aGuSRsw"
+    youtube: "https://www.youtube.com/channel/UCGLbazmDlVg22pO6aGuSRsw",
 
 
+    /**
+     * 
+     * 開發(測試)版本
+     * // 這功能絕大部分都不能使用！
+     */
+    beta: {
+        // RPC為Discord遊戲狀態顯示系統，目前為測試版
+        rpc: {
+            run: false
+        }
 
+    }
 };
 
