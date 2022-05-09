@@ -16,5 +16,9 @@ module.exports = {
     ignoreFile: true,
     run: async (client, interaction, container) => {
         // 內容
+        interaction.editreply({
+            content: '此功能尚未完成！ :/',
+            ephemeral: true,
+        })
     },
 };

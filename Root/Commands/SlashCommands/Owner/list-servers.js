@@ -14,7 +14,7 @@ const config = require('../../../../Config.js');
 module.exports = {
     command: {
         name: 'list-servers',
-        description: 'List all servers in the console',
+        description: '將機器人所在的所有服務器列出於控制台',
         defaultPermission: false,
         locales: {
             'default': 'en',

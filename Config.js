@@ -115,7 +115,7 @@ module.exports = {
         All: process.env.All || 'ID',
         // 機器人啟動時會記錄在這個頻道 (填入ID)
         ClientOn: process.env.ClientOnChannel || 'ID',
-        // 若有錯誤的回報會記錄在這個頻道 (填入ID)
+        // 若有錯誤的回報(各種)會記錄在這個頻道 (填入ID)
         report: process.env.reportChannel || 'ID',
         // 機器人指令的使用紀錄會記錄在這個頻道 (填入ID)
         commandRec: process.env.commandRecChannel || 'ID',

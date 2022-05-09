@@ -78,7 +78,7 @@
                 ]
             }
         ],
-        "no-usused-vars": "off",
+        "no-unused-vars": "off",
         "no-trailing-spaces": [
             "error"
         ],
