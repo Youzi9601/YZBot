@@ -1,5 +1,12 @@
 name: Lint
-on: [push]
+on:
+  push:
+    tags:
+      - v*
+  pull_request:
+    tags:
+      - v*
+  fork:
 permissions: write-all
 
 jobs:
@@ -23,10 +30,9 @@ jobs:
         run: npm install -g eslint prettier
 
       - name: Run linters
-        uses: wearerequired/lint-action@v1
+        uses: wearerequired/lint-action@v2
         with:
           eslint: true
           prettier: true
-          auto_fix: false
           git_name: "ESLint"
           commit_message: "使用 ${linter} 改進代碼格式"

@@ -2,19 +2,18 @@ name: CodeCov Analysis
 on: [push, pull_request]
 permissions: write-all
 
-
 jobs:
   run-linters:
-    name: Run analysis
+    name: 運行分析
     runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
       security-events: write
-      
+
     steps:
-    - name: Codecov
-      uses: codecov/codecov-action@v2
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        flags: unittests
+      - name: Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests
