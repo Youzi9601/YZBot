@@ -2,8 +2,6 @@ module.exports = { updater };
 const humanizeDuration = require('humanize-duration');
 const config = require('../../../../Config');
 const axios = require('axios');
-const { MessageEmbed } = require('discord.js');
-
 /**
  *
  * @param {import(discord.js).Message} message
@@ -24,13 +22,12 @@ async function updater(message, oldmsg, client) {
     for (let i = 0; true; i++) {
 
         // 更新訊息
-
         let embed = {
             color: 0x808080,
             description: oldmsg,
             author: {
-                name: '機器人運作資訊',
-                iconURL: client.user.avatarURL.toString
+                name: `${client.user.username} - 機器人運作資訊`,
+                iconURL: client.user.displayAvatarURL()
             },
             fields: [
                 { name: '\u200B', value: '\u200B' },
@@ -39,7 +36,8 @@ async function updater(message, oldmsg, client) {
                     name: '運行時間:', value: `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
                         conjunction: ' ',
                         language: 'zh_TW',
-                    })}`,
+                    })
+                        } `,
                     inline: true
                 },
                 { name: '最後更新:', value: `<t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`, inline: true },
@@ -48,32 +46,38 @@ async function updater(message, oldmsg, client) {
         }
         /*
          let owo = {
-             content: [oldmsg,
+            content: [oldmsg,
                  `> ．Websocket 延遲: ${client.ws.ping}ms`,
                  `> ．運行時間: ${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
-                     conjunction: ' ',
-                     language: 'zh_TW',
-                 })}`,
+                conjunction: ' ',
+                language: 'zh_TW',
+            })}`,
                  `> ．最後更新: <t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`,
-             ].join('\n'),
+        ].join('\n'),
          };
-         */
+        */
         message.edit({ embeds: [embed] });
 
         // 更新狀態
         /**
                     const message = guildData.plugins.welcome.message
                     .replace(/{user}/g, member)
-                    .replace(/{server}/g, member.guild.name)
-                    .replace(/{membercount}/g, member.guild.memberCount)
+        .replace(/{server}/g, member.guild.name)
+        .replace(/{membercount}/g, member.guild.memberCount)
         */
-        /* 獲取網站的 Html 數據 */
-        const rawHtml = await axios(config.youtube).then((res) => res.data);
-        /* 將使用正則表達式來獲取訂閱人數 */
-        const superSet = rawHtml.match(/"subscriberCountText".+?(?="tvBanner":)/s)[0];
-        const subSet = superSet.match(/\d+/g); // \{"label"\:".*?"\}
-        /* 如果通道名稱與 subs 相同，則停止執行 */
-        const subs = `${subSet[0]}`;
+        var subs = ''
+        try {
+
+            /* 獲取網站的 Html 數據 */
+            const rawHtml = await axios(config.youtube).then((res) => res.data);
+            /* 將使用正則表達式來獲取訂閱人數 */
+            const superSet = rawHtml.match(/"subscriberCountText".+?(?="tvBanner":)/s)[0];
+            const subSet = superSet.match(/\d+/g); // \{"label"\:".*?"\}
+            /* 如果通道名稱與 subs 相同，則停止執行 */
+            subs = `${subSet[0]}`;
+        } catch (error) {
+            subs = '--'
+        }
         // 處理狀態
         const status =
             config.botPresence.activities[Math.floor(Math.random() * config.botPresence.activities.length)];
@@ -88,18 +92,18 @@ async function updater(message, oldmsg, client) {
                 }))
                 .replace(/{Youtube.subs}/g, subs);
         status.type = status.type.toUpperCase();
-        // const browser = { browser: config.botPresence.browser || undefined }
+        // const browser = {browser: config.botPresence.browser || undefined }
         /* client.user.setPresence({
             activities: [
-                {
-                    name: `${status.name}`,
-                    type: `${status.type}` || undefined,
-                    url: `${status.url}` || undefined,
+        {
+            name: `${status.name}`,
+        type: `${status.type}` || undefined,
+        url: `${status.url}` || undefined,
                 },
-            ],
-            // browser: "DISCORD IOS",
-            status: `${config.botPresence.status}`,
-            browser
+        ],
+        // browser: "DISCORD IOS",
+        status: `${config.botPresence.status}`,
+        browser
         });*/
         client.user.setStatus(`${config.botPresence.status}`);
         client.user.setActivity(
