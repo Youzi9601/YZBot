@@ -256,7 +256,7 @@ module.exports = {
                         name: 'other',
                         description: '其他設定',
                         options: [],
-                    },],
+                    }],
             },
             // #endregion
         ],
