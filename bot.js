@@ -46,6 +46,7 @@
             highWaterMark: 1 << 25,
         },
     });
+
     // Init discord giveaways
     const { GiveawaysManager } = require('discord-giveaways');
     client.giveawaysManager = new GiveawaysManager(client, {
@@ -62,6 +63,9 @@
             },
         },
     });
+    const { giveaways } = require('./Root/Plugins/discord/Giveaway')
+    giveaways()
+
     // #endregion
 
     if (`${config.autoupdate}` == 'true') {
@@ -141,9 +145,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        const eula_pass = fs.readFile('./eula.txt', function(err, data) {
+        const eula_pass = fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
