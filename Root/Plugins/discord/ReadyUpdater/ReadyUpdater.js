@@ -2,6 +2,8 @@ module.exports = { updater };
 const humanizeDuration = require('humanize-duration');
 const config = require('../../../../Config');
 const axios = require('axios');
+const os = require('os');
+
 /**
  *
  * @param {import(discord.js).Message} message
@@ -30,17 +32,39 @@ async function updater(message, oldmsg, client) {
                 iconURL: client.user.displayAvatarURL(),
             },
             fields: [
-                { name: '\u200B', value: '\u200B' },
-                { name: 'Websocket 延遲:', value: `${client.ws.ping}ms`, inline: true },
+                { name: `版本:`, value: `v${require('../../../../package.json').version}`, inline: true },
+                { name: 'Discord.js:', value: `${require('discord.js').version}`, inline: true },
+                { name: 'Node.js', value: `${process.version}`, inline: true },
+                { name: '\u200B', value: '\u200B', inline: false },
                 {
-                    name: '運行時間:', value: `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+                    name: 'Websocket 延遲:',
+                    value: `${client.ws.ping}ms`,
+                    inline: true
+                },
+                {
+                    name: `記憶體: `,
+                    value: `\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB/ ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB\``,
+                    inline: true
+                },
+                {
+                    name: `CPU:`,
+                    value: `${os.cpus()[0].speed}MHz`,
+                    inline: true
+                },
+                {
+                    name: '運行時間:',
+                    value: `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
                         conjunction: ' ',
                         language: 'zh_TW',
                     })
-                    } `,
+                        } `,
                     inline: true,
                 },
-                { name: '最後更新:', value: `<t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`, inline: true },
+                {
+                    name: '最後更新:',
+                    value: `<t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`,
+                    inline: true
+                },
             ],
             timestamp: new Date(),
         };

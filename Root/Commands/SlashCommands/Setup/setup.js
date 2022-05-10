@@ -157,6 +157,8 @@ module.exports = {
             content: '此功能尚未完成！ :/',
             ephemeral: true,
         });
+        return;
+
         // 執行
         // #region chat_bot
         // #endregion

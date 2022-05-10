@@ -156,7 +156,15 @@ module.exports = {
     // 在GMT-8區為"-8",在GMT+8為"8"
     GMT: process.env.GMT || 8,
     youtube: 'https://www.youtube.com/channel/UCGLbazmDlVg22pO6aGuSRsw',
-
+    plugins: {
+        // 抽獎系統
+        giveaways: {
+            // 是否要顯示創辦者?
+            host_user: true,
+            // 提及所有人?
+            everyoneMention: false
+        }
+    },
 
     /**
      *
