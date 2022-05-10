@@ -960,7 +960,7 @@ module.exports = {
             try {
                 interaction.reply({
                     content: '此功能尚未完成！ :/',
-                })
+                });
             } catch {
                 interaction.editReply({
                     content: '此功能尚未完成！ :/',
