@@ -8,6 +8,7 @@ logs/*.log
 json.sqlite
 .env
 eula.txt
+test.js
 ##忽略的設定檔：
 Root/Plugins/TaiwanEarthQuake/
 Root/Plugins/discord/storage/
