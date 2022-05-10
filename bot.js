@@ -63,7 +63,7 @@
             },
         },
     });
-    const { giveaways } = require('./Root/Plugins/discord/Giveaway')
+    const { giveaways } = require('./Root/Plugins/discord/Giveaway');
     giveaways(client);
 
     // #endregion
@@ -145,9 +145,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        const eula_pass = fs.readFile('./eula.txt', function (err, data) {
+        const eula_pass = fs.readFile('./eula.txt', function(err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function (err) {
+                fs.writeFile('./eula.txt', '', function(err) {
                 });
                 console.error(
                     chalk.bgRed(
@@ -197,7 +197,7 @@
     if (config.beta.rpc.run == true) {
         // 這是測試功能
         const { rpc } = require('./Root/Plugins/discord/status/rpc');
-        rpc()
+        rpc();
     }
     // #endregion
 
