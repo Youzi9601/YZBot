@@ -162,8 +162,8 @@ module.exports = {
             // 是否要顯示創辦者?
             host_user: true,
             // 提及所有人?
-            everyoneMention: false
-        }
+            everyoneMention: false,
+        },
     },
 
     /**

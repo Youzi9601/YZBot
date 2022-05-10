@@ -32,24 +32,24 @@ async function updater(message, oldmsg, client) {
                 iconURL: client.user.displayAvatarURL(),
             },
             fields: [
-                { name: `版本:`, value: `v${require('../../../../package.json').version}`, inline: true },
+                { name: '版本:', value: `v${require('../../../../package.json').version}`, inline: true },
                 { name: 'Discord.js:', value: `${require('discord.js').version}`, inline: true },
                 { name: 'Node.js', value: `${process.version}`, inline: true },
                 { name: '\u200B', value: '\u200B', inline: false },
                 {
                     name: 'Websocket 延遲:',
                     value: `${client.ws.ping}ms`,
-                    inline: true
+                    inline: true,
                 },
                 {
-                    name: `記憶體: `,
+                    name: '記憶體: ',
                     value: `\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB/ ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB\``,
-                    inline: true
+                    inline: true,
                 },
                 {
-                    name: `CPU:`,
+                    name: 'CPU:',
                     value: `${os.cpus()[0].speed}MHz`,
-                    inline: true
+                    inline: true,
                 },
                 {
                     name: '運行時間:',
@@ -57,13 +57,13 @@ async function updater(message, oldmsg, client) {
                         conjunction: ' ',
                         language: 'zh_TW',
                     })
-                        } `,
+                    } `,
                     inline: true,
                 },
                 {
                     name: '最後更新:',
                     value: `<t:${Math.round((Date.now()) / 1000)}:R> (<t:${Math.round((Date.now()) / 1000)}:f>)`,
-                    inline: true
+                    inline: true,
                 },
             ],
             timestamp: new Date(),

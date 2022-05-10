@@ -49,7 +49,7 @@ module.exports = {
                         description: '先搶先贏? (等同於先拿到者獲得)',
                         required: false,
                     },
-                ]
+                ],
             },
             {
                 type: 1,
@@ -62,7 +62,7 @@ module.exports = {
                         description: '抽獎活動(可為ID或是獎品內容)',
                         required: true,
                     },
-                ]
+                ],
             },
             {
                 type: 1,
@@ -93,7 +93,7 @@ module.exports = {
                         description: '再延後時間[負數為提前時間] (月mo/日d/時h/分m/秒s)',
                         required: false,
                     },
-                ]
+                ],
             },
             {
                 type: 1,
@@ -106,25 +106,25 @@ module.exports = {
                         description: '訊息ID',
                         required: true,
                     },
-                ]
+                ],
             },
         ],
     },
     ignoreFile: false,
     clientPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
     /**
-     * 
-     * @param {import('discord.js').Client} client 
-     * @param {import('discord.js').CommandInteraction} interaction 
-     * @param {*} container 
+     *
+     * @param {import('discord.js').Client} client
+     * @param {import('discord.js').CommandInteraction} interaction
+     * @param {*} container
      */
     run: async (client, interaction, container) => {
         const subcommand = interaction.options.getSubcommand();
         // 如果成員沒有足夠的權限
-        if (!interaction.member.permissions.has('MANAGE_MESSAGES') && !interaction.member.roles.cache.some((r) => r.name === "Giveaways")) {
+        if (!interaction.member.permissions.has('MANAGE_MESSAGES') && !interaction.member.roles.cache.some((r) => r.name === 'Giveaways')) {
             return interaction.reply({
                 content: ':x: 您需要擁有 管理消息權限 或 "Giveaways"身分組 才能使用抽獎命令。',
-                ephemeral: true
+                ephemeral: true,
             });
         }
         // #region create
@@ -132,13 +132,13 @@ module.exports = {
             // 執行
             const prize = interaction.options.getString('prize');
             const channel = client.channels.cache.get(interaction.options.getChannel('channel')) || interaction.channel;
-            const duration = interaction.options.getString('duration')
+            const duration = interaction.options.getString('duration');
             const winners = interaction.options.getNumber('winners') || 1;
             const drop = interaction.options.getBoolean('drop') || false;
             if (!channel.isText()) {
                 return interaction.reply({
                     content: ':x: 所選的頻道不是文字頻道！',
-                    ephemeral: true
+                    ephemeral: true,
                 });
             }
             // Start the giveaway
@@ -159,22 +159,22 @@ module.exports = {
                     content: '⚠️ **抽獎已暫停** ⚠️',
                     unPauseAfter: null,
                     embedColor: '#FFFF00',
-                    infiniteDurationText: '`無`'
+                    infiniteDurationText: '`無`',
                 },
                 // Messages
                 messages: {
-                    giveaway: (config.plugins.giveaways.everyoneMention ? "@everyone\n\n" : "") + "🎉🎉 **抽獎** 🎉🎉",
-                    giveawayEnded: (config.plugins.giveaways.everyoneMention ? "@everyone\n\n" : "") + "🎉🎉 **抽獎結束** 🎉🎉",
-                    inviteToParticipate: "點選下方的🎉反應參與！",
-                    dropMessage: "成為第一個對🎉做出反應的人！",
+                    giveaway: (config.plugins.giveaways.everyoneMention ? '@everyone\n\n' : '') + '🎉🎉 **抽獎** 🎉🎉',
+                    giveawayEnded: (config.plugins.giveaways.everyoneMention ? '@everyone\n\n' : '') + '🎉🎉 **抽獎結束** 🎉🎉',
+                    inviteToParticipate: '點選下方的🎉反應參與！',
+                    dropMessage: '成為第一個對🎉做出反應的人！',
                     drawing: '時間： {timestamp}',
-                    winMessage: { embed: { description: `恭喜 {winners} 贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})`, color: `0x0174DF` } },
+                    winMessage: { embed: { description: '恭喜 {winners} 贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})', color: '0x0174DF' } },
                     embedFooter: `${client.user.username}｜抽獎系統`,
-                    noWinner: { embed: { description: `:stop: 抽獎已取消，沒有有效參與。`, color: `0x0174DF` } },
-                    hostedBy: "由 {this.hostedBy} 主辦 ",
-                    winners: "獲獎者",
-                    endedAt: "結束於"
-                }
+                    noWinner: { embed: { description: ':stop: 抽獎已取消，沒有有效參與。', color: '0x0174DF' } },
+                    hostedBy: '由 {this.hostedBy} 主辦 ',
+                    winners: '獲獎者',
+                    endedAt: '結束於',
+                },
             });
 
             interaction.reply(`抽獎開始於 <#${channel.id}>!`);
@@ -190,21 +190,21 @@ module.exports = {
             const giveaway =
                 // 搜索贈品獎品
                 client.giveawaysManager.giveaways.find((g) => g.prize === query && g.guildId === interaction.guild.id) ||
-                //使用贈品 ID 搜索
+                // 使用贈品 ID 搜索
                 client.giveawaysManager.giveaways.find((g) => g.messageId === query && g.guildId === interaction.guild.id);
 
             // If no giveaway was found
             if (!giveaway) {
                 return interaction.reply({
                     content: '找不到抽獎\`' + query + '\`。',
-                    ephemeral: true
+                    ephemeral: true,
                 });
             }
 
             if (!giveaway.ended) {
                 return interaction.reply({
                     content: '贈品還沒有結束。',
-                    ephemeral: true
+                    ephemeral: true,
                 });
             }
 
@@ -213,10 +213,10 @@ module.exports = {
                 giveaway.messageId,
                 {
                     messages: {
-                        congrat: { embed: { description: `恭喜新的獲獎者 {winners} 贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})`, color: `0x0174DF` } },
-                        error: '沒有有效的參加者，不能選擇新的獲獎者！'
-                    }
-                }
+                        congrat: { embed: { description: '恭喜新的獲獎者 {winners} 贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})', color: '0x0174DF' } },
+                        error: '沒有有效的參加者，不能選擇新的獲獎者！',
+                    },
+                },
             )
                 .then(() => {
                     // Success message
@@ -225,7 +225,7 @@ module.exports = {
                 .catch((e) => {
                     interaction.reply({
                         content: e,
-                        ephemeral: true
+                        ephemeral: true,
                     });
                 });
 
@@ -239,37 +239,37 @@ module.exports = {
             const giveaway =
                 // 搜索贈品獎品
                 client.giveawaysManager.giveaways.find((g) => g.prize === query && g.guildId === interaction.guild.id) ||
-                //使用贈品 ID 搜索
+                // 使用贈品 ID 搜索
                 client.giveawaysManager.giveaways.find((g) => g.messageId === query && g.guildId === interaction.guild.id);
 
-            //const newEnd = ms(interaction.options.getString('time'))
+            // const newEnd = ms(interaction.options.getString('time'))
             const options = {
                 addTime: ms(interaction.options.getString('addTime')) || null,
                 newWinnerCount: interaction.options.getNumber('winners') || giveaway.winnerCount,
                 newPrize: new_prize = interaction.options.getString('new_prize') || giveaway.prize,
-                //setEndTimestamp: Date.now() + newEnd
-            }
+                // setEndTimestamp: Date.now() + newEnd
+            };
 
 
             // If no giveaway was found
             if (!giveaway) {
                 return interaction.reply({
                     content: ':x: 找不到抽獎\`' + query + '\`。',
-                    ephemeral: true
+                    ephemeral: true,
                 });
             }
 
             if (giveaway.ended) {
                 return interaction.reply({
                     content: ':x: 抽獎已經結束。',
-                    ephemeral: true
+                    ephemeral: true,
                 });
             }
 
             // Reroll the giveaway
             client.giveawaysManager.edit(
                 giveaway.messageId,
-                { options }
+                { options },
             )
                 .then(() => {
                     // Success message
@@ -278,7 +278,7 @@ module.exports = {
                 .catch((e) => {
                     interaction.reply({
                         content: `:x: 啊喔... 發生了一些狀況...\n已回報給機器人開發者！\n\`\`\`${e}\`\`\` `,
-                        ephemeral: true
+                        ephemeral: true,
                     });
                 });
 
@@ -293,21 +293,21 @@ module.exports = {
             const giveaway =
                 // 搜索贈品獎品
                 client.giveawaysManager.giveaways.find((g) => g.prize === query && g.guildId === interaction.guild.id) ||
-                //使用贈品 ID 搜索
+                // 使用贈品 ID 搜索
                 client.giveawaysManager.giveaways.find((g) => g.messageId === query && g.guildId === interaction.guild.id);
 
             // If no giveaway was found
             if (!giveaway) {
                 return interaction.reply({
                     content: ':x: 找不到抽獎\`' + query + '\`。',
-                    ephemeral: true
+                    ephemeral: true,
                 });
             }
 
             if (giveaway.ended) {
                 return interaction.reply({
                     content: ':x: 抽獎已經結束。',
-                    ephemeral: true
+                    ephemeral: true,
                 });
             }
             if (giveaway.pauseOptions.isPaused) {
@@ -319,7 +319,7 @@ module.exports = {
                     .catch((e) => {
                         interaction.reply({
                             content: `:x: 啊喔... 發生了一些狀況...\n已回報給機器人開發者！\n\`\`\`${e}\`\`\` `,
-                            ephemeral: true
+                            ephemeral: true,
                         });
                     });
             } else {
@@ -332,7 +332,7 @@ module.exports = {
                     .catch((e) => {
                         interaction.reply({
                             content: `:x: 啊喔... 發生了一些狀況...\n已回報給機器人開發者！\n\`\`\`${e}\`\`\` `,
-                            ephemeral: true
+                            ephemeral: true,
                         });
                     });
             }
