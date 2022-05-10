@@ -957,10 +957,15 @@ module.exports = {
         }
         // #endregion
         else {
-            try { interaction.deferReply(); } catch { }
-            interaction.editReply({
-                content: '此功能尚未完成！ :/',
-            });
+            try {
+                interaction.reply({
+                    content: '此功能尚未完成！ :/',
+                })
+            } catch {
+                interaction.editReply({
+                    content: '此功能尚未完成！ :/',
+                });
+            }
 
         }
     },
