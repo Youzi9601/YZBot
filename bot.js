@@ -64,7 +64,7 @@
         },
     });
     const { giveaways } = require('./Root/Plugins/discord/Giveaway')
-    giveaways()
+    giveaways(client);
 
     // #endregion
 
