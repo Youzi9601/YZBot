@@ -43,7 +43,7 @@ module.exports = {
         }
         // 主題
         if (oldChannel.topic !== newChannel.topic) {
-            change.topic = `\`${oldChannel.topic}\` -> \`${newChannel.topic}\``;
+            change.topic = `\n\`${oldChannel.topic}\` \n-> \n\`${newChannel.topic}\``;
         }
         // 權限
         if (oldChannel.permissionOverwrites !== newChannel.permissionOverwrites) {
