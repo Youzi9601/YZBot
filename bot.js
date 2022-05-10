@@ -197,7 +197,7 @@
     if (config.beta.rpc.run == true) {
         // 這是測試功能
         const { rpc } = require('./Root/Plugins/discord/status/rpc');
-        rpc();
+        rpc()
     }
     // #endregion
 
