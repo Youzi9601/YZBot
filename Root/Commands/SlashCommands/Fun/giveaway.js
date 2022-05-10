@@ -163,8 +163,8 @@ module.exports = {
                 },
                 // Messages
                 messages: {
-                    giveaway: (config.plugins.giveaways.everyoneMention ? '@everyone\n\n' : '') + '🎉🎉 **抽獎** 🎉🎉',
-                    giveawayEnded: (config.plugins.giveaways.everyoneMention ? '@everyone\n\n' : '') + '🎉🎉 **抽獎結束** 🎉🎉',
+                    giveaway: (config.plugins.giveaways.everyoneMention ? '@everyone\n\n' : '') + '🎉 **抽獎** 🎉',
+                    giveawayEnded: (config.plugins.giveaways.everyoneMention ? '@everyone\n\n' : '') + '🎉 **抽獎結束** 🎉',
                     inviteToParticipate: '點選下方的🎉反應參與！',
                     dropMessage: '成為第一個對🎉做出反應的人！',
                     drawing: '時間： {timestamp}',
