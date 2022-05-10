@@ -43,7 +43,8 @@ module.exports = {
         }
         // 主題
         if (oldChannel.topic !== newChannel.topic) {
-            change.topic = `\n\`${oldChannel.topic.substring(0, 50) + ' (省略)……'}\` \n-> \n\`${newChannel.topic.substring(0, 50) + ' (省略)……'}\``;
+            change.topic = `\n\`${(oldChannel.topic.length > 50) ? oldChannel.topic.substring(0, 50) + ' (省略)……' : oldChannel.topic
+                }\` \n-> \n\`${(newChannel.topic.length > 50) ? newChannel.topic.substring(0, 50) + ' (省略)……' : newChannel.topic}\``;
         }
         // 權限
         if (oldChannel.permissionOverwrites !== newChannel.permissionOverwrites) {
