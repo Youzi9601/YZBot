@@ -145,9 +145,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        const eula_pass = fs.readFile('./eula.txt', function(err, data) {
+        const eula_pass = fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
@@ -282,16 +282,17 @@
                 const error_channel = client.channels.cache.get(
                     config.Channels.report,
                 );
-
                 const msg = {};
                 const embed = {};
-                msg.content = `<@${config.developers[0]}>`;
+                msg.content = `新的**錯誤**出現！ <@${config.developers[0]}>`;
                 embed.title = `ERROR｜錯誤 - ${reason.message}`;
                 embed.description = `\`\`\`js\n${reason ? `\n${reason.stack}${reason.request ? `\n${reason.request}` : ''}` : ''}\n\`\`\``;
                 embed.color = '0x' + 'FF0000';
                 embed.timestamp = new Date();
                 msg.embeds = [embed];
-                error_channel.send(msg);
+                error_channel.send(msg).then(msg => {
+                    if (error_channel.type == 'GUILD_NEWS') msg.crosspost()
+                });
             } catch (error) {
                 // none
             }
@@ -307,13 +308,15 @@
 
                 const msg = {};
                 const embed = {};
-                msg.content = `<@${config.developers[0]}>`;
+                msg.content = `新的**錯誤**出現！ <@${config.developers[0]}>`;
                 embed.title = `ERROR｜錯誤 - ${reason.message}`;
                 embed.description = `\`\`\`js\n${reason ? `\n${reason.stack}${reason.request ? `\n${reason.request}` : ''}` : ''}\n\`\`\``;
                 embed.color = '0x' + 'FF0000';
                 embed.timestamp = new Date();
                 msg.embeds = [embed];
-                error_channel.send(msg);
+                error_channel.send(msg).then(msg => {
+                    if (error_channel.type == 'GUILD_NEWS') msg.crosspost()
+                });
             } catch (error) {
                 // none
             }
