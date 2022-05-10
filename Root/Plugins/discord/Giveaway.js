@@ -1,9 +1,11 @@
 module.exports = { giveaways };
 const { log } = require('./../../Utils/log');
-
+/**
+ * 
+ * @param {import('discord.js'.Client)} client 
+ */
 function giveaways(client) {
     // We now have a client.giveawaysManager property to manage our giveaways!
-
     client.giveawaysManager.on('giveawayReactionAdded', (giveaway, member, reaction) => {
         log('info', `${member.user.tag} 參加 #${giveaway.messageId} (${reaction.emoji.name})`, true);
     });
