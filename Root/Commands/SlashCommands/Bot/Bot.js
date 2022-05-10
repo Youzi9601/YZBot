@@ -643,7 +643,7 @@ module.exports = {
                 client.channels.cache.get(
                     interaction.options.getString('channel_id'),
                 ) || interaction.channel;
-            const content = interaction.options.getString('contents').replace(/\\n/g, '\n') || '';
+            const content = interaction.options.getString('contents') || '';
             const embed = {};
             // EMBED
             // main
@@ -769,7 +769,7 @@ module.exports = {
                 client.channels.cache.get(
                     interaction.options.getString('channel_id'),
                 ) || interaction.channel;
-            const content = interaction.options.getString('contents').replace(/\\n/g, '\n') || '';
+            const content = interaction.options.getString('contents') || '';
             const embed = {};
             // EMBED
             // main

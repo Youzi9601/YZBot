@@ -13,7 +13,7 @@ module.exports = {
             );
         let code = args.join(' ').trim();
         const originalCode = code;
-        if (!code) return message.channel.send('Please specify something to Evaluate');
+        if (!code) return message.channel.send('請指定要評估的內容');
         try {
             if (originalCode.includes('--str')) code = `${code.replace('--str', '').trim()}.toString()`;
             if (originalCode.includes('--send')) code = `message.channel.send(${code.replace('--send', '').trim()})`;
@@ -21,8 +21,8 @@ module.exports = {
             code = code.replace('--silent', '').trim();
             code = await eval(code);
             code = inspect(code, { depth: 0 });
-            if (String(code).length > 1990) code = 'Output is too long';
-            if (String(code).includes(container.Config.token)) code = 'This message contained client\'s token.';
+            if (String(code).length > 1990) code = '輸出太長';
+            if (String(code).includes(container.Config.token)) code = '此消息包含客戶端的令牌。';
             if (originalCode.includes('--silent')) return;
             else message.reply({
                 content: `\`\`\`js\n${code}\n\`\`\``,
