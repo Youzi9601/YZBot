@@ -50,7 +50,7 @@
     // Init discord giveaways
     const { GiveawaysManager } = require('discord-giveaways');
     client.giveawaysManager = new GiveawaysManager(client, {
-        storage: './giveaways.json',
+        storage: './Root/Plugins/discord/storage/giveaways.json',
         default: {
             botsCanWin: false,
             embedColor: '#E970AC',
@@ -145,9 +145,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        const eula_pass = fs.readFile('./eula.txt', function(err, data) {
+        const eula_pass = fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
