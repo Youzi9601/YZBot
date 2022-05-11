@@ -12,7 +12,17 @@ async function update() {
         const exec = require('child_process').exec;
         await exec('git reset --hard');
         console.log('\x1b[34m%s\x1b[0m', '更新......');
-        await exec('git pull');
+        await exec('git pull', (err, stdout, stderr) => {
+            if (err) {
+                console.log('\x1b[31m%s\x1b[0m', '錯誤: ' + err);
+                return;
+            }
+            //
+            console.log('' + stdout + '');
+            console.log('\x1b[32m%s\x1b[0m', '更新成功！執行重啟');
+            process.exit(0);
+
+        })
         console.log('\x1b[34m%s\x1b[0m', '安裝依賴項......');
         childProcess.exec('npm install', (err, stdout, stderr) => {
             if (err) {
@@ -20,9 +30,9 @@ async function update() {
                 return;
             }
             console.log('' + stdout + '');
-            console.log('\x1b[32m%s\x1b[0m', '更新成功！執行重啟');
-            exec('node bot.js');
-            process.exit(0);
+            console.log('\x1b[32m%s\x1b[0m', 'Package.json 中的依賴項安裝完成！');
+            // exec('node bot.js');
+
         });
     } else {
         console.log('\x1b[31m%s\x1b[0m', '不是 git 存儲庫！');
