@@ -19,7 +19,7 @@ async function update() {
             }
             //
             console.log('' + stdout + '');
-            if (stdout != 'Already up to date.') {
+            if (!stdout.includes('Already up to date.')) {
                 console.log('\x1b[32m%s\x1b[0m', '更新成功！請重新啟動！');
                 process.exit(0);
             } else {
