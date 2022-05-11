@@ -11,6 +11,6 @@ eula.txt
 test.js
 ##忽略的設定檔：
 Root/Plugins/TaiwanEarthQuake/
-Root/Plugins/discord/storage/
+Root/Plugins/discord/storage/*.json
 #Root/Language/
 #無
