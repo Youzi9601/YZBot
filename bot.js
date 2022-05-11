@@ -1,10 +1,10 @@
 (async () => {
     // 下載npm
-    const exec = require("child_process").exec
-    await exec("npm i")
-    await require('./Root/Utils/UpdateBot')
+    const exec = require('child_process').exec;
+    await exec('npm i');
+    await require('./Root/Utils/UpdateBot');
 
-    //module.exports = { client, path, config };
+    // module.exports = { client, path, config };
 
     // #region 啟動設定
     // const { log } = require('./Root/Utils/log')
@@ -158,9 +158,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function (err, data) {
+        fs.readFile('./eula.txt', function(err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function (err) {
+                fs.writeFile('./eula.txt', '', function(err) {
                 });
                 console.error(
                     chalk.bgRed(
@@ -209,7 +209,7 @@
     );
 
     // 防止崩潰
-    require('./Root/Structures/Handlers/Anticrash')(client)
+    require('./Root/Structures/Handlers/Anticrash')(client);
 
     // rpc
     if (config.beta.rpc.run == 'true' || config.beta.rpc.run == true) {
@@ -288,5 +288,4 @@
 
 
 })();
-
 
