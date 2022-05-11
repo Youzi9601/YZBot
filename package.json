@@ -1,6 +1,6 @@
 {
   "name": "youzi-bot",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "一個實用、有趣的機器人",
   "main": "bot.js",
   "engines": {
