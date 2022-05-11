@@ -8,7 +8,6 @@
   },
   "scripts": {
     "start": "node bot.js",
-    "pm2": "node pm2.js",
     "exit": "echo \"Error: no test specified\" && exit 1",
     "test": "CI=true node --trace-deprecation bot.js",
     "webpack": "webpack -d -w",
