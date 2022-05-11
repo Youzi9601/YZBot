@@ -19,8 +19,10 @@ async function update() {
             }
             //
             console.log('' + stdout + '');
-            console.log('\x1b[32m%s\x1b[0m', '更新成功！執行重啟');
-            process.exit(0);
+            if (stdout != 'Already up to date.') {
+                console.log('\x1b[32m%s\x1b[0m', '更新成功！請重新啟動！');
+                process.exit(0);
+            }
 
         })
         console.log('\x1b[34m%s\x1b[0m', '安裝依賴項......');
