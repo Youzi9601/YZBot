@@ -1,8 +1,8 @@
 const { log } = require('./../../Utils/log');
 module.exports =
     /**
-     * 
-     * @param {import('./../../../bot').client} client 
+     *
+     * @param {import('./../../../bot').client} client
      */
     (client) => {
         // We now have a client.giveawaysManager property to manage our giveaways!
@@ -18,4 +18,4 @@ module.exports =
         client.giveawaysManager.on('giveawayEnded', (giveaway, winners) => {
             log('info', `抽獎 #${giveaway.messageId} 結束！獲獎者：${winners.map((member) => member.user.username).join(', ')}`, true, client);
         });
-    }
+    };

@@ -1,6 +1,6 @@
 /**
- * 
- * @param {import('./../../../bot').client} client 
+ *
+ * @param {import('./../../../bot').client} client
  */
 module.exports = (client) => {
     // #region 事件
@@ -54,4 +54,4 @@ module.exports = (client) => {
         });
     // #endregion
 
-}
+};

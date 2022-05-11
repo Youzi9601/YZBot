@@ -8,15 +8,15 @@ async function rpc() {
     const ipc = new RPC.Client({ transport: 'ipc' });
     // const Activity = config.beta.rpc.setActivity
     ipc.on('ready', () => { // 登入後執行
-        console.info('>> RCP ready! <<')
+        console.info('>> RCP ready! <<');
         ipc.setActivity({ // 設定活動狀態
             // Activity,
-            state: "開發中...",
-            details: "一個實用的機器人",
-            largeImageKey: "yzb-5",
-            largeImageText: "YZB",
-            smallImageKey: "discord_icon_-_",
-            smallImageText: "柚子 Youzi 大本營",
+            state: '開發中...',
+            details: '一個實用的機器人',
+            largeImageKey: 'yzb-5',
+            largeImageText: 'YZB',
+            smallImageKey: 'discord_icon_-_',
+            smallImageText: '柚子 Youzi 大本營',
             startTimestamp: Date.now(),
         });
 

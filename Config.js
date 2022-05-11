@@ -183,7 +183,7 @@ module.exports = {
                 largeImageText: 'YZB',
                 smallImageKey: 'discord_icon_-_',
                 smallImageText: '柚子Youzi 大本營',
-            }
+            },
         },
 
     },
