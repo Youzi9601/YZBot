@@ -14,7 +14,7 @@ module.exports = {
     run: async (oldGuild, newGuild, client) => {
 
         const change = {};
-        // channels 
+        // channels
         if (oldGuild.afkChannel !== newGuild.afkChannel) {
             change.afkChannel = `\`${oldGuild.afkChannel}\` -> \`${newGuild.afkChannel}\``;
         }
@@ -56,8 +56,7 @@ module.exports = {
             + `${change.systemChannel ? `\n系統頻道變更: ${change.systemChannel}` : ''}`
             + `${change.widgetChannel ? `\n小工具頻道變更: ${change.widgetChannel}` : ''}`
             + `${change.publicUpdatesChannel ? `\n公共更新頻道變更: ${change.publicUpdatesChannel}` : ''}`
-            + `${change.ownerId ? `\n伺服器所有者變更: ${change.ownerId}` : ''}`
-
+            + `${change.ownerId ? `\n伺服器所有者變更: ${change.ownerId}` : ''}`;
 
 
         log(
