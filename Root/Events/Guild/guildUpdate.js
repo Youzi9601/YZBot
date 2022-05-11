@@ -16,32 +16,32 @@ module.exports = {
         const change = {};
         // channels 
         if (oldGuild.afkChannel !== newGuild.afkChannel) {
-            change.afkChannel = `\`${oldGuild.afkChannel}\` -> \`${newGuild.afkChannel}\``;
+            change.afkChannel = `${oldGuild.afkChannel} -> ${newGuild.afkChannel}`;
         }
 
         if (oldGuild.publicUpdatesChannel !== newGuild.publicUpdatesChannel) {
-            change.publicUpdatesChannel = `\`${oldGuild.publicUpdatesChannel}\` -> \`${newGuild.publicUpdatesChannel}\``;
+            change.publicUpdatesChannel = `${oldGuild.publicUpdatesChannel} -> ${newGuild.publicUpdatesChannel}`;
         }
 
         if (oldGuild.rulesChannel !== newGuild.rulesChannel) {
-            change.rulesChannel = `\`${oldGuild.rulesChannel}\` -> \`${newGuild.rulesChannel}\``;
+            change.rulesChannel = `${oldGuild.rulesChannel} -> ${newGuild.rulesChannel}`;
         }
 
         if (oldGuild.systemChannel !== newGuild.systemChannel) {
-            change.systemChannel = `\`${oldGuild.systemChannel}\` -> \`${newGuild.systemChannel}\``;
+            change.systemChannel = `${oldGuild.systemChannel} -> ${newGuild.systemChannel}`;
         }
 
         if (oldGuild.widgetChannel !== newGuild.widgetChannel) {
-            change.widgetChannel = `\`${oldGuild.widgetChannel}\` -> \`${newGuild.widgetChannel}\``;
+            change.widgetChannel = `${oldGuild.widgetChannel} -> ${newGuild.widgetChannel}`;
         }
 
         if (oldGuild.afkTimeout !== newGuild.afkTimeout) {
-            change.afkTimeout = `\`${oldGuild.afkTimeout}\` -> \`${newGuild.afkTimeout}\``;
+            change.afkTimeout = `${oldGuild.afkTimeout} -> ${newGuild.afkTimeout}`;
         }
 
         // owner
         if (oldGuild.ownerId !== newGuild.ownerId) {
-            change.ownerId = `\`${oldGuild.ownerId}\` -> \`${newGuild.ownerId}\``;
+            change.ownerId = `${oldGuild.ownerId} -> ${newGuild.ownerId}`;
         }
 
 

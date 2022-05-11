@@ -16,20 +16,20 @@ module.exports = {
         const change = {};
         // 使用者名稱
         if (oldMember.user.name !== newMember.user.name) {
-            change.user.name = `\`${oldMember.user.name}\` -> \`${newMember.user.name}\``;
+            change.user.name = `${oldMember.user.name} -> ${newMember.user.name}`;
         }
         // 使用者頭像
-        if (oldMember.user.avatar !== newMember.user.avatar) {
-            change.user.avatar = `\`${oldMember.user.avatar}\` -> \`${newMember.user.avatar}\``;
+        if (oldMember.user.avatarURL() !== newMember.user.avatarURL()) {
+            change.user.avatarURL = `${oldMember.user.avatarURL()} -> ${newMember.user.avatarURL()}`;
         }
 
         // 暱稱
         if (oldMember.nickname !== newMember.nickname) {
-            change.nickname = `\`${oldMember.nickname}\` -> \`${newMember.nickname}\``;
+            change.nickname = `${oldMember.nickname} -> ${newMember.nickname}`;
         }
         // 順位
         if (oldMember.roles !== newMember.roles) {
-            change.roles = `\`${oldMember.roles}\` -> \`${newMember.roles}\``;
+            change.roles = `${oldMember.roles} -> ${newMember.roles}`;
         }
 
         // console.info(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + chalk.bgYellow.bold('客戶端嘗試重新連接到 WebSocket'));
@@ -38,9 +38,9 @@ module.exports = {
         const msg =
             ''
             + `${change.nickname ? `\n名稱變更: ${change.nickname}` : ''}`
-            + `${change.roles ? `\n種類變更: ${change.roles}` : ''}`
-            + `${change.user.avatar ? `\n類別變更: ${change.user.avatar}` : ''}`
-            + `${change.user.name ? `\n順位變更: ${change.user.name}` : ''}`
+            + `${change.roles ? `\n身分組變更: ${change.roles}` : ''}`
+            + `${change.user.avatarURL ? `\n頭像變更: ${change.user.avatarURL}` : ''}`
+            + `${change.user.name ? `\n名稱變更: ${change.user.name}` : ''}`
 
         log(
             'info',
