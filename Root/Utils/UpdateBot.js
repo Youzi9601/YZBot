@@ -27,7 +27,7 @@ async function update() {
 
             }
 
-        })
+        });
         console.log('\x1b[34m%s\x1b[0m', '安裝依賴項......');
         childProcess.exec('npm install', (err, stdout, stderr) => {
             if (err) {
