@@ -40,7 +40,7 @@ module.exports = {
             + `${change.nickname ? `\n名稱變更: ${change.nickname}` : ''}`
             + `${change.roles ? `\n身分組變更: ${change.roles}` : ''}`
             + `${change.user.avatarURL ? `\n頭像變更: ${change.user.avatarURL}` : ''}`
-            + `${change.user.name ? `\n名稱變更: ${change.user.name}` : ''}`
+            + `${change.user.name ? `\n名稱變更: ${change.user.name}` : ''}`;
 
         log(
             'info',
