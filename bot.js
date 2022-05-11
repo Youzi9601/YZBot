@@ -1,8 +1,12 @@
 (async () => {
-    // 下載npm
-    const exec = require('child_process').exec;
-    await exec('npm i');
-    await require('./Root/Utils/UpdateBot');
+    const config = require('./Config');
+
+    if (`${config.autoupdate}` == 'true') {
+        // 下載npm
+        const exec = require('child_process').exec;
+        await exec('npm i');
+        await require('./Root/Utils/UpdateBot');
+    }
 
     // module.exports = { client, path, config };
 
@@ -24,7 +28,6 @@
     } = require('discord.js');
     const { REST } = require('@discordjs/rest');
     const { Routes } = require('discord-api-types/v9');
-    const config = require('./Config');
     const path = __dirname;
     const client = new Discord.Client({
         intents: [
@@ -97,7 +100,9 @@
     exports.config = config;
     // #endregion
 
+
     // #region 自動更新
+    /*
     if (`${config.autoupdate}` == 'true') {
         const aufg = require('auto-update-from-github');
 
@@ -108,6 +113,7 @@
             freq: 3600000, // 刷新頻率0
         });
     }
+    */
     // #endregion
 
     // #region 運轉
@@ -158,9 +164,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
