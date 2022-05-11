@@ -174,7 +174,16 @@ module.exports = {
     beta: {
         // RPC為Discord遊戲狀態顯示系統，目前為測試版
         rpc: {
-            run: false,
+            run: process.env.rpc_run || false,
+            setActivity: {
+                details: '一個實用的機器人',
+                state: '運作中...',
+                startTimestamp: Date.now(),
+                largeImageKey: 'yzb-5',
+                largeImageText: 'YZB',
+                smallImageKey: 'discord_icon_-_',
+                smallImageText: '柚子Youzi 大本營',
+            }
         },
 
     },

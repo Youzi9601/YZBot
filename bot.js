@@ -1,4 +1,7 @@
 (async () => {
+
+    //module.exports = { client, path, config };
+
     // #region 啟動設定
     // const { log } = require('./Root/Utils/log')
     const chalk = require('chalk');
@@ -63,42 +66,18 @@
             },
         },
     });
-    const { giveaways } = require('./Root/Plugins/discord/Giveaway');
-    giveaways(client);
+    require('./Root/Plugins/discord/Giveaway')(client);
 
     // #endregion
 
-    if (`${config.autoupdate}` == 'true') {
-        // #region 自動更新
-        const aufg = require('auto-update-from-github');
 
-        aufg({
-            git: 'Youzi9601/YZBot', // 遠程git地址
-            dir: '.', // 本地路徑
-            type: 'version', // 檢測類型 version | commit
-            freq: 3600000, // 刷新頻率0
-        });
-        // #endregion
-    }
     // #region 變數輸出
-    // 輸出檔案
-    exports.client = client;
-    exports.path = path;
-    exports.config = config;
-    module.exports = { client, path, config };
-    // #endregion
-
-    // #region 運轉
-    /**
-   *
-   * 運轉
-   *
-   */
     console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '讀取運轉文件...(可能需要花上很多時間)',
     );
+    //
     client.commands = {};
     client.events = new Discord.Collection(); // [${moment().format("YYYY-MM-DD HH:mm:ss")}] 為時間截
     client.commands.messageCommands = new Discord.Collection();
@@ -108,8 +87,35 @@
     client.commands.buttonCommands = new Discord.Collection();
     client.commands.selectMenus = new Discord.Collection();
 
+    // 輸出檔案
+    exports.client = client;
+    exports.path = path;
+    exports.config = config;
+    // #endregion
+
+    // #region 自動更新
+    if (`${config.autoupdate}` == 'true') {
+        const aufg = require('auto-update-from-github');
+
+        aufg({
+            git: 'Youzi9601/YZBot', // 遠程git地址
+            dir: '.', // 本地路徑
+            type: 'version', // 檢測類型 version | commit
+            freq: 3600000, // 刷新頻率0
+        });
+    }
+    // #endregion
+
+    // #region 運轉
+    /**
+     *
+     * 運轉
+     *
+     */
+
     // 執行讀取
     const Handler = require(`${path}/Root/Structures/Handlers/Handler`);
+
     console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
@@ -119,9 +125,12 @@
 
     // 執行登入
     const ci = process.env.CI;
-    if (ci === 'true') console.info(chalk.gray(
-        `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-    ) + chalk.red('CI測試事件> ') + 'CI測試進行中...');
+    if (ci === 'true')
+        console.info(chalk.gray(
+            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+        ) + chalk.red('CI測試事件> ') + 'CI測試進行中...');
+
+
     console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
@@ -145,9 +154,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        const eula_pass = fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
@@ -194,19 +203,24 @@
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + chalk.white(`成功使用 ${client.user.tag} 登入!`),
     );
-    if (config.beta.rpc.run == true) {
+
+    // 防止崩潰
+    require('./Root/Structures/Handlers/Anticrash')(client)
+
+    // rpc
+    if (config.beta.rpc.run == 'true' || config.beta.rpc.run == true) {
         // 這是測試功能
         const { rpc } = require('./Root/Plugins/discord/status/rpc');
         rpc();
     }
     // #endregion
 
+    // #region 運作
     /**
      *
      * 登入機器人後所執行的事情
      *
      */
-    // #region 運作
     // 執行登入命令
     console.info(
         chalk.gray(
@@ -264,64 +278,11 @@
         ) + chalk.white('請將以下網址複製到') + chalk.blue(` https://discord.com/developers/applications/${config.clientID}/oauth2/general`) + chalk.white(' 中的 Redirects ！') + chalk.blue(`\n${config.web.domain}${port80 ? '' : `:${config.web.port}`}/discord/callback`));
         // console.info(`${config.web.domain}${port80 ? '' : `:${config.web.port}`}`)
     }
-
-    //
     // #endregion
 
-    /**
-     * 主命令區
-     */
+    // END
 
-    // #region 事件
-    // 處理錯誤
-    process
-        .on('unhandledRejection', (reason, promise) => {
-            console.error('ERROR｜未處理的承諾拒絕：\n', ' ', promise, '\n原因：', reason + '\n');
-            try {
-                // console 頻道
-                const error_channel = client.channels.cache.get(
-                    config.Channels.report,
-                );
-                const msg = {};
-                const embed = {};
-                msg.content = `新的**錯誤**出現！ <@${config.developers[0]}>`;
-                embed.title = `ERROR｜錯誤 - ${reason.message}`;
-                embed.description = `\`\`\`js\n${reason ? `\n${reason.stack}${reason.request ? `\n${reason.request}` : ''}` : ''}\n\`\`\``;
-                embed.color = '0x' + 'FF0000';
-                embed.timestamp = new Date();
-                msg.embeds = [embed];
-                error_channel.send(msg).then(msg => {
-                    if (error_channel.type == 'GUILD_NEWS') msg.crosspost();
-                });
-            } catch (error) {
-                // none
-            }
-
-        })
-        .on('uncaughtException', (reason, promise) => {
-            console.error('ERROR｜未處理的承諾拒絕：\n', ' ', promise, '\n原因：', reason + '\n');
-            try {
-                // console 頻道
-                const error_channel = client.channels.cache.get(
-                    config.Channels.report,
-                );
-
-                const msg = {};
-                const embed = {};
-                msg.content = `新的**錯誤**出現！ <@${config.developers[0]}>`;
-                embed.title = `ERROR｜錯誤 - ${reason.message}`;
-                embed.description = `\`\`\`js\n${reason ? `\n${reason.stack}${reason.request ? `\n${reason.request}` : ''}` : ''}\n\`\`\``;
-                embed.color = '0x' + 'FF0000';
-                embed.timestamp = new Date();
-                msg.embeds = [embed];
-                error_channel.send(msg).then(msg => {
-                    if (error_channel.type == 'GUILD_NEWS') msg.crosspost();
-                });
-            } catch (error) {
-                // none
-            }
-        });
-    // #endregion
 
 })();
+
 

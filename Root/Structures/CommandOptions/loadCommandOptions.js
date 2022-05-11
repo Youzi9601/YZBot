@@ -3,8 +3,9 @@ const { path, config } = require('../../../bot');
 const chalk = require('chalk');
 const moment = require('moment');
 const fs = require('fs');
+// const { log } = require('./../../Utils/log')
 
-module.exports = async function(
+module.exports = async function (
     client,
     message,
     command,
@@ -67,7 +68,7 @@ module.exports = async function(
             ) +
             `${message.user.tag} 於﹝ ${message.guild.name} ﹞#${message.channel.name} (${message.guild.id} ${message.channel.id}) 使用命令： ${message}  `,
         );
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag}(${message.user.id}) 於 ${message.guild.name}(${message.guild.id}) #${message.channel.name}(${message.channel.id}) 中使用 ${message}`, function(err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag}(${message.user.id}) 於 ${message.guild.name}(${message.guild.id}) #${message.channel.name}(${message.channel.id}) 中使用 ${message}`, function (err) {
             if (err)
                 console.info(err);
         });
