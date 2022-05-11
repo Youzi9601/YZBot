@@ -17,7 +17,7 @@ async function update() {
                 console.log('\x1b[31m%s\x1b[0m', '錯誤: ' + err);
                 return;
             }
-            //console.log('' + stdout + '');
+            // console.log('' + stdout + '');
             if (!stdout.includes('Already up to date.')) {
                 console.log('\x1b[32m%s\x1b[0m', '更新成功！請重新啟動！');
                 process.exit(0);
