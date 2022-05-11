@@ -1,18 +1,19 @@
 const fs = require('fs');
 const Filer = require('../../Utils/Filer');
 const Discord = require('discord.js');
-const { path, config } = require('../../../bot');
+const { path } = require('../../../bot');
+const config = require('./../../../Config')
 const moment = require('moment');
 const chalk = require('chalk');
 const db = require('quick.db');
 
-module.exports = async function(client) {
+module.exports = async function (client) {
     const container = {
         RootPath: path,
         Config: config,
         Discord: Discord,
     };
-    Filer(`${container.RootPath}/Root/Events`, async function(err, res) {
+    Filer(`${container.RootPath}/Root/Events`, async function (err, res) {
         res.forEach(file => {
             // 執行尋找
             if (fs.statSync(file).isDirectory()) return;
@@ -33,7 +34,7 @@ module.exports = async function(client) {
                 } catch (error) {
                     // 代表有創建了
                 }
-                fs.readFile(`logs/${moment().format('YYYY-MM-DD')}.log`, function(err, data) {
+                fs.readFile(`logs/${moment().format('YYYY-MM-DD')}.log`, function (err, data) {
                     // 如果錯誤，將會創建新的檔案
                     if (err) {
 
@@ -42,13 +43,13 @@ module.exports = async function(client) {
                                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
                             ) + '創建新的檔案...');
 
-                        fs.writeFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `${moment().format('YYYY/MM/DD HH:mm:ss')} 機器人紀錄\n==========================================\n\n`, function(err) {
+                        fs.writeFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `${moment().format('YYYY/MM/DD HH:mm:ss')} 機器人紀錄\n==========================================\n\n`, function (err) {
                             // 無動作
                         });
                     }
                     // 寫入檔案
                     // console.info(data.toString());
-                    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 事件觸發｜${event.name}`, function(err) {
+                    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 事件觸發｜${event.name}`, function (err) {
                         if (err)
                             console.info(err);
                     });

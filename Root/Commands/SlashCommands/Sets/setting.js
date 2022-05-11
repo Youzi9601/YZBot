@@ -7,7 +7,7 @@ const {
     MessageEmbed,
     MessageSelectMenu,
 } = require('discord.js');
-const config = require('../../../../Config.js');
+const config = require('./../../../../Config');
 
 module.exports = {
     command: {

@@ -22,7 +22,7 @@ module.exports = {
         };
         log(
             'info',
-            `CHANNEL｜${channel.guild.name} - ${channel.name} (${channel.id}) ${type[channel.type]}已創建！`,
+            `CHANNEL｜${channel.guild.name}(${channel.guild.id}) - ${channel.parent.name}(${channel.parent.id}) : ${channel.name}(${channel.id}) ${type[channel.type]}已創建！`,
             true,
             client);
     },

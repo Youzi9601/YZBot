@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const Box = require('cli-box');
-const config = require('../../../../Config.js');
+const config = require('./../../../../Config');
 const moment = require('moment');
 const { Client } = require('discord.js');
 const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
@@ -16,7 +16,7 @@ module.exports = {
     run: async (e, client) => {
         if (config.console.error == false) return;
         console.error(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR\n`) + `${e}`);
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function(err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function (err) {
             if (err)
                 console.info(err);
         });
@@ -26,7 +26,7 @@ module.exports = {
             config.Channels.report,
         );
         report.send({
-            content: `<@!${require('Config.js').ownerId}>`,
+            content: `<@!${require('Config').ownerId}>`,
             embeds: [new MessageEmbed()
                 .setTitle(`${e.name} 錯誤！`)
                 .setDescription(`錯誤訊息：${e.message}`)

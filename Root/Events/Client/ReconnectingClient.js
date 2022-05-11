@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const Box = require('cli-box');
-const config = require('../../../Config.js');
+const config = require('../../../Config');
 const moment = require('moment');
 const { Client } = require('discord.js');
 

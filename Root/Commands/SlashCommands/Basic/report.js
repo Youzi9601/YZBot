@@ -101,9 +101,11 @@ module.exports = {
     run: async (client, interaction, container) => {
         // 內容
         const subcommand = interaction.options.getSubcommand();
+        /*
         interaction.deferReply({
             ephemeral: true,
         });
+        */
         // bug
         if (subcommand == 'bug') {
 
@@ -117,12 +119,12 @@ module.exports = {
                 .setTimestamp()
                 .setAuthor({
                     name: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    icon: interaction.member.avatarURL(),
+                    icon: `${interaction.member.avatarURL()}`,
                 })
                 .setTitle('有新的問題回報錯誤！')
                 .setDescription(`${what_happen}${message_link ? `\n[連結](${message_link})` : ''}`);
             reportChannel.send({ embeds: [report_embed] });
-            interaction.editReply({
+            interaction.reply({
                 content: '已回報錯誤！感謝您的回報讓我們可以更好！',
             });
             const report_info = new MessageEmbed()
@@ -130,7 +132,7 @@ module.exports = {
                 .setTimestamp()
                 .setAuthor({
                     name: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    icon: interaction.member.avatarURL(),
+                    icon: `${interaction.member.avatarURL()}`,
                 })
                 .setTitle('回報錯誤副本')
                 .setDescription(`${what_happen}${message_link ? `\n[連結](${message_link})` : ''}`);
@@ -156,12 +158,12 @@ module.exports = {
                 .setTimestamp()
                 .setAuthor({
                     name: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    icon: interaction.member.user.avatarURL(),
+                    icon: `${interaction.member.avatarURL()}`,
                 })
                 .setTitle('有新的舉報訊息！')
                 .setDescription(`被檢舉者：${user}\n原因：${reason}${message_link ? `\n[連結](${message_link})` : ''}`);
             reportChannel.send({ embeds: [report_embed] });
-            interaction.editReply({
+            interaction.reply({
                 content: '已回報錯誤！感謝您的回報讓我們可以更好！',
             });
             const report_info = new MessageEmbed()
@@ -169,7 +171,7 @@ module.exports = {
                 .setTimestamp()
                 .setAuthor({
                     name: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    icon: interaction.member.user.avatarURL(),
+                    icon: `${interaction.member.avatarURL()}`,
                 })
                 .setTitle('檢舉成員副本')
                 .setDescription(`被檢舉者：${user}\n原因：${reason}${message_link ? `\n[連結](${message_link})` : ''}`);
@@ -183,7 +185,7 @@ module.exports = {
         }
         // other
         else if (subcommand == 'other') {
-            interaction.editReply({
+            interaction.reply({
                 content: '此功能尚未完成！ :/',
             });
 

@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const Box = require('cli-box');
-const config = require('../../../Config.js');
+const config = require('../../../Config');
 const moment = require('moment');
 const { MessageEmbed, MessageButton, MessageActionRow } = require('discord.js');
 const { log } = require('./../../Utils/log');
