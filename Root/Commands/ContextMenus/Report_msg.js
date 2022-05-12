@@ -8,7 +8,7 @@ module.exports = {
         );
         const embed = new Discord.MessageEmbed()
             .setTitle('舉報成功！')
-            .setThumbnail(client.user.displayAvatarURL())
+            .setThumbnail(client.user.displayavatarURL({ dynamic: true }))
             .setColor('RANDOM')
             .setDescription('我們將會盡快處理！感謝您的配合！');
         interaction.reply({ embeds: [embed], ephemeral: true });

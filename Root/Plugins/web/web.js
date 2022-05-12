@@ -75,8 +75,8 @@ module.exports = {
                     dashboardUrl: `${config.web.domain}${port80 ? '' : `:${config.web.port}`}`,
                     supporteMail: 'yoyowu9601.tw@gmail.com',
                     supportServer: `https://discord.gg/${config.invite_code}`,
-                    imageFavicon: `${client.user.displayAvatarURL()}`,
-                    iconURL: `${client.user.displayAvatarURL()}`,
+                    imageFavicon: `${client.user.displayavatarURL({ dynamic: true })}`,
+                    iconURL: `${client.user.displayavatarURL({ dynamic: true })}`,
                     pageBackGround: 'linear-gradient(#2CA8FF, #155b8d)',
                     loggedIn: '登錄成功！',
                     mainColor: '#29FB77',
@@ -135,7 +135,7 @@ module.exports = {
                     card: {
                         category: `${config.botName} 的面板 ｜ 一切的中心`,
                         title: `歡迎來到 ${config.botName} 機器人的官網，您可以在其中控制機器人的核心功能。`,
-                        image: `${client.user.displayAvatarURL()}`,
+                        image: `${client.user.displayavatarURL({ dynamic: true })}`,
                         footer: `<a href="https://discord.gg/${config.invite_code}"> ↠ 點我加入伺服器！</a>`,
                     },
                     information: {
@@ -313,7 +313,7 @@ module.exports = {
                                 //
                                 {
                                     username: client.user.username,
-                                    avatarURL: client.user.displayAvatarURL(),
+                                    avatarURL: client.user.displayavatarURL({ dynamic: true }),
                                     defaultJson: {
                                         content: '',
                                         embed: {
@@ -380,7 +380,7 @@ module.exports = {
                                 //
                                 {
                                     username: client.user.username,
-                                    avatarURL: client.user.displayAvatarURL(),
+                                    avatarURL: client.user.displayavatarURL({ dynamic: true }),
                                     defaultJson: {
                                         content: '',
                                         embed: {

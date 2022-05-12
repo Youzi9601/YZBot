@@ -19,8 +19,8 @@ module.exports = {
             change.user.name = `${oldMember.user.name} -> ${newMember.user.name}`;
         }
         // 使用者頭像
-        if (oldMember.user.avatarURL() !== newMember.user.avatarURL()) {
-            change.user.avatarURL = `${oldMember.user.avatarURL()} -> ${newMember.user.avatarURL()}`;
+        if (oldMember.user.avatarURL({ dynamic: true }) !== newMember.user.avatarURL({ dynamic: true })) {
+            change.user.avatarURL = `${oldMember.user.avatarURL({ dynamic: true })} -> ${newMember.user.avatarURL({ dynamic: true })}`;
         }
 
         // 暱稱

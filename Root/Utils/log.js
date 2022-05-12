@@ -14,7 +14,7 @@ module.exports = { log };
  * @param {Message} discordmsg 訊息內容
  * @param {Client} client 機器人
  */
-function log(level, msg, SendToDiscord, client, discordmsg) {
+function log(level, msg, SendToDiscord = false, client, discordmsg) {
     if ((config.Channels.All != '') && SendToDiscord) {
         const log_channel = client.channels.cache.get(
             config.Channels.All,
@@ -64,7 +64,7 @@ function log(level, msg, SendToDiscord, client, discordmsg) {
         ) + msg);
     }
 
-    fs.appendFile(`logs / ${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function(err) {
+    fs.appendFile(`logs / ${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function (err) {
         // none
     });
 }

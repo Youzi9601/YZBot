@@ -29,7 +29,7 @@ async function updater(message, oldmsg, client) {
             description: oldmsg,
             author: {
                 name: `${client.user.username} - 機器人運作資訊`,
-                iconURL: client.user.displayAvatarURL(),
+                iconURL: client.user.avatarURL({ dynamic: true }),
             },
             fields: [
                 { name: '版本:', value: `v${require('../../../../package.json').version}`, inline: true },
@@ -57,7 +57,7 @@ async function updater(message, oldmsg, client) {
                         conjunction: ' ',
                         language: 'zh_TW',
                     })
-                    } `,
+                        } `,
                     inline: true,
                 },
                 {

@@ -8,6 +8,7 @@ const {
     MessageSelectMenu,
 } = require('discord.js');
 const config = require('./../../../../Config');
+const db = require('quick.db')
 
 
 module.exports = {
@@ -19,27 +20,42 @@ module.exports = {
             {
                 type: 1,
                 name: 'chat-bot',
-                description: '設定一個聊天機器人！',
+                description: '設定一個聊天機器人頻道',
                 options: [
                     {
                         type: 7,
                         name: 'channel',
-                        description: '頻道',
+                        description: '指向的頻道',
                         required: true,
                     },
                 ],
             },
             // #endregion
-            // #region say
+            // #region cross-servers
             {
                 type: 1,
                 name: 'corss-servers',
-                description: '設定跨群聊天',
+                description: '設定跨群聊天頻道',
                 options: [
                     {
                         type: 7,
                         name: 'channel',
-                        description: '跨群的頻道',
+                        description: '指向的頻道',
+                        required: false,
+                    },
+                ],
+            },
+            // #endregion
+            // #region suggestions-channel
+            {
+                type: 1,
+                name: 'suggestions-channel',
+                description: '設定提議/建議頻道',
+                options: [
+                    {
+                        type: 7,
+                        name: 'channel',
+                        description: '指向的頻道',
                         required: false,
                     },
                 ],
@@ -47,8 +63,8 @@ module.exports = {
             // #endregion
         ],
     },
-    clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
-    userPermissions: ['ADMINISTRATOR'],
+    clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', `MANAGE_CHANNELS`],
+    userPermissions: ['MANAGE_GUILD'],
     /**
      *
      * @param {import('discord.js').Client} client
@@ -58,14 +74,42 @@ module.exports = {
     run: async (client, interaction, container) => {
         // 取得子指令
         const subcommand = interaction.options.getSubcommand();
-        interaction.editReply({
-            content: '此功能尚未完成！ :/',
+        const channel = interaction.options.getChannel('channel') || interaction.channel
+
+        // #region chat_bot
+        if (subcommand == 'chat-bot') {
+            const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.chatbot.channel`
+            await db.set(db_data, channel.id)
+        } else
+            // #endregion
+            if (subcommand == 'suggestions-channel') {
+                interaction.deferReply()
+                const reset = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data`
+                await db.delete(reset)
+                // set
+                const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data.channel`
+                await db.set(db_data, channel.id)
+            }
+            //else
+            else return interaction.reply({
+                content: '此功能尚未完成！ :/',
+                ephemeral: true,
+            });
+
+
+        interaction.reply({
+            content: `${subcommand} 的頻道成功指向 <#${channel.id}> ，去試試看?`,
             ephemeral: true,
-        });
-        return;
+        }).catch((err) => {
+
+            interaction.editReply({
+                content: `${subcommand} 的頻道成功指向 <#${channel.id}>，去試試看?`,
+                ephemeral: true,
+            })
+
+        })
+
 
         // 執行
-        // #region chat_bot
-        // #endregion
     },
 };

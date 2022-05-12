@@ -74,7 +74,7 @@ module.exports = {
                 .setTimestamp()
                 .setTitle('伺服器資訊')
                 .setThumbnail(
-                    `${interaction.guild.iconURL() || client.user.displayAvatarURL()}`,
+                    `${interaction.guild.iconURL() || client.user.displayavatarURL({ dynamic: true })}`,
                 )
                 .setDescription(' ')
                 .setFooter({
@@ -180,14 +180,16 @@ module.exports = {
                 .setTimestamp()
                 .setTitle('成員資訊')
                 .setThumbnail(
-                    `${member.displayAvatarURL()}`,
+                    `${user.displayAvatarURL({ dynamic: true }) || user.defaultAvatarURL}`,
                 )
                 .setDescription(' ')
                 .setFooter({
                     text: `${interaction.user.tag}`,
-                    iconURL: `${interaction.user.displayAvatarURL({
-                        dynamic: true,
-                    })}`,
+                    iconURL: `${interaction.user.displayAvatarURL(
+                        {
+                            dynamic: true,
+                        })
+                        || interaction.user.defaultAvatarURL}`,
                 })
                 .addFields({
                     name: '名稱',
@@ -265,14 +267,14 @@ module.exports = {
                 .setTimestamp()
                 .setTitle('成員資訊')
                 .setThumbnail(
-                    `${member.displayAvatarURL()}`,
+                    `${member.displayavatarURL({ dynamic: true }) || member.defaultAvatarURL}`,
                 )
                 .setDescription(' ')
                 .setFooter({
                     text: `${interaction.user.tag}`,
                     iconURL: `${interaction.user.displayAvatarURL({
                         dynamic: true,
-                    })}`,
+                    }) || interaction.user.defaultAvatarURL}`,
                 })
                 .addFields({
                     name: '名稱',

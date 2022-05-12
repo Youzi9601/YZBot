@@ -165,9 +165,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
@@ -272,7 +272,7 @@
     );
 
     // 處理網頁
-    if (config.web.noWeb != true || config.web.noWeb == 'false') {
+    if (`${config.web.noWeb}` == 'false') {
         const web = require('./Root/Plugins/web/web.js');
         console.info(
             chalk.gray(

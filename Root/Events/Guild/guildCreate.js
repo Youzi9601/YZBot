@@ -39,7 +39,7 @@ module.exports = {
             .setColor(0xe4fff6)
             .setTitle(`${config.botName}`)
             .setDescription(`感謝您邀請${config.botName}到您的伺服器`)
-            .setThumbnail(`${client.user.displayAvatarURL()}`)
+            .setThumbnail(`${client.user.displayavatarURL({ dynamic: true })}`)
             .addFields(
                 { name: '\u200B', value: '\u200B' },
                 {
@@ -53,7 +53,7 @@ module.exports = {
             )
             .setFooter({
                 text: `${config.botName}`,
-                iconURL: `${client.user.displayAvatarURL()}`,
+                iconURL: `${client.user.displayavatarURL({ dynamic: true })}`,
             });
         const invitemsg_button = new MessageButton()
             .setLabel('加入伺服器')

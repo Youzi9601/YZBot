@@ -1,14 +1,16 @@
-const { messageCreate, Client } = require('discord.js');
+const { messageCreate, Message } = require('discord.js');
+const { log } = require('./../Utils/log')
 
 module.exports = {
     name: 'messageCreate',
     /**
      *
-     * @param {messageCreate} message
+     * @param {Message} message
      * @param {import('discord.js').Client} client 機器人
      * @param {*} container
      */
     run: async (message, client, container) => {
+
         // 執行命令
         const loadCommandOptions = require('../Structures/CommandOptions/loadCommandOptions');
         container.Config.prefix.forEach(prefix => {
@@ -22,8 +24,34 @@ module.exports = {
             else if (!message.guild) return;
             else loadCommandOptions(client, message, command, false);
         });
+
         // 其他工作
 
-
-    },
+        // logging
+        const isBotLog = ((message.embeds[0] ? (message.embeds[0].description ? message.embeds[0].description : 'no description') : 'no embed')).includes(`\`\`\``) || false
+        if (message.author.id == client.user.id && isBotLog) {
+            //
+        } else {
+            if (message.attachments.first() !== undefined) {
+                log('info', `${message.author.username} (${message.author.id}) 在 ${message.channel.id} 中發送了一個附件：${message.attachments.first().url}`, false)
+            }
+            if (message.content !== "") {
+                log('info', `${message.author.username} (${message.author.id}) 在 ${message.channel.id} 中發送消息：${message.content}`, false)
+            }
+            if (message.embeds.length !== 0) {
+                const a = message.embeds[0]
+                const embed = {}
+                for (const b in a) {
+                    if (a[b] != null && (a[b] !== [] && a[b].length !== 0) && a[b] !== {}) {
+                        embed[b] = a[b]
+                    }
+                }
+                log('info', `${message.author.username} (${message.author.id}) 在 ${message.channel.id} 中發送了一個嵌入： ${JSON.stringify(embed, null, 2)}`, false)
+            }
+        }
+        // chatbot
+        require('./../Plugins/discord/message/chatbot')(message, client, container)
+        // suggestions_channel
+        require('./../Plugins/discord/message/suggestions_channel')(message, client, container)
+    }
 };
