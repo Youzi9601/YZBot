@@ -13,8 +13,8 @@ const config = require('../../../../Config.js');
 //
 module.exports = {
     command: {
-        name: 'list-servers',
-        description: '將機器人所在的所有服務器列出於控制台',
+        name: 'developers',
+        description: '機器人的危險設定',
         options: [
             {
                 name: 'list-servers',
@@ -88,23 +88,23 @@ module.exports = {
                 ephemeral: true,
             });
         } else
-        // #endregion
+            // #endregion
 
-        // #region leave-server
-        if (subcommand == 'leave-server') {
-            const id = interaction.options.getString('id');
-            const guild = client.guilds.cache.get(id);
-            try {
-                if (!guild) {
-                    return interaction.reply({ content: '未指定公會 ID。請指定公會ID' });
+            // #region leave-server
+            if (subcommand == 'leave-server') {
+                const id = interaction.options.getString('id');
+                const guild = client.guilds.cache.get(id);
+                try {
+                    if (!guild) {
+                        return interaction.reply({ content: '未指定伺服器 ID。請指定伺服器ID' });
+                    }
+
+                    await guild.leave();
+                    interaction.reply({ content: `離開 **${guild.name}**和 \`${guild.memberCount}\` 成員。` });
+                } catch (err) {
+                    interaction.reply({ content: `離開伺服器時發生錯誤： \`${err.message}\`` });
                 }
-
-                await guild.leave();
-                interaction.reply({ content: `離開 **${guild.name}**和 \`${guild.memberCount}\` 成員。` });
-            } catch (err) {
-                interaction.reply({ content: `離開服務器時發生錯誤： \`${err.message}\`` });
             }
-        }
         // #endregion
         //
     },
