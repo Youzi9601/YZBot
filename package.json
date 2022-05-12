@@ -40,7 +40,6 @@
     "@discordjs/opus": "^0.7.0",
     "@discordjs/rest": "^0.3.0",
     "@distube/spotify": "^1.2.1",
-    "auto-update-from-github": "^1.0.8",
     "axios": "^0.27.2",
     "chalk": "4.0.0",
     "child_process": "^1.0.2",
