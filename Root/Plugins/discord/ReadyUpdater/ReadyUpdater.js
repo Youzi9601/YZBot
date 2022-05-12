@@ -57,7 +57,7 @@ async function updater(message, oldmsg, client) {
                         conjunction: ' ',
                         language: 'zh_TW',
                     })
-                        } `,
+                    } `,
                     inline: true,
                 },
                 {
