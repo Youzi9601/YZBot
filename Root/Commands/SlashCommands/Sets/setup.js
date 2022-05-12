@@ -8,7 +8,7 @@ const {
     MessageSelectMenu,
 } = require('discord.js');
 const config = require('./../../../../Config');
-const db = require('quick.db')
+const db = require('quick.db');
 
 
 module.exports = {
@@ -63,7 +63,7 @@ module.exports = {
             // #endregion
         ],
     },
-    clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', `MANAGE_CHANNELS`],
+    clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_CHANNELS'],
     userPermissions: ['MANAGE_GUILD'],
     /**
      *
@@ -74,27 +74,27 @@ module.exports = {
     run: async (client, interaction, container) => {
         // 取得子指令
         const subcommand = interaction.options.getSubcommand();
-        const channel = interaction.options.getChannel('channel') || interaction.channel
+        const channel = interaction.options.getChannel('channel') || interaction.channel;
 
         // #region chat_bot
         if (subcommand == 'chat-bot') {
-            const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.chatbot.channel`
-            await db.set(db_data, channel.id)
+            const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.chatbot.channel`;
+            await db.set(db_data, channel.id);
         } else
-            // #endregion
-            if (subcommand == 'suggestions-channel') {
-                interaction.deferReply()
-                const reset = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data`
-                await db.delete(reset)
-                // set
-                const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data.channel`
-                await db.set(db_data, channel.id)
-            }
-            //else
-            else return interaction.reply({
-                content: '此功能尚未完成！ :/',
-                ephemeral: true,
-            });
+        // #endregion
+        if (subcommand == 'suggestions-channel') {
+            interaction.deferReply();
+            const reset = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data`;
+            await db.delete(reset);
+            // set
+            const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data.channel`;
+            await db.set(db_data, channel.id);
+        }
+        // else
+        else return interaction.reply({
+            content: '此功能尚未完成！ :/',
+            ephemeral: true,
+        });
 
 
         interaction.reply({
@@ -105,9 +105,9 @@ module.exports = {
             interaction.editReply({
                 content: `${subcommand} 的頻道成功指向 <#${channel.id}>，去試試看?`,
                 ephemeral: true,
-            })
+            });
 
-        })
+        });
 
 
         // 執行

@@ -1,16 +1,16 @@
 const { config, client } = require('../../../../bot');
-const db = require('quick.db')
+const db = require('quick.db');
 const { log } = require('../../../Utils/log');
 
 module.exports =
     /**
-     * 
-     * @param {import('discord.js').Message} message 
-     * @param {client} client 
+     *
+     * @param {import('discord.js').Message} message
+     * @param {client} client
      * @param {*} container
      */
     (message, client, container) => {
-        if (!message.inGuild()) return
+        if (!message.inGuild()) return;
         // 檢查是否發送
         const suggestions_data = db.get(`data.discord.guilds.${message.guild.id}.channel.plugins.suggestions_data`) || 0;
 
@@ -18,8 +18,8 @@ module.exports =
         if (message.author.bot) return;
 
         // 輸入
-        message.channel.sendTyping()
-        const num = Math.round(Number(suggestions_data.num) + 1) || 1
+        message.channel.sendTyping();
+        const num = Math.round(Number(suggestions_data.num) + 1) || 1;
         const embed = {
             title: `#${num} 提議：`,
             description: `${message.content}`,
@@ -28,20 +28,20 @@ module.exports =
                 text: `${message.author.tag} 提出 ｜ ${client.user.username} 建議系統`,
                 icon_url: `${message.author.displayAvatarURL({ dynamic: true }) || message.author.defaultAvatarURL}`,
             },
-        }
+        };
         if (message.attachments.first() !== undefined) {
 
             embed.image = {
                 url: `${message.attachments.first().url}`,
-            }
+            };
 
         }
         // 發送消息
         try {
-            message.delete()
+            message.delete();
             message.channel.send({
                 embeds: [
-                    embed
+                    embed,
                 ],
             }).then((msg) => {
                 msg.react('✅').then(() => msg.react('❌'));
@@ -51,15 +51,15 @@ module.exports =
                     reason: '可在此區討論！或許會有些新的想法可以在這裡作補充！',
                 }).then((thread) => {
                     thread.members.add(`${message.author.id}`);
-                    log('info', `THREAD｜討論串新增 - ${thread.guild.name} (${thread.guild.id}) #${thread.parent.name} (${thread.parent.id}) : ${thread.name} (${thread.id})`, 'true', client)
-                })
+                    log('info', `THREAD｜討論串新增 - ${thread.guild.name} (${thread.guild.id}) #${thread.parent.name} (${thread.parent.id}) : ${thread.name} (${thread.id})`, 'true', client);
+                });
 
-            })
+            });
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-        const db_data = `data.discord.guilds.${message.guild.id}.channel.plugins.suggestions_data.num`
-        db.set(db_data, num)
+        const db_data = `data.discord.guilds.${message.guild.id}.channel.plugins.suggestions_data.num`;
+        db.set(db_data, num);
 
 
         //
@@ -73,4 +73,4 @@ module.exports =
                  message.channel.send(`> ${message.content} \n <@${message.author.id}> ${data.message} `);
              });
         */
-    }
+    };

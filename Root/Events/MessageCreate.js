@@ -1,5 +1,5 @@
 const { messageCreate, Message } = require('discord.js');
-const { log } = require('./../Utils/log')
+const { log } = require('./../Utils/log');
 
 module.exports = {
     name: 'messageCreate',
@@ -28,30 +28,30 @@ module.exports = {
         // 其他工作
 
         // logging
-        const isBotLog = ((message.embeds[0] ? (message.embeds[0].description ? message.embeds[0].description : 'no description') : 'no embed')).includes(`\`\`\``) || false
+        const isBotLog = ((message.embeds[0] ? (message.embeds[0].description ? message.embeds[0].description : 'no description') : 'no embed')).includes('```') || false;
         if (message.author.id == client.user.id && isBotLog) {
             //
         } else {
             if (message.attachments.first() !== undefined) {
-                log('info', `${message.author.username} (${message.author.id}) 在 ${message.channel.id} 中發送了一個附件：${message.attachments.first().url}`, false)
+                log('info', `${message.author.username} (${message.author.id}) 在 ${message.channel.id} 中發送了一個附件：${message.attachments.first().url}`, false);
             }
-            if (message.content !== "") {
-                log('info', `${message.author.username} (${message.author.id}) 在 ${message.channel.id} 中發送消息：${message.content}`, false)
+            if (message.content !== '') {
+                log('info', `${message.author.username} (${message.author.id}) 在 ${message.channel.id} 中發送消息：${message.content}`, false);
             }
             if (message.embeds.length !== 0) {
-                const a = message.embeds[0]
-                const embed = {}
+                const a = message.embeds[0];
+                const embed = {};
                 for (const b in a) {
                     if (a[b] != null && (a[b] !== [] && a[b].length !== 0) && a[b] !== {}) {
-                        embed[b] = a[b]
+                        embed[b] = a[b];
                     }
                 }
-                log('info', `${message.author.username} (${message.author.id}) 在 ${message.channel.id} 中發送了一個嵌入： ${JSON.stringify(embed, null, 2)}`, false)
+                log('info', `${message.author.username} (${message.author.id}) 在 ${message.channel.id} 中發送了一個嵌入： ${JSON.stringify(embed, null, 2)}`, false);
             }
         }
         // chatbot
-        require('./../Plugins/discord/message/chatbot')(message, client, container)
+        require('./../Plugins/discord/message/chatbot')(message, client, container);
         // suggestions_channel
-        require('./../Plugins/discord/message/suggestions_channel')(message, client, container)
-    }
+        require('./../Plugins/discord/message/suggestions_channel')(message, client, container);
+    },
 };
