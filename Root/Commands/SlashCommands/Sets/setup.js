@@ -26,7 +26,7 @@ module.exports = {
                         type: 7,
                         name: 'channel',
                         description: '指向的頻道',
-                        required: true,
+                        required: false,
                     },
                 ],
             },
@@ -81,20 +81,20 @@ module.exports = {
             const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.chatbot.channel`;
             await db.set(db_data, channel.id);
         } else
-        // #endregion
-        if (subcommand == 'suggestions-channel') {
-            interaction.deferReply();
-            const reset = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data`;
-            await db.delete(reset);
-            // set
-            const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data.channel`;
-            await db.set(db_data, channel.id);
-        }
-        // else
-        else return interaction.reply({
-            content: '此功能尚未完成！ :/',
-            ephemeral: true,
-        });
+            // #endregion
+            if (subcommand == 'suggestions-channel') {
+                interaction.deferReply();
+                const reset = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data`;
+                await db.delete(reset);
+                // set
+                const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data.channel`;
+                await db.set(db_data, channel.id);
+            }
+            // else
+            else return interaction.reply({
+                content: '此功能尚未完成！ :/',
+                ephemeral: true,
+            });
 
 
         interaction.reply({
@@ -108,6 +108,13 @@ module.exports = {
             });
 
         });
+        try {
+            channel.sendTyping()
+            channel.send({ content: `這裡！ <@${interaction.user.id}>` })
+        } catch (error) {
+            //
+        }
+
 
 
         // 執行

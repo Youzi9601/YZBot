@@ -3,19 +3,20 @@ const Filer = require('../../Utils/Filer');
 const config = require('../../../Config');
 const chalk = require('chalk');
 const moment = require('moment');
+const { log } = require('../../Utils/log');
 
 /**
  *
  * @param {import('discord.js').Client} client
  * @param {import('./../../../bot').path} path
  */
-module.exports = async function(client, path) {
+module.exports = async function (client, path) {
     console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '命令註冊開始！',
     );
-    Filer(`${path}/Root/Commands/SlashCommands`, async function(err, res) {
+    Filer(`${path}/Root/Commands/SlashCommands`, async function (err, res) {
         res.forEach((file) => {
             if (fs.statSync(file).isDirectory()) return;
             const cmd = require(file);
@@ -23,12 +24,13 @@ module.exports = async function(client, path) {
             client.commands.slashCommands.set(require(file).command.name, require(file));
         });
         let promise = Promise.resolve();
-        res.forEach(async function(file) {
-            promise = promise.then(async function() {
+        res.forEach(async function (file) {
+            promise = promise.then(async function () {
                 const interval = 5000;
                 if (fs.statSync(file).isDirectory()) return;
                 const cmd = require(file);
                 if (cmd.ignoreFile) return;
+                log('command', `/${cmd.command.name}`)
 
                 // Guild
                 if (cmd.guilds && Array.isArray(cmd.guilds))
@@ -118,7 +120,7 @@ module.exports = async function(client, path) {
                 }
 
                 //
-                return new Promise(function(resolve) {
+                return new Promise(function (resolve) {
                     setTimeout(resolve, interval);
                 });
             });
