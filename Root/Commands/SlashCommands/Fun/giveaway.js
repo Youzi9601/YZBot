@@ -166,11 +166,11 @@ module.exports = {
                     giveaway: (config.plugins.giveaways.everyoneMention ? '@everyone\n\n' : '') + '🎉 **抽獎** 🎉',
                     giveawayEnded: (config.plugins.giveaways.everyoneMention ? '@everyone\n\n' : '') + '🎉 **抽獎結束** 🎉',
                     inviteToParticipate: '點選下方的🎉反應參與！',
-                    dropMessage: '成為第一個對🎉做出反應的人！',
+                    dropMessage: '成為第一個按下🎉反應的人！',
                     drawing: '時間： {timestamp}',
                     winMessage: { embed: { description: '恭喜 {winners} 贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})', color: '0x0174DF' } },
                     embedFooter: `${client.user.username}｜抽獎系統`,
-                    noWinner: { embed: { description: ':stop: 抽獎已取消，沒有有效參與。', color: '0x0174DF' } },
+                    noWinner: { embed: { description: ':stop: 抽獎已取消，沒有任何有效的參與。', color: '0x0174DF' } },
                     hostedBy: '由 {this.hostedBy} 主辦 ',
                     winners: '獲獎者',
                     endedAt: '結束於',
@@ -273,7 +273,7 @@ module.exports = {
             )
                 .then(() => {
                     // Success message
-                    interaction.reply('獎品重新抽出！');
+                    interaction.reply('抽獎成功編輯！');
                 })
                 .catch((e) => {
                     interaction.reply({

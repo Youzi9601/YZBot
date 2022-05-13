@@ -12,7 +12,7 @@ ws.on('open', function open() {
 });
 
 ws.on('close', function close() {
-    console.log('ws接收已關閉');
+    console.log('disconnected');
 });
 
 ws.on('message', function incoming(data) {
@@ -39,29 +39,32 @@ function webhook(data) {
     }
 }
 */
-const app = require('express')();
-const bodyParser = require('body-parser');
+var express = require('express'),
+    bodyParser = require('body-parser'),
+    app = express(),
+    port = 3000;
 
-app.use(bodyParser.raw({ type: 'application/json' }));
-app.post('/webhooks/callback', (req, res) => {
-    const { body, rawBody, headers } = req;
+app.use(bodyParser.json());
 
-    const { eventType, data } = body;
-    switch (eventType) {
-    case 'company.paymentdetails.removed':
-        // ...
-        break;
-    case 'member.paymentdetails.removed':
-        // ...
-        break;
-    case 'member.removed':
-    case 'company.removed':
-        // ...
-        break;
-    default:
-        // unhandled event
-        console.log(`Event ${eventType} was not handled.`);
-    }
+app.post('/', function (req, res) {
+    var body = req.body;
+    var trackingNumber = body.msg.tracking_number;
+    var slug = body.msg.slug;
+    var token = body.msg.unique_token;
+
+    console.log(trackingNumber, slug, token);
+
+    res.json({
+        message: '成功取得'
+    });
 });
 
-app.listen(3000, () => console.log('Listening on 3000'));
+
+var server = app.listen(port, function () {
+
+    var host = server.address().address
+    var port = server.address().port
+
+    console.log(`監聽 http://${host + port} 的示例應用`)
+
+});
