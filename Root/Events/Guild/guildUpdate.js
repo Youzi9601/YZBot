@@ -12,7 +12,7 @@ module.exports = {
        * @param {Guild} newGuild
        */
     run: async (oldGuild, newGuild, client) => {
-
+        if (newGuild == undefined) return log('info', '伺服器刪除！')
         const change = {};
         // channels
         if (oldGuild.afkChannel !== newGuild.afkChannel) {
