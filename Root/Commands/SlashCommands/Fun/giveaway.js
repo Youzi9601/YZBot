@@ -186,11 +186,11 @@ module.exports = {
         else if (subcommand == 'reroll') {
             const query = interaction.options.getString('giveaway');
 
-            // 嘗試找到帶獎品的贈品，然後使用 ID
+            // 嘗試找到帶獎品的抽獎，然後使用 ID
             const giveaway =
-                // 搜索贈品獎品
+                // 搜索抽獎獎品
                 client.giveawaysManager.giveaways.find((g) => g.prize === query && g.guildId === interaction.guild.id) ||
-                // 使用贈品 ID 搜索
+                // 使用抽獎 ID 搜索
                 client.giveawaysManager.giveaways.find((g) => g.messageId === query && g.guildId === interaction.guild.id);
 
             // If no giveaway was found
@@ -203,7 +203,7 @@ module.exports = {
 
             if (!giveaway.ended) {
                 return interaction.reply({
-                    content: '贈品還沒有結束。',
+                    content: '抽獎還沒有結束。',
                     ephemeral: true,
                 });
             }
@@ -235,16 +235,16 @@ module.exports = {
         // #region edit
         else if (subcommand == 'edit') {
             const query = interaction.options.getString('message_id');
-            // 嘗試找到帶獎品的贈品，然後使用 ID
+            // 嘗試找到帶獎品的抽獎，然後使用 ID
             const giveaway =
-                // 搜索贈品獎品
+                // 搜索抽獎獎品
                 client.giveawaysManager.giveaways.find((g) => g.prize === query && g.guildId === interaction.guild.id) ||
-                // 使用贈品 ID 搜索
+                // 使用抽獎 ID 搜索
                 client.giveawaysManager.giveaways.find((g) => g.messageId === query && g.guildId === interaction.guild.id);
 
             // const newEnd = ms(interaction.options.getString('time'))
             const options = {
-                addTime: ms(interaction.options.getString('addTime')) || null,
+                addTime: ms(interaction.options.getString('addTime') || 0) || null,
                 newWinnerCount: interaction.options.getNumber('winners') || giveaway.winnerCount,
                 newPrize: new_prize = interaction.options.getString('new_prize') || giveaway.prize,
                 // setEndTimestamp: Date.now() + newEnd
@@ -289,11 +289,11 @@ module.exports = {
         else if (subcommand == 'pause') {
             const query = interaction.options.getString('message_id');
 
-            // 嘗試找到帶獎品的贈品，然後使用 ID
+            // 嘗試找到帶獎品的抽獎，然後使用 ID
             const giveaway =
-                // 搜索贈品獎品
+                // 搜索抽獎獎品
                 client.giveawaysManager.giveaways.find((g) => g.prize === query && g.guildId === interaction.guild.id) ||
-                // 使用贈品 ID 搜索
+                // 使用抽獎 ID 搜索
                 client.giveawaysManager.giveaways.find((g) => g.messageId === query && g.guildId === interaction.guild.id);
 
             // If no giveaway was found
