@@ -583,7 +583,7 @@ module.exports = {
             // #endregion clone
         ],
     },
-    clientPermissions: ['SEND_MESSAGES', 'ADMINISTRATOR'],
+    clientPermissions: ['ADMINISTRATOR'],
     userPermissions: ['ADMINISTRATOR'],
     /**
      *

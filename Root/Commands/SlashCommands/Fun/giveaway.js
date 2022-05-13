@@ -111,7 +111,7 @@ module.exports = {
         ],
     },
     ignoreFile: false,
-    clientPermissions: ['ADMINISTRATOR', 'MANAGE_MESSAGES'],
+    clientPermissions: ['VIEW_CHANNEL', 'MANAGE_MESSAGES', 'SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
     /**
      *
      * @param {import('discord.js').Client} client

@@ -1,4 +1,4 @@
-
+/*
 const WebSocket = require('ws');
 
 const ws = new WebSocket('wss://my.webhookrelay.com/v1/socket');
@@ -12,7 +12,7 @@ ws.on('open', function open() {
 });
 
 ws.on('close', function close() {
-    console.log('disconnected');
+    console.log('ws接收已關閉');
 });
 
 ws.on('message', function incoming(data) {
@@ -38,4 +38,30 @@ function webhook(data) {
         }
     }
 }
+*/
+const app = require('express')();
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.raw({ type: 'application/json' }));
+app.post('/webhooks/callback', (req, res) => {
+    const { body, rawBody, headers } = req;
+
+    const { eventType, data } = body;
+    switch (eventType) {
+        case 'company.paymentdetails.removed':
+            // ...
+            break;
+        case 'member.paymentdetails.removed':
+            // ...
+            break;
+        case 'member.removed':
+        case 'company.removed':
+            // ...
+            break;
+        default:
+            // unhandled event
+            console.log(`Event ${eventType} was not handled.`);
+    }
+});
+
+app.listen(3000, () => console.log('Listening on 3000'));
