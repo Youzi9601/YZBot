@@ -4,13 +4,18 @@ const config = require('../../../Config');
 const chalk = require('chalk');
 const moment = require('moment');
 
-module.exports = async function(client, path) {
+/**
+ * 
+ * @param {import('discord.js').Client} client 
+ * @param {import('./../../../bot').path} path 
+ */
+module.exports = async function (client, path) {
     console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '命令註冊開始！',
     );
-    Filer(`${path}/Root/Commands/SlashCommands`, async function(err, res) {
+    Filer(`${path}/Root/Commands/SlashCommands`, async function (err, res) {
         res.forEach((file) => {
             if (fs.statSync(file).isDirectory()) return;
             const cmd = require(file);
@@ -18,13 +23,14 @@ module.exports = async function(client, path) {
             client.commands.slashCommands.set(require(file).command.name, require(file));
         });
         let promise = Promise.resolve();
-        res.forEach(async function(file) {
-            promise = promise.then(async function() {
+        res.forEach(async function (file) {
+            promise = promise.then(async function () {
                 const interval = 5000;
                 if (fs.statSync(file).isDirectory()) return;
                 const cmd = require(file);
                 if (cmd.ignoreFile) return;
 
+                // Guild
                 if (cmd.guilds && Array.isArray(cmd.guilds))
                     cmd.guilds.forEach((guildID) => {
                         (async () => {
@@ -34,8 +40,9 @@ module.exports = async function(client, path) {
                             const verifier = guild.commands.cache.find(
                                 (x) => x.name == cmd.command.name,
                             );
-                            if (verifier)
-                                await guild.commands.edit(verifier.id, {
+                            // 如果有 Guild 命令
+                            if (verifier) {
+                                const command = await guild.commands.edit(verifier.id, {
                                     // 基本
                                     name: cmd.command.name,
                                     description: cmd.command.description ?? '一個未完成的命令',
@@ -48,10 +55,12 @@ module.exports = async function(client, path) {
                                     dm_permission: cmd.command.dm_permission ?? false,
                                     // 本地化
                                     locales: cmd.command.locales ?? {},
-
                                 });
-                            else
-                                await guild.commands.create({
+                                const permissions = cmd.command.permissions ?? []
+                                await command.permissions.set({ permissions });
+                            }
+                            else { // 如果沒有 Guild 命令
+                                const command = await guild.commands.create({
                                     // 基本
                                     name: cmd.command.name,
                                     description: cmd.command.description ?? '一個未完成的命令',
@@ -64,15 +73,19 @@ module.exports = async function(client, path) {
                                     dm_permission: cmd.command.dm_permission ?? false,
                                     // 本地化
                                     locales: cmd.command.locales ?? {},
-
                                 });
+                                const permissions = cmd.command.permissions ?? []
+                                await command.permissions.set({ permissions });
+                            }
                         })();
                     });
+
+                // Global
                 else {
                     const verifier = client.application.commands.cache.find(
                         (x) => x.name == cmd.command.name,
                     );
-                    if (verifier)
+                    if (verifier) { // 如果有全局命令
                         await client.application.commands.edit(verifier.id, {
                             // 基本
                             name: cmd.command.name,
@@ -86,10 +99,9 @@ module.exports = async function(client, path) {
                             dm_permission: cmd.command.dm_permission ?? false,
                             // 本地化
                             locales: cmd.command.locales ?? {},
-
-
                         });
-                    else
+                    }
+                    else { // 如果沒有全局命令
                         await client.application.commands.create({
                             // 基本
                             name: cmd.command.name,
@@ -103,11 +115,12 @@ module.exports = async function(client, path) {
                             dm_permission: cmd.command.dm_permission ?? false,
                             // 本地化
                             locales: cmd.command.locales ?? {},
-
                         });
+                    }
                 }
-                /** */
-                return new Promise(function(resolve) {
+
+                //
+                return new Promise(function (resolve) {
                     setTimeout(resolve, interval);
                 });
             });

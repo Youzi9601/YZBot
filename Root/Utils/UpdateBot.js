@@ -23,7 +23,6 @@ async function update() {
                 process.exit(0);
             } else {
                 console.log('\x1b[32m%s\x1b[0m', '沒有新的更新！');
-
             }
 
         });
@@ -39,7 +38,7 @@ async function update() {
 
         });
     } else {
-        console.log('\x1b[31m%s\x1b[0m', '不是 git 存儲庫！');
+        console.log('\x1b[31m%s\x1b[0m', '沒有 git 存儲庫！');
     }
 }
 update();
