@@ -25,7 +25,7 @@ async function updater(message, oldmsg, client) {
         const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
             conjunction: ' ',
             language: 'zh_TW',
-        })} `
+        })} `;
         // 更新訊息
         const embed = {
             color: 0x808080,
