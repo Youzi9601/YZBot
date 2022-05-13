@@ -91,7 +91,7 @@ module.exports = {
                     }
 
                     await guild.leave();
-                    interaction.reply({ content: `離開 **${guild.name}**和 \`${guild.memberCount}\` 成員。` });
+                    interaction.reply({ content: `成功離開 **${guild.name}**，少了\`${guild.memberCount}\`位成員。` });
                 } catch (err) {
                     interaction.reply({ content: `離開伺服器時發生錯誤： \`${err.message}\`` });
                 }
