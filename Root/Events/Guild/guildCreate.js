@@ -8,11 +8,11 @@ module.exports = {
     name: 'guildCreate',
     once: false,
     /**
-     * 
-     * @param {import('discord.js').Guild} guild 
-     * @param {import('discord.js').Client} client 
-     * @param {*} container 
-     * @returns 
+     *
+     * @param {import('discord.js').Guild} guild
+     * @param {import('discord.js').Client} client
+     * @param {*} container
+     * @returns
      */
     run: async (guild, client, container) => {
         const discordmsg = {
