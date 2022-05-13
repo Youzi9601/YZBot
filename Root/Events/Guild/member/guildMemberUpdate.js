@@ -29,9 +29,9 @@ module.exports = {
         }
         // 順位
         if (oldMember.roles !== newMember.roles) {
-            change.roles = `無法顯示 :/`;
+            change.roles = '無法顯示 :/';
         }
-        console.assert(oldMember.roles)
+        console.assert(oldMember.roles);
         // console.info(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + chalk.bgYellow.bold('客戶端嘗試重新連接到 WebSocket'));
         // console.info(`\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${oldMember.name} (${oldMember.type}) 已變更`);
         // end
