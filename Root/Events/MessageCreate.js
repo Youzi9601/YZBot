@@ -33,10 +33,10 @@ module.exports = {
             //
         } else {
             if (message.attachments.first() !== undefined) {
-                log('info', `${message.author.username} (${message.author.id}) 在 ${message.channel.id} 中發送了一個附件：${message.attachments.first().url}`, false);
+                log('info', `${message.author.tag} (${message.author.id}) 在 ${message.guild.name} (${message.guild.id}) ${message.channel.name} (${message.channel.id}) 中發送了一個附件：${message.attachments.first().url}`, false);
             }
             if (message.content !== '') {
-                log('info', `${message.author.username} (${message.author.id}) 在 ${message.channel.id} 中發送消息：${message.content}`, false);
+                log('info', `${message.author.tag} (${message.author.id}) 在 ${message.guild.name} (${message.guild.id}) ${message.channel.name} (${message.channel.id}) 中發送消息：${message.content}`, false);
             }
             if (message.embeds.length !== 0) {
                 const a = message.embeds[0];
@@ -46,7 +46,7 @@ module.exports = {
                         embed[b] = a[b];
                     }
                 }
-                log('info', `${message.author.username} (${message.author.id}) 在 ${message.channel.id} 中發送了一個嵌入： ${JSON.stringify(embed, null, 2)}`, false);
+                log('info', `${message.author.tag} (${message.author.id}) 在 ${message.guild.name} (${message.guild.id}) ${message.channel.name} (${message.channel.id}) 中發送了一個嵌入： ${JSON.stringify(embed, null, 2)}`, false);
             }
         }
         // chatbot
