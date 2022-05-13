@@ -1,5 +1,9 @@
+const config = require('./../../../Config')
 const { translate_Permissions } = require('../../Language/Language');
-module.exports = async function(message, command, Discord) {
+module.exports = async function (message, command, Discord) {
+    // bypass
+    if (config.developers.some(id => message.member.user.id == id)) return false;
+    //
     if (!command.userPermissions) return false;
     const missing = [];
     command.userPermissions.forEach(i => {

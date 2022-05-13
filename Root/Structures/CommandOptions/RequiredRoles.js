@@ -1,4 +1,8 @@
-module.exports = async function(message, command, Discord) {
+const config = require('./../../../Config')
+module.exports = async function (message, command, Discord) {
+    // bypass
+    if (config.developers.some(id => message.member.user.id == id)) return false;
+    //
     if (!command.requiredRoles) return false;
     const missing = [];
     command.requiredRoles.forEach(role => {

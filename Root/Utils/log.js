@@ -19,6 +19,7 @@ function log(level, msg, SendToDiscord = false, client, discordmsg) {
         const log_channel = client.channels.cache.get(
             config.Channels.All,
         );
+        if (log_channel == undefined) return;
         // 發送訊息
         let send = {
             content: 'ERROR: 未知的訊息',
@@ -64,7 +65,7 @@ function log(level, msg, SendToDiscord = false, client, discordmsg) {
         ) + msg);
     }
 
-    fs.appendFile(`logs / ${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function(err) {
+    fs.appendFile(`logs / ${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function (err) {
         // none
     });
 }

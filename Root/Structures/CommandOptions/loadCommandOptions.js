@@ -5,7 +5,7 @@ const moment = require('moment');
 const fs = require('fs');
 // const { log } = require('./../../Utils/log')
 
-module.exports = async function(
+module.exports = async function (
     client,
     message,
     command,
@@ -21,34 +21,33 @@ module.exports = async function(
     };
     // 檢查是否有以下指令設定
     if (await require('./OnlyRunOnGuilds')(message, command, Discord)) return;
-    else if (
-        await require('./Cooldown')(
-            client,
-            message,
-            command,
-            isInteraction,
-            interactionType,
-            Discord,
-        )
-    )
-        return;
+    else if (await require('./Cooldown')(
+        client,
+        message,
+        command,
+        isInteraction,
+        interactionType,
+        Discord,
+    )) return;
+
+    // owner
     else if (await require('./OwnerOnly')(message, command, Discord)) return;
-    else if (await require('./UserPermissions')(message, command, Discord))
-        return;
-    else if (await require('./ClientPermissions')(message, command, Discord))
-        return;
-    else if (await require('./AnyUserPermissions')(message, command, Discord))
-        return;
-    else if (await require('./AnyClientPermissions')(message, command, Discord))
-        return;
-    else if (await require('./RequiredAnyRole')(message, command, Discord))
-        return;
+    // client
+    else if (await require('./AnyClientPermissions')(message, command, Discord)) return;
+    else if (await require('./ClientPermissions')(message, command, Discord)) return;
+
+    // #region bypass
+    // user
+    else if (await require('./UserPermissions')(message, command, Discord)) return;
+    else if (await require('./AnyUserPermissions')(message, command, Discord)) return;
+    else if (await require('./RequiredAnyRole')(message, command, Discord)) return;
     else if (await require('./RequiredRoles')(message, command, Discord)) return;
+    // onlyrun
     else if (await require('./OnlyChannels')(message, command, Discord)) return;
-    else if (await require('./OnlyGuilds')(client, message, command, Discord))
-        return;
-    else if (await require('./OnlyUsers')(client, message, command, Discord))
-        return;
+    else if (await require('./OnlyGuilds')(client, message, command, Discord)) return;
+    else if (await require('./OnlyUsers')(client, message, command, Discord)) return;
+    // #endregion bypass
+
     // 執行命令(斜線/文字)
     else {
         // Log紀錄命令使用
@@ -68,7 +67,7 @@ module.exports = async function(
             ) +
             `${message.user.tag} 於﹝ ${message.guild.name} ﹞#${message.channel.name} (${message.guild.id} ${message.channel.id}) 使用命令： ${message}  `,
         );
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag}(${message.user.id}) 於 ${message.guild.name}(${message.guild.id}) #${message.channel.name}(${message.channel.id}) 中使用 ${message}`, function(err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag}(${message.user.id}) 於 ${message.guild.name}(${message.guild.id}) #${message.channel.name}(${message.channel.id}) 中使用 ${message}`, function (err) {
             if (err)
                 console.info(err);
         });

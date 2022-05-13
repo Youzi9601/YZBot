@@ -62,7 +62,6 @@ module.exports = {
              *
              * // 可用變數：
              * {bot.name} - 機器人名字
-             * {bot.uptime} - 機器人運作時間
              * {count.guilds} - 伺服器數量
              * {count.members} - 使用者數量
              * {Youtube.subs} - Youtube 訂閱者數量 (需要在 "Youtube.url" 的選項中輸入連結！)
@@ -70,10 +69,6 @@ module.exports = {
             {
                 type: 'WATCHING',
                 name: '{count.guilds}個伺服器&{count.members}個使用者',
-            },
-            {
-                type: 'PLAYING',
-                name: '上線時間: {bot.uptime}',
             },
             {
                 name: '訂閱 Youzi9601 ！',

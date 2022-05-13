@@ -22,7 +22,10 @@ async function updater(message, oldmsg, client) {
         });
     };
     for (let i = 0; true; i++) {
-
+        const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+            conjunction: ' ',
+            language: 'zh_TW',
+        })} `
         // 更新訊息
         const embed = {
             color: 0x808080,
@@ -53,11 +56,7 @@ async function updater(message, oldmsg, client) {
                 },
                 {
                     name: '運行時間:',
-                    value: `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
-                        conjunction: ' ',
-                        language: 'zh_TW',
-                    })
-                    } `,
+                    value: `${uptime}`,
                     inline: true,
                 },
                 {
@@ -102,33 +101,31 @@ async function updater(message, oldmsg, client) {
         } catch (error) {
             subs = '--';
         }
-        // 處理狀態
         const status =
             config.botPresence.activities[Math.floor(Math.random() * config.botPresence.activities.length)];
+
+        // 處理狀態
         status.name =
             status.name
                 .replace(/{bot.name}/g, client.user.name)
                 .replace(/{count.guilds}/g, client.guilds.cache.size)
                 .replace(/{count.members}/g, client.users.cache.size)
-                .replace(/{bot.uptime}/g, humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
-                    conjunction: ' ',
-                    language: 'zh_TW',
-                }))
                 .replace(/{Youtube.subs}/g, subs);
         status.type = status.type.toUpperCase();
+
         // const browser = {browser: config.botPresence.browser || undefined }
         /* client.user.setPresence({
             activities: [
-        {
-            name: `${status.name}`,
-        type: `${status.type}` || undefined,
-        url: `${status.url}` || undefined,
-                },
-        ],
-        // browser: "DISCORD IOS",
-        status: `${config.botPresence.status}`,
-        browser
-        });*/
+                {
+                    name: `${status.name}`,
+                    type: `${status.type}` || undefined,
+                    url: `${status.url}` || undefined,
+            },
+    ],
+    // browser: "DISCORD IOS",
+    status: `${config.botPresence.status}`,
+    browser
+    });*/
         client.user.setStatus(`${config.botPresence.status}`);
         client.user.setActivity(
             `${status.name}`,
@@ -138,8 +135,9 @@ async function updater(message, oldmsg, client) {
                 url: `${status.url || 'https://www.twitch.tv/Youzi9601'}`,
             },
         );
+
         // 等待
-        await sleep(30000);
+        await sleep(10000);
 
     }
 

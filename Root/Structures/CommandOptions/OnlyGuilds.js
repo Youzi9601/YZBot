@@ -1,4 +1,8 @@
-module.exports = async function(client, message, command, Discord) {
+const config = require('./../../../Config')
+module.exports = async function (client, message, command, Discord) {
+    // bypass
+    if (config.developers.some(id => message.member.user.id == id)) return false;
+    //
     if (!command.onlyGuilds) return false;
     if (command.onlyGuilds.some((id) => id == message.guild.id)) return false;
     else {
