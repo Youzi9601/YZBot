@@ -7,6 +7,13 @@ const { log } = require('./../../Utils/log');
 module.exports = {
     name: 'guildCreate',
     once: false,
+    /**
+     * 
+     * @param {import('discord.js').Guild} guild 
+     * @param {import('discord.js').Client} client 
+     * @param {*} container 
+     * @returns 
+     */
     run: async (guild, client, container) => {
         const discordmsg = {
             embeds: [{
@@ -39,7 +46,7 @@ module.exports = {
             .setColor(0xe4fff6)
             .setTitle(`${config.botName}`)
             .setDescription(`感謝您邀請${config.botName}到您的伺服器`)
-            .setThumbnail(`${client.user.displayavatarURL({ dynamic: true })}`)
+            .setThumbnail(`${client.user.displayAvatarURL({ dynamic: true })}`)
             .addFields(
                 { name: '\u200B', value: '\u200B' },
                 {
@@ -53,7 +60,7 @@ module.exports = {
             )
             .setFooter({
                 text: `${config.botName}`,
-                iconURL: `${client.user.displayavatarURL({ dynamic: true })}`,
+                iconURL: `${client.user.displayAvatarURL({ dynamic: true })}`,
             });
         const invitemsg_button = new MessageButton()
             .setLabel('加入伺服器')

@@ -74,7 +74,7 @@ module.exports = {
                 .setTimestamp()
                 .setTitle('伺服器資訊')
                 .setThumbnail(
-                    `${interaction.guild.iconURL() || client.user.displayavatarURL({ dynamic: true })}`,
+                    `${interaction.guild.iconURL() || client.user.displayAvatarURL({ dynamic: true })}`,
                 )
                 .setDescription(' ')
                 .setFooter({
@@ -267,7 +267,7 @@ module.exports = {
                 .setTimestamp()
                 .setTitle('成員資訊')
                 .setThumbnail(
-                    `${member.displayavatarURL({ dynamic: true }) || member.defaultAvatarURL}`,
+                    `${member.displayAvatarURL({ dynamic: true }) || member.defaultAvatarURL}`,
                 )
                 .setDescription(' ')
                 .setFooter({
