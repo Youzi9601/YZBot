@@ -38,7 +38,20 @@ async function update() {
 
         });
     } else {
-        console.log('\x1b[31m%s\x1b[0m', '沒有 git 存儲庫！');
+        console.log('\x1b[31m%s\x1b[0m', '沒有 git 存儲庫！將為您創立一個！');
+
+        await exec('git clone https://github.com/Youzi9601/YZBot', (err, stdout, stderr) => {
+            if (err) {
+                console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
+                console.log('\x1b[32m%s\x1b[0m', '[基本作業]無法創建！取消自動更新！');
+                return;
+            } else {
+                console.log('\x1b[32m%s\x1b[0m', '[基本作業]創立成功！請將新增的資料夾(YZBot)內的所有內容放置主目錄，並重新啟動機器人！');
+                process.exit(0);
+            }
+
+        });
+
     }
 }
 update();
