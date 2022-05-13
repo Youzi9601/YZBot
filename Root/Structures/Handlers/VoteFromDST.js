@@ -48,19 +48,19 @@ app.post('/webhooks/callback', (req, res) => {
 
     const { eventType, data } = body;
     switch (eventType) {
-        case 'company.paymentdetails.removed':
-            // ...
-            break;
-        case 'member.paymentdetails.removed':
-            // ...
-            break;
-        case 'member.removed':
-        case 'company.removed':
-            // ...
-            break;
-        default:
-            // unhandled event
-            console.log(`Event ${eventType} was not handled.`);
+    case 'company.paymentdetails.removed':
+        // ...
+        break;
+    case 'member.paymentdetails.removed':
+        // ...
+        break;
+    case 'member.removed':
+    case 'company.removed':
+        // ...
+        break;
+    default:
+        // unhandled event
+        console.log(`Event ${eventType} was not handled.`);
     }
 });
 
