@@ -14,7 +14,7 @@ const { log } = require('../../Utils/log');
  * @param {import('discord.js').IntegrationType} interactionType
  * @returns
  */
-module.exports = async function (
+module.exports = async function(
     client,
     message,
     command,
@@ -39,8 +39,8 @@ module.exports = async function (
         true,
         client,
         undefined,
-        config.Channels.commandRec
-    )
+        config.Channels.commandRec,
+    );
 
     // 檢查是否有以下指令設定
     if (await require('./OnlyRunOnGuilds')(message, command, Discord)) return;
