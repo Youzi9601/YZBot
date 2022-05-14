@@ -13,10 +13,11 @@ module.exports = { log };
  * @param {boolean} SendToDiscord 是否傳輸到Discord?
  * @param {Message} discordmsg 訊息內容
  * @param {Client} client 機器人
+ * @param {ID} channel 頻道ID(預設為 config.Channels.All 的內容)
  */
-function log(level, msg, SendToDiscord = false, client, discordmsg) {
+function log(level, msg, SendToDiscord = false, client, discordmsg, channel = `${config.Channels.All}`) {
 
-    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function(err) {
+    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function (err) {
         // none
     });
 
@@ -55,9 +56,9 @@ function log(level, msg, SendToDiscord = false, client, discordmsg) {
     }
 
     //
-    if ((config.Channels.All != '') && SendToDiscord) {
+    if ((channel != '') && SendToDiscord) {
         const log_channel = client.channels.cache.get(
-            config.Channels.All,
+            channel,
         );
         if (log_channel == undefined) return;
         // 發送訊息

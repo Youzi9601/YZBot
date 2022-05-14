@@ -3,6 +3,7 @@ const { path, config } = require('../../../bot');
 const chalk = require('chalk');
 const moment = require('moment');
 const fs = require('fs');
+const { log } = require('../../Utils/log');
 // const { log } = require('./../../Utils/log')
 /**
  *
@@ -13,7 +14,7 @@ const fs = require('fs');
  * @param {import('discord.js').IntegrationType} interactionType
  * @returns
  */
-module.exports = async function(
+module.exports = async function (
     client,
     message,
     command,
@@ -59,26 +60,18 @@ module.exports = async function(
     // 執行命令(斜線/文字)
     else {
         // Log紀錄命令使用
-        const consolelogchannel = client.channels.cache.get(
-            config.Channels.commandRec,
-        );
-
-        try {
-            consolelogchannel.send(
-                `> ${message.user.tag} 於﹝ ${message.guild.name} ﹞#${message.channel.name} (${message.guild.id} ${message.channel.id}) \n> 使用命令： ${message}  `,
-            );
-        } catch (error) { }
-
-        console.info(
+        log(
+            'info',
             chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
             ) +
             `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}  `,
-        );
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}`, function(err) {
-            if (err)
-                console.info(err);
-        });
+            true,
+            client,
+            `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}`,
+            config.Channels.commandRec
+        )
+
         // 執行斜線命令
         if (isInteraction) command.run(client, message, container);
         //
