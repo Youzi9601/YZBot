@@ -5,15 +5,15 @@ const moment = require('moment');
 const fs = require('fs');
 // const { log } = require('./../../Utils/log')
 /**
- * 
- * @param {import('discord.js').Client} client 
- * @param {import('discord.js').Message} message 
- * @param {import('discord.js').CommandInteraction} command 
- * @param {*} isInteraction 
- * @param {import('discord.js').IntegrationType} interactionType 
- * @returns 
+ *
+ * @param {import('discord.js').Client} client
+ * @param {import('discord.js').Message} message
+ * @param {import('discord.js').CommandInteraction} command
+ * @param {*} isInteraction
+ * @param {import('discord.js').IntegrationType} interactionType
+ * @returns
  */
-module.exports = async function (
+module.exports = async function(
     client,
     message,
     command,
@@ -75,7 +75,7 @@ module.exports = async function (
             ) +
             `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}  `,
         );
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}`, function (err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}`, function(err) {
             if (err)
                 console.info(err);
         });
