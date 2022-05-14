@@ -137,7 +137,7 @@ async function updater(message, oldmsg, client) {
         );
 
         // 等待
-        await sleep(30000);
+        await sleep(60000);
 
     }
 
