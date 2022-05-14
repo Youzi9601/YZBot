@@ -74,9 +74,9 @@ module.exports = {
                 .setTimestamp()
                 .setTitle('伺服器資訊')
                 .setThumbnail(
-                    `${interaction.guild.iconURL() || client.user.displayAvatarURL({ dynamic: true })}`,
+                    `${interaction.guild.iconURL() || client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
                 )
-                .setDescription(' ')
+                .setDescription('** **')
                 .setFooter({
                     text: `${interaction.member.user.tag}`,
                     iconURL: `${interaction.member.user.displayAvatarURL({

@@ -19,7 +19,7 @@ module.exports = {
         const guild = member.guild;
         log(
             'info',
-            `新成員成功完成加入 ${guild.name}： ${member.user.tag}`,
+            `新成員加入社群 ${guild.name}： ${member.user.tag}`,
             true,
             client);
     },
