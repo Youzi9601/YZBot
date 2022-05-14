@@ -3,6 +3,7 @@ const Box = require('cli-box');
 const config = require('../../../Config');
 const moment = require('moment');
 const fs = require('fs');
+const version = require('./../../../package.json').version
 
 module.exports = {
     name: 'ready',
@@ -13,11 +14,13 @@ module.exports = {
      * @returns null
      */
     run: async (client) => {
+        /*
         console.log(
-            chalk.gray(
-                '\n\n───────────────────────────────機器人控制台───────────────────────────────\n',
-            ),
-        );
+             chalk.gray(
+                 '\n\n───────────────────────────────機器人控制台───────────────────────────────\n',
+             ),
+         );
+        */
 
         client.user.setPresence({
             activities: [
@@ -85,8 +88,6 @@ Client 事件      ::     ${client.events.size} 個
 `,
         ).stringify();
 
-        console.log(chalk.bold.greenBright(ClientBox));
-        console.log(chalk.bold.blueBright(CommandsBox));
 
         console.log(
             chalk.gray(
@@ -98,9 +99,20 @@ Client 事件      ::     ${client.events.size} 個
                 ' \\ \\ / /__  / __ )  |  _ \\(_)___  ___ ___  _ __ __| | | __ )  ___ | |_  ',
                 '  \\ V /  / /|  _ \\  | | | | / __|/ __/ _ \\| \'__/ _` | |  _ \\ / _ \\| __| ',
                 '   | |  / /_| |_) | | |_| | \\__ \\ (_| (_) | | | (_| | | |_) | (_) | |_  ',
-                '   |_| /____|____/  |____/|_|___/\\___\\___/|_|  \\__,_| |____/ \\___/ \\__| ',
+                '   |_| /____|____/  |____/|_|___/\\___\\___/|_|  \\__,_| |____/ \\___/ \\__| ' + `  v${version}`,
+                '                    [=| -= Made By Youzi9601 =-  |=]                    ',
                 '                                                                        ',
             ].join('\n'),
+        );
+
+        // 紀錄資訊
+        console.log(chalk.bold.greenBright(ClientBox));
+        console.log(chalk.bold.blueBright(CommandsBox));
+
+        console.log(
+            chalk.gray(
+                '\n───────────────────────────────機器人控制台───────────────────────────────\n\n',
+            ),
         );
         //
         // 調整時差
@@ -159,7 +171,7 @@ Client 事件      ::     ${client.events.size} 個
             const { updater } = require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater');
             updater(readymsg, msg, client);
         } catch (error) { console.info(error); }
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人成功上線！`, function(err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人成功上線！`, function (err) {
             if (err)
                 console.info(err);
         });
