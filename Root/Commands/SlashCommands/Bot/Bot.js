@@ -609,7 +609,7 @@ module.exports = {
             // })
             interaction.channel.messages.fetch(message_id)
                 .then(message => {
-                    console.info(message.content);
+                    // console.info(message.content);
                     message.react(`${emoji}`);
                 })
                 .catch(console.error);
@@ -739,8 +739,8 @@ module.exports = {
 
                     const fetchedMsg = message.first();
                     fetchedMsg.edit(msg);
-                    console.info(msg);
-                    console.info(fetchedMsg.content);
+                    // console.info(msg);
+                    // console.info(fetchedMsg.content);
                     interaction.reply({
                         content: '已經成功編輯指定訊息',
                         ephemeral: true,

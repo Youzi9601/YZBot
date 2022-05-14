@@ -15,31 +15,12 @@ module.exports = { log };
  * @param {Client} client 機器人
  */
 function log(level, msg, SendToDiscord = false, client, discordmsg) {
-    if ((config.Channels.All != '') && SendToDiscord) {
-        const log_channel = client.channels.cache.get(
-            config.Channels.All,
-        );
-        if (log_channel == undefined) return;
-        // 發送訊息
-        let send = {
-            content: 'ERROR: 未知的訊息',
-        };
-        if (!discordmsg) {
-            // send.content = `> \`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜ ${msg}\`\`\``;
-            send.content = null;
-            send.embeds = [
-                {
-                    color: 0x808080,
-                    description: discordmsg ||
-                        `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜ ${msg}\`\`\``
-                        || 'ERROR: 未知的訊息',
-                },
-            ];
-        } else {
-            send = discordmsg || 'ERROR: 未知的訊息';
-        }
-        log_channel.send(send);
-    }
+
+    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function (err) {
+        // none
+    });
+
+
     // info
     if (level == 'log') {
         console.log(chalk.gray(
@@ -73,7 +54,30 @@ function log(level, msg, SendToDiscord = false, client, discordmsg) {
         ) + msg);
     }
 
-    fs.appendFile(`logs / ${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function(err) {
-        // none
-    });
+    //
+    if ((config.Channels.All != '') && SendToDiscord) {
+        const log_channel = client.channels.cache.get(
+            config.Channels.All,
+        );
+        if (log_channel == undefined) return;
+        // 發送訊息
+        let send = {
+            content: 'ERROR: 未知的訊息',
+        };
+        if (!discordmsg) {
+            // send.content = `> \`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜ ${msg}\`\`\``;
+            send.content = null;
+            send.embeds = [
+                {
+                    color: 0x808080,
+                    description: discordmsg ||
+                        `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜ ${msg}\`\`\``
+                        || 'ERROR: 未知的訊息',
+                },
+            ];
+        } else {
+            send = discordmsg || 'ERROR: 未知的訊息';
+        }
+        log_channel.send(send);
+    }
 }

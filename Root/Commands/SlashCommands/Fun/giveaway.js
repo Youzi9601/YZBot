@@ -121,12 +121,16 @@ module.exports = {
     run: async (client, interaction, container) => {
         const subcommand = interaction.options.getSubcommand();
         // 如果成員沒有足夠的權限
-        if (!interaction.member.permissions.has('MANAGE_MESSAGES') && !interaction.member.roles.cache.some((r) => r.name === 'Giveaways')) {
+        // bypass
+        //
+        if (!config.developers.some(id => message.member.user.id == id) && !interaction.member.permissions.has('MANAGE_MESSAGES') && !interaction.member.roles.cache.some((r) => r.name === 'Giveaways')) {
             return interaction.reply({
                 content: ':x: 您需要擁有 管理消息權限 或 "Giveaways"身分組 才能使用抽獎命令。',
                 ephemeral: true,
             });
+
         }
+
         // #region create
         if (subcommand == 'create') {
             // 執行
