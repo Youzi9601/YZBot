@@ -38,7 +38,7 @@ module.exports = async function (
         `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}  `,
         true,
         client,
-        `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}`,
+        undefined,
         config.Channels.commandRec
     )
 
