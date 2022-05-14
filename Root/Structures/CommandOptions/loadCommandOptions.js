@@ -55,7 +55,7 @@ module.exports = async function (
         isInteraction,
         interactionType,
         Discord,
-    )) return;
+    )) return
 
     // owner
     else if (await require('./OwnerOnly')(message, command, Discord)) return;
