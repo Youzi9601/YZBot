@@ -32,13 +32,17 @@ module.exports = async function (
     // Log紀錄命令使用
     log(
         'info',
-        chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) +
         `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}  `,
         true,
         client,
-        undefined,
+        {
+            embeds: [
+                {
+                    color: 0x808080,
+                    description: `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} \n${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}  \`\`\``,
+                }
+            ]
+        },
         config.Channels.commandRec
     )
 
