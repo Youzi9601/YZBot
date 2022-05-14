@@ -14,9 +14,13 @@ module.exports = {
     run: async (oldGuild, newGuild, client) => {
         if (newGuild == undefined) return log('info', '伺服器刪除！');
         const change = {};
-        // channels
+        // guilds
         if (oldGuild.afkChannel !== newGuild.afkChannel) {
             change.afkChannel = `${oldGuild.afkChannel} -> ${newGuild.afkChannel}`;
+        }
+
+        if (oldGuild.name !== newGuild.name) {
+            change.name = `${oldGuild.name} -> ${newGuild.name}`;
         }
 
         if (oldGuild.publicUpdatesChannel !== newGuild.publicUpdatesChannel) {
@@ -50,6 +54,7 @@ module.exports = {
         // end
         const msg =
             ''
+            + `${change.name ? `\n伺服器名稱變更: ${change.name}` : ''}`
             + `${change.afkChannel ? `\n掛機頻道變更: ${change.nickname}` : ''}`
             + `${change.afkTimeout ? `\n掛機時間變更: ${change.afkTimeout}` : ''}`
             + `${change.rulesChannel ? `\n規則頻道變更: ${change.rulesChannel}` : ''}`
@@ -61,7 +66,7 @@ module.exports = {
 
         log(
             'info',
-            `CHANNEL｜${newGuild.guild.name} - ${newGuild.user.tag} (${newGuild.id}) 的頻道類別變更：${msg}`,
+            `CHANNEL｜${newGuild.name} 的設定變更：${msg}`,
             true,
             client);
 
