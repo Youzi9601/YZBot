@@ -46,7 +46,7 @@ var express = require('express'),
 
 app.use(bodyParser.json());
 
-app.post('/', function (req, res) {
+app.post('/', function(req, res) {
     var body = req.body;
     var trackingNumber = body.msg.tracking_number;
     var slug = body.msg.slug;
@@ -55,16 +55,16 @@ app.post('/', function (req, res) {
     console.log(trackingNumber, slug, token);
 
     res.json({
-        message: '成功取得'
+        message: '成功取得',
     });
 });
 
 
-var server = app.listen(port, function () {
+var server = app.listen(port, function() {
 
-    var host = server.address().address
-    var port = server.address().port
+    var host = server.address().address;
+    var port = server.address().port;
 
-    console.log(`監聽 http://${host + port} 的示例應用`)
+    console.log(`監聽 http://${host + port} 的示例應用`);
 
 });
