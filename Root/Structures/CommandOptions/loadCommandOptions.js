@@ -14,7 +14,7 @@ const { log } = require('../../Utils/log');
  * @param {import('discord.js').IntegrationType} interactionType
  * @returns
  */
-module.exports = async function (
+module.exports = async function(
     client,
     message,
     command,
@@ -73,6 +73,21 @@ module.exports = async function (
 
     // 執行命令(斜線/文字)
     else {
+<<<<<<< HEAD
+=======
+        // Log紀錄命令使用
+        log(
+            'info',
+            chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) +
+            `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}  `,
+            true,
+            client,
+            `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}`,
+            config.Channels.commandRec,
+        );
+>>>>>>> 085bc4dab27d68786f4cc7c7cca4cc69d2bab4ed
 
         // 執行斜線命令
         if (isInteraction) command.run(client, message, container);
