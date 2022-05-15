@@ -8,8 +8,8 @@ const childProcess = require('child_process');
 
 
 async function update() {
+    const exec = require('child_process').exec;
     if (fs.existsSync('./.git')) {
-        const exec = require('child_process').exec;
         await exec('git reset --hard');
         console.log('\x1b[34m%s\x1b[0m', '[基本作業]開始檢查更新......');
         await exec('git pull', (err, stdout, stderr) => {
@@ -54,4 +54,4 @@ async function update() {
 
     }
 }
-await update();
+update();

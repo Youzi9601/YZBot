@@ -108,6 +108,32 @@ module.exports = {
                     },
                 ],
             },
+            {
+                type: 1,
+                name: 'delete',
+                description: '刪除一個抽獎',
+                options: [
+                    {
+                        type: 3,
+                        name: 'message_id',
+                        description: '訊息ID',
+                        required: true,
+                    },
+                ],
+            },
+            {
+                type: 1,
+                name: 'end',
+                description: '結束一個抽獎',
+                options: [
+                    {
+                        type: 3,
+                        name: 'message_id',
+                        description: '訊息ID',
+                        required: true,
+                    },
+                ],
+            },
         ],
     },
     ignoreFile: false,
@@ -270,7 +296,7 @@ module.exports = {
                 });
             }
 
-            // Reroll the giveaway
+            // edit the giveaway
             client.giveawaysManager.edit(
                 giveaway.messageId,
                 { options },
@@ -341,6 +367,26 @@ module.exports = {
                     });
             }
 
+        }
+        // #endregion
+        // #region end
+        else if (subcommand == 'end') {
+            const messageId = interaction.options.getString('message_id');
+            client.giveawaysManager.end(messageId).then(() => {
+                interaction.reply('成功！抽獎已結束！');
+            }).catch((err) => {
+                interaction.reply(`發生錯誤，請檢查並重試。\n\`${err}\``);
+            });
+        }
+        // #endregion
+        // #region delete
+        else if (subcommand = 'delete') {
+            const messageId = interaction.options.getString('message_id');
+            client.giveawaysManager.delete(messageId).then(() => {
+                interaction.reply('成功！抽獎已刪除！');
+            }).catch((err) => {
+                interaction.reply(`:x: 發生錯誤，請檢查並重試。\n\`${err}\``);
+            });
         }
         // #endregion
 
