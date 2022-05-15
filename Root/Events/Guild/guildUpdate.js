@@ -16,36 +16,44 @@ module.exports = {
         const change = {};
         // guilds
         if (oldGuild.afkChannel !== newGuild.afkChannel) {
-            change.afkChannel = `${oldGuild.afkChannel} -> ${newGuild.afkChannel}`;
+            change.afkChannel = `${oldGuild.afkChannel || '無'
+                } -> ${newGuild.afkChannel || '無'}`;
         }
 
         if (oldGuild.name !== newGuild.name) {
-            change.name = `${oldGuild.name} -> ${newGuild.name}`;
+            change.name = `${oldGuild.name || '無'
+                } -> ${newGuild.name || '無'}`;
         }
 
         if (oldGuild.publicUpdatesChannel !== newGuild.publicUpdatesChannel) {
-            change.publicUpdatesChannel = `${oldGuild.publicUpdatesChannel} -> ${newGuild.publicUpdatesChannel}`;
+            change.publicUpdatesChannel = `${oldGuild.publicUpdatesChannel || '無'
+                } -> ${newGuild.publicUpdatesChannel || '無'}`;
         }
 
         if (oldGuild.rulesChannel !== newGuild.rulesChannel) {
-            change.rulesChannel = `${oldGuild.rulesChannel} -> ${newGuild.rulesChannel}`;
+            change.rulesChannel = `${oldGuild.rulesChannel || '無'
+                } -> ${newGuild.rulesChannel || '無'}`;
         }
 
         if (oldGuild.systemChannel !== newGuild.systemChannel) {
-            change.systemChannel = `${oldGuild.systemChannel} -> ${newGuild.systemChannel}`;
+            change.systemChannel = `${oldGuild.systemChannel || '無'
+                } -> ${newGuild.systemChannel || '無'}`;
         }
 
         if (oldGuild.widgetChannel !== newGuild.widgetChannel) {
-            change.widgetChannel = `${oldGuild.widgetChannel} -> ${newGuild.widgetChannel}`;
+            change.widgetChannel = `${oldGuild.widgetChannel || '無'
+                } -> ${newGuild.widgetChannel || '無'}`;
         }
 
         if (oldGuild.afkTimeout !== newGuild.afkTimeout) {
-            change.afkTimeout = `${oldGuild.afkTimeout} -> ${newGuild.afkTimeout}`;
+            change.afkTimeout = `${oldGuild.afkTimeout || '無'
+                } -> ${newGuild.afkTimeout || '無'}`;
         }
 
         // owner
         if (oldGuild.ownerId !== newGuild.ownerId) {
-            change.ownerId = `${oldGuild.ownerId} -> ${newGuild.ownerId}`;
+            change.ownerId = `${oldGuild.ownerId || '無'
+                } -> ${newGuild.ownerId || '無'}`;
         }
 
 

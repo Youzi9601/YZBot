@@ -35,7 +35,7 @@ module.exports = {
         }
         // 類別
         if (oldChannel.parent !== newChannel.parent) {
-            change.parent = `${oldChannel.parent.name} -> ${newChannel.parent.name}`;
+            change.parent = `${oldChannel.parent.name || '無'} -> ${newChannel.parent.name || '無'}`;
         }
         // 順位
         if (oldChannel.position !== newChannel.position) {
@@ -44,7 +44,7 @@ module.exports = {
         // 主題
         if (oldChannel.topic !== newChannel.topic) {
             change.topic = `\n${(oldChannel.topic.length > 50) ? oldChannel.topic.substring(0, 50) + ' (省略)……' : oldChannel.topic
-            } \n-> \n${(newChannel.topic.length > 50) ? newChannel.topic.substring(0, 50) + ' (省略)……' : newChannel.topic}`;
+                } \n-> \n${(newChannel.topic.length > 50) ? newChannel.topic.substring(0, 50) + ' (省略)……' : newChannel.topic}`;
         }
         // 權限
         if (oldChannel.permissionOverwrites !== newChannel.permissionOverwrites) {

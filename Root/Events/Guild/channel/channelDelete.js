@@ -10,7 +10,7 @@ module.exports = {
     run: async (channel, client) => {
         log(
             'info',
-            `CHANNEL｜${channel.guild.name}(${channel.guild.id}) - ${channel.parent.name}(${channel.parent.id}) : ${channel.name} (${channel.id}) 已刪除！`,
+            `CHANNEL｜${channel.guild.name}(${channel.guild.id})${channel.parent.name ? '  -' + channel.parent.name + ` (${channel.parent.id}) ` : ''} : ${channel.name} (${channel.id}) 已刪除！`,
             true,
             client);
     },
