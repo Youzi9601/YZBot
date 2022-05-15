@@ -3,6 +3,7 @@ const moment = require('moment');
 const config = require('../../Config');
 const chalk = require('chalk');
 const { Client, Message } = require('discord.js');
+const bot = require('./../../bot')
 
 module.exports = { log };
 
@@ -15,9 +16,9 @@ module.exports = { log };
  * @param {Client} client 機器人
  * @param {ID} channel 頻道ID(預設為 config.Channels.All 的內容)
  */
-function log(level, msg, SendToDiscord = false, client, discordmsg, channel = `${config.Channels.All}`) {
+function log(level, msg, SendToDiscord = false, client = bot.client, discordmsg, channel = `${config.Channels.All}`) {
 
-    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function(err) {
+    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function (err) {
         // none
     });
 

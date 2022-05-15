@@ -61,6 +61,33 @@ module.exports = {
                 ],
             },
             // #endregion
+            // #region suggestions-channel
+            {
+                type: 1,
+                name: 'counting',
+                description: '設定數數頻道',
+                options: [
+                    {
+                        type: 7,
+                        name: 'channel',
+                        description: '指向的頻道',
+                        required: false,
+                    },
+                    {
+                        type: 5,
+                        name: 'wrong_reset',
+                        description: '如果有人數數錯誤，是否重製? (預設為是)',
+                        required: false,
+                    },
+                    {
+                        type: 5,
+                        name: 'no_twice',
+                        description: '是否禁止有人連續數數? (預設為是)',
+                        required: false,
+                    },
+                ],
+            },
+            // #endregion
         ],
     },
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_CHANNELS'],
@@ -80,9 +107,10 @@ module.exports = {
         if (subcommand == 'chat-bot') {
             const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.chatbot.channel`;
             await db.set(db_data, channel.id);
-        } else
+        }
         // #endregion
-        if (subcommand == 'suggestions-channel') {
+        // #region suggestions-channel
+        else if (subcommand == 'suggestions-channel') {
             interaction.deferReply();
             const reset = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data`;
             await db.delete(reset);
@@ -90,24 +118,36 @@ module.exports = {
             const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data.channel`;
             await db.set(db_data, channel.id);
         }
+        // #endregion
+        // #region counting
+        else if (subcommand == 'counting') {
+            interaction.deferReply();
+            const db_path = `data.discord.guilds.${interaction.guild.id}.channel.plugins.count_data`;
+            db.delete(db_path);
+            const data = {
+                // 控制選項
+                channel: channel.id,
+                WrongReset: interaction.options.getBoolean('wrong_reset') || true,
+                noTwice: interaction.options.getBoolean('no_twice') || true,
+            }
+            await db.set(db_path, data)
+        }
+        // #endregion
         // else
         else return interaction.reply({
             content: '此功能尚未完成！ :/',
             ephemeral: true,
-        });
+        }).catch((err) => { });
 
 
         interaction.reply({
             content: `${subcommand} 的頻道成功指向 <#${channel.id}> ，去試試看?`,
-            ephemeral: true,
-        }).catch((err) => {
-
-            interaction.editReply({
-                content: `${subcommand} 的頻道成功指向 <#${channel.id}>，去試試看?`,
-                ephemeral: true,
+        })
+            .catch((err) => {
+                interaction.editReply({
+                    content: `${subcommand} 的頻道成功指向 <#${channel.id}>，去試試看?`,
+                });
             });
-
-        });
         try {
             channel.sendTyping();
             channel.send({ content: `這裡！ <@${interaction.user.id}>` });
