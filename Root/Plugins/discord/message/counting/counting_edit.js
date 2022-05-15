@@ -19,24 +19,24 @@ module.exports =
 
         const users_rections = oldMessage.reactions
             .resolve('⚠') || 'none';
-        const isMe = users_rections.me || 'none'
-        let users_ = []
-        let botiswarning = false
-        /*if (`${users_}`.includes(`${client.user.id}`)) {
+        const isMe = users_rections.me || 'none';
+        const users_ = [];
+        let botiswarning = false;
+        /* if (`${users_}`.includes(`${client.user.id}`)) {
             botiswarning = true
         }*/
         if (`${isMe}` == 'true') {
-            botiswarning = true
+            botiswarning = true;
         }
 
         if (oldMessage.content.match(/\d/g) && !botiswarning) {
             newMessage.reply({
                 embeds: [
                     {
-                        description: `:warning: 注意：這個訊息的數字為\`${oldMessage.content.match(/\d/g)[0]}\`...就看你相不相信了。`
-                    }
-                ]
+                        description: `:warning: 注意：這個訊息的數字為\`${oldMessage.content.match(/\d/g)[0]}\`...就看你相不相信了。`,
+                    },
+                ],
             });
-            newMessage.react('⚠')
+            newMessage.react('⚠');
         }
     };

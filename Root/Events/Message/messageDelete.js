@@ -13,11 +13,11 @@ module.exports = {
         log('info',
             `${message.author.tag || '無法取得'} (${message.author.id || '無法取得'}) 於 ${message.guild.name} (${message.guild.id}) ${message.channel.name} (${message.channel.id}) 的訊息被刪除：${message.content}`,
             true,
-            client
-        )
+            client,
+        );
         // counting
         require('../../Plugins/discord/message/counting/counting_delete')(message, client, container);
 
 
-    }
+    },
 };
