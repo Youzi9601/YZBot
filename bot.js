@@ -6,7 +6,7 @@
         const exec = require('child_process').exec;
         // pm2 start bot.js --watch --name "YZB"
         // await exec('npm i');
-        await require('./Root/Utils/UpdateBot');
+        require('./Root/Utils/UpdateBot');
     }
 
     // module.exports = { client, path, config };
@@ -165,9 +165,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(

@@ -135,7 +135,7 @@ module.exports = {
         if (subcommand == 'create') {
             // 執行
             const prize = interaction.options.getString('prize');
-            const channel = client.channels.cache.get(interaction.options.getChannel('channel')) || interaction.channel;
+            const channel = interaction.options.getChannel('channel') || interaction.channel;
             const duration = interaction.options.getString('duration');
             const winners = interaction.options.getNumber('winners') || 1;
             const drop = interaction.options.getBoolean('drop') || false;
