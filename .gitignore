@@ -9,7 +9,7 @@ json.sqlite
 .env
 eula.txt
 test.js
-database.js
+json.sqlite.配置圖.js
 ##忽略的設定檔：
 Root/Plugins/TaiwanEarthQuake/
 Root/Plugins/discord/storage/*.json
