@@ -27,7 +27,7 @@ module.exports =
             message.reply({
                 embeds: [
                     {
-                        description: `:x: 這個不是數字喔！我們從\`${num - 1}\`繼續！uwu`
+                        description: `:x: 這個不是數字喔！我們從\`${num - 1} (目前)\`繼續！uwu`
                     }
                 ]
             });
@@ -58,7 +58,7 @@ module.exports =
                 message.reply({
                     embeds: [
                         {
-                            description: `:x:  不能重複數數喔！我們從\`${num - 1}\`繼續！`
+                            description: `:x:  不能重複數數喔！我們從\`${num - 1} (目前)\`繼續！`
                         }
                     ]
                 })

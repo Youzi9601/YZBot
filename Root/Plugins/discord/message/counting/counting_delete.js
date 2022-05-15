@@ -13,85 +13,29 @@ module.exports =
         if (!message.inGuild()) return;
         // 檢查是否發送
         const count_data = db.get(`data.discord.guilds.${message.guild.id}.channel.plugins.count_data`) || 0;
-
-        if (count_data.channel != message.channel.id) return;
         if (message.author.bot) return;
+        if (`${count_data.channel}` != `${message.channel.id}`) return;
 
-        // 輸入
-        message.channel.sendTyping();
-        // 設定下一個正確的數字
-        const num = Math.round(Number(count_data.num) + 1) || 1;
-
-        // 如果連續數數，且設定為true
-        if (count_data.latestUserId == message.author.id && count_data.noTwice == 'true') {
-            // 決定是否要重製
-            if (count_data.WrongReset) {
-                message.react('❌')
-                message.reply({
-                    embeds: [
-                        {
-                            description: `:x: 不能重複數數喔！我們從\`0\`開始！`
-                        }
-                    ]
-                }).then((message) => {
-                    message.channel.send('0').then((msg) => {
-                        msg.react('✅')
-                    })
-                })
-                num = 0
-            } else {
-                message.react('❌')
-                message.reply({
-                    embeds: [
-                        {
-                            description: `:x:  不能重複數數喔！我們從\`${num - 1}\`開始！`
-                        }
-                    ]
-                })
-                num = num - 1
-            }
-
-        } else // 如果數字是錯的
-            if (message.content != num) {
-                // 如果要錯誤重製
-                if (count_data.WrongReset) {
-                    message.reply({
-                        embeds: [
-                            {
-                                description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`0\`開始！`
-                            }
-                        ]
-                    }).then((message) => {
-                        message.channel.send('0').then((msg) => {
-                            msg.react('✅')
-                        })
-                    })
-                    num = 0
-                }
-                // 不錯誤重製
-                else {
-
-                    message.reply({
-                        embeds: [
-                            {
-                                description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`${num - 1}\`開始！`
-                            }
-                        ]
-                    })
-                    num = num - 1
-                }
-                message.react('❌')
-            } else // 如果沒事
-                message.react('✅')
-
-        // 發送消息
-        try {
-        } catch (error) {
-            console.log(error);
+        const users_rections = message.reactions
+            .resolve('⚠') || 'none';
+        const isMe = users_rections.me || 'none'
+        let users_ = []
+        let botiswarning = false
+        /*if (`${users_}`.includes(`${client.user.id}`)) {
+            botiswarning = true
+        }*/
+        if (`${isMe}` == 'true') {
+            botiswarning = true
         }
-        const db_data = `data.discord.guilds.${message.guild.id}.channel.plugins.count_data.num`;
-        db.set(db_data, num);
 
+        if (message.content.match(/\d/g)[0] && !botiswarning)
+            message.channel.send({
+                embeds: [
+                    {
+                        description: `:warning: 注意：有個被刪除的訊息之數字為\`${message.content.match(/\d/g)[0]}\``
+                    }
+                ]
+            });
 
         //
 

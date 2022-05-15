@@ -17,6 +17,6 @@ module.exports = {
             true,
             client
         )
-
+        require('../../Plugins/discord/message/counting/counting_edit')(oldMessage, newMessage, client, container)
     }
 };

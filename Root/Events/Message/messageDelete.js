@@ -15,6 +15,9 @@ module.exports = {
             true,
             client
         )
+        // counting
+        require('../../Plugins/discord/message/counting/counting_delete')(message, client, container);
+
 
     }
 };
