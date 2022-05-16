@@ -20,7 +20,7 @@ async function update() {
             // console.log('' + stdout + '');
             if (!stdout.includes('Already up to date.')) {
                 console.log('\x1b[32m%s\x1b[0m', '[基本作業]更新成功！請重新啟動！');
-                process.exit(0);
+                process.exit(1);
             } else {
                 console.log('\x1b[32m%s\x1b[0m', '[基本作業]沒有新的更新！');
             }
