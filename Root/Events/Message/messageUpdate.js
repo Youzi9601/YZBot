@@ -12,6 +12,7 @@ module.exports = {
      */
     run: async (oldMessage, newMessage, client, container) => {
         if (newMessage.author.id == client.user.id) return;
+        if (newMessage.author.bot) return;
         log('info',
             `${newMessage.author.tag} (${newMessage.author.id}) 在 ${newMessage.guild.name} (${newMessage.guild.id}) ${newMessage.channel.name} (${newMessage.channel.id}) 編輯了訊息： ${oldMessage.content} -> ${newMessage.content}`,
             true,
