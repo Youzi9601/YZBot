@@ -1,6 +1,7 @@
 (async () => {
+    let config;
     try {
-        const config = require('./Config');
+        config = require('./Config');
     } catch (error) {
         console.error('\x1b[31m%s\x1b[0m', '錯誤：沒有 Config.js 檔案！')
         process.exit(1);
