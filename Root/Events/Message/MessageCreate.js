@@ -11,6 +11,13 @@ module.exports = {
      */
     run: async (message, client, container) => {
 
+        // chatbot
+        require('../../Plugins/discord/message/chatbot')(message, client, container);
+        // suggestions_channel
+        require('../../Plugins/discord/message/suggestions_channel')(message, client, container);
+        // counting
+        require('../../Plugins/discord/message/counting/counting_send')(message, client, container);
+
         // 執行命令
         const loadCommandOptions = require('../../Structures/CommandOptions/loadCommandOptions');
         container.Config.prefix.forEach(prefix => {
@@ -33,6 +40,7 @@ module.exports = {
             if (message.author.id == client.user.id && isBotLog) {
                 //
             } else {
+                if (message.author.bot) return;
                 if (message.attachments.first() !== undefined) {
                     log('info', `${message.author.tag} (${message.author.id}) 在 ${message.guild.name} (${message.guild.id}) ${message.channel.name} (${message.channel.id}) 中發送了一個附件：${message.attachments.first().url}`, false);
                 }
@@ -50,12 +58,8 @@ module.exports = {
                     log('info', `${message.author.tag} (${message.author.id}) 在 ${message.guild.name} (${message.guild.id}) ${message.channel.name} (${message.channel.id}) 中發送了一個嵌入： ${JSON.stringify(embed, null, 2)}`, false);
                 }
             }
-            // chatbot
-            require('../../Plugins/discord/message/chatbot')(message, client, container);
-            // suggestions_channel
-            require('../../Plugins/discord/message/suggestions_channel')(message, client, container);
-            // counting
-            require('../../Plugins/discord/message/counting/counting_send')(message, client, container);
         }
+
+
     },
 };
