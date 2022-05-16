@@ -18,23 +18,23 @@ module.exports =
 
         const users_rections = message.reactions
             .resolve('⚠') || 'none';
-        const isMe = users_rections.me || 'none'
-        let users_ = []
-        let botiswarning = false
-        /*if (`${users_}`.includes(`${client.user.id}`)) {
+        const isMe = users_rections.me || 'none';
+        const users_ = [];
+        let botiswarning = false;
+        /* if (`${users_}`.includes(`${client.user.id}`)) {
             botiswarning = true
         }*/
         if (`${isMe}` == 'true') {
-            botiswarning = true
+            botiswarning = true;
         }
 
         if (message.content.match(/\d/g)[0] && !botiswarning)
             message.channel.send({
                 embeds: [
                     {
-                        description: `:warning: 注意：有個被刪除的訊息之數字為\`${message.content.match(/\d/g)[0]}\`...就看你相不相信了。`
-                    }
-                ]
+                        description: `:warning: 注意：有個被刪除的訊息之數字為\`${message.content.match(/\d/g)[0]}\`...就看你相不相信了。`,
+                    },
+                ],
             });
 
         //
