@@ -22,7 +22,7 @@ module.exports =
         // 發送消息
         try {
             axios(
-                `https://api.affiliateplus.xyz/api/chatbot?message=${encodeURIComponent(message.content)}&botname=${encodeURIComponent(client.user.username)}&ownername=${encodeURIComponent(`Youzi9601 [程式碼作者]`)}&user=${encodeURIComponent(message.author.username)}`)
+                `https://api.affiliateplus.xyz/api/chatbot?message=${encodeURIComponent(message.content)}&botname=${encodeURIComponent(client.user.username)}&ownername=${encodeURIComponent('Youzi9601 [程式碼作者]')}&user=${encodeURIComponent(message.author.username)}`)
                 .then((returnMsg) => {
                     if (!returnMsg || !returnMsg.data.message) return;
                     if (returnMsg.data.error)
