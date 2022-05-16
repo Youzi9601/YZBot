@@ -33,7 +33,7 @@ module.exports =
             newMessage.reply({
                 embeds: [
                     {
-                        description: `:warning: 注意：這個訊息的數字為\`${oldMessage.content.match(/\d/g)[0]}\`...就看你相不相信了。`
+                        description: `:warning: 注意：這個訊息的數字為\`${oldMessage.content.match(/\d/g)[0]}\``
                     }
                 ]
             });

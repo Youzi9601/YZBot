@@ -32,7 +32,7 @@ module.exports =
             message.channel.send({
                 embeds: [
                     {
-                        description: `:warning: 注意：有個被刪除的訊息之數字為\`${message.content.match(/\d/g)[0]}\``
+                        description: `:warning: 注意：有個被刪除的訊息之數字為\`${message.content.match(/\d/g)[0]}\`...就看你相不相信了。`
                     }
                 ]
             });
