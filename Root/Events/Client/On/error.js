@@ -14,9 +14,9 @@ module.exports = {
      * @param {error} e
      */
     run: async (e, client) => {
-        if (config.console.error == false) return;
+        if (`${config.console.error}` == `false`) return;
         console.error(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR\n`) + `${e}`);
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function(err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ERROR｜${e}`, function (err) {
             if (err)
                 console.info(err);
         });
