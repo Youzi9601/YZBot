@@ -30,6 +30,8 @@
 >
 > [![資訊卡](https://github-readme-stats.vercel.app/api/pin/?username=Youzi9601&repo=YZBot&locale=cn&theme=apprentice)](https://github.com/Youzi9601/YZBot/)
 >
+> <a href="https://github.com/Youzi9601/YZBot/blob/master/package.json">
+> <img src="https://img.shields.io/github/package-json/v/Youzi9601/YZBot?label=%E7%89%88%E6%9C%AC&logo=github&style=for-the-badge"></a>
 > <a href="https://github.com/Youzi9601/YZBot/issues">
 > <img src="https://img.shields.io/github/issues/Youzi9601/YZBot?style=for-the-badge&logo=github&label=%E5%95%8F%E9%A1%8C" alt="GitHub 問題回報" /></a>
 > <a href="https://github.com/Youzi9601/YZBot/pulls"><img src="https://img.shields.io/github/forks/Youzi9601/YZBot?style=for-the-badge&logo=github&label=%E5%88%86%E6%94%AF" alt="GitHub 分叉"  /></a>
