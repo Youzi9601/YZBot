@@ -198,7 +198,7 @@ module.exports = {
                     inviteToParticipate: '點選下方的🎉反應參與！',
                     dropMessage: '成為第一個按下🎉反應的人！',
                     drawing: '時間： {timestamp}',
-                    winMessage: { content: '{winners}', embed: { description: '恭喜贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})', color: '0x0174DF' } },
+                    winMessage: { content: '{winners}', embed: { description: '恭喜以上得獎者贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})', color: '0x0174DF' } },
                     embedFooter: `${client.user.username}｜抽獎系統`,
                     noWinner: { embed: { description: ':stop: 抽獎已取消，沒有任何有效的參與。', color: '0x0174DF' } },
                     hostedBy: '由 {this.hostedBy} 主辦 ',
@@ -243,7 +243,7 @@ module.exports = {
                 giveaway.messageId,
                 {
                     messages: {
-                        congrat: { embed: { description: '恭喜新的獲獎者 {winners} 贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})', color: '0x0174DF' } },
+                        congrat: { content: '{winners}', embed: { description: '恭喜以上新的獲獎者贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})', color: '0x0174DF' } },
                         error: '沒有有效的參加者，不能選擇新的獲獎者！',
                     },
                 },
