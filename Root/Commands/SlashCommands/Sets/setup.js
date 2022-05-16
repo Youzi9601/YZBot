@@ -129,8 +129,8 @@ module.exports = {
                 channel: channel.id,
                 WrongReset: interaction.options.getBoolean('wrong_reset') || true,
                 noTwice: interaction.options.getBoolean('no_twice') || true,
-            }
-            await db.set(db_path, data)
+            };
+            await db.set(db_path, data);
         }
         // #endregion
         // else

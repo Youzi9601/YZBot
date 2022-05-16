@@ -19,19 +19,19 @@ module.exports =
 
         // 設定下一個正確的數字
         let num = `${Math.round(Number(count_data.num) + 1) || 1}`;
-        let userid = message.author.id
+        let userid = message.author.id;
 
         // 如果不是數字
         if (!(message.content.match(/\d/g))) {
-            message.react('❌')
+            message.react('❌');
             message.reply({
                 embeds: [
                     {
-                        description: `:x: 這個不是數字喔！我們從\`${num - 1} (目前)\`繼續！uwu`
-                    }
-                ]
+                        description: `:x: 這個不是數字喔！我們從\`${num - 1} (目前)\`繼續！uwu`,
+                    },
+                ],
             });
-            num = `${Math.round(num - 1)}`
+            num = `${Math.round(num - 1)}`;
         }
         // 如果連續數數，且設定為true
         else if (`${count_data.latestUserId}` == `${message.author.id}` && `${count_data.noTwice}` == 'true') {
@@ -39,74 +39,73 @@ module.exports =
             // 輸入
             message.channel.sendTyping();
             if (`${count_data.WrongReset}` == 'true') {
-                message.react('❌')
+                message.react('❌');
                 message.reply({
                     embeds: [
                         {
-                            description: `:x: 不能重複數數喔！我們從\`0\`開始！`
-                        }
-                    ]
+                            description: ':x: 不能重複數數喔！我們從`0`開始！',
+                        },
+                    ],
                 }).then((message) => {
                     message.channel.send('0').then((msg) => {
-                        msg.react('✅')
-                    })
-                })
-                num = `0`
-                userid = 0
+                        msg.react('✅');
+                    });
+                });
+                num = '0';
+                userid = 0;
             } else {
-                message.react('❌')
+                message.react('❌');
                 message.reply({
                     embeds: [
                         {
-                            description: `:x:  不能重複數數喔！我們從\`${num - 1} (目前)\`繼續！`
-                        }
-                    ]
-                })
-                num = `${Math.round(num - 1)}`
+                            description: `:x:  不能重複數數喔！我們從\`${num - 1} (目前)\`繼續！`,
+                        },
+                    ],
+                });
+                num = `${Math.round(num - 1)}`;
             }
 
         } else // 如果數字是錯的
-            if (!message.content.startsWith(`${num}`)) {
-                // 輸入
-                message.channel.sendTyping();
-                // 如果要錯誤重製
-                if (`${count_data.WrongReset}` == 'true') {
-                    message.reply({
-                        embeds: [
-                            {
-                                description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`0\`開始！`
-                            }
-                        ]
-                    }).then((message) => {
-                        message.channel.send('0').then((msg) => {
-                            msg.react('✅')
-                        })
-                    })
-                    num = `${Math.round(0)}`
-                    userid = 0
-                }
-                // 不錯誤重製
-                else {
+        if (!message.content.startsWith(`${num}`)) {
+            // 輸入
+            message.channel.sendTyping();
+            // 如果要錯誤重製
+            if (`${count_data.WrongReset}` == 'true') {
+                message.reply({
+                    embeds: [
+                        {
+                            description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`0\`開始！`,
+                        },
+                    ],
+                }).then((message) => {
+                    message.channel.send('0').then((msg) => {
+                        msg.react('✅');
+                    });
+                });
+                num = `${Math.round(0)}`;
+                userid = 0;
+            }
+            // 不錯誤重製
+            else {
 
-                    message.reply({
-                        embeds: [
-                            {
-                                description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`${num - 1}\`繼續！`
-                            }
-                        ]
-                    })
-                    num = `${Math.round(num - 1)}`
-                }
-                message.react('❌')
-            } else // 如果沒事
-                message.react('✅')
+                message.reply({
+                    embeds: [
+                        {
+                            description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`${num - 1}\`繼續！`,
+                        },
+                    ],
+                });
+                num = `${Math.round(num - 1)}`;
+            }
+            message.react('❌');
+        } else // 如果沒事
+            message.react('✅');
 
 
         const db_path_num = `data.discord.guilds.${message.guild.id}.channel.plugins.count_data.num`;
         db.set(db_path_num, num);
         const db_path_latestUser = `data.discord.guilds.${message.guild.id}.channel.plugins.count_data.latestUserId`;
         db.set(db_path_latestUser, userid);
-
 
 
         //
