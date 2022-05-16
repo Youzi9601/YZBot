@@ -19,7 +19,6 @@ module.exports =
         const users_rections = message.reactions
             .resolve('⚠') || 'none';
         const isMe = users_rections.me || 'none';
-        const users_ = [];
         let botiswarning = false;
         /* if (`${users_}`.includes(`${client.user.id}`)) {
             botiswarning = true
