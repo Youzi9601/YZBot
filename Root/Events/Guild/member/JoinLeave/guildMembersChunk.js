@@ -23,6 +23,6 @@ module.exports = {
             `大量新成員加入 ${guild.name}： ${members.size} 個新成員`,
             true,
             client);
-        console.assert(members)
+        console.assert(members);
     },
 };
