@@ -10,7 +10,7 @@ module.exports =
      * @param {*} container
      */
     (message, client, container) => {
-        if (!message.inGuild()) return;
+        if (!message.inGuild() || message.author == null) return;
         // 檢查是否發送
         const count_data = db.get(`data.discord.guilds.${message.guild.id}.channel.plugins.count_data`) || 0;
         if (`${message.author.bot ? 'true' : 'false'}` == 'true') return;

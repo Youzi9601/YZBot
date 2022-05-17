@@ -11,6 +11,7 @@ eula.txt
 test.js
 json.sqlite.code.js
 ##忽略的設定檔：
+Root/Plugins/discord/message/corss_server/
 Root/Plugins/TaiwanEarthQuake/
 Root/Plugins/discord/storage/*.json
 #Root/Language/

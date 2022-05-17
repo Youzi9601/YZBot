@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "node bot.js",
+    "pm2start": "pm2 start bot.js",
     "prod:start": "pm2-runtime bot.js",
     "exit": "echo \"Error: no test specified\" && exit 1",
     "test": "CI=true node --trace-deprecation bot.js",
