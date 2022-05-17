@@ -18,6 +18,15 @@ module.exports = {
         // counting
         require('../../Plugins/discord/message/counting/counting_send')(message, client, container);
 
+        /*
+         // cross-channel
+         try {
+             require('../../Plugins/discord/message/corss_server/cross_server')(message, client, container)
+         } catch (error) {
+             console.error(error)
+         }
+        */
+
         // 執行命令
         const loadCommandOptions = require('../../Structures/CommandOptions/loadCommandOptions');
         container.Config.prefix.forEach(prefix => {
