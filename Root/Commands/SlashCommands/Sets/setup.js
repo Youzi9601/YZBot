@@ -43,6 +43,12 @@ module.exports = {
                         description: '指向的頻道',
                         required: false,
                     },
+                    {
+                        type: 3,
+                        name: 'id',
+                        description: '指向的跨群ID [限用數字或是英文字母，不分大小寫！]',
+                        required: false,
+                    },
                 ],
             },
             // #endregion
@@ -103,42 +109,85 @@ module.exports = {
         const subcommand = interaction.options.getSubcommand();
         const channel = interaction.options.getChannel('channel') || interaction.channel;
 
-        // #region chat_bot
-        if (subcommand == 'chat-bot') {
-            const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.chatbot.channel`;
-            await db.set(db_data, channel.id);
-        }
-        // #endregion
-        // #region suggestions-channel
-        else if (subcommand == 'suggestions-channel') {
-            interaction.deferReply();
-            const reset = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data`;
-            await db.delete(reset);
-            // set
-            const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data.channel`;
-            await db.set(db_data, channel.id);
-        }
-        // #endregion
-        // #region counting
-        else if (subcommand == 'counting') {
-            interaction.deferReply();
-            const db_path = `data.discord.guilds.${interaction.guild.id}.channel.plugins.count_data`;
-            db.delete(db_path);
-            const data = {
-                // 控制選項
-                channel: channel.id,
-                WrongReset: interaction.options.getBoolean('wrong_reset') || true,
-                noTwice: interaction.options.getBoolean('no_twice') || true,
-            };
-            await db.set(db_path, data);
-        }
-        // #endregion
-        // else
-        else return interaction.reply({
-            content: '此功能尚未完成！ :/',
-            ephemeral: true,
-        }).catch((err) => { });
+        if (isNotTextChannel) { }
+        else {
+            // #region chat_bot
+            if (subcommand == 'chat-bot') {
+                const db_path = `data.plugins.chat_bot`;
+                //  || await db.get(db_path)
+                let data = [{ guildid: '1', channelid: '1' }, { guildid: '2', channelid: '5' }, { guildid: '4', channelid: '2' },]
+                // 取得是否有此資料
+                console.log(data[guildid = '2'].channelid)
+                const pos = data.indexOf(`${interaction.guild.id}`)
+                // check have data
+                if (pos) {
+                    data.splice(pos, 1)
+                }
+                data.push({ guildid: owo, channelid: id })
 
+                await db.set(db_path, data);
+            }
+            // #endregion
+            // #region suggestions-channel
+            else if (subcommand == 'suggestions-channel') {
+                interaction.deferReply();
+                const reset = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data`;
+                await db.delete(reset);
+                // set
+                const db_data = `data.discord.guilds.${interaction.guild.id}.channel.plugins.suggestions_data.channel`;
+                await db.set(db_data, channel.id);
+            }
+            // #endregion
+            // #region counting
+            else if (subcommand == 'counting') {
+                interaction.deferReply();
+                const db_path = `data.discord.guilds.${interaction.guild.id}.channel.plugins.count_data`;
+                db.delete(db_path);
+                const data = {
+                    // 控制選項
+                    channel: channel.id,
+                    WrongReset: interaction.options.getBoolean('wrong_reset') || true,
+                    noTwice: interaction.options.getBoolean('no_twice') || true,
+                };
+                await db.set(db_path, data);
+            }
+            // #endregion
+            // #region cross-servers
+            else if (subcommand == 'corss-servers') {
+                interaction.deferReply();
+                // 取得資料
+                const id_code = interaction.options.getString('id')
+                const db_path = `data.corss_server`;
+                let webhook_data = db.get(db_path);
+
+                const webhook = channel.createWebhook(
+                    'YZB 跨群聊天',
+                    {
+                        avatar:
+                            client.user.displayAvatarURL({ dynamic: true })
+                            || client.user.defaultAvatarURL,
+                    }
+                )
+                const data = {
+                    // 控制選項
+                    guildid: interaction.guild.id,
+                    channelid: channel.id,
+                    id: id_code,
+                    webhook: webhook.token,
+                    webhook_id: webhook.id,
+                };
+                webhook_data.push(data)
+                await db.set(db_path, webhook_data);
+                channel.sendTyping()
+                channel.send(`跨群代碼： ${id_code}`)
+            }
+            // #endregion
+            // else
+            else return interaction.reply({
+                content: '此功能尚未完成！ :/',
+                ephemeral: true,
+            }).catch((err) => { });
+        }
 
         interaction.reply({
             content: `${subcommand} 的頻道成功指向 <#${channel.id}> ，去試試看?`,
@@ -157,5 +206,14 @@ module.exports = {
 
 
         // 執行
+
+        // 檢測不是文字頻道?
+        function isNotTextChannel(interaction) {
+            if (!channel.isText) {
+                interaction.reply({ content: '這不是文字頻道！' })
+                return true
+            } else return false
+        }
+
     },
 };
