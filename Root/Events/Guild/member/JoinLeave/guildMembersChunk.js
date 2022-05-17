@@ -11,16 +11,18 @@ const { log } = require('../../../../Utils/log');
 module.exports = {
     name: 'guildMembersChunk',
     /**
-     *
-     * @param {import('discord.js').GuildMember} members
+     * @description 一個事件
+     * @deprecated
+     * @param {data: { count: number; index: number; nonce: string | undefined }} members
      * @param {import('discord.js').Guild} guild 機器人
      * @param {import('discord.js').Client} client 機器人
      */
     run: async (members, guild, client, container) => {
         log(
             'info',
-            `大量新成員加入 ${guild.name}： ${members.index}個新成員`,
+            `大量新成員加入 ${guild.name}： ${members.size} 個新成員`,
             true,
             client);
+        console.assert(members)
     },
 };
