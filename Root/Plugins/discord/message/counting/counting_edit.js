@@ -17,7 +17,7 @@ module.exports =
         const count_data = countting_system.get(`${newMessage.guild.id}`) || { channelid: '000' };
 
         if (newMessage.author.bot) return;
-        if (`${count_data.channel}` != `${newMessage.channel.id}`) return;
+        if (`${count_data.channelid}` != `${newMessage.channel.id}`) return;
 
         const users_rections = oldMessage.reactions
             .resolve('⚠') || 'none';
