@@ -13,8 +13,7 @@ module.exports = (client) => {
 
     app.post('/webhook', async (request) => {
         // 拿到 Webhook 的 JSON 格式資料 
-        const body = await request.json();
-        console.log(body)
+        console.log(request)
         return response({ status: 200 });
     }); //附加中間件
     const port = Number(Config.webhook.port)
