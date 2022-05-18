@@ -795,7 +795,7 @@ module.exports = {
             const embed_author_url =
                 interaction.options.getString('author_url') || undefined;
             if (embed_author_name || embed_author_url || embed_author_icon) {
-                embed.author = {}
+                embed.author = {};
                 if (embed_author_name) {
                     embed.author.name = embed_author_name;
                 }
@@ -810,13 +810,13 @@ module.exports = {
             const embed_thumbnail =
                 interaction.options.getString('thumbnail') || undefined;
             if (embed_thumbnail) {
-                embed.thumbnail = {}
+                embed.thumbnail = {};
                 embed.thumbnail.url = embed_thumbnail;
             }
             // image
             const embed_image = interaction.options.getString('image') || undefined;
             if (embed_image) {
-                embed.image = {}
+                embed.image = {};
                 embed.image.url = embed_image;
             }
             // footer
@@ -826,7 +826,7 @@ module.exports = {
             const embed_footer_icon =
                 interaction.options.getString('footer_icon') || undefined;
             if (embed_footer_icon || embed_footer_text) {
-                embed.footer = {}
+                embed.footer = {};
                 if (embed_footer_text) {
                     embed.footer.text = embed_footer_text;
                 }

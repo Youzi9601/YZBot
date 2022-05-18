@@ -12,8 +12,8 @@ module.exports =
     (message, client, container) => {
         if (!message.inGuild() || message.author == null) return;
         // 檢查是否發送
-        var countting_system = new db.table('countting_system')
-        const count_data = countting_system.get(`${message.guild.id}`) || { channelid: `000` };
+        var countting_system = new db.table('countting_system');
+        const count_data = countting_system.get(`${message.guild.id}`) || { channelid: '000' };
 
         if (`${message.author.bot ? 'true' : 'false'}` == 'true') return;
         if (`${count_data.channel}` != `${message.channel.id}`) return;

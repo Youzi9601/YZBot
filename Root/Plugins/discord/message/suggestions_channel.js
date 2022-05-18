@@ -12,8 +12,8 @@ module.exports =
     (message, client, container) => {
         if (!message.inGuild()) return;
         // 檢查是否發送
-        var suggestions_system = new db.table('suggestions_system')
-        const suggestion_systems_data = suggestions_system.get(`${message.guild.id}`) || { channelid: '000' }
+        var suggestions_system = new db.table('suggestions_system');
+        const suggestion_systems_data = suggestions_system.get(`${message.guild.id}`) || { channelid: '000' };
 
         if (suggestion_systems_data.channelid != message.channel.id) return;
         if (message.author.bot) return;
@@ -59,7 +59,7 @@ module.exports =
         } catch (error) {
             console.log(error);
         }
-        suggestions_system.set(`${message.guild.id}`, { channelid: message.channel.id, num: num })
+        suggestions_system.set(`${message.guild.id}`, { channelid: message.channel.id, num: num });
 
         //
 

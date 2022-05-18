@@ -13,8 +13,8 @@ module.exports =
     (oldMessage, newMessage, client, container) => {
         if (!newMessage.inGuild()) return;
         // 檢查是否發送
-        var countting_system = new db.table('countting_system')
-        const count_data = countting_system.get(`${newMessage.guild.id}`) || { channelid: `000` };
+        var countting_system = new db.table('countting_system');
+        const count_data = countting_system.get(`${newMessage.guild.id}`) || { channelid: '000' };
 
         if (newMessage.author.bot) return;
         if (`${count_data.channel}` != `${newMessage.channel.id}`) return;

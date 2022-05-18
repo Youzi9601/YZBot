@@ -111,52 +111,51 @@ module.exports = {
 
         if (!isNotTextChannel) {
             // 無
-        }
-        else {
+        } else {
             // #region chat_bot
             if (subcommand == 'chat-bot') {
-                var chat_bot = new db.table('chat_bot_system')
-                chat_bot.set(`${interaction.guild.id}`, { channelid: channel.id })
+                var chat_bot = new db.table('chat_bot_system');
+                chat_bot.set(`${interaction.guild.id}`, { channelid: channel.id });
             }
             // #endregion
             // #region suggestions-channel
             else if (subcommand == 'suggestions-channel') {
                 interaction.deferReply();
-                var suggestions_system = new db.table('suggestions_system')
-                suggestions_system.set(`${interaction.guild.id}`, { channelid: channel.id, num: 0 })
+                var suggestions_system = new db.table('suggestions_system');
+                suggestions_system.set(`${interaction.guild.id}`, { channelid: channel.id, num: 0 });
             }
             // #endregion
             // #region counting
             else if (subcommand == 'counting') {
 
                 interaction.deferReply();
-                var countting_system = new db.table('countting_system')
+                var countting_system = new db.table('countting_system');
                 countting_system.set(`${interaction.guild.id}`, {
                     channelid: channel.id,
                     WrongReset: interaction.options.getBoolean('wrong_reset') || true,
                     noTwice: interaction.options.getBoolean('no_twice') || true,
-                })
+                });
 
             }
             // #endregion
             // #region cross-servers
             else if (subcommand == 'corss-servers') {
                 interaction.deferReply();
-                var cross_server_system = new db.table('cross_server_system')
+                var cross_server_system = new db.table('cross_server_system');
                 // 取得資料
-                const cross_id = interaction.options.getString('id')
+                const cross_id = interaction.options.getString('id');
                 const webhook = channel.createWebhook(
                     'YZB 跨群聊天',
                     {
                         avatar:
                             client.user.displayAvatarURL()
                             || client.user.defaultAvatarURL,
-                    }
-                )
+                    },
+                );
 
-                console.log(webhook)
-                channel.sendTyping()
-                channel.send(`跨群代碼： ${cross_id}`)
+                console.log(webhook);
+                channel.sendTyping();
+                channel.send(`跨群代碼： ${cross_id}`);
                 interaction.deferReply();
                 cross_server_system.set(`${interaction.guild.id}`, {
                     guildid: interaction.guild.id,
@@ -164,7 +163,7 @@ module.exports = {
                     cross_id: cross_id,
                     webhook_token: webhook.token,
                     webhook_id: webhook.id,
-                })
+                });
             }
             // #endregion
             // else
@@ -172,7 +171,6 @@ module.exports = {
                 content: '此功能尚未完成！ :/',
                 ephemeral: true,
             }).catch((err) => { });
-
 
 
             try {
