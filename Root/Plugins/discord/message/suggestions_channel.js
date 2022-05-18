@@ -12,14 +12,15 @@ module.exports =
     (message, client, container) => {
         if (!message.inGuild()) return;
         // 檢查是否發送
-        const suggestions_data = db.get(`data.discord.guilds.${message.guild.id}.channel.plugins.suggestions_data`) || 0;
+        var suggestions_system = new db.table('suggestions_system')
+        const suggestion_systems_data = suggestions_system.get(`${message.guild.id}`) || { channelid: '000' }
 
-        if (suggestions_data.channel != message.channel.id) return;
+        if (suggestion_systems_data.channelid != message.channel.id) return;
         if (message.author.bot) return;
 
         // 輸入
         message.channel.sendTyping();
-        const num = Math.round(Number(suggestions_data.num) + 1) || 1;
+        const num = Math.round(Number(suggestion_systems_data.num) + 1) || 1;
         const embed = {
             title: `#${num} 提議：`,
             description: `${message.content}`,
@@ -58,9 +59,7 @@ module.exports =
         } catch (error) {
             console.log(error);
         }
-        const db_data = `data.discord.guilds.${message.guild.id}.channel.plugins.suggestions_data.num`;
-        db.set(db_data, num);
-
+        suggestions_system.set(`${message.guild.id}`, { channelid: message.channel.id, num: num })
 
         //
 

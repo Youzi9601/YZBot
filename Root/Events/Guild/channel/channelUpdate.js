@@ -35,7 +35,7 @@ module.exports = {
         }
         // 類別
         if (oldChannel.parent !== newChannel.parent) {
-            change.parent = `${oldChannel.parent.name || '無'} -> ${newChannel.parent.name || '無'}`;
+            change.parent = `${oldChannel.parent ? oldChannel.parent.name : '無'} -> ${newChannel.parent ? newChannel.parent.name : '無'}`;
         }
         // 順位
         if (oldChannel.position !== newChannel.position) {
@@ -44,7 +44,7 @@ module.exports = {
         // 主題
         if (oldChannel.topic !== newChannel.topic) {
             change.topic = `\n${(oldChannel.topic.length > 50) ? oldChannel.topic.substring(0, 50) + ' (省略)……' : oldChannel.topic
-            } \n-> \n${(newChannel.topic.length > 50) ? newChannel.topic.substring(0, 50) + ' (省略)……' : newChannel.topic}`;
+                } \n-> \n${(newChannel.topic.length > 50) ? newChannel.topic.substring(0, 50) + ' (省略)……' : newChannel.topic}`;
         }
         // 權限
         if (oldChannel.permissionOverwrites !== newChannel.permissionOverwrites) {
@@ -84,7 +84,7 @@ module.exports = {
             + `${change.permissionOverwrites ? '\n權限變更: 請看"審核日誌"' : ''}`;
         log(
             'info',
-            `CHANNEL｜${newChannel.guild.name} (${newChannel.guild.id}) - ${newChannel.parent.name} (${newChannel.parent.id}) : ${newChannel.name} (${newChannel.id},${type[newChannel.type]}) 的頻道類別變更：${msg} `,
+            `CHANNEL｜${newChannel.guild.name} (${newChannel.guild.id}) - ${newChannel.parent ? '  -' + newChannel.parent.name + ` (${newChannel.parent.id}) ` : ''} : ${newChannel.name} (${newChannel.id},${type[newChannel.type]}) 的頻道類別變更：${msg} `,
             true,
             client);
 

@@ -12,8 +12,10 @@ module.exports =
     (message, client, container) => {
         if (!message.inGuild()) return;
         // 檢查是否發送
-        const chatbot_data = db.get(`data.discord.guilds.${message.guild.id}.channel.plugins.chatbot.channel`) || undefined;
-        if (chatbot_data != message.channel.id) return;
+        var chat_bot = new db.table('chat_bot_system')
+        const chatbot_data = chat_bot.get(`${message.guild.id}`) || { channelid: `000` }
+
+        if (chatbot_data.channelid != message.channel.id) return;
         if (message.author.bot) return;
 
         // 輸入

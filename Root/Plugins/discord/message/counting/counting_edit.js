@@ -13,14 +13,15 @@ module.exports =
     (oldMessage, newMessage, client, container) => {
         if (!newMessage.inGuild()) return;
         // 檢查是否發送
-        const count_data = db.get(`data.discord.guilds.${newMessage.guild.id}.channel.plugins.count_data`) || 0;
+        var countting_system = new db.table('countting_system')
+        const count_data = countting_system.get(`${newMessage.guild.id}`) || { channelid: `000` };
+
         if (newMessage.author.bot) return;
         if (`${count_data.channel}` != `${newMessage.channel.id}`) return;
 
         const users_rections = oldMessage.reactions
             .resolve('⚠') || 'none';
         const isMe = users_rections.me || 'none';
-        const users_ = [];
         let botiswarning = false;
         /* if (`${users_}`.includes(`${client.user.id}`)) {
             botiswarning = true

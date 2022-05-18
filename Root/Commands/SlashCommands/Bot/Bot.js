@@ -790,40 +790,49 @@ module.exports = {
             // author
             const embed_author_name =
                 interaction.options.getString('author_name') || undefined;
-            if (embed_author_name) {
-                embed.author.name = embed_author_name;
-            }
             const embed_author_icon =
                 interaction.options.getString('author_icon') || undefined;
-            if (embed_author_icon) {
-                embed.author.icon = embed_author_icon;
-            }
             const embed_author_url =
                 interaction.options.getString('author_url') || undefined;
-            if (embed_author_url) {
-                embed.author.url = embed_author_url;
+            if (embed_author_name || embed_author_url || embed_author_icon) {
+                embed.author = {}
+                if (embed_author_name) {
+                    embed.author.name = embed_author_name;
+                }
+                if (embed_author_icon) {
+                    embed.author.icon = embed_author_icon;
+                }
+                if (embed_author_url) {
+                    embed.author.url = embed_author_url;
+                }
             }
             // thumbnail
             const embed_thumbnail =
                 interaction.options.getString('thumbnail') || undefined;
             if (embed_thumbnail) {
+                embed.thumbnail = {}
                 embed.thumbnail.url = embed_thumbnail;
             }
             // image
             const embed_image = interaction.options.getString('image') || undefined;
             if (embed_image) {
+                embed.image = {}
                 embed.image.url = embed_image;
             }
             // footer
+
             const embed_footer_text =
                 interaction.options.getString('footer_text') || undefined;
-            if (embed_footer_text) {
-                embed.footer.text = embed_footer_text;
-            }
             const embed_footer_icon =
                 interaction.options.getString('footer_icon') || undefined;
-            if (embed_footer_icon) {
-                embed.footer.icon_url = embed_footer_icon;
+            if (embed_footer_icon || embed_footer_text) {
+                embed.footer = {}
+                if (embed_footer_text) {
+                    embed.footer.text = embed_footer_text;
+                }
+                if (embed_footer_icon) {
+                    embed.footer.icon_url = embed_footer_icon;
+                }
             }
             // fields
             const embed_fields =

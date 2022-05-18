@@ -12,10 +12,11 @@ module.exports =
     (message, client, container) => {
         if (!message.inGuild()) return;
         // 檢查是否發送
-        const count_data = db.get(`data.discord.guilds.${message.guild.id}.channel.plugins.count_data`) || 0;
-        if (message.author.bot) return;
-        if (`${count_data.channel}` != `${message.channel.id}`) return;
+        var countting_system = new db.table('countting_system')
+        const count_data = countting_system.get(`${message.guild.id}`) || { channelid: `000` };
 
+        if (message.author.bot) return;
+        if (`${count_data.channelid}` != `${message.channel.id}`) return;
 
         // 設定下一個正確的數字
         let num = `${Math.round(Number(count_data.num) + 1) || 1}`;
@@ -66,47 +67,49 @@ module.exports =
             }
 
         } else // 如果數字是錯的
-        if (!message.content.startsWith(`${num}`)) {
-            // 輸入
-            message.channel.sendTyping();
-            // 如果要錯誤重製
-            if (`${count_data.WrongReset}` == 'true') {
-                message.reply({
-                    embeds: [
-                        {
-                            description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`0\`開始！`,
-                        },
-                    ],
-                }).then((message) => {
-                    message.channel.send('0').then((msg) => {
-                        msg.react('✅');
+            if (!message.content.startsWith(`${num}`)) {
+                // 輸入
+                message.channel.sendTyping();
+                // 如果要錯誤重製
+                if (`${count_data.WrongReset}` == 'true') {
+                    message.reply({
+                        embeds: [
+                            {
+                                description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`0\`開始！`,
+                            },
+                        ],
+                    }).then((message) => {
+                        message.channel.send('0').then((msg) => {
+                            msg.react('✅');
+                        });
                     });
-                });
-                num = `${Math.round(0)}`;
-                userid = 0;
-            }
-            // 不錯誤重製
-            else {
+                    num = `${Math.round(0)}`;
+                    userid = 0;
+                }
+                // 不錯誤重製
+                else {
 
-                message.reply({
-                    embeds: [
-                        {
-                            description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`${num - 1}\`繼續！`,
-                        },
-                    ],
-                });
-                num = `${Math.round(num - 1)}`;
-            }
-            message.react('❌');
-        } else // 如果沒事
-            message.react('✅');
+                    message.reply({
+                        embeds: [
+                            {
+                                description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`${num - 1}\`繼續！`,
+                            },
+                        ],
+                    });
+                    num = `${Math.round(num - 1)}`;
+                }
+                message.react('❌');
+            } else // 如果沒事
+                message.react('✅');
 
-
-        const db_path_num = `data.discord.guilds.${message.guild.id}.channel.plugins.count_data.num`;
-        db.set(db_path_num, num);
-        const db_path_latestUser = `data.discord.guilds.${message.guild.id}.channel.plugins.count_data.latestUserId`;
-        db.set(db_path_latestUser, userid);
-
+        //  設定
+        countting_system.set(`${interaction.guild.id}`, {
+            channelid: count_data.channelid,
+            WrongReset: count_data.WrongReset,
+            noTwice: count_data.noTwice,
+            latestUserId: userid,
+            num: num
+        })
 
         //
 
