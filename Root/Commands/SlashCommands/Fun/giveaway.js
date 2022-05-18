@@ -28,7 +28,7 @@ module.exports = {
                     {
                         type: 3,
                         name: 'duration',
-                        description: '時間 (月mo/日d/時h/分m/秒s)',
+                        description: '時間 (日d 時h 分m 秒s，不需空格，有也是可以)',
                         required: true,
                     },
                     {
