@@ -10,13 +10,10 @@ module.exports = (client) => {
 
     const webhook = new Topgg.Webhook(Config.webhook.authorization) // 添加您的 Top.gg webhook 授權（不是機器人令牌）
 
-    app.get('/', (req, res) => {
-        res.send('Hello World!')
-    })
-
     app.post('/webhook', webhook.listener(vote => {
         // vote 是你的投票對象
         console.log(vote) // 使用者id
+        return app.response({ status: 200 })
     })) //附加中間件
     const port = Number(Config.webhook.port)
     // app.listen(port) //你的港口
