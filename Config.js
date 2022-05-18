@@ -36,7 +36,7 @@ module.exports = {
     // 機器人訊息命令前綴(訊息觸發，允許多個前綴！)
     // 例: ["前綴1","前綴2"]
     // 使用方式: "!ping"、">ping"
-    prefix: process.env.prefix || ['>', '/', '!>', ''],
+    prefix: process.env.prefix || ['>', '/', '!>'],
 
     // 機器人製作者們的ID，可以使用擁有者指令
     // 例: ["856918496893599805","862347263690539009","849809683085525032"]
@@ -93,7 +93,7 @@ module.exports = {
     // 控制台日誌前綴名稱(可為空)
     console_prefix: process.env.console_prefix || '',
 
-    // 控制台日誌文件紀錄天數(單位：天(= logs/ 的子目錄下的檔案數量)｜0 為永久保存紀錄｜過了這時間以後就會自動刪除)
+    // 控制台日誌文件紀錄天數(單位：天，等同 ./logs/ 的子目錄下的檔案數量｜0 為永久保存紀錄｜過了這時間以後就會自動刪除)
     console_clear: process.env.console_clear || 0,
 
     // 伺服器邀請 (https://discord.gg/${邀請代碼})
@@ -107,17 +107,17 @@ module.exports = {
     // 紀錄伺服器的相關頻道
     Channels: {
         // 機器人所有記錄會在這個頻道 (填入ID)
-        All: process.env.All || 'ID',
+        All: process.env.Channels_All || 'ID',
         // 機器人啟動時會記錄在這個頻道 (填入ID)
-        ClientOn: process.env.ClientOnChannel || 'ID',
+        ClientOn: process.env.Channels_ClientOnChannel || 'ID',
         // 若有錯誤的回報(各種)會記錄在這個頻道 (填入ID)
-        report: process.env.reportChannel || 'ID',
+        report: process.env.Channels_reportChannel || 'ID',
         // 機器人指令的使用紀錄會記錄在這個頻道 (填入ID)
-        commandRec: process.env.commandRecChannel || 'ID',
+        commandRec: process.env.Channels_commandRecChannel || 'ID',
         // 該伺服器的變動被記錄在這個頻道 (填入ID)
-        serverRec: process.env.serverRecChannel || 'ID',
+        serverRec: process.env.Channels_serverRecChannel || 'ID',
         // 機器人被邀請進入伺服器的紀錄會記錄在這個頻道 (填入ID)
-        inviteChannel: process.env.inviteChannel || 'ID',
+        inviteChannel: process.env.Channels_inviteChannel || 'ID',
     },
 
     /**
@@ -125,22 +125,34 @@ module.exports = {
     */
     console: {
         // 是否報告 Discord Error 錯誤訊息
-        error: process.env.console_error || true,
+        error: process.env.console_console_error || true,
         // 是否報告 Discord Warn 警告訊息
-        warn: process.env.console_warn || true,
+        warn: process.env.console_console_warn || true,
         // 是否報告 Discord debug 除錯訊息
-        debug: process.env.console_debug || false,
+        debug: process.env.console_console_debug || false,
     },
     /**
     * 網頁
     */
     // 網頁
     web: {
-        noWeb: process.env.noWeb || true,
-        License_ID: process.env.License_ID || '許可代碼',
+        noWeb: process.env.web_noWeb || true,
+        License_ID: process.env.web_License_ID || '許可代碼',
         // 網站位置
-        domain: process.env.domain || 'http://localhost', // 網域
-        port: process.env.port || 80,
+        domain: process.env.web_domain || 'http://localhost',
+        port: process.env.web_port || 80,
+    },
+    /**
+     * Webhook 投票推播
+     */
+    webhook: {
+        use: process.env.webhook_use || false,
+        // 你自訂的認證ID
+        authorization: process.env.webhook_authorization || 'auth_passwArd',
+        // Webhook接收的連接埠
+        port: process.env.webhook_port || '3000',
+        // 傳回投票的頻道
+        channel: process.env.webhook_channel || '頻道ID'
     },
 
     /**
