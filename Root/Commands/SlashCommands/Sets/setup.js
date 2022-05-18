@@ -201,9 +201,9 @@ module.exports = {
         // 檢測不是文字頻道?
         function isNotTextChannel(interaction) {
             if (!channel.isText) {
-                interaction.reply({ content: '這不是文字頻道！' })
-                return true
-            } else return false
+                interaction.reply({ content: '這不是文字頻道！' });
+                return true;
+            } else return false;
         }
 
     },
