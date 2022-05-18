@@ -15,7 +15,8 @@ module.exports = (client) => {
         // 拿到 Webhook 的 JSON 格式資料 
         console.log(request)
         return response({ status: 200 });
-    }); //附加中間件
+    });
+    //附加中間件
     const port = Number(Config.webhook.port)
     // app.listen(port) //你的港口
     http.createServer(app).listen(port);
