@@ -132,8 +132,8 @@ module.exports = {
                 var countting_system = new db.table('countting_system');
                 countting_system.set(`${interaction.guild.id}`, {
                     channelid: channel.id,
-                    WrongReset: interaction.options.getBoolean('wrong_reset') || true,
-                    noTwice: interaction.options.getBoolean('no_twice') || true,
+                    WrongReset: `${interaction.options.getBoolean('wrong_reset')}` || `true`,
+                    noTwice: `${interaction.options.getBoolean('no_twice')}` || `true`,
                 });
 
             }
