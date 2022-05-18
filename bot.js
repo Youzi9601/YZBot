@@ -82,13 +82,13 @@
     });
     require('./Root/Plugins/discord/Giveaway')(client);
 
-    if (`${config.webhook.use}` == `true`) {
+    if (`${config.webhook.use}` == 'true') {
         console.info(
             chalk.gray(
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
             ) + '啟動Webhook接收...',
         );
-        require('./Root/Plugins/web/webhook')(client)
+        require('./Root/Plugins/web/webhook')(client);
     }
     // #endregion
 
@@ -179,9 +179,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function (err, data) {
+        fs.readFile('./eula.txt', function(err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function (err) {
+                fs.writeFile('./eula.txt', '', function(err) {
                 });
                 console.error(
                     chalk.bgRed(

@@ -152,7 +152,7 @@ module.exports = {
         // Webhook接收的連接埠
         port: process.env.webhook_port || '3000',
         // 傳回投票的頻道
-        channel: process.env.webhook_channel || '頻道ID'
+        channel: process.env.webhook_channel || '頻道ID',
     },
 
     /**
