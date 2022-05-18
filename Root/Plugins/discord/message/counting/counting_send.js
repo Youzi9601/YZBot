@@ -67,40 +67,40 @@ module.exports =
             }
 
         } else // 如果數字是錯的
-            if (!message.content.startsWith(`${num}`)) {
-                // 輸入
-                message.channel.sendTyping();
-                // 如果要錯誤重製
-                if (`${count_data.WrongReset}` == 'true') {
-                    message.reply({
-                        embeds: [
-                            {
-                                description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`0\`開始！`,
-                            },
-                        ],
-                    }).then((message) => {
-                        message.channel.send('0').then((msg) => {
-                            msg.react('✅');
-                        });
+        if (!message.content.startsWith(`${num}`)) {
+            // 輸入
+            message.channel.sendTyping();
+            // 如果要錯誤重製
+            if (`${count_data.WrongReset}` == 'true') {
+                message.reply({
+                    embeds: [
+                        {
+                            description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`0\`開始！`,
+                        },
+                    ],
+                }).then((message) => {
+                    message.channel.send('0').then((msg) => {
+                        msg.react('✅');
                     });
-                    num = `${Math.round(0)}`;
-                    userid = 0;
-                }
-                // 不錯誤重製
-                else {
+                });
+                num = `${Math.round(0)}`;
+                userid = 0;
+            }
+            // 不錯誤重製
+            else {
 
-                    message.reply({
-                        embeds: [
-                            {
-                                description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`${num - 1}\`繼續！`,
-                            },
-                        ],
-                    });
-                    num = `${Math.round(num - 1)}`;
-                }
-                message.react('❌');
-            } else // 如果沒事
-                message.react('✅');
+                message.reply({
+                    embeds: [
+                        {
+                            description: `:x: 錯了喔！下一個是\`${num}\`，我們從\`${num - 1}\`繼續！`,
+                        },
+                    ],
+                });
+                num = `${Math.round(num - 1)}`;
+            }
+            message.react('❌');
+        } else // 如果沒事
+            message.react('✅');
 
         //  設定
         countting_system.set(`${message.guild.id}`, {
