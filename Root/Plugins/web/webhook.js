@@ -8,10 +8,11 @@ module.exports = (client) => {
         express = require('express'),
         app = express();
 
-    const webhook = new Topgg.Webhook(Config.webhook.authorization) // 添加您的 Top.gg webhook 授權（不是機器人令牌）
+    const webhook = new Topgg.Webhook(Config.webhook.authorization)
+    // 添加您的 Top.gg webhook 授權（不是機器人令牌）
 
     app.post('/webhook', async (request) => {
-        // 拿到 Webhook 的 JSON 格式資料
+        // 拿到 Webhook 的 JSON 格式資料 
         const body = await request.json();
         console.log(body)
         return response({ status: 200 });
