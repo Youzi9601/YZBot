@@ -1,5 +1,5 @@
 const { config } = require('../../../bot');
-module.exports = async function (message, command, Discord) {
+module.exports = async function(message, command, Discord) {
     if (!command.ownerOnly) return false;
     if (config.developers.some(id => message.member.user.id == id)) return false;
     else {
