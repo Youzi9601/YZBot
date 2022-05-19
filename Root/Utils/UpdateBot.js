@@ -7,7 +7,7 @@ module.exports = { config_update };
 const fs = require('fs');
 const childProcess = require('child_process');
 
-await update();
+update();
 
 
 // function
