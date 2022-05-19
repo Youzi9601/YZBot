@@ -58,8 +58,8 @@ async function update() {
 update();
 
 async function config_update() {
-    const config = require('./../../Config')
-    require('fs').writeFileSync(`Config.js`,
+    const config = require('./../../Config');
+    require('fs').writeFileSync('Config.js',
         `
 require('dotenv').config();
 module.exports = {
@@ -130,21 +130,21 @@ module.exports = {
              * {Youtube.subs} - Youtube 訂閱者數量 (需要在 "Youtube.url" 的選項中輸入連結！)
              */
             ${JSON.stringify(config.botPresence.activities, null, 2) || JSON.stringify(
-            [
-                {
-                    type: 'WATCHING',
-                    name: '{count.guilds}個伺服器&{count.members}個使用者',
-                },
-                {
-                    name: '訂閱 Youzi9601 ！',
-                    type: 'STREAMING',
-                    url: 'https://www.twitch.tv/Youzi9601',
-                },
-                {
-                    name: 'Youzi9601 訂閱數：{Youtube.subs}位！',
-                    type: 'COMPETING',
-                },
-            ], null, 2)}
+        [
+            {
+                type: 'WATCHING',
+                name: '{count.guilds}個伺服器&{count.members}個使用者',
+            },
+            {
+                name: '訂閱 Youzi9601 ！',
+                type: 'STREAMING',
+                url: 'https://www.twitch.tv/Youzi9601',
+            },
+            {
+                name: 'Youzi9601 訂閱數：{Youtube.subs}位！',
+                type: 'COMPETING',
+            },
+        ], null, 2)}
         ],
         // 狀態
         status: '${config.botPresence.status || 'idle'}',
@@ -261,6 +261,6 @@ module.exports = {
 
     },
 };
-    `)
-    console.log('\x1b[32m%s\x1b[0m', 'Config檔案已經更新！')
+    `);
+    console.log('\x1b[32m%s\x1b[0m', 'Config檔案已經更新！');
 }
