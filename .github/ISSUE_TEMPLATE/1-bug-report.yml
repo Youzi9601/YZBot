@@ -1,4 +1,4 @@
-name: 錯誤報告
+name: "錯誤報告"
 description: 提交錯誤報告
 title: "[錯誤]: "
 labels: ["#未驗證", "! 漏洞", "! 錯誤"]
