@@ -703,7 +703,7 @@ module.exports = {
             const embed_fields =
                 interaction.options.getString('fields') || undefined;
             if (embed_fields) {
-                embed.fields = JSON.stringify(embed_fields, null, 2);
+                embed.fields = [JSON.stringify(embed_fields, null, 2)];
             }
             // 取得訊息內容
             const msg = {};
@@ -838,7 +838,7 @@ module.exports = {
             const embed_fields =
                 interaction.options.getString('fields') || undefined;
             if (embed_fields) {
-                embed.fields = JSON.stringify(embed_fields, null, 2);
+                embed.fields = [JSON.stringify(embed_fields, null, 2)];
             }
             // 取得訊息內容
             const msg = {};
