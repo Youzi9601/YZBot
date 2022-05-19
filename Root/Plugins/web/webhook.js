@@ -10,9 +10,21 @@ module.exports = (client) => {
 
     const webhook = new Topgg.Webhook(Config.webhook.authorization); // 添加您的 Top.gg webhook 授權（不是機器人令牌）
 
+    app.use(express.json({ verify: (req, res, buffer) => { req.rawBody = buffer; } }));
+
     app.post('/webhook', function (req, res) {
-        res.status(200).send('成功！');
-        console.log(req.body())
+        return new Promise((resolve) => {
+            if (Config.webhook.authorization &&
+                req.headers.authorization !== Config.webhook.authorization)
+                return res.status(403).json({ error: "沒有認證" });
+            else {
+                res.status(200).send('成功！');
+                console.log('接收到webhook')
+                console.log(req.body)
+                console.log('以上！')
+            }
+        })
+
     },
 
         webhook.listener(vote => {
