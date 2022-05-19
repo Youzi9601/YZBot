@@ -12,7 +12,7 @@ const {
     MessageEmbed,
 } = require('discord.js');
 const fs = require('fs-extra');
-const config = require('../../../Config');
+const { config } = require('../../../bot');
 
 let port80 = false;
 if (config.web.port == 80) {

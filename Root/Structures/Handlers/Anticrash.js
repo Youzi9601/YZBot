@@ -2,7 +2,7 @@
  *
  * @param {import('./../../../bot').client} client
  */
-const config = require('./../../../Config');
+const { config } = require('./../../../bot');
 module.exports = (client) => {
     // #region 事件
     // 處理錯誤

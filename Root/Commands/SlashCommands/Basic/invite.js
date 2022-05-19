@@ -7,7 +7,7 @@ const {
     MessageEmbed,
     MessageSelectMenu,
 } = require('discord.js');
-const config = require('../../../../Config');
+const { config } = require('../../../../bot');
 module.exports = {
     command: {
         name: 'invite',

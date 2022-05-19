@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 const Box = require('cli-box');
-const config = require('../../../Config');
+const { config } = require('../../../bot');
 const moment = require('moment');
 
 module.exports = {

@@ -3,7 +3,7 @@
 module.exports = { rpc };
 async function rpc() {
     const RPC = require('discord-rpc'); // 引入 discord-rpc
-    const config = require('./../../../../Config');
+    const { config } = require('./../../../../bot');
     const clientId = `${config.clientID}`; // 剛剛複製的 Client ID
     const ipc = new RPC.Client({ transport: 'ipc' });
     // const Activity = config.beta.rpc.setActivity

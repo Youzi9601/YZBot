@@ -11,7 +11,7 @@ const {
     CommandInteraction,
     ReactionCollector,
 } = require('discord.js');
-const config = require('../../../../Config.js');
+const { config } = require('../../../../bot');
 
 module.exports = {
     command: {

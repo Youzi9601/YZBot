@@ -1,7 +1,9 @@
 const ci = process.env.CI;
 const fs = require('fs');
 (async () => {
+    /**@param {import('./Config.js')} config */
     let config;
+
     try {
         config = require('./Config');
     } catch (error) {

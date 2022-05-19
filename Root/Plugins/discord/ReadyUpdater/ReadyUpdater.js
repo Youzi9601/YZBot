@@ -1,6 +1,6 @@
 module.exports = { updater };
 const humanizeDuration = require('humanize-duration');
-const config = require('../../../../Config');
+const { config } = require('../../../../bot');
 const axios = require('axios');
 const os = require('os');
 
