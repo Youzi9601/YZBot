@@ -2,7 +2,7 @@
 name: 建議請求
 about: 為這個項目提出一個想法！
 title: 建議請求
-labels: ''
+labels: '#未驗證', '! 建議'
 assignees: ''
 
 ---
