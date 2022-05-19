@@ -116,7 +116,7 @@ module.exports = {
                         type: 3,
                         name: 'fields',
                         description:
-                            '使用json文本創建 | {name:標題,value: 內容,inline:true},',
+                            '使用json文本創建 | {name:\'標題\', value: \'內容\', inline:true},',
                         required: false,
                     },
                     {
@@ -701,7 +701,7 @@ module.exports = {
             }
             // fields
             const embed_fields =
-                interaction.options.getString('footer_text') || undefined;
+                interaction.options.getString('fields') || undefined;
             if (embed_fields) {
                 embed.fields = JSON.stringify(embed_fields, null, 2);
             }
@@ -836,7 +836,7 @@ module.exports = {
             }
             // fields
             const embed_fields =
-                interaction.options.getString('footer_text') || undefined;
+                interaction.options.getString('fields') || undefined;
             if (embed_fields) {
                 embed.fields = JSON.stringify(embed_fields, null, 2);
             }
