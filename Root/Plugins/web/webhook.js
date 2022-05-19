@@ -6,8 +6,6 @@ module.exports =
      */
     (client) => {
 
-        const { config } = require('../../../bot');
-
         var http = require('http'),
             https = require('https'),
             express = require('express'),
@@ -15,10 +13,10 @@ module.exports =
 
         app.use(express.json({ verify: (req, res, buffer) => { req.rawBody = buffer; } }));
 
-        app.post('/webhook', function(req, res) {
+        app.post('/webhook', function (req, res) {
             return new Promise((resolve) => {
-                if (Config.webhook.authorization &&
-                    req.headers.authorization !== Config.webhook.authorization)
+                if (config.webhook.authorization &&
+                    req.headers.authorization !== config.webhook.authorization)
                     return res.status(403).json({ error: '沒有認證' });
                 else {
                     res.status(200).send('成功！');
@@ -27,7 +25,7 @@ module.exports =
             });
         }); // 附加中間件
 
-        const port = Number(Config.webhook.port);
+        const port = Number(config.webhook.port);
         // app.listen(port) //你的港口
         http.createServer(app).listen(port);
         console.log(` -> Webhook 接收於 Port:${port}`);
@@ -70,7 +68,7 @@ function vote(body, client) {
                 },
             ],
         },
-        Config.webhook.channel);
+            config.webhook.channel);
     } else if (type == 'upvote') {
         log('info', `有人投票了！> ${body.user.name + '#' + body.user.discriminator}`, true, client, {
             content: '新的投票！',
@@ -88,7 +86,7 @@ function vote(body, client) {
                 },
             ],
         },
-        Config.webhook.channel);
+            config.webhook.channel);
     }
 
 }
