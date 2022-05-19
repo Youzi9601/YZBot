@@ -101,11 +101,11 @@ module.exports = {
     // 機器人訊息命令前綴(訊息觸發，允許多個前綴！)
     // 例: ["前綴1","前綴2"]
     // 使用方式: "!ping"、">ping"
-    prefix: process.env.prefix || ${JSON.stringify(Config.prefix, null, 2) || JSON.stringify(['>', '/', '!>'], null, 2)},
+    prefix: process.env.prefix || [${JSON.stringify(Config.prefix, null, 2).replace('[', '').replace(']', '') || JSON.stringify(['>', '/', '!>'], null, 2).replace('[', '').replace(']', '')}],
 
     // 機器人製作者們的ID，可以使用擁有者指令
     // 例: ["856918496893599805","862347263690539009","849809683085525032"]
-    developers: process.env.developers || ${JSON.stringify(Config.developers, null, 2) || JSON.stringify(['856918496893599805'], null, 2)},
+    developers: process.env.developers || [${JSON.stringify(Config.developers, null, 2).replace('[', '').replace(']', '') || JSON.stringify(['856918496893599805'], null, 2).replace('[', '').replace(']', '')}],
 
     // 機器人名稱
     botName: process.env.botName || \'${Config.botName || '機器人'}\',
@@ -131,7 +131,7 @@ module.exports = {
              * {count.members} - 使用者數量
              * {Youtube.subs} - Youtube 訂閱者數量 (需要在 "Youtube.url" 的選項中輸入連結！)
              */
-            ${JSON.stringify(Config.botPresence.activities, null, 2) || JSON.stringify(
+            ${JSON.stringify(Config.botPresence.activities, null, 2).replace('[', '').replace(']', '') || JSON.stringify(
         [
             {
                 type: 'WATCHING',
@@ -146,7 +146,7 @@ module.exports = {
                 name: 'Youzi9601 訂閱數：{Youtube.subs}位！',
                 type: 'COMPETING',
             },
-        ], null, 2)}
+        ], null, 2).replace('[', '').replace(']', '')}
         ],
         // 狀態
         status: \'${Config.botPresence.status || 'idle'}\',

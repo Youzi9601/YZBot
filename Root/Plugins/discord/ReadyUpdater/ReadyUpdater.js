@@ -106,7 +106,7 @@ async function updater(message, oldmsg, client) {
 
         // 處理狀態
         status.name =
-            status.name
+            `${status.name}`
                 .replace(/{bot.name}/g, client.user.name)
                 .replace(/{count.guilds}/g, client.guilds.cache.size)
                 .replace(/{count.members}/g, client.users.cache.size)
