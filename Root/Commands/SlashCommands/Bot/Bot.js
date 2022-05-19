@@ -236,7 +236,7 @@ module.exports = {
                         type: 3,
                         name: 'fields',
                         description:
-                            '使用json文本創建 | {name:標題,value: 內容,inline:true},',
+                            '使用json文本創建 | {name:\'標題\', value: \'內容\', inline:true},',
                         required: false,
                     },
                     {
@@ -468,7 +468,7 @@ module.exports = {
                         type: 3,
                         name: 'fields',
                         description:
-                            '使用json文本創建 | {name:標題,value: 內容,inline:true},',
+                            '使用json文本創建 | {name:\'標題\', value: \'內容\', inline:true},',
                         required: false,
                     },
                     {
@@ -563,7 +563,7 @@ module.exports = {
                         type: 3,
                         name: 'fields',
                         description:
-                            '使用json文本創建 | {name:標題,value: 內容,inline:true},',
+                            '使用json文本創建 | {name:\'標題\', value: \'內容\', inline:true},',
                         required: false,
                     },
                     {
