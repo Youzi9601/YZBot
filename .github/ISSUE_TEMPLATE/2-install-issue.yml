@@ -1,7 +1,11 @@
 name: "安裝時發生的問題"
 description: 安裝機器人時發生的問題
-labels: ['topic: installation']
+labels: ["#未驗證", "? 問題", "! 錯誤"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        需要幫忙嗎?填寫這個問題酖我們將會有人幫你！
 
   - type: textarea
     id: current-behavior
@@ -11,14 +15,14 @@ body:
       placeholder: 當我嘗試安裝...
     validations:
       required: true
-      
+
   - type: textarea
     id: debug-logs
     attributes:
       label: 終端輸出
       description: 終端輸出的螢幕截圖或是直接貼上
       placeholder: 輸出
-  
+
   - type: dropdown
     id: package-manager
     attributes:
@@ -28,10 +32,11 @@ body:
         - yarn
         - pnpm
         - cnmp
+        - pm2
         - Others
     validations:
       required: true
-      
+
   - type: dropdown
     id: operating-system
     attributes:
@@ -42,7 +47,7 @@ body:
         - Linux (Others)
         - Mac
         - Windows
-        - Others
+        - 其它...
     validations:
       required: true
   - type: textarea

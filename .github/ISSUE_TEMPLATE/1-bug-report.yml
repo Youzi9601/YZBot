@@ -1,7 +1,7 @@
 name: 錯誤報告
 description: 提交錯誤報告
 title: "[錯誤]: "
-labels: ["bug", "triage"]
+labels: ["#未驗證", "! 漏洞", "! 錯誤"]
 assignees:
   - Youzi9601
 body:
@@ -11,63 +11,69 @@ body:
         感謝您花時間填寫此錯誤報告！
 
   - type: checkboxes
-    id: step1_check
     attributes:
-      label: 確認無重複的主題
-      description: 提交此問題前，請確認在issue上沒有其他任何相關的主題！
+      label: 這是否存在於現有問題？
+      description: 請搜索以查看您遇到的錯誤是否已存在。
       options:
-        - label: 我確認沒有！
+        - label: 我已經搜索了現有的問題
           required: true
 
   - type: textarea
-    id: step2_what_is_wrong
     attributes:
       label: 描述問題
-      description: 告訴我們發生了什麼
-      placeholder: 告訴我發生了甚麼事情?
+      description: 告訴我們發生了什麼 (截圖可放入這裡)
+      placeholder: 這東西傳回了一些錯誤...
       value: "這東西傳回了一些錯誤..."
     validations:
       required: true
 
   - type: textarea
-    id: happened
     attributes:
       label: 發生當下
-      description: 請重現行為的步驟
+      description: 請重現行為的步驟 (截圖可放入這裡)
       placeholder: |
-        1. 轉到“...”
-        2. 點擊“....”
-        3. 向下滾動到“....”
+        1. 輸入命令“...”
+        2. 他開始思考“....”
+        3. 我傳送了訊息“....”
         4. 出現錯誤
     validations:
       required: false
 
   - type: input
-    id: want_happend
     attributes:
       label: 預期行為
-      description: 對您當時期望發生的事情進行清晰簡潔的描述。
-      placeholder: 請告訴我們你當下期望的結果是什麼
+      description: 對您當時期望發生的事情進行清晰簡潔的描述。 (截圖可放入這裡)
+      placeholder: 當時我想要...
     validations:
       required: false
 
-  - type: dropdown
-    id: version
+  - type: textarea
     attributes:
       label: 版本
-      description: 您正在運行我們專案的哪個版本？
-      options:
-        - Node.Js v16 (預設)
-        - PM2
-        - 其他 (請於前面多加說明)
+      description: |
+        您正在運行我們專案的哪個版本？
+        例如:
+          - **Node**: 16.5.0
+          - **npm**: 7.6.3
+          - **PM2**: 1.0.2
+          - **YZB**: v0.0.1
+      value: |
+        - Node:
+        - npm:
+        - YZB:
+      render: Markdown
     validations:
       required: true
+
   - type: textarea
     id: logs
     attributes:
       label: 相關日誌輸出
       description: 請複制並黏貼任何相關的日誌輸出。 這將自動格式化為代碼，因此無需註記。
-      render: shell
+      render: Shell
+    validations:
+      required: false
+
   - type: input
     id: contact
     attributes:
@@ -76,11 +82,12 @@ body:
       placeholder: 例如： 電子郵件：email@example.com 、 Discord： User#0000
     validations:
       required: false
+
   - type: checkboxes
     id: terms
     attributes:
       label: 行為守則
-      description: 提交此問題，即表示您同意遵守我們的 [提交規則]()
+      description: 提交此問題，即表示您同意遵守我們的提交規則以及確認上述問題無誤！
       options:
-        - label: 我同意遵守該項目的行為準則
+        - label: 我同意遵守該項目的行為準則與確認問題無誤！
           required: true

@@ -1,13 +1,19 @@
 name: "提議新功能"
 description: 提議新功能來幫助我們變得更好！
+title: "[提議]: "
+labels: ["#未驗證", "! 建議", "! 好點子"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        感謝您為我們盡一份心力！
 
   - type: textarea
     id: feature
     attributes:
       label: 你希望有什麽功能？
       description: 對於功能清晰的描述
-      placeholder: 我希望機器人可以...
+      placeholder: 我希望機器人可以... (也可用圖片描述)
     validations:
       required: true
   - type: textarea
@@ -15,7 +21,7 @@ body:
     attributes:
       label: 為什麼？
       description: 請告訴我們原因！
-      placeholder: 因為...
+      placeholder: 因為... (也可用圖片描述)
   - type: textarea
     id: other
     attributes:
