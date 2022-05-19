@@ -59,7 +59,7 @@ async function update() {
 update();
 
 async function config_update() {
-    const { config } = require('./../../bot');
+    const config = require('./../../config');
     require('fs').writeFileSync('Config.js',
         `
 require('dotenv').config();
@@ -88,14 +88,14 @@ module.exports = {
     */
 
     // 啟動時會使用這個金鑰登入 (也就是機器人token)
-    token: process.env.token || '${config.token || '機器人Token'}',
+    token: process.env.token || \'${config.token || '機器人Token'}\',
 
     // 機器人註冊 [ / ] 斜線命令 會使用這個機器人ID (填入機器人ID 或者Developer Portal的Application ID，其實都一樣。)
-    clientID: process.env.clientID || '${config.clientID || '機器人ID'}',
-    clientSECRET: process.env.clientSECRET || '${config.clientSECRET || '機器人密碼'}',
+    clientID: process.env.clientID || \'${config.clientID || '機器人ID'}\',
+    clientSECRET: process.env.clientSECRET || \'${config.clientSECRET || '機器人密碼'}\',
 
     // 語言(可於 ./Root/language 中自訂語言)
-    language: '${config.language || 'zh-TW'}',
+    language: \'${config.language || 'zh-TW'}\',
 
     // 機器人訊息命令前綴(訊息觸發，允許多個前綴！)
     // 例: ["前綴1","前綴2"]
@@ -104,10 +104,10 @@ module.exports = {
 
     // 機器人製作者們的ID，可以使用擁有者指令
     // 例: ["856918496893599805","862347263690539009","849809683085525032"]
-    developers: process.env.developers || [${JSON.stringify(config.developers, null, 2) || ['856918496893599805']}],
+    developers: process.env.developers || ${JSON.stringify(config.developers, null, 2) || JSON.stringify(['856918496893599805'], null, 2)},
 
     // 機器人名稱
-    botName: process.env.botName || '${config.botName || '機器人'}',
+    botName: process.env.botName || \'${config.botName || '機器人'}\',
 
     // 機器人狀態
     botPresence: {
@@ -131,24 +131,24 @@ module.exports = {
              * {Youtube.subs} - Youtube 訂閱者數量 (需要在 "Youtube.url" 的選項中輸入連結！)
              */
             ${JSON.stringify(config.botPresence.activities, null, 2) || JSON.stringify(
-        [
-            {
-                type: 'WATCHING',
-                name: '{count.guilds}個伺服器&{count.members}個使用者',
-            },
-            {
-                name: '訂閱 Youzi9601 ！',
-                type: 'STREAMING',
-                url: 'https://www.twitch.tv/Youzi9601',
-            },
-            {
-                name: 'Youzi9601 訂閱數：{Youtube.subs}位！',
-                type: 'COMPETING',
-            },
-        ], null, 2)}
+            [
+                {
+                    type: 'WATCHING',
+                    name: '{count.guilds}個伺服器&{count.members}個使用者',
+                },
+                {
+                    name: '訂閱 Youzi9601 ！',
+                    type: 'STREAMING',
+                    url: 'https://www.twitch.tv/Youzi9601',
+                },
+                {
+                    name: 'Youzi9601 訂閱數：{Youtube.subs}位！',
+                    type: 'COMPETING',
+                },
+            ], null, 2)}
         ],
         // 狀態
-        status: '${config.botPresence.status || 'idle'}',
+        status: \'${config.botPresence.status || 'idle'}\',
     },
 
 
@@ -158,33 +158,33 @@ module.exports = {
      *
      */
     // 控制台日誌前綴名稱(可為空)
-    console_prefix: process.env.console_prefix || '${config.console_prefix || ''}',
+    console_prefix: process.env.console_prefix || \'${config.console_prefix || ''}\',
 
     // 控制台日誌文件紀錄天數(單位：天，等同 ./logs/ 的子目錄下的檔案數量｜0 為永久保存紀錄｜過了這時間以後就會自動刪除)
     console_clear: process.env.console_clear || ${config.console_clear || 0},
 
     // 伺服器邀請 (https://discord.gg/\$\{邀請代碼\})
-    invite_code: process.env.invite_code || '${config.invite_code || '邀請代碼'}',
+    invite_code: process.env.invite_code || \'${config.invite_code || '邀請代碼'}\',
 
     /**
     * 機器人傳輸頻道設定
     */
     // 紀錄伺服器的ID
-    ServerID: process.env.serverid || '${config.ServerID || '伺服器ID'}',
+    ServerID: process.env.serverid || \'${config.ServerID || '伺服器ID'}\',
     // 紀錄伺服器的相關頻道
     Channels: {
         // 機器人所有記錄會在這個頻道 (填入ID)
-        All: process.env.Channels_All || '${config.Channels.All || 'ID'}',
+        All: process.env.Channels_All || \'${config.Channels.All || 'ID'}\',
         // 機器人啟動時會記錄在這個頻道 (填入ID)
-        ClientOn: process.env.Channels_ClientOnChannel || '${config.Channels.ClientOn || 'ID'}',
+        ClientOn: process.env.Channels_ClientOnChannel || \'${config.Channels.ClientOn || 'ID'}\',
         // 若有錯誤的回報(各種)會記錄在這個頻道 (填入ID)
-        report: process.env.Channels_reportChannel || '${config.Channels.report || 'ID'}',
+        report: process.env.Channels_reportChannel || \'${config.Channels.report || 'ID'}\',
         // 機器人指令的使用紀錄會記錄在這個頻道 (填入ID)
-        commandRec: process.env.Channels_commandRecChannel || '${config.Channels.commandRec || 'ID'}',
+        commandRec: process.env.Channels_commandRecChannel || \'${config.Channels.commandRec || 'ID'}\',
         // 該伺服器的變動被記錄在這個頻道 (填入ID)
-        serverRec: process.env.Channels_serverRecChannel || '${config.Channels.serverRec || 'ID'}',
+        serverRec: process.env.Channels_serverRecChannel || \'${config.Channels.serverRec || 'ID'}\',
         // 機器人被邀請進入伺服器的紀錄會記錄在這個頻道 (填入ID)
-        inviteChannel: process.env.Channels_inviteChannel || '${config.Channels.inviteChannel || 'ID'}',
+        inviteChannel: process.env.Channels_inviteChannel || \'${config.Channels.inviteChannel || 'ID'}\',
     },
 
     /**
@@ -204,9 +204,9 @@ module.exports = {
     // 網頁
     web: {
         noWeb: process.env.web_noWeb || ${config.web.noWeb || true},
-        License_ID: process.env.web_License_ID || '${config.web.License_ID || '許可代碼'}',
+        License_ID: process.env.web_License_ID || \'${config.web.License_ID || '許可代碼'}\',
         // 網站位置
-        domain: process.env.web_domain || '${config.web.domain || 'http://localhost'}',
+        domain: process.env.web_domain || \'${config.web.domain || 'http://localhost'}\',
         port: process.env.web_port || ${config.web.port || 80},
     },
     /**
@@ -215,11 +215,11 @@ module.exports = {
     webhook: {
         use: process.env.webhook_use || ${config.webhook.use || false},
         // 你自訂的認證ID
-        authorization: process.env.webhook_authorization || '${config.webhook.authorization || 'auth_passwArd'}',
+        authorization: process.env.webhook_authorization || \'${config.webhook.authorization || 'auth_passwArd'}\',
         // Webhook接收的連接埠
-        port: process.env.webhook_port || '${config.webhook.port || '3000'}',
+        port: process.env.webhook_port || \'${config.webhook.port || '3000'}\',
         // 傳回投票的頻道
-        channel: process.env.webhook_channel || '${config.webhook.channel || '頻道ID'}',
+        channel: process.env.webhook_channel || \'${config.webhook.channel || '頻道ID'}\',
     },
 
     /**
@@ -229,7 +229,7 @@ module.exports = {
     // 調整時差
     // 在GMT-8區為"-8",在GMT+8為"8"
     GMT: process.env.GMT || ${config.GMT || 8},
-    youtube: '${config.youtube || 'https://www.youtube.com/channel/UCGLbazmDlVg22pO6aGuSRsw'}',
+    youtube: \'${config.youtube || 'https://www.youtube.com/channel/UCGLbazmDlVg22pO6aGuSRsw'}\',
     plugins: {
         // 抽獎系統
         giveaways: {
