@@ -12,28 +12,28 @@ module.exports = (client) => {
 
     app.use(express.json({ verify: (req, res, buffer) => { req.rawBody = buffer; } }));
 
-    app.post('/webhook', function (req, res) {
+    app.post('/webhook', function(req, res) {
         return new Promise((resolve) => {
             if (Config.webhook.authorization &&
                 req.headers.authorization !== Config.webhook.authorization)
-                return res.status(403).json({ error: "沒有認證" });
+                return res.status(403).json({ error: '沒有認證' });
             else {
                 res.status(200).send('成功！');
-                console.log('接收到webhook')
-                console.log(req.body)
-                console.log('以上！')
+                console.log('接收到webhook');
+                console.log(req.body);
+                console.log('以上！');
             }
-        })
+        });
 
     },
 
-        webhook.listener(vote => {
-            // vote 是你的投票對象
-            console.log(vote); // 使用者id
-            // 以下為執行工作
+    webhook.listener(vote => {
+        // vote 是你的投票對象
+        console.log(vote); // 使用者id
+        // 以下為執行工作
 
-            // --
-        }),
+        // --
+    }),
     ); // 附加中間件
 
     const port = Number(Config.webhook.port);
