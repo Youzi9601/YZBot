@@ -1,26 +1,86 @@
-name: "回報漏洞"
-description: 回報漏洞
+name: 錯誤報告
+description: 提交錯誤報告
+title: "[錯誤]: "
+labels: ["bug", "triage"]
+assignees:
+  - Youzi9601
 body:
-  - type: textarea
-    id: current-behavior
+  - type: markdown
     attributes:
-      label: 當前行為
-      description: 包括螢幕截圖、堆疊追蹤、審核日誌等的描述
-      placeholder: 當前...
+      value: |
+        感謝您花時間填寫此錯誤報告！
+
+  - type: checkboxes
+    id: step1_check
+    attributes:
+      label: 確認無重複的主題
+      description: 提交此問題前，請確認在issue上沒有其他任何相關的主題！
+      options:
+        - label: 我確認沒有！
+          required: true
+
+  - type: textarea
+    id: step2_what_is_wrong
+    attributes:
+      label: 描述問題
+      description: 告訴我們發生了什麼
+      placeholder: 告訴我發生了甚麼事情?
+      value: "這東西傳回了一些錯誤..."
     validations:
       required: true
-      
+
   - type: textarea
-    id: desired-behavior
+    id: happened
+    attributes:
+      label: 發生當下
+      description: 請重現行為的步驟
+      placeholder: |
+        1. 轉到“...”
+        2. 點擊“....”
+        3. 向下滾動到“....”
+        4. 出現錯誤
+    validations:
+      required: false
+
+  - type: input
+    id: want_happend
     attributes:
       label: 預期行為
-      description: 對於預期行為的詳細描述
-      placeholder: 機器人應該...
+      description: 對您當時期望發生的事情進行清晰簡潔的描述。
+      placeholder: 請告訴我們你當下期望的結果是什麼
+    validations:
+      required: false
+
+  - type: dropdown
+    id: version
+    attributes:
+      label: 版本
+      description: 您正在運行我們專案的哪個版本？
+      options:
+        - Node.Js v16 (預設)
+        - PM2
+        - 其他 (請於前面多加說明)
     validations:
       required: true
-      
   - type: textarea
-    id: other
+    id: logs
     attributes:
-      label: 其他細節
-      placeholder: 有任何其他細節嗎？
+      label: 相關日誌輸出
+      description: 請複制並黏貼任何相關的日誌輸出。 這將自動格式化為代碼，因此無需註記。
+      render: shell
+  - type: input
+    id: contact
+    attributes:
+      label: 聯繫方式
+      description: 如果我們需要更多信息，我們如何與您取得聯繫？
+      placeholder: 例如： 電子郵件：email@example.com 、 Discord： User#0000
+    validations:
+      required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 行為守則
+      description: 提交此問題，即表示您同意遵守我們的 [提交規則]()
+      options:
+        - label: 我同意遵守該項目的行為準則
+          required: true
