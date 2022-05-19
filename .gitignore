@@ -10,6 +10,7 @@ json.sqlite
 eula.txt
 test.js
 json.sqlite.code.js
+Config.js
 ##忽略的設定檔：
 Root/Plugins/discord/message/corss_server/
 Root/Plugins/TaiwanEarthQuake/
