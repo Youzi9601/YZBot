@@ -34,7 +34,7 @@ const fs = require('fs');
             console.log('\x1b[34m%s\x1b[0m', '請重新啟動機器人！');
             process.exit(0);
         } else {
-            consoel.log('跳過Config修正');
+            console.log('跳過Config修正');
         }
     }
 
@@ -208,9 +208,9 @@ const fs = require('fs');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
