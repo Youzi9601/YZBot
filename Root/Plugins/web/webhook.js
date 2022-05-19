@@ -1,3 +1,4 @@
+const Config = require('../../../Config');
 const { log } = require('./../../Utils/log');
 module.exports =
     /**
@@ -14,7 +15,7 @@ module.exports =
 
         app.use(express.json({ verify: (req, res, buffer) => { req.rawBody = buffer; } }));
 
-        app.post('/webhook', function(req, res) {
+        app.post('/webhook', function (req, res) {
             return new Promise((resolve) => {
                 if (Config.webhook.authorization &&
                     req.headers.authorization !== Config.webhook.authorization)
@@ -42,7 +43,7 @@ module.exports =
     avatar: '89d9fe477d93364a8d8a7ad3e88fba0b',
     discriminator: '0753'
   },
-  type: 'test'
+  type: 'test' // 'test': '測試', 'upvote': '投票',
 }
  */
 
@@ -52,18 +53,12 @@ module.exports =
  */
 function vote(body, client) {
     const type = body.type;
-    const translate_vote_type = {
-        'test': '測試',
-        'server': '伺服器',
-        'bot': '機器人',
-    };
-    const vote_type = translate_vote_type[type];
     if (type == 'test') {
         log('info', `[測試]投票 > ${body.user.name + '#' + body.user.discriminator}`, true, client, {
             content: '新的投票！',
             embeds: [
                 {
-                    description: `@<${body.user.id}> 測試了投票！`,
+                    description: `<@${body.user.id}> 為 <@${body.id}> 測試了投票！`,
                     color: 0x808080,
                     footer: {
                         text: `${body.user.name + '#' + body.user.discriminator}`,
@@ -74,13 +69,14 @@ function vote(body, client) {
                     },
                 },
             ],
-        });
-    } else {
+        },
+            Config.webhook.channel);
+    } else if (type == 'upvote') {
         log('info', `有人投票了！> ${body.user.name + '#' + body.user.discriminator}`, true, client, {
             content: '新的投票！',
             embeds: [
                 {
-                    description: `@<${body.user.id}> 為我們投票了！`,
+                    description: `<@${body.user.id}> 為 <@${body.id}> 投票了！`,
                     color: 0x808080,
                     footer: {
                         text: `${body.user.name + '#' + body.user.discriminator}`,
@@ -91,7 +87,8 @@ function vote(body, client) {
                     },
                 },
             ],
-        });
+        },
+            Config.webhook.channel);
     }
 
 }
