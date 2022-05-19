@@ -171,10 +171,17 @@ module.exports = {
                     ephemeral: true,
                 });
             }
+            let ms_duration = Number
+            try {
+                ms_duration = ms(duration)
+            } catch (error) {
+                interaction.reply(`:x: umm... 我看不懂\`${duration}\`是甚麼... \n如果抽獎時間為\`5天3小時10分鐘30秒\`，請輸入\`5d3h10m30s\``)
+                return error
+            }
             // Start the giveaway
             client.giveawaysManager.start(channel, {
                 // The giveaway duration
-                duration: ms(duration),
+                duration: ms_duration,
                 // The giveaway prize
                 prize: prize,
                 // The giveaway winner count
