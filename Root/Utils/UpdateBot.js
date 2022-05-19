@@ -7,6 +7,10 @@ module.exports = { config_update };
 const fs = require('fs');
 const childProcess = require('child_process');
 
+await update();
+
+
+// function
 async function update() {
     const exec = require('child_process').exec;
     if (fs.existsSync('./.git')) {
@@ -56,9 +60,7 @@ async function update() {
 
     }
 }
-update();
 
-const { config } = require('./../../bot');
 async function config_update(Config) {
     require('fs').writeFileSync('Config.js', `
 require('dotenv').config();
