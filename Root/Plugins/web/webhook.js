@@ -1,4 +1,4 @@
-const { log } = require('./../../Utils/log')
+const { log } = require('./../../Utils/log');
 module.exports =
     /**
      * @param {import('discord.js').Client} client
@@ -14,14 +14,14 @@ module.exports =
 
         app.use(express.json({ verify: (req, res, buffer) => { req.rawBody = buffer; } }));
 
-        app.post('/webhook', function (req, res) {
+        app.post('/webhook', function(req, res) {
             return new Promise((resolve) => {
                 if (Config.webhook.authorization &&
                     req.headers.authorization !== Config.webhook.authorization)
                     return res.status(403).json({ error: '沒有認證' });
                 else {
                     res.status(200).send('成功！');
-                    vote(req.body, client)
+                    vote(req.body, client);
                 }
             });
         }); // 附加中間件
@@ -51,13 +51,13 @@ module.exports =
  * @param {import('discord.js').Client} client
  */
 function vote(body, client) {
-    const type = body.type
+    const type = body.type;
     const translate_vote_type = {
-        "test": "測試",
-        "server": "伺服器",
-        "bot": "機器人"
-    }
-    const vote_type = translate_vote_type[type]
+        'test': '測試',
+        'server': '伺服器',
+        'bot': '機器人',
+    };
+    const vote_type = translate_vote_type[type];
     if (type == 'test') {
         log('info', `[測試]投票 > ${body.user.name + '#' + body.user.discriminator}`, true, client, {
             content: '新的投票！',
@@ -67,14 +67,14 @@ function vote(body, client) {
                     color: 0x808080,
                     footer: {
                         text: `${body.user.name + '#' + body.user.discriminator}`,
-                        icon_url: `https://cdn.discordapp.com/avatars/${body.user.id}/${body.user.avatar}`
+                        icon_url: `https://cdn.discordapp.com/avatars/${body.user.id}/${body.user.avatar}`,
                     },
                     thumbnail: {
-                        url: `https://cdn.discordapp.com/avatars/${body.user.id}/${body.user.avatar}`
-                    }
-                }
-            ]
-        })
+                        url: `https://cdn.discordapp.com/avatars/${body.user.id}/${body.user.avatar}`,
+                    },
+                },
+            ],
+        });
     } else {
         log('info', `有人投票了！> ${body.user.name + '#' + body.user.discriminator}`, true, client, {
             content: '新的投票！',
@@ -84,14 +84,14 @@ function vote(body, client) {
                     color: 0x808080,
                     footer: {
                         text: `${body.user.name + '#' + body.user.discriminator}`,
-                        icon_url: `https://cdn.discordapp.com/avatars/${body.user.id}/${body.user.avatar}`
+                        icon_url: `https://cdn.discordapp.com/avatars/${body.user.id}/${body.user.avatar}`,
                     },
                     thumbnail: {
-                        url: `https://cdn.discordapp.com/avatars/${body.user.id}/${body.user.avatar}`
-                    }
-                }
-            ]
-        })
+                        url: `https://cdn.discordapp.com/avatars/${body.user.id}/${body.user.avatar}`,
+                    },
+                },
+            ],
+        });
     }
 
 }
