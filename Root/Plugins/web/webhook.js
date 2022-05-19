@@ -15,7 +15,7 @@ module.exports =
 
         app.use(express.json({ verify: (req, res, buffer) => { req.rawBody = buffer; } }));
 
-        app.post('/webhook', function (req, res) {
+        app.post('/webhook', function(req, res) {
             return new Promise((resolve) => {
                 if (Config.webhook.authorization &&
                     req.headers.authorization !== Config.webhook.authorization)
@@ -70,7 +70,7 @@ function vote(body, client) {
                 },
             ],
         },
-            Config.webhook.channel);
+        Config.webhook.channel);
     } else if (type == 'upvote') {
         log('info', `有人投票了！> ${body.user.name + '#' + body.user.discriminator}`, true, client, {
             content: '新的投票！',
@@ -88,7 +88,7 @@ function vote(body, client) {
                 },
             ],
         },
-            Config.webhook.channel);
+        Config.webhook.channel);
     }
 
 }
