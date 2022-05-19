@@ -2,8 +2,6 @@ name: "錯誤報告"
 description: 提交錯誤報告
 title: "[錯誤]: "
 labels: ["#未驗證", "! 漏洞", "! 錯誤"]
-assignees:
-  - Youzi9601
 body:
   - type: markdown
     attributes:
@@ -11,6 +9,7 @@ body:
         感謝您花時間填寫此錯誤報告！
 
   - type: checkboxes
+    id: already_has_issue
     attributes:
       label: 這是否存在於現有問題？
       description: 請搜索以查看您遇到的錯誤是否已存在。
@@ -19,6 +18,7 @@ body:
           required: true
 
   - type: textarea
+    id: question
     attributes:
       label: 描述問題
       description: 告訴我們發生了什麼 (截圖可放入這裡)
@@ -28,6 +28,7 @@ body:
       required: true
 
   - type: textarea
+    id: happend
     attributes:
       label: 發生當下
       description: 請重現行為的步驟 (截圖可放入這裡)
@@ -40,6 +41,7 @@ body:
       required: false
 
   - type: input
+    id: want
     attributes:
       label: 預期行為
       description: 對您當時期望發生的事情進行清晰簡潔的描述。 (截圖可放入這裡)
@@ -48,6 +50,7 @@ body:
       required: false
 
   - type: textarea
+    id: version
     attributes:
       label: 版本
       description: |
