@@ -26,7 +26,7 @@ const fs = require('fs');
             console.log('\x1b[34m%s\x1b[0m', '有找到 Config.example.js ，正在更改名稱......');
             await rename_config();
             async function rename_config() {
-                return fs.rename('Config.example.js', 'Config.js')
+                return fs.rename('Config.example.js', 'Config.js');
             }
             console.log('\x1b[34m%s\x1b[0m', '更改成功！');
 
@@ -205,9 +205,9 @@ const fs = require('fs');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function (err, data) {
+        fs.readFile('./eula.txt', function(err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function (err) {
+                fs.writeFile('./eula.txt', '', function(err) {
                 });
                 console.error(
                     chalk.bgRed(
