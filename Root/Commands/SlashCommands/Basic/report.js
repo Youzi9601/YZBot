@@ -113,7 +113,7 @@ module.exports = {
                 config.Channels.report,
             );
             const what_happen = interaction.options.getString('what_happen').replace(/\\n/g, '\n');
-            const message_link = interaction.options.getString('message_link').replace(/\n/g, '\n') || undefined;
+            const message_link = interaction.options.getString('message_link').replace(/\\n/g, '\n') || undefined;
             const report_embed = new MessageEmbed()
                 .setColor('0x808080')
                 .setTimestamp()
@@ -150,8 +150,8 @@ module.exports = {
                 config.Channels.report,
             );
             const user = interaction.options.getString('user').replace(/\\n/g, '\n');
-            const reason = interaction.options.getString('reason').replace(/\n/g, '\n') || undefined;
-            const message_link = interaction.options.getString('message_link').replace(/\n/g, '\n') || undefined;
+            const reason = interaction.options.getString('reason').replace(/\\n/g, '\n') || undefined;
+            const message_link = interaction.options.getString('message_link').replace(/\\n/g, '\n') || undefined;
 
             const report_embed = new MessageEmbed()
                 .setColor('0x808080')
