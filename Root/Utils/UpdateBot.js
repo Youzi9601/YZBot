@@ -59,7 +59,7 @@ async function update() {
 update();
 
 async function config_update() {
-    const config = require('./../../config');
+    const { config } = require('./../../bot');
     require('fs').writeFileSync('Config.js',
         `
 require('dotenv').config();
