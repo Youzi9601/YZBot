@@ -13,7 +13,7 @@ const fs = require('fs');
             // 如果沒有Config.example.js，自動創建新的
             if (!require('./Config.example')) {
                 console.log('\x1b[34m%s\x1b[0m', '因為找不到 Config.example，所以正在從內部資料複製一份 Config.js ');
-                await require('./Root/Utils/UpdateBot').config_update()
+                await require('./Root/Utils/UpdateBot').config_update(config)
                     .then(() => {
                         console.log('\x1b[34m%s\x1b[0m', 'Config.js 複製成功！');
                     })
