@@ -3,7 +3,7 @@
     try {
         config = require('./Config');
     } catch (error) {
-        console.error('\x1b[31m%s\x1b[0m', '錯誤：沒有 Config.js 檔案！');
+        console.error('\x1b[31m%s\x1b[0m', '錯誤：沒有 Config.js 檔案！請將 "Config.example.js" 改成 "Config.js"！');
         process.exit(1);
     }
 
@@ -179,9 +179,9 @@
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
