@@ -8,28 +8,28 @@ const fs = require('fs');
 
         // 如果沒有Config.example.js，自動創建新的
         if (!require('./Config.example')) {
-            console.log('\x1b[34m%s\x1b[0m', '因為找不到 Config.example，所以正在從內部資料複製一份 Config.js ')
+            console.log('\x1b[34m%s\x1b[0m', '因為找不到 Config.example，所以正在從內部資料複製一份 Config.js ');
             await require('./Root/Utils/UpdateBot').config_update()
                 .then(() => {
-                    console.log('\x1b[34m%s\x1b[0m', 'Config.js 複製成功！')
+                    console.log('\x1b[34m%s\x1b[0m', 'Config.js 複製成功！');
                 })
                 .catch((err) => {
-                    console.error('\x1b[31m%s\x1b[0m', '錯誤：' + err)
+                    console.error('\x1b[31m%s\x1b[0m', '錯誤：' + err);
                     process.exit(1);
-                })
+                });
 
         }
         // 如果有，則自動更改檔案名稱
         else {
-            console.log('\x1b[34m%s\x1b[0m', '有找到 Config.example.js ，正在更改名稱......')
-            await rename_config()
+            console.log('\x1b[34m%s\x1b[0m', '有找到 Config.example.js ，正在更改名稱......');
+            await rename_config();
             async function rename_config() {
-                fs.rename('Config.example.js', 'Config.js')
+                fs.rename('Config.example.js', 'Config.js');
             }
-            console.log('\x1b[34m%s\x1b[0m', '更改成功！')
+            console.log('\x1b[34m%s\x1b[0m', '更改成功！');
 
         }
-        console.log('\x1b[34m%s\x1b[0m', '請重新啟動機器人！')
+        console.log('\x1b[34m%s\x1b[0m', '請重新啟動機器人！');
         process.exit(0);
     }
 
