@@ -13,7 +13,7 @@ async function update() {
         exec('git reset --hard');
         console.log('\x1b[34m%s\x1b[0m', '[基本作業]開始檢查更新......');
         console.log('\x1b[34m%s\x1b[0m', '[基本作業]套用Config資料......');
-        await config_update();
+        await config_update(require('./../../bot').config);
         exec('git pull', (err, stdout, stderr) => {
             if (err) {
                 console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
@@ -59,7 +59,7 @@ async function update() {
 update();
 
 const { config } = require('./../../bot');
-async function config_update(Config = config) {
+async function config_update(Config) {
     require('fs').writeFileSync('Config.js', `
 require('dotenv').config();
 module.exports = {
