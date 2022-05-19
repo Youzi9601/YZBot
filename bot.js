@@ -7,32 +7,35 @@ const fs = require('fs');
     } catch (error) {
         config = require('./Config.example');
         console.error('\x1b[31m%s\x1b[0m', '錯誤：沒有 Config.js 檔案！請將 "Config.example.js" 改成 "Config.js"！');
-        if (ci === 'true') return;
-        // 如果沒有Config.example.js，自動創建新的
-        if (!require('./Config.example')) {
-            console.log('\x1b[34m%s\x1b[0m', '因為找不到 Config.example，所以正在從內部資料複製一份 Config.js ');
-            await require('./Root/Utils/UpdateBot').config_update()
-                .then(() => {
-                    console.log('\x1b[34m%s\x1b[0m', 'Config.js 複製成功！');
-                })
-                .catch((err) => {
-                    console.error('\x1b[31m%s\x1b[0m', '錯誤：' + err);
-                    process.exit(1);
-                });
+        if (ci != 'true') { // 避免CI執行
+            // 如果沒有Config.example.js，自動創建新的
+            if (!require('./Config.example')) {
+                console.log('\x1b[34m%s\x1b[0m', '因為找不到 Config.example，所以正在從內部資料複製一份 Config.js ');
+                await require('./Root/Utils/UpdateBot').config_update()
+                    .then(() => {
+                        console.log('\x1b[34m%s\x1b[0m', 'Config.js 複製成功！');
+                    })
+                    .catch((err) => {
+                        console.error('\x1b[31m%s\x1b[0m', '錯誤：' + err);
+                        process.exit(1);
+                    });
 
-        }
-        // 如果有，則自動更改檔案名稱
-        else {
-            console.log('\x1b[34m%s\x1b[0m', '有找到 Config.example.js ，正在更改名稱......');
-            await rename_config();
-            async function rename_config() {
-                return fs.rename('Config.example.js', 'Config.js');
             }
-            console.log('\x1b[34m%s\x1b[0m', '更改成功！');
+            // 如果有，則自動更改檔案名稱
+            else {
+                console.log('\x1b[34m%s\x1b[0m', '有找到 Config.example.js ，正在更改名稱......');
+                await rename_config();
+                async function rename_config() {
+                    return fs.rename('Config.example.js', 'Config.js')
+                }
+                console.log('\x1b[34m%s\x1b[0m', '更改成功！');
 
+            }
+            console.log('\x1b[34m%s\x1b[0m', '請重新啟動機器人！');
+            process.exit(0);
+        } else {
+            consoel.log('跳過Config修正')
         }
-        console.log('\x1b[34m%s\x1b[0m', '請重新啟動機器人！');
-        process.exit(0);
     }
 
     if (`${config.autoupdate}` == 'true') {
@@ -205,9 +208,9 @@ const fs = require('fs');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
