@@ -704,17 +704,17 @@ module.exports = {
                 interaction.options.getString('fields') || undefined;
             if (embed_fields) {
                 // 分開每個部件
-                const fields = embed_fields.split(';')
-                const fields_return = []
+                const fields = embed_fields.split(';');
+                const fields_return = [];
                 // 整理每個部件的項目
                 fields.forEach((field) => {
-                    const obj = field.split(',')
+                    const obj = field.split(',');
                     fields_return.push({
                         name: obj[0],
                         value: obj[1],
-                        inline: obj[2] || false
-                    })
-                })
+                        inline: obj[2] || false,
+                    });
+                });
                 embed.fields = [fields_return];
             }
             // 取得訊息內容
@@ -851,17 +851,17 @@ module.exports = {
                 interaction.options.getString('fields') || undefined;
             if (embed_fields) {
                 // 分開每個部件
-                const fields = embed_fields.split(';')
-                const fields_return = []
+                const fields = embed_fields.split(';');
+                const fields_return = [];
                 // 整理每個部件的項目
                 fields.forEach((field) => {
-                    const obj = field.split(',')
+                    const obj = field.split(',');
                     fields_return.push({
                         name: obj[0],
                         value: obj[1],
-                        inline: obj[2] || false
-                    })
-                })
+                        inline: obj[2] || false,
+                    });
+                });
                 embed.fields = [fields_return];
             }
 
