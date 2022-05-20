@@ -29,7 +29,7 @@ module.exports =
             botiswarning = true;
         }
 
-        if (message.content.match(/\d/g)[0] && !botiswarning)
+        if (message.content.match(/\d/g) && !botiswarning)
             message.channel.send({
                 embeds: [
                     {
