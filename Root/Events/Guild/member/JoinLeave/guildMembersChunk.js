@@ -20,7 +20,7 @@ module.exports = {
     run: async (members, guild, client, container) => {
         log(
             'info',
-            `大量新成員加入 ${guild.name}： ${members.size} 個新成員`,
+            `大量新成員加入 ${guild.name}： ${JSON.stringify(members, null, 2)}`,
             true,
             client);
         console.assert(members);
