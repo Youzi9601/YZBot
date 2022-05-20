@@ -116,7 +116,7 @@ module.exports = {
                         type: 3,
                         name: 'fields',
                         description:
-                            '以","分開項目，並用";"分開每個field(最後一個不需要加上";")。表示法： name(小標題),value(內容),inline(true/false);name(小標題),value(內容),inline(true/false)...',
+                            '以","分開項目，並用";"分開每個field(最後一個不需要加上";")。表示法： name(小標題),value(內容),inline(true/false);...',
                         required: false,
                     },
                     {
@@ -236,7 +236,7 @@ module.exports = {
                         type: 3,
                         name: 'fields',
                         description:
-                            '以","分開項目，並用";"分開每個field(最後一個不需要加上";")。表示法： name(小標題),value(內容),inline(true/false);name(小標題),value(內容),inline(true/false)...',
+                            '以","分開項目，並用";"分開每個field(最後一個不需要加上";")。表示法： name(小標題),value(內容),inline(true/false);...',
                         required: false,
                     },
                     {
@@ -468,7 +468,7 @@ module.exports = {
                         type: 3,
                         name: 'fields',
                         description:
-                            '以","分開項目，並用";"分開每個field(最後一個不需要加上";")。表示法： name(小標題),value(內容),inline(true/false);name(小標題),value(內容),inline(true/false)...',
+                            '以","分開項目，並用";"分開每個field(最後一個不需要加上";")。表示法： name(小標題),value(內容),inline(true/false);...',
                         required: false,
                     },
                     {
@@ -563,7 +563,7 @@ module.exports = {
                         type: 3,
                         name: 'fields',
                         description:
-                            '以","分開項目，並用";"分開每個field(最後一個不需要加上";")。表示法： name(小標題),value(內容),inline(true/false);name(小標題),value(內容),inline(true/false)...',
+                            '以","分開項目，並用";"分開每個field(最後一個不需要加上";")。表示法： name(小標題),value(內容),inline(true/false);...',
                         required: false,
                     },
                     {
