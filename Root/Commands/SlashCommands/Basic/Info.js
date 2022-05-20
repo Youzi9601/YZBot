@@ -58,7 +58,7 @@ module.exports = {
         const subcommand = interaction.options.getSubcommand();
         if (subcommand == 'server') {
             // #region server
-            const create_at = await get_time_from_id(interaction.guild.id)
+            const create_at = await get_time_from_id(interaction.guild.id);
             // 選單
             const row = new MessageActionRow()
                 .addComponents(
@@ -82,7 +82,7 @@ module.exports = {
                                 value: 'others',
                             },
                         ]),
-                )
+                );
             // 嵌入
             const serverinfo = new container.Discord.MessageEmbed()
                 .setColor('RANDOM')
@@ -213,7 +213,7 @@ module.exports = {
                                 value: 'others',
                             },
                         ]),
-                )
+                );
             // 嵌入
             const userinfo = new container.Discord.MessageEmbed()
                 .setColor('RANDOM')
@@ -325,7 +325,7 @@ module.exports = {
                                 value: 'others',
                             },
                         ]),
-                )
+                );
             // 嵌入
             const userinfo = new container.Discord.MessageEmbed()
                 .setColor('RANDOM')
@@ -393,7 +393,7 @@ module.exports = {
     },
 };
 
-/**@param {<Snowflake>} input */
+/** @param {<Snowflake>} input */
 async function get_time_from_id(input) {
 
     const DISCORD_EPOCH = 1420070400000;
@@ -406,5 +406,5 @@ async function get_time_from_id(input) {
     const snowflake = Number(input.replace(/[^0-9]+/g, ''));
     const timestamp = convertSnowflakeToDate(snowflake);
     const create_at = `${Math.floor(timestamp.getTime() / 1000)}`;
-    return create_at
+    return create_at;
 }

@@ -14,7 +14,7 @@ const { log } = require('../../Utils/log');
  * @param {*} interactionType 'Button'||'SelectMenus'||'SlashCommand'||'ContextMenus'
  * @returns
  */
-module.exports = async function (
+module.exports = async function(
     client,
     message,
     command,
