@@ -18,8 +18,8 @@ module.exports = {
             else if (interaction.isCommand()) loadCommandOptions(client, interaction, client.commands.slashCommands.get(interaction.commandName), true, 'SlashCommand');
             else if (interaction.isContextMenu()) loadCommandOptions(client, interaction, client.commands.contextMenus.get(interaction.commandName), true, 'ContextMenus');
         } catch (error) {
-            interaction.reply(':x: 啊喔...發生了錯誤 :/\n\`\`\`' + error + '\n\`\`\`')
-            log('error', '發生了錯誤！\n' + error, ture, client)
+            interaction.reply(':x: 啊喔...發生了錯誤 :/\n\`\`\`' + error + '\n\`\`\`');
+            log('error', '發生了錯誤！\n' + error, ture, client);
         }
     },
 };
