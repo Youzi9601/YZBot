@@ -116,7 +116,7 @@ module.exports = {
                         type: 3,
                         name: 'fields',
                         description:
-                            '使用json文本創建 | {name:\'標題\', value: \'內容\', inline:true},',
+                            '以","分開項目，並用";"分開每個field(最後一個不需要加上";")。表示法： name(小標題),value(內容),inline(true/false);name(小標題),value(內容),inline(true/false)...',
                         required: false,
                     },
                     {
@@ -236,7 +236,7 @@ module.exports = {
                         type: 3,
                         name: 'fields',
                         description:
-                            '使用json文本創建 | {name:\'標題\', value: \'內容\', inline:true},',
+                            '以","分開項目，並用";"分開每個field(最後一個不需要加上";")。表示法： name(小標題),value(內容),inline(true/false);name(小標題),value(內容),inline(true/false)...',
                         required: false,
                     },
                     {
@@ -468,7 +468,7 @@ module.exports = {
                         type: 3,
                         name: 'fields',
                         description:
-                            '使用json文本創建 | {name:\'標題\', value: \'內容\', inline:true},',
+                            '以","分開項目，並用";"分開每個field(最後一個不需要加上";")。表示法： name(小標題),value(內容),inline(true/false);name(小標題),value(內容),inline(true/false)...',
                         required: false,
                     },
                     {
@@ -563,7 +563,7 @@ module.exports = {
                         type: 3,
                         name: 'fields',
                         description:
-                            '使用json文本創建 | {name:\'標題\', value: \'內容\', inline:true},',
+                            '以","分開項目，並用";"分開每個field(最後一個不需要加上";")。表示法： name(小標題),value(內容),inline(true/false);name(小標題),value(內容),inline(true/false)...',
                         required: false,
                     },
                     {
@@ -703,7 +703,19 @@ module.exports = {
             const embed_fields =
                 interaction.options.getString('fields') || undefined;
             if (embed_fields) {
-                embed.fields = [JSON.stringify(embed_fields, null, 2)];
+                // 分開每個部件
+                const fields = embed_fields.split(';')
+                const fields_return = []
+                // 整理每個部件的項目
+                fields.forEach((field) => {
+                    const obj = field.split(',')
+                    fields_return.push({
+                        name: obj[0],
+                        value: obj[1],
+                        inline: obj[2] || false
+                    })
+                })
+                embed.fields = [fields_return];
             }
             // 取得訊息內容
             const msg = {};
@@ -838,8 +850,21 @@ module.exports = {
             const embed_fields =
                 interaction.options.getString('fields') || undefined;
             if (embed_fields) {
-                embed.fields = [JSON.stringify(embed_fields, null, 2)];
+                // 分開每個部件
+                const fields = embed_fields.split(';')
+                const fields_return = []
+                // 整理每個部件的項目
+                fields.forEach((field) => {
+                    const obj = field.split(',')
+                    fields_return.push({
+                        name: obj[0],
+                        value: obj[1],
+                        inline: obj[2] || false
+                    })
+                })
+                embed.fields = [fields_return];
             }
+
             // 取得訊息內容
             const msg = {};
             if (content) {
