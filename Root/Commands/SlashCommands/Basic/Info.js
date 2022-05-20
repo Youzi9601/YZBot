@@ -37,8 +37,8 @@ module.exports = {
             },
             {
                 type: 1,
-                name: 'bot',
-                description: '取得機器人資訊',
+                name: 'about-me',
+                description: '關於我！',
                 options: [
                 ],
             },
@@ -58,23 +58,38 @@ module.exports = {
         const subcommand = interaction.options.getSubcommand();
         if (subcommand == 'server') {
             // #region server
-            // 取得時間
-            const DISCORD_EPOCH = 1420070400000;
-
-            function convertSnowflakeToDate(snowflake) {
-                return new Date(snowflake / 4194304 + DISCORD_EPOCH);
-            }
-            const input = `${interaction.guild.id}`;
-            const snowflake = Number(input.replace(/[^0-9]+/g, ''));
-            const timestamp = convertSnowflakeToDate(snowflake);
-            const create_at = `${Math.floor(timestamp.getTime() / 1000)}`;
+            const create_at = await get_time_from_id(interaction.guild.id)
+            // 選單
+            const row = new MessageActionRow()
+                .addComponents(
+                    new MessageSelectMenu()
+                        .setCustomId('info_server')
+                        .setPlaceholder('請選擇資訊類別')
+                        .addOptions([
+                            {
+                                label: '基本',
+                                description: '基本的成員資訊',
+                                value: 'normal',
+                            },
+                            {
+                                label: '身分組',
+                                description: '成員所擁有的身分組',
+                                value: 'roles',
+                            },
+                            {
+                                label: '其他',
+                                description: '有關其他的資訊',
+                                value: 'others',
+                            },
+                        ]),
+                )
             // 嵌入
             const serverinfo = new container.Discord.MessageEmbed()
                 .setColor('RANDOM')
                 .setTimestamp()
                 .setTitle('伺服器資訊')
                 .setThumbnail(
-                    `${interaction.guild.iconURL() || client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
+                    `${interaction.guild.iconURL() || ''}`,
                 )
                 .setDescription('** **')
                 .setFooter({
@@ -154,7 +169,7 @@ module.exports = {
                     inline: true,
                 });
             // 返回訊息
-            interaction.reply({ embeds: [serverinfo] });
+            interaction.reply({ embeds: [serverinfo], components: [row] });
             // #endregion
         } else if (subcommand == 'user') {
             // #region user
@@ -174,6 +189,31 @@ module.exports = {
             const create_at = `${Math.floor(user_timestamp.getTime() / 1000)}`;
             const user_joinedtime = `${member.joinedTimestamp}`;
             const join_at = `${Math.floor(member.joinedTimestamp / 1000)}`;
+
+            // 選單
+            const row = new MessageActionRow()
+                .addComponents(
+                    new MessageSelectMenu()
+                        .setCustomId('info_server')
+                        .setPlaceholder('請選擇資訊類別')
+                        .addOptions([
+                            {
+                                label: '基本',
+                                description: '基本的成員資訊',
+                                value: 'normal',
+                            },
+                            {
+                                label: '身分組',
+                                description: '成員所擁有的身分組',
+                                value: 'roles',
+                            },
+                            {
+                                label: '其他',
+                                description: '有關其他的資訊',
+                                value: 'others',
+                            },
+                        ]),
+                )
             // 嵌入
             const userinfo = new container.Discord.MessageEmbed()
                 .setColor('RANDOM')
@@ -241,9 +281,9 @@ module.exports = {
             }
              */
             // 返回訊息
-            interaction.reply({ embeds: [userinfo] });
+            interaction.reply({ embeds: [userinfo], components: [row] });
             // #endregion
-        } else if (subcommand == 'bot') {
+        } else if (subcommand == 'about-me') {
             // #region bot
 
             // 取得成員
@@ -261,11 +301,36 @@ module.exports = {
             const create_at = `${Math.floor(user_timestamp.getTime() / 1000)}`;
             const user_joinedtime = `${member.joinedTimestamp}`;
             const join_at = `${Math.floor(member.joinedTimestamp / 1000)}`;
+
+            // 選單
+            const row = new MessageActionRow()
+                .addComponents(
+                    new MessageSelectMenu()
+                        .setCustomId('info_server')
+                        .setPlaceholder('請選擇資訊類別')
+                        .addOptions([
+                            {
+                                label: '基本',
+                                description: '基本的成員資訊',
+                                value: 'normal',
+                            },
+                            {
+                                label: '身分組',
+                                description: '成員所擁有的身分組',
+                                value: 'roles',
+                            },
+                            {
+                                label: '其他',
+                                description: '有關其他的資訊',
+                                value: 'others',
+                            },
+                        ]),
+                )
             // 嵌入
             const userinfo = new container.Discord.MessageEmbed()
                 .setColor('RANDOM')
                 .setTimestamp()
-                .setTitle('成員資訊')
+                .setTitle('關於我')
                 .setThumbnail(
                     `${member.displayAvatarURL({ dynamic: true }) || member.defaultAvatarURL}`,
                 )
@@ -322,8 +387,24 @@ module.exports = {
                 });
 
             // 返回訊息
-            interaction.reply({ embeds: [userinfo] });
+            interaction.reply({ embeds: [userinfo], components: [row] });
             // #endregion
         }
     },
 };
+
+/**@param {<Snowflake>} input */
+async function get_time_from_id(input) {
+
+    const DISCORD_EPOCH = 1420070400000;
+
+    // 轉換數字
+    function convertSnowflakeToDate(snowflake) {
+        return new Date(snowflake / 4194304 + DISCORD_EPOCH);
+    }
+
+    const snowflake = Number(input.replace(/[^0-9]+/g, ''));
+    const timestamp = convertSnowflakeToDate(snowflake);
+    const create_at = `${Math.floor(timestamp.getTime() / 1000)}`;
+    return create_at
+}

@@ -7,13 +7,13 @@ module.exports = {
         const row = new container.Discord.MessageActionRow()
             .addComponents(
                 new container.Discord.MessageButton()
-                    .setCustomId('evalbtn')
-                    .setLabel('Delete Output')
+                    .setCustomId('delete')
+                    .setLabel('刪除輸出')
                     .setStyle('DANGER'),
             );
         let code = args.join(' ').trim();
         const originalCode = code;
-        if (!code) return message.channel.send('請指定要評估的內容');
+        if (!code) return message.channel.send('請輸入要評估的內容');
         try {
             if (originalCode.includes('--str')) code = `${code.replace('--str', '').trim()}.toString()`;
             if (originalCode.includes('--send')) code = `message.channel.send(${code.replace('--send', '').trim()})`;
@@ -21,8 +21,8 @@ module.exports = {
             code = code.replace('--silent', '').trim();
             code = await eval(code);
             code = inspect(code, { depth: 0 });
-            if (String(code).length > 1990) code = '輸出太長';
-            if (String(code).includes(container.Config.token)) code = '此消息包含客戶端的令牌。';
+            if (String(code).length > 1990) code = 'Error: 輸出結果過長';
+            if (String(code).includes(container.Config.token)) code = 'Error: 此訊息包含客戶端的令牌！';
             if (originalCode.includes('--silent')) return;
             else message.reply({
                 content: `\`\`\`js\n${code}\n\`\`\``,

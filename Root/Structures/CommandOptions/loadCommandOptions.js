@@ -8,13 +8,13 @@ const { log } = require('../../Utils/log');
 /**
  *
  * @param {import('discord.js').Client} client
- * @param {import('discord.js').Message} message
- * @param {import('discord.js').CommandInteraction} command
- * @param {*} isInteraction
- * @param {import('discord.js').IntegrationType} interactionType
+ * @param {import('discord.js').Interaction} message
+ * @param {<命令名稱>} command
+ * @param {Boolean} isInteraction
+ * @param {*} interactionType 'Button'||'SelectMenus'||'SlashCommand'||'ContextMenus'
  * @returns
  */
-module.exports = async function(
+module.exports = async function (
     client,
     message,
     command,
@@ -30,21 +30,70 @@ module.exports = async function(
     };
 
     // Log紀錄命令使用
-    log(
-        'info',
-        `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}  `,
-        true,
-        client,
-        {
-            embeds: [
-                {
-                    color: 0x808080,
-                    description: `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} \n${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}  \`\`\``,
-                },
-            ],
-        },
-        config.Channels.commandRec,
-    );
+    if (interactionType == 'SlashCommand')
+        log(
+            'info',
+            `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}  `,
+            true,
+            client,
+            {
+                embeds: [
+                    {
+                        color: 0x808080,
+                        description: `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} \n${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}  \`\`\``,
+                    },
+                ],
+            },
+            config.Channels.commandRec,
+        );
+    else if (interactionType == 'SelectMenus')
+        log(
+            'info',
+            `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用選單： ${message.customId} ，選擇了 ${message.values.join(',')}`,
+            true,
+            client,
+            {
+                embeds: [
+                    {
+                        color: 0x808080,
+                        description: `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} \n${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用選單： ${message.customId} ，選擇了 ${message.values.join(',')}\`\`\``,
+                    },
+                ],
+            },
+            config.Channels.commandRec,
+        );
+    else if (interactionType == 'Button')
+        log(
+            'info',
+            `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用按鈕 ${message.customId}`,
+            true,
+            client,
+            {
+                embeds: [
+                    {
+                        color: 0x808080,
+                        description: `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} \n${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用按鈕 ${message.customId}\`\`\``,
+                    },
+                ],
+            },
+            config.Channels.commandRec,
+        );
+    else if (interactionType == 'ContextMenus')
+        log(
+            'info',
+            `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用訊息選單交互 ${message.commandName}`,
+            true,
+            client,
+            {
+                embeds: [
+                    {
+                        color: 0x808080,
+                        description: `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} \n${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用訊息選單交互 ${message.commandName}\`\`\``,
+                    },
+                ],
+            },
+            config.Channels.commandRec,
+        );
 
     // 檢查是否有以下指令設定
     if (await require('./OnlyRunOnGuilds')(message, command, Discord)) return;
