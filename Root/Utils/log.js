@@ -18,7 +18,7 @@ module.exports = { log };
  */
 function log(level, msg, SendToDiscord = false, client = bot.client, discordmsg = undefined, channel = `${config.Channels.All}`) {
 
-    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function (err) {
+    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function(err) {
         // none
     });
 
