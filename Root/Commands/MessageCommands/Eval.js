@@ -13,7 +13,7 @@ module.exports = {
             );
         let code = args.join(' ').trim();
         const originalCode = code;
-        if (!code) return message.channel.send('請輸入要評估的內容');
+        if (!code) return message.channel.send('請輸入要評估 javascript 代碼 的內容！');
         try {
             if (originalCode.includes('--str')) code = `${code.replace('--str', '').trim()}.toString()`;
             if (originalCode.includes('--send')) code = `message.channel.send(${code.replace('--send', '').trim()})`;
