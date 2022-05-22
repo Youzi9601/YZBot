@@ -1,8 +1,7 @@
 const moment = require('moment');
 const { Guild, User, Client } = require('discord.js');
-/**
- *
- */
+const { log } = require('./../../../Utils/log');
+
 module.exports = {
     name: 'guildBanRemove',
     /**
