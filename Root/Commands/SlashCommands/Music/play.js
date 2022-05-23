@@ -65,6 +65,13 @@ module.exports = {
     default_permission: undefined,
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'MOVE_MEMBERS', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS'],
 
+    /**
+     * 
+     * @param {import('discord.js').Client} client 
+     * @param {import('discord.js').CommandInteraction} interaction 
+     * @param {*} container 
+     * @returns 
+     */
     run: async (client, interaction, container) => {
         await interaction.deferReply();
         // 內容
@@ -123,7 +130,11 @@ module.exports = {
                 .setThumbnail(song.thumbnail)
                 .setFooter({ text: ` 時長: ${song.duration}` });
         }
-        if (!queue.playing) await queue.play();
+        if (!queue.playing) {
+            await queue.play();
+            if (interaction.member.voice.channel.type == 'GUILD_STAGE_VOICE')
+                interaction.guild.me.voice.setSuppressed(false)
+        }
         await interaction.editReply({
             embeds: [embed],
         });

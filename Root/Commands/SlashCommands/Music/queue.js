@@ -48,7 +48,7 @@ module.exports = {
                         `\n\n**列隊**\n${queueString}`,
                     )
                     .setFooter({
-                        text: `第 ${page + 1} 頁，共 ${totalPages}`,
+                        text: `第 ${page + 1} 頁，共 ${totalPages}頁`,
                     })
                     .setThumbnail(currentSong.setThumbnail),
             ],
