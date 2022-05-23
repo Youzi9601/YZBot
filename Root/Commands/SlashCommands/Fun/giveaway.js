@@ -171,9 +171,19 @@ module.exports = {
                     ephemeral: true,
                 });
             }
+            const clear_duration = duration
+                .replace('年', 'y')
+                .replace('天', 'd')
+                .replace('日', 'd')
+                .replace('小時', 'h')
+                .replace('時', 'h')
+                .replace('分鐘', 'm')
+                .replace('分', 'm')
+                .replace('秒鐘', 's')
+                .replace('秒', 's')
             let ms_duration = Number;
             try {
-                ms_duration = ms(duration);
+                ms_duration = ms(clear_duration);
             } catch (error) {
                 interaction.reply(`:x: umm... 我看不懂\`${duration}\`是甚麼... \n如果抽獎時間為\`5天3小時10分鐘30秒\`，請輸入\`5d3h10m30s\``);
                 return error;
@@ -280,8 +290,19 @@ module.exports = {
                 client.giveawaysManager.giveaways.find((g) => g.messageId === query && g.guildId === interaction.guild.id);
 
             // const newEnd = ms(interaction.options.getString('time'))
+            const duration = interaction.options.getString('addTime') || 0
+            const clear_duration = duration
+                .replace('年', 'y')
+                .replace('天', 'd')
+                .replace('日', 'd')
+                .replace('小時', 'h')
+                .replace('時', 'h')
+                .replace('分鐘', 'm')
+                .replace('分', 'm')
+                .replace('秒鐘', 's')
+                .replace('秒', 's')
             const options = {
-                addTime: ms(interaction.options.getString('addTime') || 0) || null,
+                addTime: ms(clear_duration) || null,
                 newWinnerCount: interaction.options.getNumber('winners') || giveaway.winnerCount,
                 newPrize: new_prize = interaction.options.getString('new_prize') || giveaway.prize,
                 // setEndTimestamp: Date.now() + newEnd
