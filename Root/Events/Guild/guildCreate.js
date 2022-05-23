@@ -72,14 +72,14 @@ module.exports = {
         // 合併Components
         const row = new MessageActionRow().addComponents(invitemsg_button);
         /** 設定加入訊息 End*/
-        let invite_channel = guild.systemChannel
+        let invite_channel = guild.systemChannel;
 
         if (guild.systemChannel) {
-            invite_channel = guild.systemChannel
+            invite_channel = guild.systemChannel;
         } else if (guild.rulesChannel) {
-            invite_channel = guild.rulesChannel
+            invite_channel = guild.rulesChannel;
         } else {
-            invite_channel = guild.channels.cache.filter(c => c.type == 'GUILD_TEXT' && c.nsfw == false && c.name.includes(`聊天` || `說話`))
+            invite_channel = guild.channels.cache.filter(c => c.type == 'GUILD_TEXT' && c.nsfw == false && c.name.includes('聊天' || '說話'));
         }
 
         try {
@@ -105,7 +105,7 @@ module.exports = {
             // end
 
         } catch (error) {
-            log('ERROR', error, true, client)
+            log('ERROR', error, true, client);
         }
     },
 };
