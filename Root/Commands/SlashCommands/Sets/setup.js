@@ -155,7 +155,7 @@ module.exports = {
 
                 console.log(webhook);
                 channel.sendTyping();
-                channel.send(`跨群代碼： ${cross_id}`);
+                channel.send(`跨群代碼： ${cross_id}，只是目前沒有跨群的作用...你想做啥==`);
                 interaction.deferReply();
                 cross_server_system.set(`${interaction.guild.id}`, {
                     guildid: interaction.guild.id,

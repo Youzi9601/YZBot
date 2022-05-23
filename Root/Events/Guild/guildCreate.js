@@ -72,24 +72,40 @@ module.exports = {
         // 合併Components
         const row = new MessageActionRow().addComponents(invitemsg_button);
         /** 設定加入訊息 End*/
-        if (!guild.systemChannel) return;
-        guild.systemChannel.sendTyping();
-        await guild.systemChannel.send({
-            embeds: [invitemsg_embed],
-            components: [row],
-        });
+        let invite_channel = guild.systemChannel
 
-        await guild.systemChannel
-            .createInvite({ unique: true, maxAge: 0, maxUses: 0 })
-            .then((invite) => {
-                const invite_code = invite.code;
-                // 進退變動 加入
-                invitechannel.send(
-                    '```diff' +
-                    `\n+ 機器人已加入：${guild.name} (擁有者： ${owner.user.tag} ${guild.ownerId}) ` +
-                    '\n```' +
-                    `https://discord.gg/${invite_code}`,
-                );
-            });// end
+        if (guild.systemChannel) {
+            invite_channel = guild.systemChannel
+        } else if (guild.rulesChannel) {
+            invite_channel = guild.rulesChannel
+        } else {
+            invite_channel = guild.channels.cache.filter(c => c.type == 'GUILD_TEXT' && c.nsfw == false && c.name.includes(`聊天` || `說話`))
+        }
+
+        try {
+
+            invite_channel.sendTyping();
+            await invite_channel.send({
+                embeds: [invitemsg_embed],
+                components: [row],
+            });
+
+            await invite_channel
+                .createInvite({ unique: true, maxAge: 0, maxUses: 0 })
+                .then((invite) => {
+                    const invite_code = invite.code;
+                    // 進退變動 加入
+                    invitechannel.send(
+                        '```diff' +
+                        `\n+ 機器人已加入：${guild.name} (擁有者： ${owner.user.tag} ${guild.ownerId}) ` +
+                        '\n```' +
+                        `https://discord.gg/${invite_code}`,
+                    );
+                });
+            // end
+
+        } catch (error) {
+            log('ERROR', error, true, client)
+        }
     },
 };
