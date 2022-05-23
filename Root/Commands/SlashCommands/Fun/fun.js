@@ -22,9 +22,9 @@ module.exports = {
                         name: 'text',
                         description: '你想問的內容... 就看它怎麼回應了uwu',
                         required: true,
-                    }
-                ]
-            }
+                    },
+                ],
+            },
         ],
     },
     ignoreFile: true,
