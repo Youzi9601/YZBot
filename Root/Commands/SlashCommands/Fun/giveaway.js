@@ -180,7 +180,7 @@ module.exports = {
                 .replace('分鐘', 'm')
                 .replace('分', 'm')
                 .replace('秒鐘', 's')
-                .replace('秒', 's')
+                .replace('秒', 's');
             let ms_duration = Number;
             try {
                 ms_duration = ms(clear_duration);
@@ -290,7 +290,7 @@ module.exports = {
                 client.giveawaysManager.giveaways.find((g) => g.messageId === query && g.guildId === interaction.guild.id);
 
             // const newEnd = ms(interaction.options.getString('time'))
-            const duration = interaction.options.getString('addTime') || 0
+            const duration = interaction.options.getString('addTime') || 0;
             const clear_duration = duration
                 .replace('年', 'y')
                 .replace('天', 'd')
@@ -300,7 +300,7 @@ module.exports = {
                 .replace('分鐘', 'm')
                 .replace('分', 'm')
                 .replace('秒鐘', 's')
-                .replace('秒', 's')
+                .replace('秒', 's');
             const options = {
                 addTime: ms(clear_duration) || null,
                 newWinnerCount: interaction.options.getNumber('winners') || giveaway.winnerCount,
