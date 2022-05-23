@@ -95,10 +95,21 @@ module.exports = {
                 .map(
                     role => `<@&${role.id}>`,
                 );
+            const role_list = roles_tag // .join(' \u200B')
+            let max = false
+            for (let i = 0; 1024 < role_list.join(' \u200B').length; i++) {
+                role_list.pop()
+                max = true
+            }
+            const list = role_list.join(' \u200B') + `${max ? '...還有更多' : ''}`
+            /**
+             * `${roles_tag.length > 1024 ? ``}:``) 
+             * <@909608773927202906> \u200B
+             */
             serverinfo.fields.push(
                 {
                     name: `共有 ${roles_tag.length} 個身分組(不包含機器人權限身分組以及@everyone)`,
-                    value: `${roles_tag.join(' \u200B') || '沒有身分組！'}`,
+                    value: `${(roles_tag.length != 0) ? list : '沒有身分組！'}`,
                     inline: true,
                 },
             );

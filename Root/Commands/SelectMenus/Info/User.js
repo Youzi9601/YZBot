@@ -81,6 +81,21 @@ module.exports = {
                     },
                 );
         } else if (type == 'roles') {
+            const roles_tag = member.roles.cache
+                .filter(role =>
+                    role.name != '@everyone',
+                )
+                .map(
+                    role => `<@&${role.id}>`,
+                );
+            const role_list = roles_tag // .join(' \u200B')
+            let max = false
+            for (let i = 0; 1024 < role_list.join(' \u200B').length; i++) {
+                role_list.pop()
+                max = true
+            }
+            const list = role_list.join(' \u200B') + `${max ? '...還有更多' : ''}`
+
             embed = new MessageEmbed()
                 .setTitle('成員資訊')
                 .setDescription('\`\`\`身分組\`\`\`')
@@ -95,8 +110,8 @@ module.exports = {
                 .setTimestamp()
                 .addFields(
                     {
-                        name: `共有 ${member.roles.cache.size - 1} 個身分組`,
-                        value: `${member.roles.cache.map(role => { if (role.name != '@everyone') return `<@&${role.id}>`; }).join(' ') || '沒有身分組！'}`,
+                        name: `共有 ${roles_tag.length} 個身分組`,
+                        value: `${(roles_tag.length != 0) ? list : '沒有身分組！'}`,
                         inline: true,
                     },
                 );
