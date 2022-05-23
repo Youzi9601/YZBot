@@ -16,7 +16,7 @@ module.exports =
         var countting_system = new db.table('countting_system');
         const count_data = countting_system.get(`${newMessage.guild.id}`) || { channelid: '000' };
 
-        if (newMessage.author.bot) return;
+        if (oldMessage.author.bot) return;
         if (`${count_data.channelid}` != `${newMessage.channel.id}`) return;
 
         const users_rections = oldMessage.reactions
