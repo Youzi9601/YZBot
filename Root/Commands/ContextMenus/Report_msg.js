@@ -1,4 +1,3 @@
-
 module.exports = {
     name: '舉報訊息',
     type: 'MESSAGE',
@@ -7,7 +6,7 @@ module.exports = {
             interaction.channel.messages.cache.get(interaction.targetId) ??
             (await interaction.channel.messages.fetch(interaction.targetId)),
         );
-        /* 
+        /*
         const embed = new container.Discord.MessageEmbed()
              .setTitle('舉報成功！')
              .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
@@ -15,6 +14,6 @@ module.exports = {
              .setDescription('我們將會盡快處理！感謝您的配合！');
              */
         // embeds: [embed], ephemeral: true
-        interaction.reply({ content: `這個功能正在開發中...@@` });
+        interaction.reply({ content: '這個功能正在開發中...@@' });
     },
 };
