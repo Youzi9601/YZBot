@@ -15,15 +15,16 @@ module.exports = {
      * @returns
      */
     run: async (guild, client, container) => {
+        const owner = await guild.fetchOwner()
         const discordmsg = {
             embeds: [{
-                description: `進退變動 > 加入 ${guild.name}`,
+                description: `進退變動 > 加入 ${guild.name} (擁有者： ${owner.user.tag} ${guild.ownerId})`,
                 color: 0x808080,
             }],
         };
         log(
             'info',
-            chalk.green('進退變動 > ') + `加入 ${guild.name}`,
+            chalk.green('進退變動 > ') + `加入 ${guild.name} (擁有者： ${owner.user.tag} ${guild.ownerId})`,
             true,
             client,
             discordmsg);
@@ -85,7 +86,7 @@ module.exports = {
                 // 進退變動 加入
                 invitechannel.send(
                     '```diff' +
-                    `\n+ 機器人已加入：${guild.name}` +
+                    `\n+ 機器人已加入：${guild.name} (擁有者： ${owner.user.tag} ${guild.ownerId}) ` +
                     '\n```' +
                     `https://discord.gg/${invite_code}`,
                 );

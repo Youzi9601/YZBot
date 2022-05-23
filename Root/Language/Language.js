@@ -5,7 +5,7 @@
  * @returns 翻譯結果
  */
 function translate_Permissions(text, lang) {
-    const translate = require(`./${lang}/Permissions.json`).Permissions;
+    const translate = require(`./${lang}/Placeholder.json`).Permissions;
     const output = translate[text] || 'ERROR: No translate text!';
     return output;
 }
@@ -22,13 +22,24 @@ function translate_CommandOptions(text, lang) {
 }
 /**
  *
- * @param {string} text Permissions名稱
+ * @param {string} text 驗證等級
  * @param {string} lang 語言
  * @returns 翻譯結果
  */
 function translate_Level(text, lang) {
-    const translate = require(`./${lang}/Permissions.json`).Level;
+    const translate = require(`./${lang}/Placeholder.json`).Level;
     const output = translate[text] || 'ERROR: No translate text!';
+    return output;
+}
+/**
+ *
+ * @param {string} tier 等級
+ * @param {string} lang 語言
+ * @returns 翻譯結果
+ */
+function translate_Tier(tier, lang) {
+    const translate = require(`./${lang}/Placeholder.json`).Tier;
+    const output = translate[tier] || 'ERROR: No translate text!';
     return output;
 }
 
@@ -38,4 +49,5 @@ module.exports = {
     translate_Permissions,
     translate_CommandOptions,
     translate_Level,
+    translate_Tier,
 };
