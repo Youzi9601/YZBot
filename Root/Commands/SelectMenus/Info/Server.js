@@ -95,15 +95,15 @@ module.exports = {
                 .map(
                     role => `<@&${role.id}>`,
                 );
-            const role_list = roles_tag // .join(' \u200B')
-            let max = false
-            for (let i = 0; 1024 < role_list.join(' \u200B').length; i++) {
-                role_list.pop()
-                max = true
+            const role_list = roles_tag; // .join(' \u200B')
+            let max = false;
+            for (let i = 0; role_list.join(' \u200B').length > 1024; i++) {
+                role_list.pop();
+                max = true;
             }
-            const list = role_list.join(' \u200B') + `${max ? '...還有更多' : ''}`
+            const list = role_list.join(' \u200B') + `${max ? '...還有更多' : ''}`;
             /**
-             * `${roles_tag.length > 1024 ? ``}:``) 
+             * `${roles_tag.length > 1024 ? ``}:``)
              * <@909608773927202906> \u200B
              */
             serverinfo.fields.push(
