@@ -3,15 +3,15 @@ const Filer = require('../../Utils/Filer');
 const { config } = require('../../../bot');
 const chalk = require('chalk');
 const moment = require('moment');
-const { log } = require('./../../Utils/log')
+const { log } = require('./../../Utils/log');
 
-module.exports = async function (client, path) {
+module.exports = async function(client, path) {
     console.info(
         chalk.gray(
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + '互動程式註冊開始！',
     );
-    Filer(`${path}/Root/Commands/ContextMenus`, async function (err, res) {
+    Filer(`${path}/Root/Commands/ContextMenus`, async function(err, res) {
         res.forEach((file) => {
             if (fs.statSync(file).isDirectory()) return;
             const cmd = require(file);
@@ -19,8 +19,8 @@ module.exports = async function (client, path) {
             client.commands.contextMenus.set(require(file).name, require(file));
         });
         let promise = Promise.resolve();
-        res.forEach(async function (file) {
-            promise = promise.then(async function () {
+        res.forEach(async function(file) {
+            promise = promise.then(async function() {
                 const interval = 5000;
                 if (fs.statSync(file).isDirectory()) return;
                 const cmd = require(file);
@@ -69,7 +69,7 @@ module.exports = async function (client, path) {
 
                 log('ContextMenus', `${cmd.name} 刷新完成！`);
                 //
-                return new Promise(function (resolve) {
+                return new Promise(function(resolve) {
                     setTimeout(resolve, interval);
                 });
             });

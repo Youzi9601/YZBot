@@ -8,7 +8,7 @@ const {
     MessageEmbed,
     MessageSelectMenu,
 } = require('discord.js');
-const { get_time_from_id } = require('./../../../Structures/Handlers/get_time_from_id')
+const { get_time_from_id } = require('./../../../Structures/Handlers/get_time_from_id');
 module.exports = {
     name: 'info_user',
     /**
@@ -20,10 +20,10 @@ module.exports = {
     run: async (client, interaction, container) => {
 
         const member = interaction.guild.members.cache
-            .get(interaction.message.embeds[0].footer.text.match(/\d{18}/)[0])
-        const create_at = `${await get_time_from_id(member.user.id)}`
-        const join_at = Math.floor(member.joinedAt.getTime() / 1000)
-        const type = interaction.values[0]
+            .get(interaction.message.embeds[0].footer.text.match(/\d{18}/)[0]);
+        const create_at = `${await get_time_from_id(member.user.id)}`;
+        const join_at = Math.floor(member.joinedAt.getTime() / 1000);
+        const type = interaction.values[0];
         let embed;
         if (type == 'normal') {
             embed = new MessageEmbed()
@@ -33,7 +33,7 @@ module.exports = {
                     name: `${member.nickname ?
                         member.nickname + ' (' + member.user.tag + ')'
                         : member.user.tag}`,
-                    iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`
+                    iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`,
                 })
                 .setFooter({ text: `ID: ${member.user.id}` })
                 .setColor(member.displayHexColor)
@@ -62,7 +62,7 @@ module.exports = {
                     {
                         name: '\u200B',
                         value: '\u200B',
-                        inline: false
+                        inline: false,
                     },
                     {
                         name: '創建時間',
@@ -88,7 +88,7 @@ module.exports = {
                     name: `${member.nickname ?
                         member.nickname + ' (' + member.user.tag + ')'
                         : member.user.tag}`,
-                    iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`
+                    iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`,
                 })
                 .setFooter({ text: `ID: ${member.user.id}` })
                 .setColor(member.displayHexColor)
@@ -96,16 +96,16 @@ module.exports = {
                 .addFields(
                     {
                         name: `共有 ${member.roles.cache.size - 1} 個身分組`,
-                        value: `${member.roles.cache.map(role => { if (role.name != '@everyone') return `<@&${role.id}>` }).join(' ') || '沒有身分組！'}`,
+                        value: `${member.roles.cache.map(role => { if (role.name != '@everyone') return `<@&${role.id}>`; }).join(' ') || '沒有身分組！'}`,
                         inline: true,
                     },
                 );
 
         } else if (type == 'others') {
             if (client.user.id == member.user.id) {
-                const os = require('os')
-                const version = require('./../../../../package.json').version
-                const humanizeDuration = require('humanize-duration')
+                const os = require('os');
+                const version = require('./../../../../package.json').version;
+                const humanizeDuration = require('humanize-duration');
                 const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
                     conjunction: ' ',
                     language: 'zh_TW',
@@ -117,29 +117,29 @@ module.exports = {
                         name: `${member.nickname ?
                             member.nickname + ' (' + member.user.tag + ')'
                             : member.user.tag}`,
-                        iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`
+                        iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`,
                     })
                     .setFooter({ text: `ID: ${member.user.id}` })
                     .setColor(member.displayHexColor)
                     .setTimestamp()
                     .addFields(
                         {
-                            name: `版本`,
+                            name: '版本',
                             value: `v${version}`,
                             inline: true,
                         },
                         {
-                            name: `Node Js`,
+                            name: 'Node Js',
                             value: `${process.version}`,
                             inline: true,
                         },
                         {
-                            name: `Discord Js`,
+                            name: 'Discord Js',
                             value: `${(await import('discord.js')).version}`,
                             inline: true,
                         },
                         {
-                            name: `運行時間`,
+                            name: '運行時間',
                             value: `v${version}`,
                             inline: true,
                         },
@@ -197,21 +197,21 @@ module.exports = {
                         name: `${member.nickname ?
                             member.nickname + ' (' + member.user.tag + ')'
                             : member.user.tag}`,
-                        iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`
+                        iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`,
                     })
                     .setFooter({ text: `ID: ${member.user.id}` })
                     .setColor(member.displayHexColor)
                     .setTimestamp()
                     .addFields(
                         {
-                            name: `頭像連結`,
+                            name: '頭像連結',
                             value: `[點我](${member.displayAvatarURL({ dynamic: true, size: 1024 })
                                 || member.avatarURL({ dynamic: true, size: 1024 })
                                 || member.user.defaultAvatarURL})`,
                             inline: true,
                         },
                         {
-                            name: `橫幅連結`,
+                            name: '橫幅連結',
                             value: `${member.user.banner ? `[點我](${member.user.bannerURL({ dynamic: true, size: 1024 })})` : '沒有橫幅'}`,
                             inline: true,
                         },
@@ -221,7 +221,7 @@ module.exports = {
 
         // 編輯訊息
         interaction.update({
-            embeds: [embed]
+            embeds: [embed],
         });
     },
 };

@@ -1,5 +1,5 @@
-/** 
- * @param {String<snowflake>} input 
+/**
+ * @param {String<snowflake>} input
  * @returns Snowfake
 */
 

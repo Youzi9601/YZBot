@@ -15,7 +15,7 @@ module.exports = {
      * @returns
      */
     run: async (guild, client, container) => {
-        const owner = await guild.fetchOwner()
+        const owner = await guild.fetchOwner();
         const discordmsg = {
             embeds: [{
                 description: `進退變動 > 加入 ${guild.name} (擁有者： ${owner.user.tag} ${guild.ownerId})`,

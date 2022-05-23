@@ -9,7 +9,7 @@ const {
     CommandInteraction,
 } = require('discord.js');
 const { translate_Level } = require('./../../../Language/Language');
-const { get_time_from_id } = require("../../../Structures/Handlers/get_time_from_id");
+const { get_time_from_id } = require('../../../Structures/Handlers/get_time_from_id');
 module.exports = {
     command: {
         name: 'info',
@@ -113,13 +113,13 @@ module.exports = {
                     iconURL: `${interaction.member.user.displayAvatarURL({
                         dynamic: true,
                     })}`,
-                })
+                });
             if (interaction.guild.iconURL()) {
-                serverinfo.image = { url: `${interaction.guild.iconURL({ dynamic: true })}` }
-                serverinfo.author.iconURL = interaction.guild.iconURL({ dynamic: true })
+                serverinfo.image = { url: `${interaction.guild.iconURL({ dynamic: true })}` };
+                serverinfo.author.iconURL = interaction.guild.iconURL({ dynamic: true });
             }
             if (interaction.guild.bannerURL()) {
-                serverinfo.thumbnail = { urll: interaction.guild.bannerURL }
+                serverinfo.thumbnail = { urll: interaction.guild.bannerURL };
             }
 
 
@@ -165,11 +165,11 @@ module.exports = {
                     name: `${member.nickname ?
                         member.nickname + ' (' + user.tag + ')'
                         : user.tag}`,
-                    iconURL: `${user.displayAvatarURL({ dynamic: true }) || user.avatarURL({ dynamic: true }) || user.defaultAvatarURL}`
+                    iconURL: `${user.displayAvatarURL({ dynamic: true }) || user.avatarURL({ dynamic: true }) || user.defaultAvatarURL}`,
                 })
                 .setFooter({ text: `ID: ${user.id}` })
                 .setColor('RANDOM')
-                .setTimestamp()
+                .setTimestamp();
             /**
              if (member.id == `${client.user.id}`) {
                 userinfo = new container.Discord.MessageEmbed()
@@ -228,11 +228,11 @@ module.exports = {
                     name: `${member.nickname ?
                         member.nickname + ' (' + user.tag + ')'
                         : user.tag}`,
-                    iconURL: `${user.displayAvatarURL({ dynamic: true }) || user.avatarURL({ dynamic: true }) || user.defaultAvatarURL}`
+                    iconURL: `${user.displayAvatarURL({ dynamic: true }) || user.avatarURL({ dynamic: true }) || user.defaultAvatarURL}`,
                 })
                 .setFooter({ text: `ID: ${user.id}` })
                 .setColor('RANDOM')
-                .setTimestamp()
+                .setTimestamp();
 
             // 返回訊息
             interaction.reply({ embeds: [userinfo], components: [row] });
@@ -240,5 +240,4 @@ module.exports = {
         }
     },
 };
-
 
