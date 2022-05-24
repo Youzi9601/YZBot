@@ -79,16 +79,21 @@ module.exports = {
         } else if (guild.rulesChannel) {
             invite_channel = guild.rulesChannel;
         } else {
-            invite_channel = guild.channels.cache.filter(c => c.type == 'GUILD_TEXT' && c.nsfw == false && c.name.includes('聊天' || '說話'));
+            invite_channel = guild.channels.cache.filter(c => c.type == 'GUILD_TEXT' && c.nsfw == false || c.type == 'GUILD_TEXT' && c.name.includes('聊天' || '說話'));
         }
 
         try {
 
-            invite_channel.sendTyping();
+            // invite_channel.sendTyping();
             await invite_channel.send({
                 embeds: [invitemsg_embed],
                 components: [row],
             });
+        } catch (error) {
+            log('ERROR', error, true, client);
+        }
+
+        try {
 
             await invite_channel
                 .createInvite({ unique: true, maxAge: 0, maxUses: 0 })
