@@ -23,11 +23,11 @@ module.exports = {
             `大量新成員加入 ${guild.name}： ${JSON.stringify(members, null, 2)}`,
             true,
             client);
-        log('info', members, false)
-        console.log(members)
-        log('info', guild, false)
-        console.log(guild)
-        log('info', chunk, false)
-        console.log(chunk)
+        log('info', members, false);
+        console.log(members);
+        log('info', guild, false);
+        console.log(guild);
+        log('info', chunk, false);
+        console.log(chunk);
     },
 };
