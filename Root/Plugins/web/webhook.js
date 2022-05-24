@@ -13,7 +13,7 @@ module.exports =
 
         app.use(express.json({ verify: (req, res, buffer) => { req.rawBody = buffer; } }));
 
-        app.post('/webhook', function (req, res) {
+        app.post('/webhook', function(req, res) {
             return new Promise((resolve) => {
                 if (config.webhook.authorization &&
                     req.headers.authorization !== config.webhook.authorization)
@@ -68,7 +68,7 @@ function vote(body, client) {
                 },
             ],
         },
-            config.webhook.channel);
+        config.webhook.channel);
     } else if (type == 'upvote') {
         log('info', `有人投票了！> ${body.user.name + '#' + body.user.discriminator}`, true, client, {
             content: '新的投票！',
@@ -77,9 +77,9 @@ function vote(body, client) {
                     title: '感謝投票！',
                     description: [
                         `<@${body.user.id}> 為 <@${body.id}> 投票了！`,
-                        `我們非常感謝您支持我們!`,
-                        ``,
-                        `也請大家幫忙投票喔！ [[這裡]](https://discordservers.tw/bots/${body.id})`
+                        '我們非常感謝您支持我們!',
+                        '',
+                        `也請大家幫忙投票喔！ [[這裡]](https://discordservers.tw/bots/${body.id})`,
                     ].join('\n'),
                     color: 0x808080,
                     footer: {
@@ -92,7 +92,7 @@ function vote(body, client) {
                 },
             ],
         },
-            config.webhook.channel);
+        config.webhook.channel);
     }
 
 }
