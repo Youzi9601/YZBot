@@ -1,5 +1,5 @@
 const { inspect } = require('util');
-const { log } = require('./../../Utils/log')
+const { log } = require('./../../Utils/log');
 module.exports = {
     name: 'eval',
     ownerOnly: true,
@@ -33,7 +33,7 @@ module.exports = {
                         repliedUser: false,
                     },
                 });
-                log('info', 'JS偵錯>' + code, false)
+                log('info', 'JS偵錯>' + code, false);
             }
         } catch (error) {
             console.info(error);
@@ -41,7 +41,7 @@ module.exports = {
                 content: `\`\`\`js\n${error}\n\`\`\``,
                 components: [row],
             });
-            log('error', 'JS偵錯>' + error, true, client)
+            log('error', 'JS偵錯>' + error, true, client);
         }
     },
 };
