@@ -20,10 +20,10 @@ module.exports = {
             .setAuthor(
                 {
                     iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                    name: `${client.user.username} 幫助介面`
+                    name: `${client.user.username} 幫助介面`,
                 })
             .setColor('RANDOM')
-            .setDescription('請選擇一個類別！')
+            .setDescription('請選擇一個類別！');
         const type = interaction.values[0];
 
         if (type == 'normal') {
@@ -47,9 +47,9 @@ module.exports = {
                 .setAuthor(
                     {
                         iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`
+                        name: `${client.user.username} 幫助介面`,
                     })
-                .setColor('RANDOM')
+                .setColor('RANDOM');
 
         } else if (type == 'manage') {
             embed = new MessageEmbed()
@@ -67,9 +67,9 @@ module.exports = {
                 .setAuthor(
                     {
                         iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`
+                        name: `${client.user.username} 幫助介面`,
                     })
-                .setColor('RANDOM')
+                .setColor('RANDOM');
 
 
         } else if (type == 'music') {
@@ -98,9 +98,9 @@ module.exports = {
                 .setAuthor(
                     {
                         iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`
+                        name: `${client.user.username} 幫助介面`,
                     })
-                .setColor('RANDOM')
+                .setColor('RANDOM');
         } else if (type == 'fun') {
             embed = new MessageEmbed()
                 .setTitle('Help 命令列表｜遊戲/玩樂')
@@ -126,9 +126,9 @@ module.exports = {
                 .setAuthor(
                     {
                         iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`
+                        name: `${client.user.username} 幫助介面`,
                     })
-                .setColor('RANDOM')
+                .setColor('RANDOM');
         } else if (type == 'setup') {
             embed = new MessageEmbed()
                 .setTitle('Help 命令列表｜設置功能')
@@ -149,9 +149,9 @@ module.exports = {
                 .setAuthor(
                     {
                         iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`
+                        name: `${client.user.username} 幫助介面`,
                     })
-                .setColor('RANDOM')
+                .setColor('RANDOM');
 
         } else if (type == 'control') {
             embed = new MessageEmbed()
@@ -173,9 +173,9 @@ module.exports = {
                 .setAuthor(
                     {
                         iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`
+                        name: `${client.user.username} 幫助介面`,
                     })
-                .setColor('RANDOM')
+                .setColor('RANDOM');
 
         } else if (type == 'developers') {
             embed = new MessageEmbed()
@@ -198,9 +198,9 @@ module.exports = {
                 .setAuthor(
                     {
                         iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`
+                        name: `${client.user.username} 幫助介面`,
                     })
-                .setColor('RANDOM')
+                .setColor('RANDOM');
 
         } else if (type == 'others') {
             embed = new MessageEmbed()
@@ -218,9 +218,9 @@ module.exports = {
                 .setAuthor(
                     {
                         iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`
+                        name: `${client.user.username} 幫助介面`,
                     })
-                .setColor('RANDOM')
+                .setColor('RANDOM');
         }
         //
         interaction.update({ embeds: [embed] });
