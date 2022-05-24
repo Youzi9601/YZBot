@@ -17,12 +17,17 @@ module.exports = {
      * @param {import('discord.js').Guild} guild 機器人
      * @param {import('discord.js').Client} client 機器人
      */
-    run: async (members, guild, client, container) => {
+    run: async (members, guild, chunk, client, container) => {
         log(
             'info',
             `大量新成員加入 ${guild.name}： ${JSON.stringify(members, null, 2)}`,
             true,
             client);
-        console.assert(members);
+        log('info', members, false)
+        console.log(members)
+        log('info', guild, false)
+        console.log(guild)
+        log('info', chunk, false)
+        console.log(chunk)
     },
 };
