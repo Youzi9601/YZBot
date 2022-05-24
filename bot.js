@@ -51,7 +51,7 @@ const fetch = require('node-fetch');
     fetch('https://raw.githubusercontent.com/Youzi9601/YZBot/master/package.json')
         .then((res) => res.json())
         .then((data) => {
-            if (data.version !== version || `${config.commit}` == 'true') {
+            if (data.version != version || `${config.commit}` == 'true') {
 
                 // 執行自動更新，不跳通知
                 if (`${config.autoupdate}` == 'true') {
@@ -247,9 +247,9 @@ const fetch = require('node-fetch');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
