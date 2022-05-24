@@ -12,6 +12,7 @@ const {
     ReactionCollector,
 } = require('discord.js');
 const { config } = require('../../../../bot');
+const { log } = require('./../../../Utils/log')
 
 module.exports = {
     command: {
@@ -748,7 +749,6 @@ module.exports = {
             }
             interaction.channel.messages.fetch({ around: interaction.options.getString('message_id'), limit: 1 })
                 .then(message => {
-
                     const fetchedMsg = message.first();
                     fetchedMsg.edit(msg);
                     // console.info(msg);
@@ -968,9 +968,15 @@ module.exports = {
             interaction.channel.messages.fetch({ around: interaction.options.getString('message_id'), limit: 1 })
                 .then(message => {
                     const fetchedMsg = message.first();
-                    fetchedMsg.delete();
+                    fetchedMsg.delete().then((deletd_msg) => {
+                        interaction.reply({
+                            content: '已經成功刪除指定訊息',
+                            ephemeral: true,
+                        });
+                    }).catch((error) =>
+                        log('ERROR', error));
                     interaction.reply({
-                        content: '已經成功刪除指定訊息',
+                        content: ':x:錯誤： 無法刪除指定訊息',
                         ephemeral: true,
                     });
                 });
