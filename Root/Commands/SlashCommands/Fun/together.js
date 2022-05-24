@@ -40,7 +40,7 @@ module.exports = {
         const row = new MessageActionRow()
             .addComponents(
                 new MessageSelectMenu()
-                    .setCustomId('help_menu')
+                    .setCustomId('together_menu')
                     .setPlaceholder('請選擇資訊類別')
                     .addOptions([
                         {

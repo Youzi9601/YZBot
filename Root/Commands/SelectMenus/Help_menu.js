@@ -121,6 +121,7 @@ module.exports = {
                         '         ◟ reroll <giveaway> 重新抽出幸運兒',
                         '         ◟ end <message_id> 強制結束抽獎',
                         '         ◟ delete <message_id> 刪除抽獎',
+                        '/together 一起在語音頻道同樂！',
                         '```',
                     ].join('\n'))
                 .setAuthor(
