@@ -1,5 +1,6 @@
 const ci = process.env.CI;
 const fs = require('fs');
+const fetch = require("node-fetch");
 
 (async () => {
     const version = require('./package.json').version
@@ -58,7 +59,7 @@ const fs = require('fs');
                     // const exec = require('child_process').exec;
                     // pm2 start bot.js --watch --name "YZB"
                     // await exec('npm i');
-                    await UpdateBot();
+                    UpdateBot();
                     async function UpdateBot() {
                         require('./Root/Utils/UpdateBot');
                     }
