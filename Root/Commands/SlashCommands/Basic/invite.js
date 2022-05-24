@@ -15,6 +15,12 @@ module.exports = {
     },
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
     cooldown: 5000,
+    /**
+   *
+   * @param {import('discord.js').Client} client 機器人
+   * @param {CommandInteraction} interaction
+   * @param {*} container
+   */
     run: async (client, interaction, container) => {
         const invitemsg_embed = new MessageEmbed()
             .setColor(0xe4fff6)
@@ -26,10 +32,17 @@ module.exports = {
                 {
                     name: '使用 [ / ] 呼叫斜線指令',
                     value: '或使用 `/help` 獲取機器人的指令列表',
+                    inline: true
+                },
+                {
+                    name: '投票給與我們最大的支持！',
+                    value: `[這裡！](https://discordservers.tw/bots/${client.user.id}) 前往投票網站！`,
+                    inline: true
                 },
                 {
                     name: '如果有任何問題',
                     value: `您可以到 [支援伺服器](https://discord.gg/${config.invite_code}) 來找我們喔！`,
+                    inline: true
                 },
             )
             .setFooter({
