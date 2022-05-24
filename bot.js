@@ -1,6 +1,9 @@
 const ci = process.env.CI;
 const fs = require('fs');
+
 (async () => {
+    const version = require('./package.json').version
+
     /** @param {import('./Config.js')} config */
     let config;
 
@@ -43,16 +46,41 @@ const fs = require('fs');
     // 輸出Config
     exports.config = config;
 
-    if (`${config.autoupdate}` == 'true') {
-        // 下載npm
-        const exec = require('child_process').exec;
-        // pm2 start bot.js --watch --name "YZB"
-        // await exec('npm i');
-        await UpdateBot();
-        async function UpdateBot() {
-            require('./Root/Utils/UpdateBot');
-        }
-    }
+    // 檢測更新
+    fetch("https://raw.githubusercontent.com/Youzi9601/YZBot/master/package.json")
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.version !== version) {
+
+                //執行自動更新，不跳通知
+                if (`${config.autoupdate}` == 'true') {
+                    // 下載npm
+                    // const exec = require('child_process').exec;
+                    // pm2 start bot.js --watch --name "YZB"
+                    // await exec('npm i');
+                    await UpdateBot();
+                    async function UpdateBot() {
+                        require('./Root/Utils/UpdateBot');
+                    }
+
+                    // 不執行更新，但跳出通知
+                } else {
+                    console.log("\x1b[32m%s\x1b[0m", '───────────────────────────────機器人更新───────────────────────────────')
+                    console.log("\x1b[31m%s\x1b[0m", "版本: v", data.version)
+                    console.log("\x1b[36m%s\x1b[0m", "檢查提交: https://github.com/Youzi9601/YZBot/commits/master")
+                    console.log("\x1b[31m%s\x1b[0m", `啟動機器人後於Discord輸入 \`${config.prefix[0]}exec npm run update\` 來更新機器人`)
+                    console.log("\x1b[32m%s\x1b[0m", '───────────────────────────────機器人更新───────────────────────────────')
+
+                }
+
+            } else {
+                console.log("\x1b[32m%s\x1b[0m", "沒有可用的更新")
+            }
+        })
+        .catch((err) => {
+            console.log("\x1b[31m%s\x1b[0m", err)
+        })
+
 
     // module.exports = { client, path, config };
 
@@ -160,7 +188,7 @@ const fs = require('fs');
     /*
     if (`${config.autoupdate}` == 'true') {
         const aufg = require('auto-update-from-github');
-
+ 
         aufg({
             git: 'Youzi9601/YZBot', // 遠程git地址
             dir: '.', // 本地路徑
@@ -218,9 +246,9 @@ const fs = require('fs');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
@@ -342,6 +370,11 @@ const fs = require('fs');
         ) + chalk.white('請將以下網址複製到') + chalk.blue(` https://discord.com/developers/applications/${config.clientID}/oauth2/general`) + chalk.white(' 中的 Redirects ！') + chalk.blue(`\n${config.web.domain}${port80 ? '' : `:${config.web.port}`}/discord/callback`));
         // console.info(`${config.web.domain}${port80 ? '' : `:${config.web.port}`}`)
     }
+
+    //
+    const { keepalive } = require("./Root/Structures/Handlers/keepalive")
+    // 執行刷存在感
+    keepalive()
     // #endregion
 
     // END

@@ -14,7 +14,7 @@
     "test": "CI=true node --trace-deprecation bot.js",
     "webpack": "webpack -d -w",
     "heroku-postbuild": "node bot.js",
-    "update": "ncu -u && npm i",
+    "update": "npm i && echo \"開始更新\" && node Root/Utils/UpdateBot",
     "lint": "eslint .",
     "dev": "npm i -g npm-check-updates eslint",
     "check": "npm run update && npm run lint",
