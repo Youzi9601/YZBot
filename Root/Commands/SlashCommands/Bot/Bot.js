@@ -12,7 +12,7 @@ const {
     ReactionCollector,
 } = require('discord.js');
 const { config } = require('../../../../bot');
-const { log } = require('./../../../Utils/log')
+const { log } = require('./../../../Utils/log');
 
 module.exports = {
     command: {
