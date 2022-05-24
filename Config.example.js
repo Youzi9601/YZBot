@@ -18,6 +18,7 @@ module.exports = {
 
     // 自動更新? (建議不要開啟)
     autoupdate: process.env.autoupdate || true,
+    commit: process.env.commit || false,
 
     /**
     * 基本設定
