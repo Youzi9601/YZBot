@@ -16,95 +16,9 @@ const sleep = async (ms) => {
 };
 module.exports = {
     command: {
-        name: 'together',
+        name: `together`,
         description: '一起吧！',
-        options: [
-            {
-                type: 1,
-                name: 'youtube',
-                description: '一起觀看 Youtube！',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'poker',
-                description: '一起 玩撲克牌！',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'chess',
-                description: '一起 玩西洋棋！',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'checkers',
-                description: '一起 玩跳棋！',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'betrayal',
-                description: '一起 玩Betrayal.io！',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'fishing',
-                description: '一起 釣魚！',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'lettertile',
-                description: '一起玩 字母遊戲！',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'wordsnack',
-                description: '一起玩 字母小吃！',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'doodlecrew',
-                description: '一起玩 Doodle Crew！',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'spellcast',
-                description: '一起玩 Spell Cast！',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'awkword',
-                description: '一起玩 Awkword',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'puttparty',
-                description: '一起玩 推桿派對',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'sketchheads',
-                description: '一起玩 Sketchheads',
-                options: [],
-            },
-            {
-                type: 1,
-                name: 'ocho',
-                description: '一起玩 Ocho',
-                options: [],
-            },
-
-        ],
+        options: [],
     },
     // ignoreFile: true,
     /**
@@ -114,7 +28,93 @@ module.exports = {
      * @param {*} container
      */
     run: async (client, interaction, container) => {
-        const subcommand = interaction.options.getSubcommand();
+        // const subcommand = interaction.options.getSubcommand();
+        let embed = new MessageEmbed()
+            .setAuthor(
+                {
+                    iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
+                    name: `${client.user.username} 一起吧！`,
+                })
+            .setColor('RANDOM')
+            .setDescription('請選擇一個選項！');
+        const row = new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                    .setCustomId('help_menu')
+                    .setPlaceholder('請選擇資訊類別')
+                    .addOptions([
+                        {
+                            value: 'youtube',
+                            description: '一起 觀看Youtube！',
+                            label: 'Youtube',
+                        },
+                        {
+                            value: 'poker',
+                            description: '一起 玩撲克牌！',
+                            label: '撲克牌',
+                        },
+                        {
+                            value: 'chess',
+                            description: '一起 玩西洋棋！',
+                            label: '西洋棋',
+                        },
+                        {
+                            value: 'checkers',
+                            description: '一起 玩跳棋！',
+                            label: '跳棋',
+                        },
+                        {
+                            value: 'betrayal',
+                            description: '一起 玩Betrayal.io！',
+                            label: 'Betrayal.io',
+                        },
+                        {
+                            value: 'fishing',
+                            description: '一起 釣魚！',
+                            label: '釣魚',
+                        },
+                        {
+                            value: 'lettertile',
+                            description: '一起玩 字母遊戲！',
+                            label: '字母遊戲',
+                        },
+                        {
+                            value: 'wordsnack',
+                            description: '一起玩 單詞小吃！',
+                            label: '單詞小吃',
+                        },
+                        {
+                            value: 'doodlecrew',
+                            description: '一起玩 Doodle Crew！',
+                            label: 'Doodle Crew',
+                        },
+                        {
+                            value: 'spellcast',
+                            description: '一起玩 Spell Cast！',
+                            label: 'Spell Cast',
+                        },
+                        {
+                            value: 'awkword',
+                            description: '一起玩 Awkword',
+                            label: 'Awkword',
+                        },
+                        {
+                            value: 'puttparty',
+                            description: '一起玩 推桿派對',
+                            label: '推桿派對',
+                        },
+                        {
+                            value: 'sketchheads',
+                            description: '一起玩 Sketchheads',
+                            label: 'Sketchheads',
+                        },
+                        {
+                            value: 'ocho',
+                            description: '一起玩 Ocho',
+                            label: 'Ocho',
+                        },
+                    ]),
+            );
         // 檢查是否於語音頻道
         if (!interaction.member.voice.channel) {
             const embed = new MessageEmbed()
@@ -131,29 +131,8 @@ module.exports = {
                 .setColor('RED');
             return interaction.reply({ embeds: [embed] });
 
-        } else client.discordTogether.createTogetherCode(interaction.member.voice.channel.id, `${subcommand}`).then(async invite => {
-
-            const voice_channel = interaction.guild.members.cache.get(client.user.id).voice.channel;
-
-            if (voice_channel && voice_channel.id != interaction.member.voice.channel.id) {
-
-                interaction.channel.send(`一起在這裡！ \n> ${invite.code}`);
-                interaction.deferReply({ ephemeral: true }).then(cmd => {
-                    interaction.editReply({ content: '因為我目前在其他的頻道中...所以無法加入您的頻道！' });
-                });
-            } else {
-                const { joinVoiceChannel } = require('@discordjs/voice');
-                joinVoiceChannel({
-                    channelId: interaction.member.voice.channel.id,
-                    guildId: interaction.channel.guild.id,
-                    adapterCreator: interaction.guild.voiceAdapterCreator,
-                });
-                interaction.channel.send(`一起在這裡！ \n> ${invite.code}`);
-                interaction.deferReply().then(cmd => {
-                    interaction.deleteReply();
-                });
-            }
-        });
-
+        } else {
+            interaction.reply({ embeds: [embed], components: [row] })
+        }
     },
 };
