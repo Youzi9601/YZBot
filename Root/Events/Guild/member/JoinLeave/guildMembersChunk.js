@@ -5,7 +5,7 @@ const moment = require('moment');
 const db = require('quick.db');
 const { GuildMember, Client } = require('discord.js');
 const { log } = require('../../../../Utils/log');
-const chunker = {}
+const chunker = {};
 /**
  *
  */
@@ -17,7 +17,7 @@ module.exports = {
      * @param {import('discord.js').Collection <Snowflake, GuildMember>} members
      * @param {import('discord.js').Guild} guild 機器人
      * @param {import('discord.js').ClientEvents} chunk ClientEvents
-     * //param {ClientEvents.guildMembersChunk[2]} 
+     * //param {ClientEvents.guildMembersChunk[2]}
      * @param {import('discord.js').Client} client 機器人
      */
     run: async (members, guild, chunk, client, container) => {
@@ -27,9 +27,9 @@ module.exports = {
             true,
             client);
         log(
-            `error`,
-            JSON.stringify(chunk, null, 2)
-        )
+            'error',
+            JSON.stringify(chunk, null, 2),
+        );
         // chunk.guildMembersChunk[2].
         console.log(chunk);
     },
@@ -37,7 +37,7 @@ module.exports = {
 
 /*
 
- members: 
+ members:
   {
     "guildId": "849809683085525032",
     "joinedTimestamp": 1639583038302,
