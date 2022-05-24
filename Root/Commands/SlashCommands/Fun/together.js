@@ -16,7 +16,7 @@ const sleep = async (ms) => {
 };
 module.exports = {
     command: {
-        name: `together`,
+        name: 'together',
         description: '一起吧！',
         options: [],
     },
@@ -29,7 +29,7 @@ module.exports = {
      */
     run: async (client, interaction, container) => {
         // const subcommand = interaction.options.getSubcommand();
-        let embed = new MessageEmbed()
+        const embed = new MessageEmbed()
             .setAuthor(
                 {
                     iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
@@ -132,7 +132,7 @@ module.exports = {
             return interaction.reply({ embeds: [embed] });
 
         } else {
-            interaction.reply({ embeds: [embed], components: [row] })
+            interaction.reply({ embeds: [embed], components: [row] });
         }
     },
 };
