@@ -93,6 +93,9 @@ const fs = require('fs');
         // ws: { properties: { $browser: 'Discord iOS' } },
     });
 
+    const { DiscordTogether } = require('discord-together');
+    client.discordTogether = new DiscordTogether(client);
+
     const { Player } = require('discord-player');
     client.slashcommands = new Discord.Collection();
     client.player = new Player(client, {
@@ -215,9 +218,9 @@ const fs = require('fs');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
