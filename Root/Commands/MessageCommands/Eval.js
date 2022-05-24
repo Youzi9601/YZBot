@@ -1,4 +1,5 @@
 const { inspect } = require('util');
+const { log } = require('./../../Utils/log')
 module.exports = {
     name: 'eval',
     ownerOnly: true,
@@ -24,19 +25,23 @@ module.exports = {
             if (String(code).length > 1990) code = 'Error: 輸出結果過長';
             if (String(code).includes(container.Config.token)) code = 'Error: 此訊息包含客戶端的令牌！';
             if (originalCode.includes('--silent')) return;
-            else message.reply({
-                content: `\`\`\`js\n${code}\n\`\`\``,
-                components: [row],
-                allowedMentions: {
-                    repliedUser: false,
-                },
-            });
+            else {
+                message.reply({
+                    content: `\`\`\`js\n${code}\n\`\`\``,
+                    components: [row],
+                    allowedMentions: {
+                        repliedUser: false,
+                    },
+                });
+                log('info', 'JS偵錯>' + code, false)
+            }
         } catch (error) {
             console.info(error);
             message.channel.send({
                 content: `\`\`\`js\n${error}\n\`\`\``,
                 components: [row],
             });
+            log('error', 'JS偵錯>' + error, true, client)
         }
     },
 };

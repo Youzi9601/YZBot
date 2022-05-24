@@ -1,4 +1,5 @@
 const { exec } = require('child_process');
+const { log } = require('./../../Utils/log')
 module.exports = {
     name: 'exec',
     ownerOnly: true,
@@ -19,11 +20,15 @@ module.exports = {
                     content: `\`\`\`js\n${error.message}\n\`\`\``,
                     components: [row],
                 });
+                log('info', '終端機>' + error.message, false)
+
             } else {
                 message.channel.send({
                     content: `\`\`\`js\n${response}\n\`\`\``,
                     components: [row],
                 });
+                log('info', '終端機>' + response, false)
+
             }
         });
     },
