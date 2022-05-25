@@ -6,15 +6,14 @@ module.exports = {
     name: 'guildBanRemove',
     /**
      *
-     * @param {Guild} guild
-     * @param {User} user
+     * @param {GuildBan} ban
      * @param {Client} client
      * @param {*} container
      */
-    run: async (guild, user, client) => {
+    run: async (ban, client, container) => {
         log(
             'info',
-            `UNBAN ｜ ${guild.name} 解除封鎖 ${user.tag}(${user.id})`,
+            `UNBAN ｜ ${ban.guild.name} (${ban.guild.id}) 解除封鎖 ${ban.user.tag} (${ban.user.id})`,
             true,
             client);
     },

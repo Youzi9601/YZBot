@@ -1,20 +1,19 @@
 const moment = require('moment');
-const { Guild, User, Client } = require('discord.js');
+const { GuildBan, User, Client } = require('discord.js');
 const { log } = require('./../../../Utils/log');
 
 module.exports = {
     name: 'guildBanAdd',
     /**
      *
-     * @param {Guild} guild
-     * @param {User} user
+     * @param {GuildBan} ban
      * @param {Client} client
      * @param {*} container
      */
-    run: async (guild, user, client) => {
+    run: async (ban, client, container) => {
         log(
             'info',
-            ` BAN ｜ ${guild.name} 新增封鎖 ${user.tag}(${user.id})`,
+            ` BAN ｜ ${ban.guild.name} (${ban.guild.id}) 新增封鎖 ${ban.user.tag} (${ban.user.id})`,
             true,
             client);
     },
