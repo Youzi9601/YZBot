@@ -1,10 +1,8 @@
 const ci = process.env.CI;
-const update_mode = require('./Root/Utils/UpdateBot').update_mode || false;
 const fs = require('fs');
 const fetch = require('node-fetch');
 
 (async () => {
-
     const version = require('./package.json').version;
 
     /** @param {import('./Config.js')} config */
@@ -34,9 +32,7 @@ const fetch = require('node-fetch');
                 console.log('\x1b[34m%s\x1b[0m', '有找到 Config.example.js ，正在更改名稱......');
                 await rename_config();
                 async function rename_config() {
-                    return fs.rename('Config.example.js', 'Config.js', function() {
-                        //
-                    });
+                    return fs.rename('Config.example.js', 'Config.js');
                 }
                 console.log('\x1b[34m%s\x1b[0m', '更改成功！');
 
@@ -65,7 +61,7 @@ const fetch = require('node-fetch');
                     // await exec('npm i');
                     UpdateBot();
                     async function UpdateBot() {
-                        require('./Root/Utils/UpdateBot').update();
+                        require('./Root/Utils/UpdateBot');
                     }
 
                     // 不執行更新，但跳出通知
@@ -86,7 +82,7 @@ const fetch = require('node-fetch');
             console.log('\x1b[31m%s\x1b[0m', err);
         });
 
-    if (update_mode == true) return;
+
     // module.exports = { client, path, config };
 
     // #region 啟動設定
@@ -251,9 +247,9 @@ const fetch = require('node-fetch');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(

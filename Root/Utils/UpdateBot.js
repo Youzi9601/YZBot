@@ -3,13 +3,13 @@
 Heroku 無法更新
 */
 
-module.exports = { config_update, update };
+module.exports = { config_update };
 const fs = require('fs');
 const childProcess = require('child_process');
+
 update();
-if (true) {
-    module.exports.update_mode = true;
-}
+
+
 // function
 async function update() {
     const exec = require('child_process').exec;
@@ -17,7 +17,7 @@ async function update() {
         exec('git reset --hard');
         console.log('\x1b[34m%s\x1b[0m', '[基本作業]開始載入更新套件......');
         console.log('\x1b[34m%s\x1b[0m', '[基本作業]套用Config資料......');
-        await config_update(require('./../../bot').config);
+        await config_update(); // require('./../../bot').config
         exec('git pull', (err, stdout, stderr) => {
             if (err) {
                 console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
@@ -61,11 +61,8 @@ async function update() {
     }
 }
 
-async function config_update(Config = require('./../../Config')) {
-    if (!Config) {
-        // 無法執行
-    } else if (Config)
-        require('fs').writeFileSync('Config.js', `
+async function config_update(Config) {
+    require('fs').writeFileSync('Config.js', `
 require('dotenv').config();
 module.exports = {
     /**
@@ -87,7 +84,7 @@ module.exports = {
     // 自動更新? (建議不要開啟)
     autoupdate: process.env.autoupdate || ${Config.autoupdate || false},
     // 自動更新的方式 true=每只要有新更新即更新 false=每只要package.js版本變更時更新 (建議false)
-    commit: process.env.commit || ${Config.commit || false},
+    commit: process.env.commit || ${Config.commit || false} 
 
     /**
     * 基本設定
