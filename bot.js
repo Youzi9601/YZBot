@@ -61,7 +61,7 @@ const fetch = require('node-fetch');
                     // await exec('npm i');
                     UpdateBot();
                     async function UpdateBot() {
-                        require('./Root/Utils/UpdateBot');
+                        require('./Root/Utils/UpdateBot').update(config);
                     }
 
                     // 不執行更新，但跳出通知
@@ -247,9 +247,9 @@ const fetch = require('node-fetch');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(

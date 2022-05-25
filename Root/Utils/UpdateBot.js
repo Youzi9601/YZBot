@@ -3,21 +3,22 @@
 Heroku 無法更新
 */
 
-module.exports = { config_update };
+module.exports = { config_update, update };
 const fs = require('fs');
 const childProcess = require('child_process');
 
-update();
+update(require('./../../Config'));
 
 
 // function
-async function update() {
+async function update(config) {
     const exec = require('child_process').exec;
     if (fs.existsSync('./.git')) {
         exec('git reset --hard');
         console.log('\x1b[34m%s\x1b[0m', '[基本作業]開始載入更新套件......');
         console.log('\x1b[34m%s\x1b[0m', '[基本作業]套用Config資料......');
-        await config_update(); // require('./../../bot').config
+        await config_update(config); // require('./../../bot').config
+
         exec('git pull', (err, stdout, stderr) => {
             if (err) {
                 console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
@@ -61,7 +62,7 @@ async function update() {
     }
 }
 
-async function config_update(Config) {
+async function config_update(Config = require('./../../Config')) {
     require('fs').writeFileSync('Config.js', `
 require('dotenv').config();
 module.exports = {
