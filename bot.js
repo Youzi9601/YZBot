@@ -67,9 +67,9 @@ const fetch = require('node-fetch');
                     // 不執行更新，但跳出通知
                 } else {
                     console.log('\x1b[32m%s\x1b[0m', '───────────────────────────────機器人更新───────────────────────────────');
-                    console.log('\x1b[31m%s\x1b[0m', '版本: v', data.version);
+                    console.log('\x1b[32m%s\x1b[0m', '新版本: v' + data.version);
+                    console.log('\x1b[32m%s\x1b[0m', `啟動機器人後於Discord輸入 \`${config.prefix[0]}exec npm run update\` 來更新機器人`);
                     console.log('\x1b[36m%s\x1b[0m', '檢查提交: https://github.com/Youzi9601/YZBot/commits/master');
-                    console.log('\x1b[31m%s\x1b[0m', `啟動機器人後於Discord輸入 \`${config.prefix[0]}exec npm run update\` 來更新機器人`);
                     console.log('\x1b[32m%s\x1b[0m', '───────────────────────────────機器人更新───────────────────────────────');
 
                 }
@@ -247,9 +247,9 @@ const fetch = require('node-fetch');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
