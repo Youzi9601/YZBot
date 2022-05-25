@@ -1,5 +1,5 @@
 const ci = process.env.CI;
-const update_mode = process.env.update_mode || require('./Root/Utils/UpdateBot').update_mode || false
+const update_mode = process.env.update_mode || require('./Root/Utils/UpdateBot').update_mode || false;
 const fs = require('fs');
 const fetch = require('node-fetch');
 
@@ -33,7 +33,7 @@ const fetch = require('node-fetch');
                 console.log('\x1b[34m%s\x1b[0m', '有找到 Config.example.js ，正在更改名稱......');
                 await rename_config();
                 async function rename_config() {
-                    return fs.rename('Config.example.js', 'Config.js', function () {
+                    return fs.rename('Config.example.js', 'Config.js', function() {
                         //
                     });
                 }
