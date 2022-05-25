@@ -7,8 +7,9 @@ module.exports = { config_update, update };
 const fs = require('fs');
 const childProcess = require('child_process');
 update();
-
-module.exports.update_mode = true;
+if (true) {
+    module.exports.update_mode = true;
+}
 // function
 async function update() {
     const exec = require('child_process').exec;
