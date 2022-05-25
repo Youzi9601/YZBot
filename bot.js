@@ -4,6 +4,7 @@ const fs = require('fs');
 const fetch = require('node-fetch');
 
 (async () => {
+
     const version = require('./package.json').version;
 
     /** @param {import('./Config.js')} config */
