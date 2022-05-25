@@ -17,17 +17,17 @@ module.exports = {
             const response = (error || stdout);
             if (error) {
                 message.channel.send({
-                    content: `\`\`\`js\n${error.message}\n\`\`\``,
+                    content: `\`\`\`js\n${error.message.replace(container.Config.token, '機器人Token')}\n\`\`\``,
                     components: [row],
                 });
-                log('info', '終端機>' + error.message, false);
+                log('info', '終端機>' + error.message.replace(container.Config.token, '機器人Token'), false);
 
             } else {
                 message.channel.send({
-                    content: `\`\`\`js\n${response}\n\`\`\``,
+                    content: `\`\`\`js\n${response.replace(container.Config.token, '機器人Token')}\n\`\`\``,
                     components: [row],
                 });
-                log('info', '終端機>' + response, false);
+                log('info', '終端機>' + response.replace(container.Config.token, '機器人Token'), false);
 
             }
         });
