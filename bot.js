@@ -1,5 +1,5 @@
 const ci = process.env.CI;
-const update_mode = process.env.update_mode || require('./Root/Utils/UpdateBot').update_mode || false
+const update_mode = require('./Root/Utils/UpdateBot').update_mode || false
 const fs = require('fs');
 const fetch = require('node-fetch');
 
