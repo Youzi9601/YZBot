@@ -1,5 +1,5 @@
 const ci = process.env.CI;
-const update_mode = require('./Root/Utils/UpdateBot').update_mode || false
+const update_mode = require('./Root/Utils/UpdateBot').update_mode || false;
 const fs = require('fs');
 const fetch = require('node-fetch');
 
@@ -34,7 +34,7 @@ const fetch = require('node-fetch');
                 console.log('\x1b[34m%s\x1b[0m', '有找到 Config.example.js ，正在更改名稱......');
                 await rename_config();
                 async function rename_config() {
-                    return fs.rename('Config.example.js', 'Config.js', function () {
+                    return fs.rename('Config.example.js', 'Config.js', function() {
                         //
                     });
                 }
@@ -251,9 +251,9 @@ const fetch = require('node-fetch');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function (err, data) {
+        fs.readFile('./eula.txt', function(err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function (err) {
+                fs.writeFile('./eula.txt', '', function(err) {
                 });
                 console.error(
                     chalk.bgRed(
