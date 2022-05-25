@@ -84,7 +84,7 @@ module.exports = {
     // 自動更新? (建議不要開啟)
     autoupdate: process.env.autoupdate || ${Config.autoupdate || false},
     // 自動更新的方式 true=每只要有新更新即更新 false=每只要package.js版本變更時更新 (建議false)
-    commit: process.env.commit || ${Config.commit || false} 
+    commit: process.env.commit || ${Config.commit || false},
 
     /**
     * 基本設定
