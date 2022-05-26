@@ -14,7 +14,7 @@ const { log } = require('../../Utils/log');
  * @param {*} interactionType 'Button'||'SelectMenus'||'SlashCommand'||'ContextMenus'
  * @returns
  */
-module.exports = async function(
+module.exports = async function (
     client,
     message,
     command,
@@ -94,6 +94,22 @@ module.exports = async function(
             },
             config.Channels.commandRec,
         );
+    else if (interactionType == 'Modal')
+        log(
+            'info',
+            `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 發送 modal : ${message.commandName}`,
+            true,
+            client,
+            {
+                embeds: [
+                    {
+                        color: 0x808080,
+                        description: `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} \n${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 發送 modal :  ${message.customId}\`\`\``,
+                    },
+                ],
+            },
+            config.Channels.commandRec,
+        );
 
     // 檢查是否有以下指令設定
     if (await require('./OnlyRunOnGuilds')(message, command, Discord)) return;
@@ -127,7 +143,6 @@ module.exports = async function(
     // 執行命令(斜線/文字)
     else {
 
-        // 執行斜線命令
         if (isInteraction) command.run(client, message, container);
         //
         else {

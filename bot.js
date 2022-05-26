@@ -178,6 +178,7 @@ const fetch = require('node-fetch');
     client.commands.slashCommands = new Discord.Collection();
     client.commands.buttonCommands = new Discord.Collection();
     client.commands.selectMenus = new Discord.Collection();
+    client.commands.modals = new Discord.Collection();
 
     // 輸出檔案
     exports.client = client;
@@ -345,6 +346,12 @@ const fetch = require('node-fetch');
         ) + '讀取選單交互...',
     );
     await Handler.loadSelectMenus(client, path);
+    console.info(
+        chalk.gray(
+            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+        ) + '讀取模態交互...',
+    );
+    await Handler.loadModals(client, path);
 
 
     console.info(
