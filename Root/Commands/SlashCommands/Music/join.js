@@ -27,6 +27,8 @@ module.exports = {
                 guildId: interaction.guildId,
                 adapterCreator: interaction.guild.voiceAdapterCreator,
             });
+            if (interaction.member.voice.channel.type == 'GUILD_STAGE_VOICE')
+                interaction.guild.me.voice.setSuppressed(false);
             await interaction.reply('***成功加入語音頻道***');
         } catch (error) {
             return interaction.reply({ content: `連接到語音頻道時出錯: ${error}`, ephemeral: true });
