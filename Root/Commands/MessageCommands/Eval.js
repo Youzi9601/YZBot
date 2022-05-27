@@ -4,11 +4,11 @@ module.exports = {
     name: 'eval',
     ownerOnly: true,
     /**
-     * 
-     * @param {import('discord.js').Client} client 
-     * @param {import('discord.js').Message} message 
-     * @param {*} args 
-     * @param {*} container 
+     *
+     * @param {import('discord.js').Client} client
+     * @param {import('discord.js').Message} message
+     * @param {*} args
+     * @param {*} container
      * @returns null
      */
     run: async (client, message, args, container) => {
@@ -20,7 +20,7 @@ module.exports = {
                     .setLabel('刪除輸出')
                     .setStyle('DANGER'),
             );
-        let code = args.join(' ').trim()
+        let code = args.join(' ').trim();
         const originalCode = code;
         if (!code) return message.channel.send('請輸入要評估 javascript 代碼 的內容！');
         try {
