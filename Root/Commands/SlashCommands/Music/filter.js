@@ -3,12 +3,12 @@ const Discord = require("discord.js")
 module.exports = {
     command: {
         name: "filter",
-        description: "Changes the audio Filter",
+        description: "更改音頻過濾器",
         options: [
             {
                 name: "filter-name",
                 type: 3,
-                description: "過濾器名稱 |再次選擇關閉過濾器",
+                description: "音頻過濾器名稱 | 再次選擇關閉音頻過濾器",
                 required: true,
                 choices: [
                     {
@@ -16,15 +16,15 @@ module.exports = {
                         value: "3d"
                     },
                     {
-                        name: "Bassboost",
+                        name: "低音增強",
                         value: "bassboost"
                     },
                     {
-                        name: "Echo",
+                        name: "迴聲",
                         value: "echo"
                     },
                     {
-                        name: "Karaoke",
+                        name: "卡拉OK",
                         value: "karaoke"
                     },
                     {
@@ -44,7 +44,7 @@ module.exports = {
                         value: "gate"
                     },
                     {
-                        name: "Haas",
+                        name: "哈斯",
                         value: "haas"
                     },
                     {
@@ -52,7 +52,7 @@ module.exports = {
                         value: "reverse"
                     },
                     {
-                        name: "Surround",
+                        name: "環繞",
                         value: "surround"
                     },
                     {
@@ -64,7 +64,7 @@ module.exports = {
                         value: "phaser"
                     },
                     {
-                        name: "Tremolo",
+                        name: "顫音",
                         value: "tremolo"
                     },
                     {
@@ -103,7 +103,7 @@ module.exports = {
         }
         await client.distube.setFilter(interaction, choose)
         const filterembed = new Discord.MessageEmbed()
-            .setDescription(`Current queue filter: ${queue.filters.join(", ") || "Off"}`)
+            .setDescription(`當前列隊過濾器： ${queue.filters.join(", ") || "關閉"}`)
             .setColor("RANDOM")
         return interaction.reply({ embeds: [filterembed] })
     }

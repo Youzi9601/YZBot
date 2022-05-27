@@ -3,7 +3,7 @@ const Discord = require("discord.js")
 module.exports = {
     command: {
         name: "loop",
-        description: "循環播放當前歌曲",
+        description: "循環播放當前歌曲/列隊歌曲",
         options: [],
     },
     cooldown: 5000,

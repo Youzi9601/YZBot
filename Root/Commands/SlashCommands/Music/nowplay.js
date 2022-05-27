@@ -3,7 +3,7 @@ const status = (queue) => `Volume: \`${queue.volume}%\` | Loop: \`${queue.repeat
 module.exports = {
     command: {
         name: "nowplay",
-        description: "當前播放的歌曲",
+        description: "取得當前播放的歌曲",
         options: [],
     },
     cooldown: 5000,

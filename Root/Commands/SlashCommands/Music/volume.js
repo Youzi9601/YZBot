@@ -4,7 +4,7 @@ const progressbar = require("string-progressbar")
 module.exports = {
     command: {
         name: "volume",
-        description: "更改音樂播放器的音量。",
+        description: "更改播放的音量。",
         options: [
             {
                 name: "amount",

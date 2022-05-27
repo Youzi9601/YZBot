@@ -3,12 +3,12 @@ const Discord = require("discord.js")
 module.exports = {
     command: {
         name: "jump",
-        description: "Jump to the song number in the queue",
+        description: "跳轉到隊列中的歌曲編號",
         options: [
             {
                 name: "id",
                 type: 10,
-                description: "The music's ID in the queue",
+                description: "列隊中的音樂 ID",
                 required: true
             }
         ],
@@ -42,9 +42,9 @@ module.exports = {
         }
         try {
             await client.distube.jump(interaction, parseInt(musicid))
-            await interaction.reply({ content: "Jumped to the song number " + musicid })
+            await interaction.reply({ content: "跳轉到歌曲編號" + musicid })
         } catch {
-            return interaction.reply({ content: "Invalid song id!", ephemeral: true })
+            return interaction.reply({ content: "歌曲ID無效！", ephemeral: true })
         }
     }
 }
