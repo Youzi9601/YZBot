@@ -1,9 +1,9 @@
-const { joinVoiceChannel } = require("@discordjs/voice")
+const { joinVoiceChannel } = require('@discordjs/voice');
 
 module.exports = {
     command: {
-        name: "join",
-        description: "加入語音頻道",
+        name: 'join',
+        description: '加入語音頻道',
         options: [],
     },
     cooldown: 5000,
@@ -17,19 +17,19 @@ module.exports = {
       * @param {*} container
       */
     run: async (client, interaction, container) => {
-        const voiceChannel = interaction.member.voice.channel
+        const voiceChannel = interaction.member.voice.channel;
         if (!voiceChannel) {
-            return interaction.reply({ content: "請先加入語音頻道！", ephemeral: true })
+            return interaction.reply({ content: '請先加入語音頻道！', ephemeral: true });
         }
         try {
             joinVoiceChannel({
                 channelId: interaction.member.voice.channelId,
                 guildId: interaction.guildId,
-                adapterCreator: interaction.guild.voiceAdapterCreator
-            })
-            await interaction.reply("***成功加入語音頻道***")
+                adapterCreator: interaction.guild.voiceAdapterCreator,
+            });
+            await interaction.reply('***成功加入語音頻道***');
         } catch (error) {
-            return interaction.reply({ content: `連接到語音頻道時出錯: ${error}`, ephemeral: true })
+            return interaction.reply({ content: `連接到語音頻道時出錯: ${error}`, ephemeral: true });
         }
-    }
-}
+    },
+};
