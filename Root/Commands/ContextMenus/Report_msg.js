@@ -22,7 +22,7 @@ module.exports = {
             .setLabel('舉報資訊')
             .setPlaceholder('連結')
             .setValue(`https://discord.com/channels/${interaction.guild.id}/${interaction.channel.id}/${interaction.targetMessage.id}\n============\n${interaction.targetMessage.author.tag} (${interaction.targetMessage.author.id}) 說：\n${interaction.targetMessage.content || '無訊息'}`)
-            .setRequired(true)
+            .setRequired(true);
         // 創建文本輸入組件
         const SuggestionsInput = new TextInputComponent()
             .setCustomId('reason')
@@ -44,7 +44,7 @@ module.exports = {
             .setValue('無');
         // 一個動作行只包含一個文本輸入，
         // 所以每個文本輸入需要一個操作行。
-        const ActionRow = new MessageActionRow().addComponents(reportmsg)
+        const ActionRow = new MessageActionRow().addComponents(reportmsg);
         const firstActionRow = new MessageActionRow().addComponents(SuggestionsInput);
         const secondActionRow = new MessageActionRow().addComponents(OthersInput);
         // 向模態添加輸入
