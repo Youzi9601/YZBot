@@ -7,7 +7,7 @@ const {
     MessageEmbed,
     MessageSelectMenu,
     Modal,
-    TextInputComponent
+    TextInputComponent,
 } = require('discord.js');
 
 const { config } = require('../../../../bot');
@@ -40,16 +40,16 @@ module.exports = {
             .setCustomId('msg')
             .setRequired(true)
             // The label is the prompt the user sees for this input
-            .setLabel("請問有什麼建議?")
+            .setLabel('請問有什麼建議?')
             // Short means only a single line of text
             .setStyle('SHORT')
-            .setPlaceholder('請輸入內容')
+            .setPlaceholder('請輸入內容');
         const OthersInput = new TextInputComponent()
             .setCustomId('whatelse')
-            .setLabel("還有其他的嗎?")
+            .setLabel('還有其他的嗎?')
             // Paragraph means multiple lines of text.
             .setStyle('PARAGRAPH')
-            .setPlaceholder('請輸入些什麼。')
+            .setPlaceholder('請輸入些什麼。');
         // An action row only holds one text input,
         // so you need one action row per text input.
         const firstActionRow = new MessageActionRow().addComponents(SuggestionsInput);
