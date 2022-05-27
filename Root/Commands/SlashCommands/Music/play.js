@@ -40,9 +40,5 @@ module.exports = {
             textChannel: interaction.channel,
             member: interaction.member,
         });
-        try {
-            if (interaction.member.voice.channel.type == 'GUILD_STAGE_VOICE')
-                interaction.guild.me.voice.setSuppressed(false);
-        } catch (error) { }
     },
 };

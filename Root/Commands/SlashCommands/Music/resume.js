@@ -33,10 +33,6 @@ module.exports = {
         }
         try {
             await client.distube.resume(interaction);
-            try {
-                if (interaction.member.voice.channel.type == 'GUILD_STAGE_VOICE')
-                    interaction.guild.me.voice.setSuppressed(false);
-            } catch (error) { }
             await interaction.reply('***恢復當前曲目***');
             const message = await interaction.fetchReply();
             await message.react('▶');

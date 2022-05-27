@@ -9,20 +9,30 @@ module.exports =
         const status = (queue) => `音量: \`${queue.volume}%\` | 重複: \`${queue.repeatMode ? queue.repeatMode === 2 ? '所有列隊' : '這首歌' : '關閉'}\` | 自動播放: \`${queue.autoplay ? '開啟' : '關閉'}\` | 篩選: \`${queue.filters.join(', ') || '關閉'}\``;
         // DisTube event listeners
         client.distube
-            .on('playSong', (queue, song) => {
-                const embed = new MessageEmbed()
-                    .setColor('RANDOM')
-                    .setAuthor({ name: `${client.user.username} 開始播放...`, iconURL: 'https://raw.githubusercontent.com/Youzi9601/YZBot/master/Root/assets/music.gif' })
-                    .setThumbnail(song.thumbnail)
-                    .setDescription(`[${song.name}](${song.url})`)
-                    .addField('**觀看數:**', song.views.toString(), true)
-                    .addField('**喜歡數:**', song.likes.toString(), true)
-                    .addField('**長度:**', song.formattedDuration.toString(), true)
-                    .addField('**狀態**', status(queue).toString())
-                    .setFooter({ text: `由 ${song.user.username} 請求`, iconURL: song.user.avatarURL() })
-                    .setTimestamp();
-                queue.textChannel.send({ embeds: [embed] });
-            })
+            .on('playSong',
+                /**
+                 * 
+                 * @param {import('distube').Queue} queue 
+                 * @param {import('distube').Song} song 
+                 */
+                (queue, song) => {
+                    const embed = new MessageEmbed()
+                        .setColor('RANDOM')
+                        .setAuthor({ name: `${client.user.username} 開始播放...`, iconURL: 'https://raw.githubusercontent.com/Youzi9601/YZBot/master/Root/assets/music.gif' })
+                        .setThumbnail(song.thumbnail)
+                        .setDescription(`[${song.name}](${song.url})`)
+                        .addField('**觀看數:**', song.views.toString(), true)
+                        .addField('**喜歡數:**', song.likes.toString(), true)
+                        .addField('**長度:**', song.formattedDuration.toString(), true)
+                        .addField('**狀態**', status(queue).toString())
+                        .setFooter({ text: `由 ${song.user.username} 請求`, iconURL: song.user.avatarURL() })
+                        .setTimestamp();
+                    queue.textChannel.send({ embeds: [embed] });
+                    queue.voice.setSelfDeaf(true)
+                    // queue.voice.setSelfMute(false)
+                    if (queue.clientMember.voice.channel.type == 'GUILD_STAGE_VOICE')
+                        queue.clientMember.guild.me.voice.setSuppressed(false);
+                })
             .on('addSong', (queue, song) => {
                 const embed = new MessageEmbed()
                     .setTitle(':ballot_box_with_check: | 將歌曲添加到列隊')
