@@ -1,9 +1,9 @@
-const Discord = require("discord.js")
+const Discord = require('discord.js');
 
 module.exports = {
     command: {
-        name: "stop",
-        description: "停止播放歌曲！",
+        name: 'stop',
+        description: '停止播放歌曲！',
         options: [],
     },
     cooldown: 5000,
@@ -17,23 +17,23 @@ module.exports = {
       * @param {*} container
       */
     run: async (client, interaction, container) => {
-        const queue = await client.distube.getQueue(interaction)
-        const voiceChannel = interaction.member.voice.channel
+        const queue = await client.distube.getQueue(interaction);
+        const voiceChannel = interaction.member.voice.channel;
         if (!voiceChannel) {
-            return interaction.reply({ content: "請先加入語音頻道！", ephemeral: true })
+            return interaction.reply({ content: '請先加入語音頻道！', ephemeral: true });
         }
         if (!queue) {
             const queueError = new Discord.MessageEmbed()
-                .setDescription(":x: 啊喔...沒有東西在列隊裡播放")
-                .setColor("RANDOM")
-            return interaction.reply({ embeds: [queueError] })
+                .setDescription(':x: 啊喔...沒有東西在列隊裡播放')
+                .setColor('RANDOM');
+            return interaction.reply({ embeds: [queueError] });
         }
         if (interaction.member.guild.me.voice.channelId !== interaction.member.voice.channelId) {
-            return interaction.reply({ content: ":x: 啊喔...你和我不在同一個語音頻道！", ephemeral: true })
+            return interaction.reply({ content: ':x: 啊喔...你和我不在同一個語音頻道！', ephemeral: true });
         }
-        await client.distube.stop(interaction)
-        await interaction.reply("***音樂停止***")
-        const message = await interaction.fetchReply()
-        await message.react("⏹")
-    }
-}
+        await client.distube.stop(interaction);
+        await interaction.reply('***音樂停止***');
+        const message = await interaction.fetchReply();
+        await message.react('⏹');
+    },
+};

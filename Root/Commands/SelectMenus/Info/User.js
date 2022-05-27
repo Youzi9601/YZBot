@@ -133,9 +133,9 @@ module.exports = {
 
                 // Accumulate every CPU times values
                 const total = Object.values(cpu.times).reduce(
-                    (acc, tv) => acc + tv, 0
+                    (acc, tv) => acc + tv, 0,
                 );
-                // Normalize the one returned by process.cpuUsage() 
+                // Normalize the one returned by process.cpuUsage()
                 // (microseconds VS miliseconds)
                 const usage = process.cpuUsage();
                 const currentCPUUsage = (usage.user + usage.system) * 1000;
@@ -184,7 +184,7 @@ module.exports = {
                         },
                         {
                             name: '平台: ',
-                            value: `\`${process.platform}\``
+                            value: `\`${process.platform}\``,
                         },
                         {
                             name: '記憶體: ',
