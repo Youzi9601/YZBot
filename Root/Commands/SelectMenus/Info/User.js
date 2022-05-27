@@ -141,7 +141,7 @@ module.exports = {
                 const currentCPUUsage = (usage.user + usage.system) * 1000;
 
                 // Find out the percentage used for this specific CPU
-                const perc = currentCPUUsage / total * 100;
+                const perc = Math.round((currentCPUUsage / total * 100) / 100);
 
                 //
                 embed = new MessageEmbed()
