@@ -11,9 +11,9 @@ module.exports =
         client.distube
             .on('playSong',
                 /**
-                 * 
-                 * @param {import('distube').Queue} queue 
-                 * @param {import('distube').Song} song 
+                 *
+                 * @param {import('distube').Queue} queue
+                 * @param {import('distube').Song} song
                  */
                 (queue, song) => {
                     const embed = new MessageEmbed()
@@ -28,7 +28,7 @@ module.exports =
                         .setFooter({ text: `由 ${song.user.username} 請求`, iconURL: song.user.avatarURL() })
                         .setTimestamp();
                     queue.textChannel.send({ embeds: [embed] });
-                    queue.voice.setSelfDeaf(true)
+                    queue.voice.setSelfDeaf(true);
                     // queue.voice.setSelfMute(false)
                     if (queue.clientMember.voice.channel.type == 'GUILD_STAGE_VOICE')
                         queue.clientMember.guild.me.voice.setSuppressed(false);
