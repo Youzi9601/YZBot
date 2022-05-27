@@ -19,7 +19,7 @@ module.exports = {
     },
     clientPermissions: ['SEND_MESSAGES', 'VIEW_CHANNEL', 'READ_MESSAGE_HISTORY'],
     userPermissions: ['SEND_MESSAGES'],
-    ignoreFile: false,
+    ignoreFile: true,
 
     /**
      *
