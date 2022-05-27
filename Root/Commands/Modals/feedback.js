@@ -10,7 +10,6 @@ const {
 } = require('discord.js');
 module.exports = {
     name: 'feedback',
-    ignoreFile: true,
     /**
      *
      * @param {import('discord.js').Client} client

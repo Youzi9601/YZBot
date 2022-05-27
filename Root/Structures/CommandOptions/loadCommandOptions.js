@@ -143,11 +143,20 @@ module.exports = async function (
     // 執行命令(斜線/文字)
     else {
 
-        if (isInteraction) command.run(client, message, container);
+        if (isInteraction) {
+            try {
+                command.run(client, message, container);
+            } catch (error) {
+                message.reply({ content: ':x: 啊喔...發生了錯誤 :/\n\`\`\`' + error + '\n\`\`\`', ephemeral: true });
+                log('error', '發生了錯誤！\n' + error, ture, client);
+            }
+
+        }
         //
         else {
             container.Config.prefix.forEach((prefix) => {
                 if (!message.content.toLowerCase().startsWith(prefix)) return;
+
                 const cmdName = message.content
                     .trim()
                     .toLowerCase()
@@ -160,6 +169,7 @@ module.exports = async function (
                         client.commands.messageCommands.aliases.get(cmdName),
                     );
                 if (!command) return;
+
                 let args = message.content.slice(prefix.length).trim();
                 if (args.toLowerCase().startsWith(cmdName))
                     args = args.slice(cmdName.length).trim().split(' ');
