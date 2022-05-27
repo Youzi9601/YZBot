@@ -14,7 +14,7 @@ const { log } = require('../../Utils/log');
  * @param {*} interactionType 'Button'||'SelectMenus'||'SlashCommand'||'ContextMenus'
  * @returns
  */
-module.exports = async function (
+module.exports = async function(
     client,
     message,
     command,
@@ -141,41 +141,38 @@ module.exports = async function (
     // #endregion bypass
 
     // 執行命令(斜線/文字)
-    else {
-
-        if (isInteraction) {
-            try {
-                command.run(client, message, container);
-            } catch (error) {
-                message.reply({ content: ':x: 啊喔...發生了錯誤 :/\n\`\`\`' + error + '\n\`\`\`', ephemeral: true });
-                log('error', '發生了錯誤！\n' + error, ture, client);
-            }
-
+    else if (isInteraction) {
+        try {
+            command.run(client, message, container);
+        } catch (error) {
+            message.reply({ content: ':x: 啊喔...發生了錯誤 :/\n\`\`\`' + error + '\n\`\`\`', ephemeral: true });
+            log('error', '發生了錯誤！\n' + error, ture, client);
         }
-        //
-        else {
-            container.Config.prefix.forEach((prefix) => {
-                if (!message.content.toLowerCase().startsWith(prefix)) return;
 
-                const cmdName = message.content
-                    .trim()
-                    .toLowerCase()
-                    .slice(prefix.length)
-                    .trim()
-                    .split(' ')[0];
-                const command =
+    }
+    //
+    else {
+        container.Config.prefix.forEach((prefix) => {
+            if (!message.content.toLowerCase().startsWith(prefix)) return;
+
+            const cmdName = message.content
+                .trim()
+                .toLowerCase()
+                .slice(prefix.length)
+                .trim()
+                .split(' ')[0];
+            const command =
                     client.commands.messageCommands.get(cmdName) ??
                     client.commands.messageCommands.get(
                         client.commands.messageCommands.aliases.get(cmdName),
                     );
-                if (!command) return;
+            if (!command) return;
 
-                let args = message.content.slice(prefix.length).trim();
-                if (args.toLowerCase().startsWith(cmdName))
-                    args = args.slice(cmdName.length).trim().split(' ');
+            let args = message.content.slice(prefix.length).trim();
+            if (args.toLowerCase().startsWith(cmdName))
+                args = args.slice(cmdName.length).trim().split(' ');
                 // 執行文字命令
-                command.run(client, message, args, container);
-            });
-        }
+            command.run(client, message, args, container);
+        });
     }
 };
