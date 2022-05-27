@@ -2,10 +2,20 @@ const Discord = require("discord.js")
 
 module.exports = {
     command: {
-        name: "queue",
-        description: "顯示列隊",
+        name: "previous",
+        description: "播放上一首歌曲！",
+        options: [],
     },
-    cooldown: 10000,
+    cooldown: 5000,
+    default_permission: undefined,
+    clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'MOVE_MEMBERS', 'MUTE_MEMBERS', 'DEAFEN_MEMBERS'],
+
+    /**
+      *
+      * @param {import('discord.js').Client} client
+      * @param {import('discord.js').CommandInteraction} interaction
+      * @param {*} container
+      */
     run: async (client, interaction, container) => {
         const queue = await client.distube.getQueue(interaction)
         const voiceChannel = interaction.member.voice.channel
@@ -21,13 +31,13 @@ module.exports = {
         if (interaction.member.guild.me.voice.channelId !== interaction.member.voice.channelId) {
             return interaction.reply({ content: ":x: 啊喔...你和我不在同一個語音頻道！", ephemeral: true })
         }
-        const q = queue.songs.map((song, i) => {
-            return `${i === 0 ? "播放：" : `${i}.`} ${song.name} - \`${song.formattedDuration}\``
-        }).join("\n")
-
-        const embed = new Discord.MessageEmbed()
-            .setDescription(`**當前列隊：** \n\n  ${q}`)
-            .setColor("RANDOM")
-        interaction.reply({ embeds: [embed] })
+        try {
+            await client.distube.previous(interaction)
+            await interaction.reply("***上一首歌***")
+            const message = await interaction.fetchReply()
+            await message.react("⏮")
+        } catch {
+            interaction.reply({ content: " 此列隊中沒有上一首歌曲", ephemeral: true })
+        }
     }
 }

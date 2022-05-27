@@ -126,3 +126,11 @@
 3. 恭喜！你可以到 [這裡](https://github.com/Youzi9601/YZBot/pulls) 開啟一個 Pull Request，讓我們知道你的想法！
 
 </details>
+
+# 感謝
+
+
+- 使用這個東西的人
+- HELLSNAKES 的 Music-Slash-Bot
+- 我自己的努力
+- 幫助我的人

@@ -44,13 +44,13 @@
         const promises = [];
         for (const command of data) {
             const deleteUrl = `${Routes.applicationCommands(config.clientID)}/${command.id
-            }`;
+                }`;
             promises.push(rest.delete(deleteUrl));
             console.info(deleteUrl);
         }
         return Promise.all(promises);
     });
-    console.log('完成!' + promises);
+    console.log('完成!' + promises.length + '個命令被刪除！');
     // console.log('準備開始運轉...')
     // 下載npm
     // const exec = require('child_process').exec;

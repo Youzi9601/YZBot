@@ -13,6 +13,7 @@ module.exports = {
     run: async (oldMessage, newMessage, client, container) => {
         require('../../Plugins/discord/message/counting/counting_edit')(oldMessage, newMessage, client, container);
 
+        if (!oldMessage.author) return;
         if (oldMessage.author.id == client.user.id) return;
         if (oldMessage.author.bot) return;
         log('info',

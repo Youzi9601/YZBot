@@ -2,9 +2,17 @@ const Discord = require("discord.js")
 
 module.exports = {
     command: {
-        name: "pause",
-        description: "暫停當前播放的曲目",
-        options: [],
+        name: "seek",
+        description: "將播放時間設置到另一個位置",
+        options: [
+            {
+                name: "amount",
+                type: 10,
+                description: "您想跳轉到的時間（以秒為單位）",
+                required: true
+            }
+        ],
+
     },
     cooldown: 5000,
     default_permission: undefined,
@@ -17,8 +25,9 @@ module.exports = {
       * @param {*} container
       */
     run: async (client, interaction, container) => {
-        const queue = await client.distube.getQueue(interaction)
+        const args = interaction.options.getNumber("amount")
         const voiceChannel = interaction.member.voice.channel
+        const queue = await client.distube.getQueue(interaction)
         if (!voiceChannel) {
             return interaction.reply({ content: "請先加入語音頻道！", ephemeral: true })
         }
@@ -31,13 +40,13 @@ module.exports = {
         if (interaction.member.guild.me.voice.channelId !== interaction.member.voice.channelId) {
             return interaction.reply({ content: ":x: 啊喔...你和我不在同一個語音頻道！", ephemeral: true })
         }
-        try {
-            await client.distube.pause(interaction)
-            await interaction.reply("***暫停當前曲目***")
-            const message = await interaction.fetchReply()
-            await message.react("⏸")
-        } catch {
-            interaction.reply({ content: " 列隊已暫停", ephemeral: true })
-        }
+        const time = parseInt(args)
+        if (!time) return interaction.reply({ content: "請指定時間，時間以秒為單位。" })
+        if (time >= queue.songs[0].duration) return interaction.reply({ content: `時間： \`${queue.songs[0].duration} 秒\`` })
+        client.distube.seek(interaction, Number(args))
+        const embed = new Discord.MessageEmbed()
+            .setDescription(`跳轉到 \`${args} 秒\``)
+            .setColor("RANDOM")
+        return interaction.reply({ embeds: [embed] })
     }
 }

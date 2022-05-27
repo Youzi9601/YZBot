@@ -1,9 +1,9 @@
 const Discord = require("discord.js")
-
+const status = (queue) => `Volume: \`${queue.volume}%\` | Loop: \`${queue.repeatMode ? queue.repeatMode === 2 ? "All Queue" : "This Song" : "Off"}\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\` | Filter: \`${queue.filters.join(", ") || "Off"}\``
 module.exports = {
     command: {
-        name: "pause",
-        description: "暫停當前播放的曲目",
+        name: "nowplay",
+        description: "當前播放的歌曲",
         options: [],
     },
     cooldown: 5000,
@@ -31,13 +31,19 @@ module.exports = {
         if (interaction.member.guild.me.voice.channelId !== interaction.member.voice.channelId) {
             return interaction.reply({ content: ":x: 啊喔...你和我不在同一個語音頻道！", ephemeral: true })
         }
-        try {
-            await client.distube.pause(interaction)
-            await interaction.reply("***暫停當前曲目***")
-            const message = await interaction.fetchReply()
-            await message.react("⏸")
-        } catch {
-            interaction.reply({ content: " 列隊已暫停", ephemeral: true })
-        }
+        const song = queue.songs[0]
+        const embed = new Discord.MessageEmbed()
+            .setAuthor({ name: "現在播放", iconURL: "https://raw.githubusercontent.com/Youzi9601/YZBot/master/Root/assets/music.gif" })
+            .setDescription(`[${song.name}](${song.url})`)
+            .addField("**觀看數:**", song.views.toString(), true)
+            .addField("**喜歡數:**", song.likes.toString(), true)
+            .addField("**長度:**", `${queue.formattedCurrentTime} / ${song.formattedDuration}`)
+            .addField("**連結**", `[下載這首歌](${song.streamURL})`)
+            .addField("**狀態**", status(queue).toString())
+            .setThumbnail(song.thumbnail)
+            .setColor("RANDOM")
+            .setFooter({ text: `由 ${song.user.username} 請求`, iconURL: song.user.avatarURL() })
+            .setTimestamp()
+        return interaction.reply({ embeds: [embed] })
     }
 }

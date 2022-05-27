@@ -1,10 +1,19 @@
 const Discord = require("discord.js")
+const progressbar = require("string-progressbar")
 
 module.exports = {
     command: {
-        name: "pause",
-        description: "暫停當前播放的曲目",
-        options: [],
+        name: "volume",
+        description: "更改音樂播放器的音量。",
+        options: [
+            {
+                name: "amount",
+                type: 10,
+                description: "音量百分比(數字，1~200)",
+                required: true
+            }
+        ],
+
     },
     cooldown: 5000,
     default_permission: undefined,
@@ -17,6 +26,7 @@ module.exports = {
       * @param {*} container
       */
     run: async (client, interaction, container) => {
+        const args = interaction.options.getNumber("amount")
         const queue = await client.distube.getQueue(interaction)
         const voiceChannel = interaction.member.voice.channel
         if (!voiceChannel) {
@@ -31,13 +41,15 @@ module.exports = {
         if (interaction.member.guild.me.voice.channelId !== interaction.member.voice.channelId) {
             return interaction.reply({ content: ":x: 啊喔...你和我不在同一個語音頻道！", ephemeral: true })
         }
-        try {
-            await client.distube.pause(interaction)
-            await interaction.reply("***暫停當前曲目***")
-            const message = await interaction.fetchReply()
-            await message.react("⏸")
-        } catch {
-            interaction.reply({ content: " 列隊已暫停", ephemeral: true })
+        const volume = parseInt(args)
+        if (volume < 1 || volume > 200) {
+            return interaction.reply({ content: "請輸入一個有效的數字（1 到 200 之間）", ephemeral: true })
         }
+        await client.distube.setVolume(interaction, volume)
+        const total = 200
+        const current = volume
+        const bar = progressbar.splitBar(total, current, 10, "▬", "🔘")[0]
+        await interaction.reply(`將新音量設置為 ${volume}%。`)
+        await interaction.channel.send(bar)
     }
 }

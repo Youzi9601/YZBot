@@ -2,9 +2,17 @@ const Discord = require("discord.js")
 
 module.exports = {
     command: {
-        name: "pause",
-        description: "暫停當前播放的曲目",
-        options: [],
+        name: "jump",
+        description: "Jump to the song number in the queue",
+        options: [
+            {
+                name: "id",
+                type: 10,
+                description: "The music's ID in the queue",
+                required: true
+            }
+        ],
+
     },
     cooldown: 5000,
     default_permission: undefined,
@@ -17,6 +25,7 @@ module.exports = {
       * @param {*} container
       */
     run: async (client, interaction, container) => {
+        const musicid = interaction.options.getNumber("id")
         const queue = await client.distube.getQueue(interaction)
         const voiceChannel = interaction.member.voice.channel
         if (!voiceChannel) {
@@ -32,12 +41,10 @@ module.exports = {
             return interaction.reply({ content: ":x: 啊喔...你和我不在同一個語音頻道！", ephemeral: true })
         }
         try {
-            await client.distube.pause(interaction)
-            await interaction.reply("***暫停當前曲目***")
-            const message = await interaction.fetchReply()
-            await message.react("⏸")
+            await client.distube.jump(interaction, parseInt(musicid))
+            await interaction.reply({ content: "Jumped to the song number " + musicid })
         } catch {
-            interaction.reply({ content: " 列隊已暫停", ephemeral: true })
+            return interaction.reply({ content: "Invalid song id!", ephemeral: true })
         }
     }
 }

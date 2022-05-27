@@ -152,6 +152,26 @@ const fetch = require('node-fetch');
     });
     require('./Root/Plugins/discord/Giveaway')(client);
 
+    // Distube
+    const Distube = require("distube")
+    const { SoundCloudPlugin } = require("@distube/soundcloud")
+    const { SpotifyPlugin } = require("@distube/spotify")
+    const { YouTubeDLPlugin } = require("@distube/yt-dlp")
+
+    /* eslint new-cap: ["error", { "properties": false }] */
+    client.distube = new Distube.default(client, {
+        youtubeDL: false,
+        leaveOnEmpty: true,
+        emptyCooldown: 30,
+        leaveOnFinish: false,
+        emitNewSongOnly: true,
+        updateYouTubeDL: true,
+        nsfw: true,
+        youtubeCookie: process.env.ytcookie,
+        plugins: [new SoundCloudPlugin(), new SpotifyPlugin(), new YouTubeDLPlugin()]
+    })
+    require('./Root/Plugins/discord/Musicbot/music')(client)
+
     if (`${config.webhook.use}` == 'true') {
         console.info(
             chalk.gray(
@@ -248,9 +268,9 @@ const fetch = require('node-fetch');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
