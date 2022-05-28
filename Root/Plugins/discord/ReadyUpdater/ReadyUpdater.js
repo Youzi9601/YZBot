@@ -8,9 +8,9 @@ const os = require('os');
  * @param {*} oldmsg
  * @param {import('discord.js').Client} client
  */
-module.exports = async function (message, oldmsg, client) {
-    module.exports.message = message
-    module.exports.oldmsg = oldmsg
+module.exports = async function(message, oldmsg, client) {
+    module.exports.message = message;
+    module.exports.oldmsg = oldmsg;
     // console.info('執行UpDater')
     //
     // 更新機器人狀態
@@ -142,4 +142,4 @@ module.exports = async function (message, oldmsg, client) {
     }
 
     //
-}
+};

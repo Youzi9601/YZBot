@@ -170,7 +170,7 @@ Client 事件      ::     ${client.events.size} 個
             const readymsg = await conchannel.send({ embeds: [embed] });
             require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater')(readymsg, msg, client);
         } catch (error) { console.info(error); }
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人成功上線！`, function (err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人成功上線！`, function(err) {
             if (err)
                 console.info(err);
         });
