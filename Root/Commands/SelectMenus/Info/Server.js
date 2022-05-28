@@ -26,7 +26,7 @@ module.exports = {
             .setColor('RANDOM')
             .setTimestamp()
             .setFooter({
-                text: `${interaction.member.user.tag}`,
+                text: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
                 iconURL: `${interaction.member.user.displayAvatarURL({
                     dynamic: true,
                 })}`,

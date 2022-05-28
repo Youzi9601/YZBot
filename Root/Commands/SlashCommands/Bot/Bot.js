@@ -611,9 +611,17 @@ module.exports = {
             interaction.channel.messages.fetch(message_id)
                 .then(message => {
                     // console.info(message.content);
-                    message.react(`${emoji}`);
+                    message.react(`${emoji}`).catch((error) => {
+                        console.error(error)
+                        interaction.reply({ content: `啊喔...發生了錯誤：看不懂反應 ${emoji} 是甚麼...` })
+                        return;
+                    });
                 })
-                .catch(console.error);
+                .catch((error) => {
+                    console.error(error)
+                    interaction.reply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${message_id} 的訊息...` })
+                    return;
+                });
             // console.info(msg)
             interaction.reply('已新增反應！');
 
@@ -757,6 +765,10 @@ module.exports = {
                         content: '已經成功編輯指定訊息',
                         ephemeral: true,
                     });
+                }).catch((error) => {
+                    console.error(error)
+                    interaction.reply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${interaction.options.getString('message_id')} 的訊息 ...` })
+                    return;
                 });
             /*
             interaction.channel.messages
@@ -868,7 +880,7 @@ module.exports = {
             // 取得訊息內容
             const msg = {};
             if (content) {
-                msg.content = content.replace(/\\n/g, '\n');
+                msg.content = content.replace(/\\n/g, '\n\u200b');
             }
 
             if (
@@ -894,8 +906,15 @@ module.exports = {
                 // 設定
                 msg.embeds = [embed];
             }
-            channel.send(msg);
-            interaction.reply({
+
+            try {
+                await channel.send(msg)
+            } catch (error) {
+                console.error(error)
+                interaction.reply({ content: `啊喔...發生了錯誤：無法發送訊息...\n\`\`\`js\n${error}\`\`\`` })
+                return;
+            }
+            await interaction.reply({
                 content: '已經成功發送指定訊息',
                 ephemeral: true,
             });
@@ -962,7 +981,6 @@ module.exports = {
         }
         // #endregion
         // #region delete-msg
-
         else if (subcommand == 'delete-msg') {
             // 取得指令內容
             interaction.channel.messages.fetch({ around: interaction.options.getString('message_id'), limit: 1 })
@@ -979,6 +997,11 @@ module.exports = {
                         content: ':x:錯誤： 無法刪除指定訊息',
                         ephemeral: true,
                     });
+                    return;
+                }).catch((error) => {
+                    console.error(error)
+                    interaction.reply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${interaction.options.getString('message_id')} 的訊息 ...` })
+                    return;
                 });
             /*
             interaction.channel.messages
@@ -998,11 +1021,11 @@ module.exports = {
         // #endregion
         else {
             try {
-                interaction.reply({
+                await interaction.reply({
                     content: '此功能尚未完成！ :/',
                 });
             } catch {
-                interaction.editReply({
+                await interaction.editReply({
                     content: '此功能尚未完成！ :/',
                 });
             }

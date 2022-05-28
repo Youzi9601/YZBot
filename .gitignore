@@ -14,6 +14,6 @@ Config.js
 ##忽略的設定檔：
 Root/Plugins/discord/message/corss_server/
 Root/Plugins/TaiwanEarthQuake/
-Root/Plugins/discord/storage/*.json
+Storage/*.json
 #Root/Language/
 #無

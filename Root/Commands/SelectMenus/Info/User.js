@@ -180,6 +180,7 @@ module.exports = {
                         {
                             name: '平台: ',
                             value: `\`${process.platform}\``,
+                            inline: true,
                         },
                         {
                             name: '記憶體: ',

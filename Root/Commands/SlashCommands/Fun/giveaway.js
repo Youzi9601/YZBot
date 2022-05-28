@@ -137,7 +137,7 @@ module.exports = {
         ],
     },
     ignoreFile: false,
-    clientPermissions: ['VIEW_CHANNEL', 'MANAGE_MESSAGES', 'SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
+    clientPermissions: ['VIEW_CHANNEL', 'MANAGE_CHANNELS', 'ADD_REACTIONS', 'MANAGE_MESSAGES', 'SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
     /**
      *
      * @param {import('discord.js').Client} client
@@ -189,40 +189,45 @@ module.exports = {
                 return error;
             }
             // Start the giveaway
-            client.giveawaysManager.start(channel, {
-                // The giveaway duration
-                duration: ms_duration,
-                // The giveaway prize
-                prize: prize,
-                // The giveaway winner count
-                winnerCount: winners,
-                // specify drop
-                isDrop: drop,
-                // Who hosts this giveaway
-                hostedBy: config.plugins.giveaways.host_user ? interaction.user : null,
-                // when pause
-                pauseOptions: {
-                    isPaused: false,
-                    content: '⚠️ **抽獎已暫停** ⚠️',
-                    unPauseAfter: null,
-                    embedColor: '#FFFF00',
-                    infiniteDurationText: '`無`',
-                },
-                // Messages
-                messages: {
-                    giveaway: (config.plugins.giveaways.everyoneMention ? '@everyone\n\n' : '') + '🎉 **抽獎** 🎉',
-                    giveawayEnded: (config.plugins.giveaways.everyoneMention ? '@everyone\n\n' : '') + '🎉 **抽獎結束** 🎉',
-                    inviteToParticipate: '點選下方的🎉反應參與！',
-                    dropMessage: '成為第一個按下🎉反應的人！',
-                    drawing: '時間： {timestamp}',
-                    winMessage: { content: '{winners}', embed: { description: '恭喜以上得獎者贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})', color: '0x0174DF' } },
-                    embedFooter: `${client.user.username}｜抽獎系統`,
-                    noWinner: { embed: { description: ':stop: 抽獎已取消，沒有任何有效的參與。', color: '0x0174DF' } },
-                    hostedBy: '由 {this.hostedBy} 主辦 ',
-                    winners: '獲獎者',
-                    endedAt: '結束於',
-                },
-            });
+            try {
+                client.giveawaysManager.start(channel, {
+                    // The giveaway duration
+                    duration: ms_duration,
+                    // The giveaway prize
+                    prize: prize,
+                    // The giveaway winner count
+                    winnerCount: winners,
+                    // specify drop
+                    isDrop: drop,
+                    // Who hosts this giveaway
+                    hostedBy: config.plugins.giveaways.host_user ? interaction.user : null,
+                    // when pause
+                    pauseOptions: {
+                        isPaused: false,
+                        content: '⚠️ **抽獎已暫停** ⚠️',
+                        unPauseAfter: null,
+                        embedColor: '#FFFF00',
+                        infiniteDurationText: '`無`',
+                    },
+                    // Messages
+                    messages: {
+                        giveaway: (config.plugins.giveaways.everyoneMention ? '@everyone\n\n' : '') + '🎉 **抽獎** 🎉',
+                        giveawayEnded: (config.plugins.giveaways.everyoneMention ? '@everyone\n\n' : '') + '🎉 **抽獎結束** 🎉',
+                        inviteToParticipate: '點選下方的🎉反應參與！',
+                        dropMessage: '成為第一個按下🎉反應的人！',
+                        drawing: '時間： {timestamp}',
+                        winMessage: { content: '{winners}', embed: { description: '恭喜以上得獎者贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})', color: '0x0174DF' } },
+                        embedFooter: `${client.user.username}｜抽獎系統`,
+                        noWinner: { embed: { description: ':stop: 抽獎已取消，沒有任何有效的參加者。', color: '0x0174DF' } },
+                        hostedBy: '由 {this.hostedBy} 主辦 ',
+                        winners: '獲獎者',
+                        endedAt: '結束於',
+                    },
+                });
+            } catch (error) {
+                interaction.reply(`:x: umm... 我看不懂\`${duration}\`是甚麼... \n如果抽獎時間為\`5天3小時10分鐘30秒\`，請輸入\`5d3h10m30s\``);
+                return error;
+            }
 
             interaction.reply(`抽獎開始於 <#${channel.id}>!`);
 
