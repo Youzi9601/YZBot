@@ -24,7 +24,7 @@ module.exports =
                         .addField('**觀看數:**', song.views.toString(), true)
                         .addField('**喜歡數:**', song.likes.toString(), true)
                         .addField('**長度:**', song.formattedDuration.toString(), true)
-                        .addField('**狀態**', status(queue).toString())
+                        .addField('**狀態**', status(queue).toString(), false)
                         .setFooter({ text: `由 ${song.user.username} 請求`, iconURL: song.user.avatarURL() })
                         .setTimestamp();
                     queue.textChannel.send({ embeds: [embed] });
@@ -36,7 +36,7 @@ module.exports =
             .on('addSong', (queue, song) => {
                 const embed = new MessageEmbed()
                     .setTitle(':ballot_box_with_check: | 將歌曲添加到列隊')
-                    .setDescription(`\`${song.name}\` - \`${song.formattedDuration}\` - 由 ${song.user} 播放`)
+                    .setDescription(`\`${song.name}\` - \`${song.formattedDuration}\` - 由 ${song.user} 請求`)
                     .setColor('RANDOM')
                     .setTimestamp();
                 queue.textChannel.send({ embeds: [embed] });
@@ -56,7 +56,7 @@ module.exports =
             // .on("finish", queue => queue.textChannel.send("***No more song in queue. Leaving the channel***"))
             .on('finishSong', queue => {
                 const embed = new MessageEmbed()
-                    .setDescription(`:white_check_mark: | 播放完畢\`${queue.songs[0].name}\``);
+                    .setDescription(`:white_check_mark: | \`${queue.songs[0].name}\` 已播放完畢！`);
                 queue.textChannel.send({ embeds: [embed] });
             })
             .on('disconnect', queue => {
