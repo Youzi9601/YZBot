@@ -7,6 +7,13 @@ const { config } = require('./../../../bot');
 const chalk = require('chalk');
 const fs = require('fs');
 const humanizeDuration = require('humanize-duration');
+const sleep = async (ms) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, ms || 0);
+    });
+};
 
 module.exports = (client) => {
     // #region 事件
@@ -57,74 +64,81 @@ module.exports = (client) => {
             } catch (error) {
                 // none
             }
-        });
-    // 設定信號退出
-    // const signal = ['SIGINT', 'SIGTERM'];
-    process.on('SIGINT', () => {
-        console.log(`SIGINT｜收到 SIGINT 信號，關閉機器人......`);
-        console.log(
-            chalk.gray(
-                '\n\n───────────────────────────────機器人控制台───────────────────────────────\n',
-            ),
-        );
-        const { oldmsg, message } = require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater');
-        // 調整時差
-        const Today = new Date();
-        let day = Today.getDate();
-        let hours = Today.getUTCHours() + config.GMT;
+        })
+        // 設定信號退出
+        // const signal = ['SIGINT', 'SIGTERM'];
+        .on('SIGINT', async () => {
+            console.log(`\n\n關機｜收到 SIGINT 信號，關閉機器人......`);
+            console.log(
+                chalk.gray(
+                    '───────────────────────────────機器人控制台───────────────────────────────\n',
+                ),
+            );
+            const { oldmsg, message } = require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater');
+            // 調整時差
+            const Today = new Date();
+            let day = Today.getDate();
+            let hours = Today.getUTCHours() + config.GMT;
 
-        if (hours >= 24) {
-            hours = hours - 24;
-            day = day + 1;
-        }
+            if (hours >= 24) {
+                hours = hours - 24;
+                day = day + 1;
+            }
 
-        const msg = '```' +
-            Today.getFullYear() +
-            ' 年 ' +
-            (Today.getMonth() + 1) +
-            ' 月 ' +
-            day +
-            ' 日 ' +
-            hours +
-            ' 時 ' +
-            Today.getMinutes() +
-            ' 分 ' +
-            Today.getSeconds() +
-            ' 秒' +
-            ' 機器人關機```';
-        const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
-            conjunction: ' ',
-            language: 'zh_TW',
-        })} `;
-        const embed = {
-            color: 0x808080,
-            description: oldmsg + '\n' + msg,
-            author: {
-                name: `${client.user.username} - 機器人運作資訊`,
-                iconURL: client.user.avatarURL({ dynamic: true }),
-            },
-            fields: [
-                { name: '版本:', value: `v${require('../../../../package.json').version}`, inline: true },
-                { name: 'Discord.js:', value: `${require('discord.js').version}`, inline: true },
-                { name: 'Node.js', value: `${process.version}`, inline: true },
-                { name: '\u200B', value: '\u200B', inline: false },
-                {
-                    name: '運行時間:',
-                    value: `${uptime}`,
-                    inline: true,
+            const msg = '```' +
+                Today.getFullYear() +
+                ' 年 ' +
+                (Today.getMonth() + 1) +
+                ' 月 ' +
+                day +
+                ' 日 ' +
+                hours +
+                ' 時 ' +
+                Today.getMinutes() +
+                ' 分 ' +
+                Today.getSeconds() +
+                ' 秒' +
+                ' 機器人關機```';
+            const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+                conjunction: ' ',
+                language: 'zh_TW',
+            })} `;
+            const embed = {
+                color: 0x808080,
+                description: oldmsg + ' ' + msg,
+                author: {
+                    name: `${client.user.username} - 機器人運作資訊`,
+                    iconURL: client.user.avatarURL({ dynamic: true }),
                 },
-            ],
-            timestamp: new Date(),
-        };
+                fields: [
+                    { name: '版本:', value: `v${require('./../../../package.json').version}`, inline: true },
+                    { name: 'Discord.js:', value: `${require('discord.js').version}`, inline: true },
+                    { name: 'Node.js', value: `${process.version}`, inline: true },
+                    { name: '\u200B', value: '\u200B', inline: false },
+                    {
+                        name: '運行時間:',
+                        value: `${uptime}`,
+                        inline: true,
+                    },
+                ],
+                timestamp: new Date(),
+            };
 
-        try {
-            message.edit({ embeds: [embed] });
-        } catch (error) {
-
-        }
-        /** 程式代碼 */
-        process.exit();
-    });
+            try {
+                message.edit({ embeds: [embed] });
+                await sleep(5000)
+            } catch (error) { }
+            /** 程式代碼 */
+            process.exit(0);
+        })
+        .on('exit', async (code) => {
+            //
+            console.log(`\n\n關機｜正在關機...`);
+            console.log(`關機｜退出代碼: ${code}`);
+            setTimeout(() => {
+                // 內部不執行
+            }, 10000);
+        });
 
     // #endregion
 
