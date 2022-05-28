@@ -173,11 +173,6 @@ module.exports = {
                             inline: true,
                         },
                         {
-                            name: '運行時間',
-                            value: `v${version}`,
-                            inline: true,
-                        },
-                        {
                             name: 'Websocket 延遲:',
                             value: `${client.ws.ping}ms`,
                             inline: true,
