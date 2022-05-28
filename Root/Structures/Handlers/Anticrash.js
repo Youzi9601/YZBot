@@ -117,7 +117,7 @@ module.exports = (client) => {
         };
 
         try {
-            await message.edit({ embeds: [embed] });
+            message.edit({ embeds: [embed] });
         } catch (error) {
 
         }
