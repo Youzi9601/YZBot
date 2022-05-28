@@ -68,7 +68,7 @@ module.exports = (client) => {
         // 設定信號退出
         // const signal = ['SIGINT', 'SIGTERM'];
         .on('SIGINT', async () => {
-            console.log(`\n\n關機｜收到 SIGINT 信號，關閉機器人......`);
+            console.log('\n\n關機｜收到 SIGINT 信號，關閉機器人......');
             console.log(
                 chalk.gray(
                     '───────────────────────────────機器人控制台───────────────────────────────\n',
@@ -126,14 +126,14 @@ module.exports = (client) => {
 
             try {
                 message.edit({ embeds: [embed] });
-                await sleep(5000)
+                await sleep(5000);
             } catch (error) { }
             /** 程式代碼 */
             process.exit(0);
         })
         .on('exit', async (code) => {
             //
-            console.log(`\n\n關機｜正在關機...`);
+            console.log('\n\n關機｜正在關機...');
             console.log(`關機｜退出代碼: ${code}`);
             setTimeout(() => {
                 // 內部不執行
