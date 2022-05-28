@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const status = (queue) => `音量: \`${queue.volume}%\` | 重複: \`${queue.repeatMode ? queue.repeatMode === 2 ? '所有列隊' : '這首歌' : '關閉'}\` | 自動播放: \`${queue.autoplay ? '開啟' : '關閉'}\` | 篩選: \`${queue.filters.join(', ') || '關閉'}\``;
 module.exports = {
     command: {
-        name: 'nowplay',
+        name: 'nowplaying',
         description: '取得當前播放的歌曲',
         options: [],
     },
