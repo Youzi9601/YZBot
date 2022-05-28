@@ -1,16 +1,16 @@
-module.exports = { updater };
 const humanizeDuration = require('humanize-duration');
 const { config } = require('../../../../bot');
 const axios = require('axios');
 const os = require('os');
-
 /**
  *
- * @param {import(discord.js).Message} message
+ * @param {import('discord.js').Message} message
  * @param {*} oldmsg
  * @param {import('discord.js').Client} client
  */
-async function updater(message, oldmsg, client) {
+module.exports = async function (message, oldmsg, client) {
+    module.exports.message = message
+    module.exports.oldmsg = oldmsg
     // console.info('執行UpDater')
     //
     // 更新機器人狀態

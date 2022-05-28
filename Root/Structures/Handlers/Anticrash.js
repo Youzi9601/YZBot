@@ -2,7 +2,11 @@
  *
  * @param {import('./../../../bot').client} client
  */
+const db = require('quick.db');
 const { config } = require('./../../../bot');
+const chalk = require('chalk');
+const fs = require('fs');
+const humanizeDuration = require('humanize-Duration')
 module.exports = (client) => {
     // #region 事件
     // 處理錯誤
@@ -52,7 +56,75 @@ module.exports = (client) => {
             } catch (error) {
                 // none
             }
-        });
+        })
+    // 設定信號退出
+    const signal = ["SIGINT", "SIGTERM", "SIGQUIT", "SIGKILL", "SIGHUP"]
+    signal.forEach(signal => process.on(signal, () => {
+        const { oldmsg, message } = require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater')
+        console.log(`${signal}｜收到 ${signal} 信號，關閉機器人......`);
+        console.log(
+            chalk.gray(
+                '\n\n───────────────────────────────機器人控制台───────────────────────────────\n',
+            ),
+        );
+        // 調整時差
+        const Today = new Date();
+        let day = Today.getDate();
+        let hours = Today.getUTCHours() + config.GMT;
+
+        if (hours >= 24) {
+            hours = hours - 24;
+            day = day + 1;
+        }
+
+        const msg = '```' +
+            Today.getFullYear() +
+            ' 年 ' +
+            (Today.getMonth() + 1) +
+            ' 月 ' +
+            day +
+            ' 日 ' +
+            hours +
+            ' 時 ' +
+            Today.getMinutes() +
+            ' 分 ' +
+            Today.getSeconds() +
+            ' 秒' +
+            ' 機器人關機```';
+        const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+            conjunction: ' ',
+            language: 'zh_TW',
+        })} `;
+        const embed = {
+            color: 0x808080,
+            description: oldmsg + '\n' + msg,
+            author: {
+                name: `${client.user.username} - 機器人運作資訊`,
+                iconURL: client.user.avatarURL({ dynamic: true }),
+            },
+            fields: [
+                { name: '版本:', value: `v${require('../../../../package.json').version}`, inline: true },
+                { name: 'Discord.js:', value: `${require('discord.js').version}`, inline: true },
+                { name: 'Node.js', value: `${process.version}`, inline: true },
+                { name: '\u200B', value: '\u200B', inline: false },
+                {
+                    name: '運行時間:',
+                    value: `${uptime}`,
+                    inline: true,
+                },
+            ],
+            timestamp: new Date(),
+        };
+
+        try {
+            await message.edit({ embeds: [embed] });
+        } catch (error) {
+
+        }
+        /** 程式代碼 */
+        process.exit();
+    }));
+
     // #endregion
 
 };
