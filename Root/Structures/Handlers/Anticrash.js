@@ -6,7 +6,8 @@ const db = require('quick.db');
 const { config } = require('./../../../bot');
 const chalk = require('chalk');
 const fs = require('fs');
-const humanizeDuration = require('humanize-Duration')
+const humanizeDuration = require('humanize-duration');
+
 module.exports = (client) => {
     // #region 事件
     // 處理錯誤
