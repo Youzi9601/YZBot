@@ -137,6 +137,7 @@ const fetch = require('node-fetch');
     // Init discord giveaways
     const { GiveawaysManager } = require('discord-giveaways');
     client.giveawaysManager = new GiveawaysManager(client, {
+        // 儲存位置
         storage: './Storage/giveaways.json',
         default: {
             botsCanWin: false,
@@ -268,9 +269,9 @@ const fetch = require('node-fetch');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function (err) {
                 });
                 console.error(
                     chalk.bgRed(
