@@ -612,14 +612,14 @@ module.exports = {
                 .then(message => {
                     // console.info(message.content);
                     message.react(`${emoji}`).catch((error) => {
-                        console.error(error)
-                        interaction.reply({ content: `啊喔...發生了錯誤：看不懂反應 ${emoji} 是甚麼...` })
+                        console.error(error);
+                        interaction.reply({ content: `啊喔...發生了錯誤：看不懂反應 ${emoji} 是甚麼...` });
                         return;
                     });
                 })
                 .catch((error) => {
-                    console.error(error)
-                    interaction.reply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${message_id} 的訊息...` })
+                    console.error(error);
+                    interaction.reply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${message_id} 的訊息...` });
                     return;
                 });
             // console.info(msg)
@@ -766,8 +766,8 @@ module.exports = {
                         ephemeral: true,
                     });
                 }).catch((error) => {
-                    console.error(error)
-                    interaction.reply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${interaction.options.getString('message_id')} 的訊息 ...` })
+                    console.error(error);
+                    interaction.reply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${interaction.options.getString('message_id')} 的訊息 ...` });
                     return;
                 });
             /*
@@ -908,10 +908,10 @@ module.exports = {
             }
 
             try {
-                await channel.send(msg)
+                await channel.send(msg);
             } catch (error) {
-                console.error(error)
-                interaction.reply({ content: `啊喔...發生了錯誤：無法發送訊息...\n\`\`\`js\n${error}\`\`\`` })
+                console.error(error);
+                interaction.reply({ content: `啊喔...發生了錯誤：無法發送訊息...\n\`\`\`js\n${error}\`\`\`` });
                 return;
             }
             await interaction.reply({
@@ -999,8 +999,8 @@ module.exports = {
                     });
                     return;
                 }).catch((error) => {
-                    console.error(error)
-                    interaction.reply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${interaction.options.getString('message_id')} 的訊息 ...` })
+                    console.error(error);
+                    interaction.reply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${interaction.options.getString('message_id')} 的訊息 ...` });
                     return;
                 });
             /*
