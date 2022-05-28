@@ -57,11 +57,11 @@ module.exports = (client) => {
             } catch (error) {
                 // none
             }
-        })
+        });
     // 設定信號退出
-    const signal = ["SIGINT", "SIGTERM", "SIGQUIT", "SIGKILL", "SIGHUP"]
+    const signal = ['SIGINT', 'SIGTERM', 'SIGQUIT', 'SIGKILL', 'SIGHUP'];
     signal.forEach(signal => process.on(signal, () => {
-        const { oldmsg, message } = require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater')
+        const { oldmsg, message } = require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater');
         console.log(`${signal}｜收到 ${signal} 信號，關閉機器人......`);
         console.log(
             chalk.gray(
