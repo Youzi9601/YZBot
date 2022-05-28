@@ -62,7 +62,7 @@ module.exports = (client) => {
     // const signal = ['SIGINT', 'SIGTERM'];
     process.on('SIGINT', () => {
         const { oldmsg, message } = require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater');
-        console.log(`SIGINT｜收到 SIGINT 信號，關閉機器人......`);
+        console.log('SIGINT｜收到 SIGINT 信號，關閉機器人......');
         console.log(
             chalk.gray(
                 '\n\n───────────────────────────────機器人控制台───────────────────────────────\n',
