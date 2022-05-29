@@ -42,9 +42,9 @@ module.exports = {
                         name: 'where',
                         description: '你想要知道的 ip/網址',
                         required: true,
-                    }
-                ]
-            }
+                    },
+                ],
+            },
         ],
     },
     // ignoreFile: true,
@@ -110,18 +110,18 @@ module.exports = {
             );
 
         } else if (subcommand == 'get-ip') {
-            const axios = require('axios')
-            const dns = require('dns')
+            const axios = require('axios');
+            const dns = require('dns');
 
             dns.lookup(`${interaction.options.getString('where')}`, (err, address, family) => {
-                let ip = address
+                const ip = address;
                 axios(
-                    `http://ip-api.com/json/${ip}?fields=66846719&lang=en`
+                    `http://ip-api.com/json/${ip}?fields=66846719&lang=en`,
                 ).then((data) => {
 
-                    let json = data.data
-                    console.log(json)
-                    let msg = {}
+                    const json = data.data;
+                    console.log(json);
+                    let msg = {};
                     msg = new MessageEmbed()
                         .setAuthor({
                             iconURL: `${interaction.user.displayAvatarURL({ dynamic: true }) || interaction.user.defaultAvatarURL}`,
@@ -131,54 +131,54 @@ module.exports = {
                             {
                                 name: '搜尋',
                                 value: interaction.options.getString('where') + '\u200B',
-                                inline: false
+                                inline: false,
                             },
                             {
                                 name: 'IP',
                                 value: ip + '\u200B',
-                                inline: true
+                                inline: true,
                             },
                             {
                                 name: '時區',
                                 value: json.timezone + '\u200B',
-                                inline: true
+                                inline: true,
                             },
                             {
                                 name: '國家',
                                 value: json.country + '\u200B',
-                                inline: true
+                                inline: true,
                             },
                             {
                                 name: '地區(洲)、城市、區',
                                 value: json.regionName + '\u200B' + ' | ' + json.city + '\u200B' + (json.district ? ' | ' + json.district : ''),
-                                inline: true
+                                inline: true,
                             },
                             {
                                 name: '網路服務商',
                                 value: json.isp + '\u200B',
-                                inline: true
+                                inline: true,
                             },
                             {
                                 name: 'As 登記',
                                 value: json.as + '\u200B',
-                                inline: true
+                                inline: true,
                             },
                         )
                         .setColor(interaction.guild.me.displayHexColor);
 
                     //
                     if (json.status != 'success') {
-                        interaction.reply(`:x: 啊喔... 查詢 ${interaction.options.getString('where')} 無結果:/`)
+                        interaction.reply(`:x: 啊喔... 查詢 ${interaction.options.getString('where')} 無結果:/`);
                     } else interaction.reply(
                         {
                             embeds: [msg],
                             // ephemeral: true,
                         },
                     );
-                })
+                });
 
                 if (err) {
-                    interaction.reply(`:x: 啊喔... 查詢 ${interaction.options.getString('where')} 無結果:/`)
+                    interaction.reply(`:x: 啊喔... 查詢 ${interaction.options.getString('where')} 無結果:/`);
                 }
                 //
             });
