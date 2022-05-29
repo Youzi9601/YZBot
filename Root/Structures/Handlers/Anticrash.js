@@ -7,7 +7,7 @@ const { config } = require('./../../../bot');
 const chalk = require('chalk');
 const fs = require('fs');
 const humanizeDuration = require('humanize-duration');
-const { Missing_Permissions } = require("./Missing_Permissions");
+const { Missing_Permissions } = require('./Missing_Permissions');
 const sleep = async (ms) => {
     return new Promise((resolve) => {
         setTimeout(() => {
