@@ -20,11 +20,11 @@ module.exports = (client) => {
     // 處理錯誤
     process
         .on('unhandledRejection', (reason, promise) => {
-            Missing_Permissions(promise, reason, client)
+            Missing_Permissions(promise, reason, client);
 
             console.error('ERROR｜未處理的異步代碼承諾拒絕：\n', ' ', promise, '\n原因：', reason + '\n');
             try {
-                if (`${reason.message}`.includes(`Missing Permissions`) || `${reason.message}`.includes(`Missing Access`)) return;
+                if (`${reason.message}`.includes('Missing Permissions') || `${reason.message}`.includes('Missing Access')) return;
 
                 // console 頻道
                 const error_channel = client.channels.cache.get(
@@ -47,11 +47,11 @@ module.exports = (client) => {
 
         })
         .on('uncaughtException', (reason, promise) => {
-            Missing_Permissions(promise, reason, client)
+            Missing_Permissions(promise, reason, client);
 
             console.error('ERROR｜未處理的同步代碼承諾拒絕：\n', ' ', promise, '\n原因：', reason + '\n');
             try {
-                if (`${reason.message}`.includes(`Missing Permissions`) || `${reason.message}`.includes(`Missing Access`)) return;
+                if (`${reason.message}`.includes('Missing Permissions') || `${reason.message}`.includes('Missing Access')) return;
 
                 // console 頻道
                 const error_channel = client.channels.cache.get(
@@ -148,21 +148,21 @@ module.exports = (client) => {
             } catch (error) { }
             /** 程式代碼 */
             process.exit(0);
-        })
-    })
+        });
+    });
 
     // #endregion
 
 };
 /**
- * 
- * @param {*} promise 
- * @param {*} reason 
- * @param {import('discord.js').Client} client 
+ *
+ * @param {*} promise
+ * @param {*} reason
+ * @param {import('discord.js').Client} client
  */
 async function Missing_Permissions(promise = {}, reason = String, client) {
     /**
-     * 
+     *
      * ```js
      * // ERROR｜未處理的承諾拒絕：
      * Promise { // (reason)
@@ -178,19 +178,19 @@ async function Missing_Permissions(promise = {}, reason = String, client) {
      *     httpStatus: 403,
      *     requestData: { json: [Object], files: [] }
      *   }
-     * } 
+     * }
      * DiscordAPIError: Missing Permissions //原因：(promise)
      * ```
      */
-    console.log('執行...')
-    console.log(`${reason}`)
-    if (`${reason.message}`.includes(`Missing Permissions`) || `${reason.message}`.includes(`Missing Access`)) {
-        console.log('成功')
+    console.log('執行...');
+    console.log(`${reason}`);
+    if (`${reason.message}`.includes('Missing Permissions') || `${reason.message}`.includes('Missing Access')) {
+        console.log('成功');
         // 取得基本資料
         const { MessageEmbed } = require('discord.js');
         const { translate_Permissions } = require('../../Language/Language');
 
-        /**@param {import('discord.js').PermissionString} clientPermissions */
+        /** @param {import('discord.js').PermissionString} clientPermissions */
         const clientPermissions = [
             'CREATE_INSTANT_INVITE',
             // 管理
@@ -227,23 +227,23 @@ async function Missing_Permissions(promise = {}, reason = String, client) {
             'CREATE_PUBLIC_THREADS',
             'USE_PRIVATE_THREADS',
             'CREATE_PRIVATE_THREADS',
-        ]
-        const channel_id = `${reason.path}`.match(/\d+/)
-        const channel = client.channels.cache.get(`${channel_id[0]}`)
-        const guild = client.guilds.cache.get(`${channel.guild.id}`)
+        ];
+        const channel_id = `${reason.path}`.match(/\d+/);
+        const channel = client.channels.cache.get(`${channel_id[0]}`);
+        const guild = client.guilds.cache.get(`${channel.guild.id}`);
         // guild.ownerId
         const missing = [];
         clientPermissions.forEach(i => {
             if (!guild.me.permissions.has(i)) missing.push(translate_Permissions(i, 'zh-TW'));
         });
 
-        let unsend = true
+        let unsend = true;
         guild.channels.cache.filter(c => c.type == 'GUILD_TEXT' && c.nsfw == false && c.permissionsFor(client.user.id).has('SEND_MESSAGES')).forEach(c => {
             if (unsend) {
-                unsend = false
+                unsend = false;
                 c.send({
-                    content: `<@${guild.ownerId}>, 我目前有部分缺少的權限，可能會讓機器人無法正常運作(於部分頻道)...\`\`\`\n• ${missing.join('\n• ')}\`\`\``
-                })
+                    content: `<@${guild.ownerId}>, 我目前有部分缺少的權限，可能會讓機器人無法正常運作(於部分頻道)...\`\`\`\n• ${missing.join('\n• ')}\`\`\``,
+                });
             }
         });
 
