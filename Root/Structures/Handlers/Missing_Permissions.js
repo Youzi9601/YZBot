@@ -30,7 +30,7 @@ async function Missing_Permissions(promise = {}, reason = String, client) {
         // 取得基本資料
         const { translate_Permissions } = require('../../Language/Language');
 
-        const clientPermissions = require('./../../../bot').config.botPermissions
+        const clientPermissions = require('./../../../bot').config.botPermissions;
         const channel_id = `${reason.path}`.match(/\d+/);
         const channel = client.channels.cache.get(`${channel_id[0]}`);
         const guild = client.guilds.cache.get(`${channel.guild.id}`);
