@@ -104,11 +104,11 @@ module.exports = {
     // 機器人訊息命令前綴(訊息觸發，允許多個前綴！)
     // 例: ["前綴1","前綴2"]
     // 使用方式: "!ping"、">ping"
-    prefix: process.env.prefix || [${JSON.stringify(Config.prefix, null, 2).replace('[', '').replace(']', '') || JSON.stringify(['>', '/', '!>'], null, 2).replace('[', '').replace(']', '')}],
+    prefix: process.env.prefix || [${JSON.stringify(Config.prefix || ['>', '/', '!>'], null, 2).replace('[', '').replace(']', '')}],
 
     // 機器人製作者們的ID，可以使用擁有者指令
     // 例: ["856918496893599805","862347263690539009","849809683085525032"]
-    developers: process.env.developers || [${JSON.stringify(Config.developers, null, 2).replace('[', '').replace(']', '') || JSON.stringify(['856918496893599805'], null, 2).replace('[', '').replace(']', '')}],
+    developers: process.env.developers || [${JSON.stringify(Config.developers || ['856918496893599805'], null, 2).replace('[', '').replace(']', '')}],
 
     // 機器人名稱
     botName: process.env.botName || \'${Config.botName || '機器人'}\',
@@ -134,7 +134,7 @@ module.exports = {
              * {count.members} - 使用者數量
              * {Youtube.subs} - Youtube 訂閱者數量 (需要在 "Youtube.url" 的選項中輸入連結！)
              */
-            ${JSON.stringify(Config.botPresence.activities, null, 2).replace('[', '').replace(']', '') || JSON.stringify(
+            ${JSON.stringify(Config.botPresence.activities ||
         [
             {
                 type: 'WATCHING',
@@ -156,46 +156,46 @@ module.exports = {
     },
 
     // 機器人所需要的所有權限
-   botPermissions: ${JSON.stringify(Config.botPermissions, null, 2).replace('[', '').replace(']', '') || JSON.stringify(
-        [
-            'CREATE_INSTANT_INVITE',
-            // 管理
-            'MODERATE_MEMBERS',
-            'KICK_MEMBERS',
-            'BAN_MEMBERS',
-            'MANAGE_CHANNELS',
-            'MANAGE_GUILD',
-            'MANAGE_WEBHOOKS',
-            'MANAGE_THREADS',
-            'MANAGE_ROLES',
-            'MANAGE_MESSAGES',
-            'MANAGE_NICKNAMES',
-            'VIEW_AUDIT_LOG',
-            // 聊天
-            'VIEW_CHANNEL',
-            'SEND_MESSAGES',
-            'SEND_TTS_MESSAGES',
-            'EMBED_LINKS',
-            'ADD_REACTIONS',
-            'ATTACH_FILES',
-            'READ_MESSAGE_HISTORY',
-            'USE_EXTERNAL_EMOJIS',
-            'USE_EXTERNAL_STICKERS',
-            'MENTION_EVERYONE',
-            'CHANGE_NICKNAME',
-            // 語音
-            'PRIORITY_SPEAKER',
-            'CONNECT',
-            'SPEAK',
-            'REQUEST_TO_SPEAK',
-            'MOVE_MEMBERS',
-            // 討論串系列
-            'SEND_MESSAGES_IN_THREADS',
-            'USE_PUBLIC_THREADS',
-            'CREATE_PUBLIC_THREADS',
-            'USE_PRIVATE_THREADS',
-            'CREATE_PRIVATE_THREADS',
-        ], null, 8).replace('[', '').replace(']', '')},
+   botPermissions: ${JSON.stringify(Config.botPermissions ||
+            [
+                'CREATE_INSTANT_INVITE',
+                // 管理
+                'MODERATE_MEMBERS',
+                'KICK_MEMBERS',
+                'BAN_MEMBERS',
+                'MANAGE_CHANNELS',
+                'MANAGE_GUILD',
+                'MANAGE_WEBHOOKS',
+                'MANAGE_THREADS',
+                'MANAGE_ROLES',
+                'MANAGE_MESSAGES',
+                'MANAGE_NICKNAMES',
+                'VIEW_AUDIT_LOG',
+                // 聊天
+                'VIEW_CHANNEL',
+                'SEND_MESSAGES',
+                'SEND_TTS_MESSAGES',
+                'EMBED_LINKS',
+                'ADD_REACTIONS',
+                'ATTACH_FILES',
+                'READ_MESSAGE_HISTORY',
+                'USE_EXTERNAL_EMOJIS',
+                'USE_EXTERNAL_STICKERS',
+                'MENTION_EVERYONE',
+                'CHANGE_NICKNAME',
+                // 語音
+                'PRIORITY_SPEAKER',
+                'CONNECT',
+                'SPEAK',
+                'REQUEST_TO_SPEAK',
+                'MOVE_MEMBERS',
+                // 討論串系列
+                'SEND_MESSAGES_IN_THREADS',
+                'USE_PUBLIC_THREADS',
+                'CREATE_PUBLIC_THREADS',
+                'USE_PRIVATE_THREADS',
+                'CREATE_PRIVATE_THREADS',
+            ], null, 8).replace('[', '').replace(']', '')},
  
     /**
      *
