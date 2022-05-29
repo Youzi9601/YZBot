@@ -151,6 +151,11 @@ module.exports = {
                                 value: 'roles',
                             },
                             {
+                                label: '權限',
+                                description: '成員所擁有的權限',
+                                value: 'permissions',
+                            },
+                            {
                                 label: '其他',
                                 description: '有關其他的資訊',
                                 value: 'others',
@@ -211,6 +216,11 @@ module.exports = {
                                 label: '身分組',
                                 description: '我所擁有的身分組',
                                 value: 'roles',
+                            },
+                            {
+                                label: '權限',
+                                description: '成員所擁有的權限',
+                                value: 'permissions',
                             },
                             {
                                 label: '其他',

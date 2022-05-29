@@ -116,6 +116,69 @@ module.exports = {
                     },
                 );
 
+        } else if (type == 'permissions') {
+            const { translate_Permissions } = require('../../../Language/Language');
+            // 有的 member.permissions.toArray
+            const has_permissions = member.permissions.toArray()
+            const has_permissions_translate = []
+            if (has_permissions.includes('ADMINISTRATOR')) {
+                has_permissions_translate.push(translate_Permissions('ADMINISTRATOR', 'zh-TW'))
+            }
+            else has_permissions.forEach(p => {
+                has_permissions_translate.push(translate_Permissions(p, 'zh-TW'))
+            })
+
+            if (client.user.id == member.user.id) {
+                const clientPermissions = require('./../../../../bot').config.botPermissions
+                const missing = [];
+                clientPermissions.forEach(i => {
+                    if (!member.guild.me.permissions.has(i))
+                        missing.push(translate_Permissions(i, 'zh-TW'));
+                });
+                hasPerm = (has_permissions_translate.length != 0)
+                hasMiss = (missing.length != 0)
+                console.log(hasPerm + ' ' + hasMiss)
+                embed = new MessageEmbed()
+                    .setTitle('成員資訊')
+                    .setDescription('\`\`\`權限\`\`\`')
+                    .setAuthor({
+                        name: `${member.nickname ?
+                            member.nickname + ' (' + member.user.tag + ')'
+                            : member.user.tag}`,
+                        iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`,
+                    })
+                    .setFooter({ text: `ID: ${member.user.id}` })
+                    .setColor(member.displayHexColor)
+                    .setTimestamp()
+                    .addFields(
+                        {
+                            name: `權限 (如果缺少將會嚴重影響機器人的運作！)`,
+                            value: `\`\`\`diff\n${hasPerm ? '+ ' + has_permissions_translate.join('\n+ ') : ''}\n${hasMiss != [] ? '- ' + missing.join('\n- ') : ''}\`\`\``,
+                            inline: true,
+                        },
+                    );
+
+            } else {
+                embed = new MessageEmbed()
+                    .setTitle('成員資訊')
+                    .setDescription('\`\`\`權限\`\`\`')
+                    .setAuthor({
+                        name: `${member.nickname ?
+                            member.nickname + ' (' + member.user.tag + ')'
+                            : member.user.tag}`,
+                        iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`,
+                    })
+                    .setFooter({ text: `ID: ${member.user.id}` })
+                    .setColor(member.displayHexColor)
+                    .setTimestamp()
+                    .addFields(
+                        {
+                            name: `權限`,
+                            value: `\`\`\`diff\n${(has_permissions_translate != []) ? '+ ' + has_permissions_translate.join('\n+ ') : '沒有任何權限...oAo|||'}\`\`\``,
+                            inline: true,
+                        },
+                    );
+            }
         } else if (type == 'others') {
             if (client.user.id == member.user.id) {
                 const os = require('os');

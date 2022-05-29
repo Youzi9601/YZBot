@@ -7,6 +7,7 @@ const { config } = require('./../../../bot');
 const chalk = require('chalk');
 const fs = require('fs');
 const humanizeDuration = require('humanize-duration');
+const { Missing_Permissions } = require("./Missing_Permissions");
 const sleep = async (ms) => {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -154,98 +155,3 @@ module.exports = (client) => {
     // #endregion
 
 };
-/**
- *
- * @param {*} promise
- * @param {*} reason
- * @param {import('discord.js').Client} client
- */
-async function Missing_Permissions(promise = {}, reason = String, client) {
-    /**
-     *
-     * ```js
-     * // ERROR｜未處理的承諾拒絕：
-     * Promise { // (reason)
-     *      <rejected> DiscordAPIError: Missing Permissions
-     *       at RequestHandler.execute (/home/container/node_modules/discord.js/src/rest/RequestHandler.js:350:13)
-     *       at runMicrotasks (<anonymous>)
-     *       at processTicksAndRejections (node:internal/process/task_queues:96:5)
-     *       at async RequestHandler.push (/home/container/node_modules/discord.js/src/rest/RequestHandler.js:51:14)
-     *       at async TextChannel.send (/home/container/node_modules/discord.js/src/structures/interfaces/TextBasedChannel.js:176:15) {
-     *     method: 'post',
-     *     path: '/channels/936193196545933355/messages',
-     *     code: 50013,
-     *     httpStatus: 403,
-     *     requestData: { json: [Object], files: [] }
-     *   }
-     * }
-     * DiscordAPIError: Missing Permissions //原因：(promise)
-     * ```
-     */
-    console.log('執行...');
-    console.log(`${reason}`);
-    if (`${reason.message}`.includes('Missing Permissions') || `${reason.message}`.includes('Missing Access')) {
-        console.log('成功');
-        // 取得基本資料
-        const { MessageEmbed } = require('discord.js');
-        const { translate_Permissions } = require('../../Language/Language');
-
-        /** @param {import('discord.js').PermissionString} clientPermissions */
-        const clientPermissions = [
-            'CREATE_INSTANT_INVITE',
-            // 管理
-            'MODERATE_MEMBERS',
-            'KICK_MEMBERS',
-            'BAN_MEMBERS',
-            'MANAGE_CHANNELS',
-            'MANAGE_GUILD',
-            'MANAGE_WEBHOOKS',
-            'MANAGE_THREADS',
-            'MANAGE_ROLES',
-            'MANAGE_MESSAGES',
-            'VIEW_AUDIT_LOG',
-            // 聊天
-            'VIEW_CHANNEL',
-            'SEND_MESSAGES',
-            'SEND_TTS_MESSAGES',
-            'EMBED_LINKS',
-            'ADD_REACTIONS',
-            'ATTACH_FILES',
-            'READ_MESSAGE_HISTORY',
-            'USE_EXTERNAL_EMOJIS',
-            'USE_EXTERNAL_STICKERS',
-            'MENTION_EVERYONE',
-            'CHANGE_NICKNAME',
-            // 語音
-            'PRIORITY_SPEAKER',
-            'CONNECT',
-            'SPEAK',
-            'REQUEST_TO_SPEAK',
-            // 討論串系列
-            'SEND_MESSAGES_IN_THREADS',
-            'USE_PUBLIC_THREADS',
-            'CREATE_PUBLIC_THREADS',
-            'USE_PRIVATE_THREADS',
-            'CREATE_PRIVATE_THREADS',
-        ];
-        const channel_id = `${reason.path}`.match(/\d+/);
-        const channel = client.channels.cache.get(`${channel_id[0]}`);
-        const guild = client.guilds.cache.get(`${channel.guild.id}`);
-        // guild.ownerId
-        const missing = [];
-        clientPermissions.forEach(i => {
-            if (!guild.me.permissions.has(i)) missing.push(translate_Permissions(i, 'zh-TW'));
-        });
-
-        let unsend = true;
-        guild.channels.cache.filter(c => c.type == 'GUILD_TEXT' && c.nsfw == false && c.permissionsFor(client.user.id).has('SEND_MESSAGES')).forEach(c => {
-            if (unsend) {
-                unsend = false;
-                c.send({
-                    content: `<@${guild.ownerId}>, 我目前有部分缺少的權限，可能會讓機器人無法正常運作(於部分頻道)...\`\`\`\n• ${missing.join('\n• ')}\`\`\``,
-                });
-            }
-        });
-
-    }
-}

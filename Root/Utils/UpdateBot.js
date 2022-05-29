@@ -155,7 +155,48 @@ module.exports = {
         status: \'${Config.botPresence.status || 'idle'}\',
     },
 
-
+    // 機器人所需要的所有權限
+   botPermissions: ${JSON.stringify(Config.botPermissions, null, 2).replace('[', '').replace(']', '') || JSON.stringify(
+            [
+                'CREATE_INSTANT_INVITE',
+                // 管理
+                'MODERATE_MEMBERS',
+                'KICK_MEMBERS',
+                'BAN_MEMBERS',
+                'MANAGE_CHANNELS',
+                'MANAGE_GUILD',
+                'MANAGE_WEBHOOKS',
+                'MANAGE_THREADS',
+                'MANAGE_ROLES',
+                'MANAGE_MESSAGES',
+                'MANAGE_NICKNAMES',
+                'VIEW_AUDIT_LOG',
+                // 聊天
+                'VIEW_CHANNEL',
+                'SEND_MESSAGES',
+                'SEND_TTS_MESSAGES',
+                'EMBED_LINKS',
+                'ADD_REACTIONS',
+                'ATTACH_FILES',
+                'READ_MESSAGE_HISTORY',
+                'USE_EXTERNAL_EMOJIS',
+                'USE_EXTERNAL_STICKERS',
+                'MENTION_EVERYONE',
+                'CHANGE_NICKNAME',
+                // 語音
+                'PRIORITY_SPEAKER',
+                'CONNECT',
+                'SPEAK',
+                'REQUEST_TO_SPEAK',
+                'MOVE_MEMBERS',
+                // 討論串系列
+                'SEND_MESSAGES_IN_THREADS',
+                'USE_PUBLIC_THREADS',
+                'CREATE_PUBLIC_THREADS',
+                'USE_PRIVATE_THREADS',
+                'CREATE_PRIVATE_THREADS',
+            ], null, 8).replace('[', '').replace(']', '')},
+ 
     /**
      *
      * 日誌輸出
