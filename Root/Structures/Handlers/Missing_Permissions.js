@@ -26,10 +26,7 @@ async function Missing_Permissions(promise = {}, reason = String, client) {
      * DiscordAPIError: Missing Permissions //原因：(promise)
      * ```
      */
-    console.log('執行...');
-    console.log(`${reason}`);
     if (`${reason.message}`.includes('Missing Permissions') || `${reason.message}`.includes('Missing Access')) {
-        console.log('成功');
         // 取得基本資料
         const { translate_Permissions } = require('../../Language/Language');
 

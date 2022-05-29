@@ -32,6 +32,19 @@ module.exports = {
                     },
                 ],
             },
+            {
+                type: 1,
+                name: 'get-ip',
+                description: '從 網址 或 ip 取得它的資訊',
+                options: [
+                    {
+                        type: 3,
+                        name: 'where',
+                        description: '你想要知道的 ip/網址',
+                        required: true,
+                    }
+                ]
+            }
         ],
     },
     // ignoreFile: true,
@@ -61,7 +74,8 @@ module.exports = {
                         name: '原問題',
                         value: `||${interaction.options.getString('text')}||`,
                     },
-                );
+                )
+                .setColor('RANDOM');
             // 騙人把戲
             if (random == 'error_1') {
                 msg = new MessageEmbed()
@@ -78,7 +92,8 @@ module.exports = {
                             name: '原問題',
                             value: `||${interaction.options.getString('text')}||`,
                         },
-                    );
+                    )
+                    .setColor('RANDOM');
                 interaction.reply(':x: 此指令交互失敗');
                 await sleep(3000);
                 interaction.followUp({
@@ -93,6 +108,81 @@ module.exports = {
                     // ephemeral: true,
                 },
             );
+
+        } else if (subcommand == 'get-ip') {
+            const axios = require('axios')
+            const dns = require('dns')
+
+            dns.lookup(`${interaction.options.getString('where')}`, (err, address, family) => {
+                let ip = address
+                axios(
+                    `http://ip-api.com/json/${ip}?fields=66846719&lang=en`
+                ).then((data) => {
+
+                    let json = data.data
+                    console.log(json)
+                    let msg = {}
+                    msg = new MessageEmbed()
+                        .setAuthor({
+                            iconURL: `${interaction.user.displayAvatarURL({ dynamic: true }) || interaction.user.defaultAvatarURL}`,
+                            name: interaction.user.tag,
+                        })
+                        .addFields(
+                            {
+                                name: '搜尋',
+                                value: interaction.options.getString('where') + '\u200B',
+                                inline: false
+                            },
+                            {
+                                name: 'IP',
+                                value: ip + '\u200B',
+                                inline: true
+                            },
+                            {
+                                name: '時區',
+                                value: json.timezone + '\u200B',
+                                inline: true
+                            },
+                            {
+                                name: '國家',
+                                value: json.country + '\u200B',
+                                inline: true
+                            },
+                            {
+                                name: '地區(洲)、城市、區',
+                                value: json.regionName + '\u200B' + ' | ' + json.city + '\u200B' + (json.district ? ' | ' + json.district : ''),
+                                inline: true
+                            },
+                            {
+                                name: '網路服務商',
+                                value: json.isp + '\u200B',
+                                inline: true
+                            },
+                            {
+                                name: 'As 登記',
+                                value: json.as + '\u200B',
+                                inline: true
+                            },
+                        )
+                        .setColor(interaction.guild.me.displayHexColor);
+
+                    //
+                    if (json.status != 'success') {
+                        interaction.reply(`:x: 啊喔... 查詢 ${interaction.options.getString('where')} 無結果:/`)
+                    } else interaction.reply(
+                        {
+                            embeds: [msg],
+                            // ephemeral: true,
+                        },
+                    );
+                })
+
+                if (err) {
+                    interaction.reply(`:x: 啊喔... 查詢 ${interaction.options.getString('where')} 無結果:/`)
+                }
+                //
+            });
+
 
         }
         // 內容
