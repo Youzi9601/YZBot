@@ -18,13 +18,13 @@ module.exports = {
     run: async (guild, client, container) => {
         const discordmsg = {
             embeds: [{
-                description: `進退變動 > 離開 ${guild.name}`,
+                description: `進退變動 > 離開 ${guild.name} (${guild.id})`,
                 color: 0x808080,
             }],
         };
         log(
             'info',
-            chalk.green('進退變動 > ') + `離開 ${guild.name}`,
+            chalk.green('進退變動 > ') + `離開 ${guild.name} (${guild.id})`,
             true,
             client,
             discordmsg);
@@ -42,7 +42,7 @@ module.exports = {
             config.Channels.inviteChannel,
         );
         // 進退變動 離開
-        invitechannel.send('```diff' + `\n- 機器人已離開：${guild.name}` + '\n```');
+        invitechannel.send('```diff' + `\n- 機器人已離開：${guild.name} (${guild.id})` + '\n```');
 
         // end
     },

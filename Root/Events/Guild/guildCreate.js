@@ -18,13 +18,13 @@ module.exports = {
         const owner = await guild.fetchOwner();
         const discordmsg = {
             embeds: [{
-                description: `進退變動 > 加入 ${guild.name} (擁有者： ${owner.user.tag} ${guild.ownerId})`,
+                description: `進退變動 > 加入 ${guild.name} (${guild.id}) (擁有者： ${owner.user.tag} ${guild.ownerId})`,
                 color: 0x808080,
             }],
         };
         log(
             'info',
-            chalk.green('進退變動 > ') + `加入 ${guild.name} (擁有者： ${owner.user.tag} ${guild.ownerId})`,
+            chalk.green('進退變動 > ') + `加入 ${guild.name} (${guild.id}) (擁有者： ${owner.user.tag} ${guild.ownerId})`,
             true,
             client,
             discordmsg);
@@ -79,7 +79,7 @@ module.exports = {
         } else if (guild.rulesChannel) {
             invite_channel = guild.rulesChannel;
         } else {
-            invite_channel = guild.channels.cache.filter(c => c.type == 'GUILD_TEXT' && c.nsfw == false || c.type == 'GUILD_TEXT' && c.name.includes('聊天' || '說話'));
+            invite_channel = guild.channels.cache.filter(c => c.type == 'GUILD_TEXT' && c.nsfw == false && c.permissionsFor(client.user.id).has('SEND_MESSAGES') || c.type == 'GUILD_TEXT' && c.name.includes('聊天' || '說話') && c.permissionsFor(client.user.id).has('SEND_MESSAGES'))[0];
         }
 
         try {

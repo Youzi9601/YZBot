@@ -6,7 +6,7 @@
  */
 function translate_Permissions(text, lang) {
     const translate = require(`./${lang}/Placeholder.json`).Permissions;
-    const output = translate[text] || 'ERROR: No translate text!';
+    const output = translate[text] || text;
     return output;
 }
 /**
@@ -17,7 +17,7 @@ function translate_Permissions(text, lang) {
  */
 function translate_CommandOptions(text, lang) {
     const translate = require(`./${lang}/error.json`).error.CommandOptions;
-    const output = translate[text] || 'ERROR: No translate text!';
+    const output = translate[text] || text;
     return output;
 }
 /**
@@ -28,7 +28,7 @@ function translate_CommandOptions(text, lang) {
  */
 function translate_Level(text, lang) {
     const translate = require(`./${lang}/Placeholder.json`).Level;
-    const output = translate[text] || 'ERROR: No translate text!';
+    const output = translate[text] || text;
     return output;
 }
 /**
@@ -39,7 +39,7 @@ function translate_Level(text, lang) {
  */
 function translate_Tier(tier, lang) {
     const translate = require(`./${lang}/Placeholder.json`).Tier;
-    const output = translate[tier] || 'ERROR: No translate text!';
+    const output = translate[tier] || text;
     return output;
 }
 
