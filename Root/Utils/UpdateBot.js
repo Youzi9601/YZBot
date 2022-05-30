@@ -156,7 +156,7 @@ module.exports = {
     },
 
     // 機器人所需要的所有權限
-   botPermissions: ${JSON.stringify(Config.botPermissions ||
+   botPermissions: [${JSON.stringify(Config.botPermissions ||
             [
                 "CREATE_INSTANT_INVITE",
                 // 管理
@@ -195,7 +195,7 @@ module.exports = {
                 "CREATE_PUBLIC_THREADS",
                 "USE_PRIVATE_THREADS",
                 "CREATE_PRIVATE_THREADS",
-            ], null, 8).replace('[', '').replace(']', '')},
+            ], null, 8).replace('[', '').replace(']', '')}],
  
     /**
      *
