@@ -139,28 +139,95 @@ module.exports = {
             });
             // interaction.channel.send({ embeds: embed })
         } else
-        // #endregion
+            // #endregion
 
-        // #region leave-server
-        if (subcommand == 'leave-server') {
-            const id = interaction.options.getString('id');
-            const guild = client.guilds.cache.get(id);
-            try {
-                if (!guild) {
-                    return interaction.reply({ content: '未指定伺服器 ID。請指定伺服器ID' });
+            // #region leave-server
+            if (subcommand == 'leave-server') {
+                const id = interaction.options.getString('id');
+                const guild = client.guilds.cache.get(id);
+                try {
+                    if (!guild) {
+                        return interaction.reply({ content: '未指定伺服器 ID。請指定伺服器ID' });
+                    }
+
+                    await guild.leave();
+                    interaction.reply({ content: `成功離開 **${guild.name}**，少了\`${guild.memberCount}\`位成員。` });
+                } catch (err) {
+                    interaction.reply({ content: `離開伺服器時發生錯誤： \`${err.message}\`` });
                 }
-
-                await guild.leave();
-                interaction.reply({ content: `成功離開 **${guild.name}**，少了\`${guild.memberCount}\`位成員。` });
-            } catch (err) {
-                interaction.reply({ content: `離開伺服器時發生錯誤： \`${err.message}\`` });
             }
-        }
         // #endregion
         // #region exit
         if (subcommand == 'exit') {
             interaction.reply({ content: '關閉機器人......' })
-                .then((msg) => { process.exit(0); });
+                .then((msg) => {
+                    /** */
+
+
+                    console.log(`\n\n關機｜收到 ${signal} 信號，關閉機器人......`);
+                    console.log(
+                        chalk.gray(
+                            '───────────────────────────────機器人控制台───────────────────────────────\n',
+                        ),
+                    );
+                    const { oldmsg, message } = require('./../../../Plugins/discord/ReadyUpdater/ReadyUpdater');
+                    // 調整時差
+                    const Today = new Date();
+                    let day = Today.getDate();
+                    let hours = Today.getUTCHours() + config.GMT;
+
+                    if (hours >= 24) {
+                        hours = hours - 24;
+                        day = day + 1;
+                    }
+
+                    const msg = '```' +
+                        Today.getFullYear() +
+                        ' 年 ' +
+                        (Today.getMonth() + 1) +
+                        ' 月 ' +
+                        day +
+                        ' 日 ' +
+                        hours +
+                        ' 時 ' +
+                        Today.getMinutes() +
+                        ' 分 ' +
+                        Today.getSeconds() +
+                        ' 秒' +
+                        ' 機器人關機```';
+                    const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+                        conjunction: ' ',
+                        language: 'zh_TW',
+                    })} `;
+                    const embed = {
+                        color: 0x808080,
+                        description: oldmsg + ' ' + msg,
+                        author: {
+                            name: `${client.user.username} - 機器人運作資訊`,
+                            iconURL: client.user.avatarURL({ dynamic: true }),
+                        },
+                        fields: [
+                            { name: '版本:', value: `v${require('./../../../package.json').version}`, inline: true },
+                            { name: 'Discord.js:', value: `${require('discord.js').version}`, inline: true },
+                            { name: 'Node.js', value: `${process.version}`, inline: true },
+                            { name: '\u200B', value: '\u200B', inline: false },
+                            {
+                                name: '運行時間:',
+                                value: `${uptime}`,
+                                inline: true,
+                            },
+                        ],
+                        timestamp: new Date(),
+                    };
+
+                    try {
+                        message.edit({ embeds: [embed] });
+                        await sleep(5000);
+                    } catch (error) { }
+
+                    /** */
+                    process.exit(0);
+                });
         }
         // #endregion
         //
