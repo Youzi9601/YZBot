@@ -222,7 +222,7 @@ module.exports = {
 
                     try {
                         message.edit({ embeds: [embed] });
-                        await sleep(5000);
+                        sleep(5000);
                     } catch (error) { }
 
                     /** */
