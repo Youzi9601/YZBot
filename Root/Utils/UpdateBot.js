@@ -190,11 +190,11 @@ module.exports = {
                 'REQUEST_TO_SPEAK',
                 'MOVE_MEMBERS',
                 // 討論串系列
-                "SEND_MESSAGES_IN_THREADS",
-                "USE_PUBLIC_THREADS",
-                "CREATE_PUBLIC_THREADS",
-                "USE_PRIVATE_THREADS",
-                "CREATE_PRIVATE_THREADS",
+                'SEND_MESSAGES_IN_THREADS',
+                'USE_PUBLIC_THREADS',
+                'CREATE_PUBLIC_THREADS',
+                'USE_PRIVATE_THREADS',
+                'CREATE_PRIVATE_THREADS',
             ], null, 8).replace('[', '').replace(']', '')}],
  
     /**
