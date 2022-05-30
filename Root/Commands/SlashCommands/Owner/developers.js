@@ -160,7 +160,7 @@ module.exports = {
         // #region exit
         if (subcommand == 'exit') {
             interaction.reply({ content: '關閉機器人......' })
-                .then((msg) => {
+                .then(() => {
                     /** */
 
 
