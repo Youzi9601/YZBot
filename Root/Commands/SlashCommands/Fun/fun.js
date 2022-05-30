@@ -177,9 +177,11 @@ module.exports = {
                     );
                 });
 
+                /*
                 if (err) {
                     interaction.reply(`:x: 啊喔... 查詢 ${interaction.options.getString('where')} 無結果:/`);
                 }
+                */
                 //
             });
 
