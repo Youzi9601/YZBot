@@ -104,10 +104,6 @@ module.exports = {
 
                     i++;
                 });
-            console.log('embed');
-            console.log(embed);
-            console.log('field');
-            console.log(field);
 
             if (field != []) {
                 embed.push(
@@ -117,7 +113,6 @@ module.exports = {
                         .setColor('WHITE'),
                 );
             }
-            console.log(embed);
 
             // 發送訊息
             const msg = new container.Discord.MessageEmbed()
@@ -139,23 +134,23 @@ module.exports = {
             });
             // interaction.channel.send({ embeds: embed })
         } else
-        // #endregion
+            // #endregion
 
-        // #region leave-server
-        if (subcommand == 'leave-server') {
-            const id = interaction.options.getString('id');
-            const guild = client.guilds.cache.get(id);
-            try {
-                if (!guild) {
-                    return interaction.reply({ content: '未指定伺服器 ID。請指定伺服器ID' });
+            // #region leave-server
+            if (subcommand == 'leave-server') {
+                const id = interaction.options.getString('id');
+                const guild = client.guilds.cache.get(id);
+                try {
+                    if (!guild) {
+                        return interaction.reply({ content: '未指定伺服器 ID。請指定伺服器ID' });
+                    }
+
+                    await guild.leave();
+                    interaction.reply({ content: `成功離開 **${guild.name}**，少了\`${guild.memberCount}\`位成員。` });
+                } catch (err) {
+                    interaction.reply({ content: `離開伺服器時發生錯誤： \`${err.message}\`` });
                 }
-
-                await guild.leave();
-                interaction.reply({ content: `成功離開 **${guild.name}**，少了\`${guild.memberCount}\`位成員。` });
-            } catch (err) {
-                interaction.reply({ content: `離開伺服器時發生錯誤： \`${err.message}\`` });
             }
-        }
         // #endregion
         // #region exit
         if (subcommand == 'exit') {
