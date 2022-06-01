@@ -33,7 +33,10 @@ async function Missing_Permissions(promise = {}, reason = String, client) {
         const clientPermissions = require('./../../../bot').config.botPermissions;
         const channel_id = `${reason.path}`.match(/\d+/);
         const channel = client.channels.cache.get(`${channel_id[0]}`);
+        if (!channel) return;
         const guild = client.guilds.cache.get(`${channel.guild.id}`);
+        if (!guild) return;
+
         // guild.ownerId
         const missing = [];
         clientPermissions.forEach(i => {
