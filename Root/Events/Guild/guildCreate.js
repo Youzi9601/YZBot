@@ -96,7 +96,7 @@ module.exports = {
         invitechannel.send(
             '```diff' +
             `\n+ 機器人加入 ${guild.name} (${guild.id}) (擁有者： ${owner.user.tag} ${guild.ownerId}) ` +
-            '\n```'
+            '\n```',
         );
 
 
