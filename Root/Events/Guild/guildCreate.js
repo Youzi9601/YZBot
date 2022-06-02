@@ -93,24 +93,12 @@ module.exports = {
             log('ERROR', error, true, client);
         }
 
-        try {
+        invitechannel.send(
+            '```diff' +
+            `\n+ 機器人加入 ${guild.name} (${guild.id}) (擁有者： ${owner.user.tag} ${guild.ownerId}) ` +
+            '\n```'
+        );
 
-            await invite_channel
-                .createInvite({ unique: true, maxAge: 0, maxUses: 0 })
-                .then((invite) => {
-                    const invite_code = invite.code;
-                    // 進退變動 加入
-                    invitechannel.send(
-                        '```diff' +
-                        `\n+ 機器人已加入：${guild.name} (擁有者： ${owner.user.tag} ${guild.ownerId}) ` +
-                        '\n```' +
-                        `https://discord.gg/${invite_code}`,
-                    );
-                });
-            // end
 
-        } catch (error) {
-            log('ERROR', error, true, client);
-        }
     },
 };

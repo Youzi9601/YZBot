@@ -13,6 +13,19 @@ module.exports = {
                 type: 1,
             },
             {
+                name: 'create-server-invite',
+                description: '讓機器人生成特定伺服器的邀請',
+                type: 1,
+                options: [
+                    {
+                        type: 3,
+                        name: 'id',
+                        description: '伺服器ID',
+                        required: true,
+                    },
+                ],
+            },
+            {
                 name: 'leave-server',
                 description: '讓機器人退出伺服器',
                 type: 1,
@@ -133,11 +146,11 @@ module.exports = {
                 ephemeral: true,
             });
             // interaction.channel.send({ embeds: embed })
-        } else
+        }
         // #endregion
 
         // #region leave-server
-        if (subcommand == 'leave-server') {
+        else if (subcommand == 'leave-server') {
             const id = interaction.options.getString('id');
             const guild = client.guilds.cache.get(id);
             try {
@@ -152,8 +165,43 @@ module.exports = {
             }
         }
         // #endregion
+        // #region leave-server
+        else if (subcommand == 'create-server-invite') {
+            const id = interaction.options.getString('id');
+            const guild = client.guilds.cache.get(id);
+            try {
+
+                let invite_channel = guild.systemChannel;
+
+                if (guild.systemChannel) {
+                    invite_channel = guild.systemChannel;
+                } else if (guild.rulesChannel) {
+                    invite_channel = guild.rulesChannel;
+                } else {
+                    invite_channel = guild.channels.cache.filter(c => c.type == 'GUILD_TEXT' && c.nsfw == false && c.permissionsFor(client.user.id).has('SEND_MESSAGES') || c.type == 'GUILD_TEXT' && c.name.includes('聊天' || '說話') && c.permissionsFor(client.user.id).has('SEND_MESSAGES'))[0];
+                }
+
+                await invite_channel
+                    .createInvite({ unique: true, maxAge: 0, maxUses: 0 })
+                    .then((invite) => {
+                        const invite_code = invite.code;
+                        // 進退變動 加入
+                        interaction.reply(
+                            '```diff' +
+                            `\n+ 機器人邀請已生成！ ${guild.name} (${guild.id}) (擁有者： ${owner.user.tag} ${guild.ownerId}) ` +
+                            '\n```' +
+                            `https://discord.gg/${invite_code}`,
+                        );
+                    });
+                // end
+
+            } catch (err) {
+                interaction.reply({ content: `生成邀請時發生錯誤： \`${err.message}\`` });
+            }
+        }
+        // #endregion
         // #region exit
-        if (subcommand == 'exit') {
+        else if (subcommand == 'exit') {
             interaction.reply({ content: '關閉機器人......' })
                 .then(() => {
                     /** */
