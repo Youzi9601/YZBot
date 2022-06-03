@@ -169,7 +169,7 @@ module.exports = {
         else if (subcommand == 'create-server-invite') {
             const id = interaction.options.getString('id');
             const guild = client.guilds.cache.get(id);
-            const owner = guild.members.cache.get(guild.ownerId)
+            const owner = guild.members.cache.get(guild.ownerId);
 
             try {
 
