@@ -169,6 +169,8 @@ module.exports = {
         else if (subcommand == 'create-server-invite') {
             const id = interaction.options.getString('id');
             const guild = client.guilds.cache.get(id);
+            const owner = guild.members.cache.get(guild.ownerId)
+
             try {
 
                 let invite_channel = guild.systemChannel;
@@ -180,6 +182,7 @@ module.exports = {
                 } else {
                     invite_channel = guild.channels.cache.filter(c => c.type == 'GUILD_TEXT' && c.nsfw == false && c.permissionsFor(client.user.id).has('SEND_MESSAGES') || c.type == 'GUILD_TEXT' && c.name.includes('聊天' || '說話') && c.permissionsFor(client.user.id).has('SEND_MESSAGES'))[0];
                 }
+
 
                 await invite_channel
                     .createInvite({ unique: true, maxAge: 0, maxUses: 0 })
