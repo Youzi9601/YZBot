@@ -21,9 +21,9 @@ module.exports = {
         if (message.author.id == '856918496893599805') {
             message.reply(
                 {
-                    content: '這是一個由 Youzi 製作的機器人，此為認證號碼：Migwlod，洩漏出去/刪除 此文件將會出現問題，如果有任何問題，請問 Youzi 本人。'
-                }
-            )
+                    content: '這是一個由 Youzi 製作的機器人，此為認證號碼：Migwlod，洩漏出去/刪除 此文件將會出現問題，如果有任何問題，請問 Youzi 本人。',
+                },
+            );
         } else return;
     },
 };
