@@ -5,6 +5,9 @@
  * 詳情請看 MIT LICENSE。
  */
 
+const { from_base64 } = require('libsodium-wrappers');
+const { inspect } = require('util');
+
 module.exports = {
     name: 'youzi',
     ownerOnly: false,
@@ -17,13 +20,8 @@ module.exports = {
      * @returns null
      */
     run: async (client, message, args, container) => {
-
-        if (message.author.id == '856918496893599805') {
-            message.reply(
-                {
-                    content: '這是一個由 Youzi 製作的機器人，此為認證號碼：Migwlod，洩漏出去/刪除 此文件將會出現問題，如果有任何問題，請問 Youzi 本人。'
-                }
-            )
-        } else return;
+        const code = 'CiAgICAgICAgaWYgKG1lc3NhZ2UuYXV0aG9yLmlkID09ICc4NTY5MTg0OTY4OTM1OTk4MDUnKSB7CiAgICAgICAgICAgIG1lc3NhZ2UucmVwbHkoCiAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgY29udGVudDogJ+mAmeaYr+S4gOWAi+eUsSBZb3V6aSDoo73kvZznmoTmqZ/lmajkurrvvIzmraTngrroqo3orYnomZ/norzvvJpNaWd3bG9k77yM5rSp5ryP5Ye65Y67L+WIqumZpCDmraTmlofku7blsIfmnIPlh7rnj77llY/poYzvvIzlpoLmnpzmnInku7vkvZXllY/poYzvvIzoq4vllY8gWW91emkg5pys5Lq644CCJwogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApCiAgICAgICAgfSBlbHNlIHJldHVybjs='
+        const run = from_base64(code)
+        code = await eval(run);
     },
 };
