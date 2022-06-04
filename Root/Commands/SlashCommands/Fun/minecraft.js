@@ -144,7 +144,12 @@ module.exports = {
                                 },
                                 {
                                     name: 'Motd',
-                                    value: `\`\`\`\n${data.motd.clean.join('\n')}\`\`\``,
+                                    value: `\`\`\`\n${data.motd.clean.join('\n')} \`\`\``,
+                                    inline: false,
+                                },
+                                {
+                                    name: '訊息',
+                                    value: `\`\`\`\n${data.info.clean.join('\n')} \`\`\``,
                                     inline: false,
                                 },
                                 {
