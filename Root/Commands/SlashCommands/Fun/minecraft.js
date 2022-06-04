@@ -50,7 +50,7 @@ module.exports = {
                         name: 'bedrock',
                         description: '為Bedrock伺服器?',
                         required: false,
-                    }
+                    },
                 ],
             },
         ],
@@ -66,10 +66,10 @@ module.exports = {
     run: async (client, interaction, container) => {
         const subcommand = interaction.options.getSubcommand();
         if (subcommand == 'player') {
-            const args = interaction.options.getString('playername')
-            interaction.deferReply()
-            let info = await axios(`https://api.mojang.com/users/profiles/minecraft/${args}`);
-            let nameh = await axios(`https://some-random-api.ml/mc?username=${args}`);
+            const args = interaction.options.getString('playername');
+            interaction.deferReply();
+            const info = await axios(`https://api.mojang.com/users/profiles/minecraft/${args}`);
+            const nameh = await axios(`https://some-random-api.ml/mc?username=${args}`);
             interaction.editReply({
                 embeds: [
                     {
@@ -78,11 +78,11 @@ module.exports = {
                         color: 0xb67afb,
                         fields: [
                             {
-                                name: `UUID`,
+                                name: 'UUID',
                                 value: `\`${info.data.id}\``,
                             },
                             {
-                                name: `皮膚`,
+                                name: '皮膚',
                                 value: `[點擊這裡](https://crafatar.com/skins/${info.data.id})`,
                             },
                         ],
@@ -98,21 +98,21 @@ module.exports = {
                         },
                         author: {
                             name: `${client.user.username}｜Minecraft 玩家信息`,
-                            icon_url: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`
+                            icon_url: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
                         },
                     },
-                ]
-            })
+                ],
+            });
 
         } else if (subcommand == 'server') {
-            interaction.deferReply()
-            const server_ip = interaction.options.getString('ip')
+            interaction.deferReply();
+            const server_ip = interaction.options.getString('ip');
             const bedrock = interaction.options.getBoolean('bedrock') || false;
-            let api = `https://api.mcsrvstat.us/2/`
-            if (bedrock) api = `https://api.mcsrvstat.us/bedrock/2/`
-            const get_data = await axios(`${api}${server_ip}`)
-            const data = get_data.data
-            if (!data.online) return interaction.editReply({ content: `啊喔... ${server_ip} 目前離線中...` })
+            let api = 'https://api.mcsrvstat.us/2/';
+            if (bedrock) api = 'https://api.mcsrvstat.us/bedrock/2/';
+            const get_data = await axios(`${api}${server_ip}`);
+            const data = get_data.data;
+            if (!data.online) return interaction.editReply({ content: `啊喔... ${server_ip} 目前離線中...` });
             else {
 
                 interaction.editReply({
@@ -123,37 +123,37 @@ module.exports = {
                             color: 0xb67afb,
                             fields: [
                                 {
-                                    name: `IP`,
+                                    name: 'IP',
                                     value: `\`${data.ip}\``,
                                     inline: true,
                                 },
                                 {
-                                    name: `Port`,
+                                    name: 'Port',
                                     value: `\`${data.port}\``,
                                     inline: true,
                                 },
                                 {
-                                    name: `版本`,
+                                    name: '版本',
                                     value: `\`${data.version || '無法檢測'}\``,
                                     inline: true,
                                 },
                                 {
-                                    name: `軟體`,
+                                    name: '軟體',
                                     value: `\`${data.software || '無法檢測'}\``,
                                     inline: true,
                                 },
                                 {
-                                    name: `Motd`,
+                                    name: 'Motd',
                                     value: `\`\`\`\n${data.motd.clean.join('\n')}\`\`\``,
                                     inline: false,
                                 },
                                 {
-                                    name: `玩家`,
+                                    name: '玩家',
                                     value: `\`${data.players.online}\`人/共\`${data.players.max}\`人`,
                                     inline: true,
                                 },
                                 {
-                                    name: `主機`,
+                                    name: '主機',
                                     value: `\`${data.hostname}\``,
                                     inline: true,
                                 },
@@ -165,11 +165,11 @@ module.exports = {
                             },
                             author: {
                                 name: `${client.user.username}｜Minecraft 伺服器信息`,
-                                icon_url: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`
+                                icon_url: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
                             },
-                        }
-                    ]
-                })
+                        },
+                    ],
+                });
             }
         }
         // 內容
