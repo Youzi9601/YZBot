@@ -83,7 +83,7 @@ module.exports = {
                 /** @param {import('discord.js').Guild} guild */
                 (guild) => {
 
-                    if (Math.round(i / 25) == i / 25) {
+                    if (Math.round(i / 20) == i / 20) {
                         embed.push(
                             new MessageEmbed()
                                 .setTitle(`第${page}頁`)
