@@ -67,7 +67,7 @@ module.exports = {
         const subcommand = interaction.options.getSubcommand();
         if (subcommand == 'player') {
             const playername = interaction.options.getString('playername');
-            interaction.deferReply();
+            await interaction.deferReply();
             try {
 
                 const info =
@@ -112,7 +112,8 @@ module.exports = {
             }
 
         } else if (subcommand == 'server') {
-            interaction.deferReply();
+            await interaction.deferReply()
+
             const server_ip = interaction.options.getString('ip');
             const bedrock = interaction.options.getBoolean('bedrock') || false;
             let api = 'https://api.mcsrvstat.us/2/';
