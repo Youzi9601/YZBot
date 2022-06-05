@@ -112,7 +112,7 @@ module.exports = {
             }
 
         } else if (subcommand == 'server') {
-            await interaction.deferReply()
+            await interaction.deferReply();
 
             const server_ip = interaction.options.getString('ip');
             const bedrock = interaction.options.getBoolean('bedrock') || false;
