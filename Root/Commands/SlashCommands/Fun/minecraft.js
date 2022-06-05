@@ -108,7 +108,7 @@ module.exports = {
                     ],
                 });
             } catch (error) {
-                interaction.editReply(`:x: 啊喔... 無法查詢 ${playername} 是誰...`)
+                interaction.editReply(`:x: 啊喔... 無法查詢 ${playername} 是誰...`);
             }
 
         } else if (subcommand == 'server') {
@@ -121,14 +121,14 @@ module.exports = {
             try {
                 get_data = await axios(`${api}${server_ip}`);
             } catch (error) {
-                get_data = { data: {} }
+                get_data = { data: {} };
             }
             const data = get_data.data;
             if (data == {}) return interaction.editReply({ content: `:x: 啊喔... ${server_ip} 無法查詢！` });
             else if (!data.online) return interaction.editReply({ content: `:x: 啊喔... ${server_ip} 目前離線中...` });
             else {
-                const { decode } = require('html-entities')
-                let embed =
+                const { decode } = require('html-entities');
+                const embed =
                 {
                     title: `${server_ip} 的資訊`,
                     description: '',
@@ -176,18 +176,18 @@ module.exports = {
                         value: `\`\`\`\n${' '.repeat(60)}\n${decode(data.motd.clean.join('\n'))}\n${' '.repeat(60)}\`\`\``,
                         inline: false,
                     },
-                )
+                );
                 if (data.info) embed.fields.push(
                     {
                         name: '訊息',
                         value: `\`\`\`\n${decode(data.info.clean.join('\n'))} \`\`\``,
                         inline: false,
-                    }
-                )
+                    },
+                );
 
                 interaction.editReply({
                     embeds: [
-                        embed
+                        embed,
                     ],
                 });
             }
