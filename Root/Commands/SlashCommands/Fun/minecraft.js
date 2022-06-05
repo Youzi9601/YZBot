@@ -66,43 +66,50 @@ module.exports = {
     run: async (client, interaction, container) => {
         const subcommand = interaction.options.getSubcommand();
         if (subcommand == 'player') {
-            const args = interaction.options.getString('playername');
+            const playername = interaction.options.getString('playername');
             interaction.deferReply();
-            const info = await axios(`https://api.mojang.com/users/profiles/minecraft/${args}`);
-            const nameh = await axios(`https://some-random-api.ml/mc?username=${args}`);
-            interaction.editReply({
-                embeds: [
-                    {
-                        title: `${nameh.data.username}`,
-                        description: '',
-                        color: 0xb67afb,
-                        fields: [
-                            {
-                                name: 'UUID',
-                                value: `\`${info.data.id}\``,
+            try {
+
+                const info =
+                    await axios(`https://api.mojang.com/users/profiles/minecraft/${playername}`);
+                const nameh =
+                    await axios(`https://some-random-api.ml/mc?username=${playername}`);
+                interaction.editReply({
+                    embeds: [
+                        {
+                            title: `${nameh.data.username}`,
+                            description: '',
+                            color: 0xb67afb,
+                            fields: [
+                                {
+                                    name: 'UUID',
+                                    value: `\`${info.data.id}\``,
+                                },
+                                {
+                                    name: '皮膚',
+                                    value: `[點擊這裡](https://crafatar.com/skins/${info.data.id})`,
+                                },
+                            ],
+                            image: {
+                                url: `https://crafatar.com/renders/body/${info.data.id}?size=4&default=MHF_Steve&overlay=true`,
+                                height: 0,
+                                width: 0,
                             },
-                            {
-                                name: '皮膚',
-                                value: `[點擊這裡](https://crafatar.com/skins/${info.data.id})`,
+                            thumbnail: {
+                                url: `https://crafatar.com/renders/head/${info.data.id}.png?size=1&overlay#true`,
+                                height: 0,
+                                width: 0,
                             },
-                        ],
-                        image: {
-                            url: `https://crafatar.com/renders/body/${info.data.id}?size=4&default=MHF_Steve&overlay=true`,
-                            height: 0,
-                            width: 0,
+                            author: {
+                                name: `${client.user.username}｜Minecraft 玩家信息`,
+                                icon_url: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
+                            },
                         },
-                        thumbnail: {
-                            url: `https://crafatar.com/renders/head/${info.data.id}.png?size=1&overlay#true`,
-                            height: 0,
-                            width: 0,
-                        },
-                        author: {
-                            name: `${client.user.username}｜Minecraft 玩家信息`,
-                            icon_url: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        },
-                    },
-                ],
-            });
+                    ],
+                });
+            } catch (error) {
+                interaction.editReply(`:x: 啊喔... 無法查詢 ${playername} 是誰...`)
+            }
 
         } else if (subcommand == 'server') {
             interaction.deferReply();
@@ -110,69 +117,77 @@ module.exports = {
             const bedrock = interaction.options.getBoolean('bedrock') || false;
             let api = 'https://api.mcsrvstat.us/2/';
             if (bedrock) api = 'https://api.mcsrvstat.us/bedrock/2/';
-            const get_data = await axios(`${api}${server_ip}`);
+            let get_data;
+            try {
+                get_data = await axios(`${api}${server_ip}`);
+            } catch (error) {
+                get_data = { data: {} }
+            }
             const data = get_data.data;
-            if (!data.online) return interaction.editReply({ content: `啊喔... ${server_ip} 目前離線中...` });
+            if (data == {}) return interaction.editReply({ content: `:x: 啊喔... ${server_ip} 無法查詢！` });
+            else if (!data.online) return interaction.editReply({ content: `:x: 啊喔... ${server_ip} 目前離線中...` });
             else {
+                const { decode } = require('html-entities')
+                let embed =
+                {
+                    title: `${server_ip} 的資訊`,
+                    description: '',
+                    color: 0xb67afb,
+                    fields: [
+                        {
+                            name: 'Port',
+                            value: `\`${data.port || 25565}\``,
+                            inline: true,
+                        },
+                        {
+                            name: '版本',
+                            value: `\`${data.version || '無法檢測'}\``,
+                            inline: true,
+                        },
+                        {
+                            name: '軟體',
+                            value: `\`${data.software || '無法檢測'}\``,
+                            inline: true,
+                        },
+                        {
+                            name: '玩家',
+                            value: `\`${data.players.online}\`人/共\`${data.players.max}\`人`,
+                            inline: true,
+                        },
+                        {
+                            name: '主機',
+                            value: `\`${data.hostname || '無法查詢'}\``,
+                            inline: true,
+                        },
+                    ],
+                    thumbnail: {
+                        url: `https://api.mcsrvstat.us/icon/${server_ip}`,
+                        height: 0,
+                        width: 0,
+                    },
+                    author: {
+                        name: `${client.user.username}｜Minecraft 伺服器信息`,
+                        icon_url: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
+                    },
+                };
+                if (data.motd) embed.fields.push(
+                    {
+                        name: 'Motd',
+                        value: `\`\`\`\n${' '.repeat(60)}\n${decode(data.motd.clean.join('\n'))}\n${' '.repeat(60)}\`\`\``,
+                        inline: false,
+                    },
+                )
+                if (data.info) embed.fields.push(
+                    {
+                        name: '訊息',
+                        value: `\`\`\`\n${decode(data.info.clean.join('\n'))} \`\`\``,
+                        inline: false,
+                    }
+                )
 
                 interaction.editReply({
                     embeds: [
-                        {
-                            title: `${server_ip} 的資訊`,
-                            description: '',
-                            color: 0xb67afb,
-                            fields: [
-                                {
-                                    name: 'IP',
-                                    value: `\`${data.ip}\``,
-                                    inline: true,
-                                },
-                                {
-                                    name: 'Port',
-                                    value: `\`${data.port}\``,
-                                    inline: true,
-                                },
-                                {
-                                    name: '版本',
-                                    value: `\`${data.version || '無法檢測'}\``,
-                                    inline: true,
-                                },
-                                {
-                                    name: '軟體',
-                                    value: `\`${data.software || '無法檢測'}\``,
-                                    inline: true,
-                                },
-                                {
-                                    name: 'Motd',
-                                    value: `\`\`\`\n${data.motd.clean.join('\n')} \`\`\``,
-                                    inline: false,
-                                },
-                                {
-                                    name: '訊息',
-                                    value: `\`\`\`\n${data.info.clean.join('\n')} \`\`\``,
-                                    inline: false,
-                                },
-                                {
-                                    name: '玩家',
-                                    value: `\`${data.players.online}\`人/共\`${data.players.max}\`人`,
-                                    inline: true,
-                                },
-                                {
-                                    name: '主機',
-                                    value: `\`${data.hostname}\``,
-                                    inline: true,
-                                },
-                            ],
-                            thumbnail: {
-                                url: `https://api.mcsrvstat.us/icon/${server_ip}`,
-                                height: 0,
-                                width: 0,
-                            },
-                            author: {
-                                name: `${client.user.username}｜Minecraft 伺服器信息`,
-                                icon_url: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                            },
-                        },
+                        embed
                     ],
                 });
             }
