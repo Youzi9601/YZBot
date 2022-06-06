@@ -1,13 +1,13 @@
 module.exports = {
     command: {
         name: 'play',
-        description: '播放音樂',
+        description: '播放音樂 (沒輸入關鍵字則為 "NCS 24/7音樂電台" )',
         options: [
             {
                 name: 'query',
                 type: 3,
                 description: '你想播放的歌曲｜支持的網址：youtube、soundcloud、Spotify',
-                required: true,
+                required: false,
             },
         ],
 
@@ -25,7 +25,8 @@ module.exports = {
     run: async (client, interaction, container) => {
         const voiceChannel = interaction.member.voice.channel;
         const queue = await client.distube.getQueue(interaction);
-        const query = interaction.options.get('query').value;
+        const query = interaction.options.get('query') ? interaction.options.get('query').value : 'https://www.youtube.com/watch?v=7tNtU5XFwrU'
+
         if (!voiceChannel) {
             return interaction.reply({ content: '請先加入語音頻道！', ephemeral: true });
         }
