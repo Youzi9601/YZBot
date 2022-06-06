@@ -218,7 +218,7 @@ module.exports = {
                         drawing: '時間： {timestamp}',
                         winMessage: { content: '{winners}', embed: { description: '恭喜以上得獎者贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})', color: '0x0174DF' } },
                         embedFooter: `${client.user.username}｜抽獎系統`,
-                        noWinner: { embed: { description: ':stop: 抽獎已取消，沒有任何有效的參加者。', color: '0x0174DF' } },
+                        noWinner: ':octagonal_sign: 抽獎已取消，沒有任何有效的參加者。',
                         hostedBy: '由 {this.hostedBy} 主辦 ',
                         winners: '獲獎者',
                         endedAt: '結束於',
