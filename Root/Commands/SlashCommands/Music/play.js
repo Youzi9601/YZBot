@@ -25,7 +25,7 @@ module.exports = {
     run: async (client, interaction, container) => {
         const voiceChannel = interaction.member.voice.channel;
         const queue = await client.distube.getQueue(interaction);
-        const query = interaction.options.get('query') ? interaction.options.get('query').value : 'https://www.youtube.com/watch?v=7tNtU5XFwrU'
+        const query = interaction.options.get('query') ? interaction.options.get('query').value : 'https://www.youtube.com/watch?v=7tNtU5XFwrU';
 
         if (!voiceChannel) {
             return interaction.reply({ content: '請先加入語音頻道！', ephemeral: true });
