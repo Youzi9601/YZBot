@@ -1,4 +1,3 @@
-
 module.exports = {
     name: 'music_resume',
     returnNoErrors: false,
@@ -9,6 +8,6 @@ module.exports = {
      * @param {*} container
      */
     run: async (client, interaction, container) => {
-        await require('./../../SlashCommands/Music/resume').run(client, interaction, container)
+        await require('./../../SlashCommands/Music/resume').run(client, interaction, container);
     },
 };

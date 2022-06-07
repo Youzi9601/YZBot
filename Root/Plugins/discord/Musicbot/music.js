@@ -34,7 +34,7 @@ module.exports =
                                 new MessageButton()
                                     .setCustomId('music_stop')
                                     .setLabel('⏹ 停止')
-                                    .setStyle('DANGER')
+                                    .setStyle('DANGER'),
                             ),
                         new MessageActionRow()
                             .addComponents(
@@ -45,7 +45,7 @@ module.exports =
                                 new MessageButton()
                                     .setCustomId('music_skip')
                                     .setLabel('⏩ 下一首')
-                                    .setStyle('SECONDARY')
+                                    .setStyle('SECONDARY'),
                             ),
                         new MessageActionRow()
                             .addComponents(
@@ -60,10 +60,10 @@ module.exports =
                                 new MessageButton()
                                     .setCustomId('music_volume_down')
                                     .setLabel('🔉 -10%')
-                                    .setStyle('SECONDARY')
-                            )
+                                    .setStyle('SECONDARY'),
+                            ),
 
-                    ]
+                    ];
                     const embed = new MessageEmbed()
                         .setColor('RANDOM')
                         .setAuthor({ name: `${client.user.username} 開始播放...`, iconURL: 'https://raw.githubusercontent.com/Youzi9601/YZBot/master/Root/assets/music.gif' })

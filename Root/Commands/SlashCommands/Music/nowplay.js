@@ -1,4 +1,3 @@
-
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 const status = (queue) => `音量: \`${queue.volume}%\` | 重複: \`${queue.repeatMode ? queue.repeatMode === 2 ? '所有列隊' : '這首歌' : '關閉'}\` | 自動播放: \`${queue.autoplay ? '開啟' : '關閉'}\` | 過濾器: \`${queue.filters.join(', ') || '關閉'}\``;
@@ -19,7 +18,7 @@ module.exports = {
       * @param {*} container
       */
     run: async (client, interaction, container) => {
-        /**@param {import('distube').Queue} queue */
+        /** @param {import('distube').Queue} queue */
         const queue = await client.distube.getQueue(interaction);
         const voiceChannel = interaction.member.voice.channel;
         if (!voiceChannel) {
@@ -55,7 +54,7 @@ module.exports = {
                     new MessageButton()
                         .setCustomId('music_stop')
                         .setLabel('⏹ 停止')
-                        .setStyle('DANGER')
+                        .setStyle('DANGER'),
                 ),
             new MessageActionRow()
                 .addComponents(
@@ -66,7 +65,7 @@ module.exports = {
                     new MessageButton()
                         .setCustomId('music_skip')
                         .setLabel('⏩ 下一首')
-                        .setStyle('SECONDARY')
+                        .setStyle('SECONDARY'),
                 ),
             new MessageActionRow()
                 .addComponents(
@@ -81,10 +80,10 @@ module.exports = {
                     new MessageButton()
                         .setCustomId('music_volume_down')
                         .setLabel('🔉 -10%')
-                        .setStyle('SECONDARY')
-                )
+                        .setStyle('SECONDARY'),
+                ),
 
-        ]
+        ];
         const embed = new MessageEmbed()
             .setAuthor({ name: `${client.user.username} 正在播放...`, iconURL: 'https://raw.githubusercontent.com/Youzi9601/YZBot/master/Root/assets/music.gif' })
             .setDescription(`[${song.name}](${song.url})`)

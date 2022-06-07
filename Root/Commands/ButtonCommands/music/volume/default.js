@@ -11,7 +11,7 @@ module.exports = {
      */
     run: async (client, interaction, container) => {
 
-        /**@param {import('distube').Queue} queue */
+        /** @param {import('distube').Queue} queue */
         const queue = await client.distube.getQueue(interaction);
         const args = 100;
         const voiceChannel = interaction.member.voice.channel;
