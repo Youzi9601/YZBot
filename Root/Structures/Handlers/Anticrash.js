@@ -21,6 +21,8 @@ module.exports = (client) => {
     // 處理錯誤
     process
         .on('unhandledRejection', (reason, promise) => {
+            if (`${reason.message}`.includes('Unknown interaction') || `${reason.message}`.includes('Request failed with status code 500')) return; // 避免非機器人端的錯誤導致輸出錯誤
+
             Missing_Permissions(promise, reason, client);
 
             console.error('ERROR｜未處理的異步代碼承諾拒絕：\n', ' ', promise, '\n原因：', reason + '\n');

@@ -49,7 +49,7 @@ module.exports = {
         const total = 200;
         const current = volume;
         const bar = progressbar.splitBar(total, current, 10, '▬', '🔘')[0];
-        await interaction.reply(`將新音量設置為 ${volume}%。`);
-        await interaction.channel.send(bar);
+        await interaction.reply(`將新音量設置為 ${volume}%。\n${bar}`);
+
     },
 };
