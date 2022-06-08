@@ -205,12 +205,13 @@ module.exports = {
         // #endregion
         // #region exit
         else if (subcommand == 'exit') {
-            interaction.reply({ content: '關閉機器人......' })
+            const humanizeDuration = require('humanize-duration');
+            await interaction.reply({ content: '關閉機器人......' })
                 .then(() => {
                     /** */
 
 
-                    console.log(`\n\n關機｜收到 ${signal} 信號，關閉機器人......`);
+                    console.log(`\n\n關機｜收到 關閉 信號，關閉機器人......`);
                     console.log(
                         chalk.gray(
                             '───────────────────────────────機器人控制台───────────────────────────────\n',
@@ -253,7 +254,7 @@ module.exports = {
                             iconURL: client.user.avatarURL({ dynamic: true }),
                         },
                         fields: [
-                            { name: '版本:', value: `v${require('./../../../package.json').version}`, inline: true },
+                            { name: '版本:', value: `v${require('./../../../../package.json').version}`, inline: true },
                             { name: 'Discord.js:', value: `${require('discord.js').version}`, inline: true },
                             { name: 'Node.js', value: `${process.version}`, inline: true },
                             { name: '\u200B', value: '\u200B', inline: false },
@@ -265,15 +266,22 @@ module.exports = {
                         ],
                         timestamp: new Date(),
                     };
-
-                    try {
-                        message.edit({ embeds: [embed] });
-                        sleep(5000);
-                    } catch (error) { }
-
-                    /** */
-                    process.exit(0);
+                    message.edit({ embeds: [embed] });
                 });
+
+            const sleep = async (ms) => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve();
+                    }, ms || 0);
+                });
+            };
+            // try {
+            await sleep(10000);
+            // } catch (error) { }
+
+            /** */
+            process.exit(0);
         }
         // #endregion
         //
