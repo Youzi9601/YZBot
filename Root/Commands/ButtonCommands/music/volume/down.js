@@ -36,5 +36,14 @@ module.exports = {
         const current = volume;
         const bar = progressbar.splitBar(total, current, 10, '▬', '🔘')[0];
         await interaction.reply(`將新音量設置為 ${volume}%。\n${bar}`);
+        const sleep = async (ms) => {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve();
+                }, ms || 0);
+            });
+        };
+        await sleep(7000)
+        return interaction.deleteReply()
     },
 };
