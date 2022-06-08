@@ -43,7 +43,7 @@ module.exports = {
                 }, ms || 0);
             });
         };
-        await sleep(7000)
-        return interaction.deleteReply()
+        await sleep(7000);
+        return interaction.deleteReply();
     },
 };
