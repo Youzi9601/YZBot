@@ -216,7 +216,7 @@ module.exports = {
                 status: 'idle', // 還在關機
             });
             const humanizeDuration = require('humanize-duration');
-            await interaction.reply({ content: '關閉機器人......' })
+            await interaction.reply({ content: '關閉機器人......' });
 
             /** */
 
