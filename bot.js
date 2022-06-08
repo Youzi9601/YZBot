@@ -90,18 +90,6 @@ const fetch = require('node-fetch');
     const chalk = require('chalk');
     const moment = require('moment');
     const Discord = require('discord.js');
-    const {
-        // Collection,
-        Client,
-        Intents,
-        // Formatters,
-        MessageActionRow,
-        MessageButton,
-        MessageEmbed,
-        MessageSelectMenu,
-    } = require('discord.js');
-    const { REST } = require('@discordjs/rest');
-    const { Routes } = require('discord-api-types/v9');
     const path = __dirname;
     const client = new Discord.Client({
         intents: [
@@ -151,7 +139,7 @@ const fetch = require('node-fetch');
             },
         },
     });
-    require('./Root/Plugins/discord/Giveaway')(client);
+    // require('./Root/Plugins/discord/Giveaway')(client);
 
     // Distube
     const Distube = require('distube');
@@ -171,7 +159,11 @@ const fetch = require('node-fetch');
         youtubeCookie: process.env.ytcookie,
         plugins: [new SoundCloudPlugin(), new SpotifyPlugin(), new YouTubeDLPlugin()],
     });
-    require('./Root/Plugins/discord/Musicbot/music')(client);
+    // require('./Root/Plugins/discord/guild/music')(client);
+
+    //
+    require('./Root/Plugins/plugins')(client)
+    //
 
     if (`${config.webhook.use}` == 'true') {
         console.info(
@@ -269,9 +261,9 @@ const fetch = require('node-fetch');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function(err) {
+                fs.writeFile('./eula.txt', '', function () {
                 });
                 console.error(
                     chalk.bgRed(
@@ -325,7 +317,7 @@ const fetch = require('node-fetch');
     // rpc
     if (config.beta.rpc.run == 'true' || config.beta.rpc.run == true) {
         // 這是測試功能
-        const { rpc } = require('./Root/Plugins/discord/status/rpc');
+        const { rpc } = require('./Root/Plugins/discord/client/rpc');
         rpc();
     }
     // #endregion

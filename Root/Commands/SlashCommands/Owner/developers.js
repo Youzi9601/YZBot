@@ -227,7 +227,7 @@ module.exports = {
                     '───────────────────────────────機器人控制台───────────────────────────────\n',
                 ),
             );
-            const { oldmsg, message } = require('./../../../Plugins/discord/ReadyUpdater/ReadyUpdater');
+            const { oldmsg, message } = require('../../../Plugins/discord/client/ReadyUpdater');
             // 調整時差
             const Today = new Date();
             let day = Today.getDate();
@@ -305,6 +305,34 @@ module.exports = {
             process.exit(0);
         }
         // #endregion
-        //
+        // #region reload commands
+        else if (subcommand == 'reset-commands') {
+            require('./../../../../reset')
+            const sleep = async (ms) => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve();
+                    }, ms || 0);
+                });
+            };
+            await sleep(120000) // 休息
+
+            const path = __dirname;
+            const Handler = require(`./../../../Structures/Handlers/Handler`);
+            await Handler.loadMessageCommands(client, path);
+
+            await Handler.loadSlashCommands(client, path);
+
+            await Handler.loadContextMenus(client, path);
+
+            await Handler.loadButtonCommands(client, path);
+
+            await Handler.loadSelectMenus(client, path);
+
+            await Handler.loadModals(client, path);
+
+
+        }
+        // #endregion
     },
 };

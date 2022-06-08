@@ -1,11 +1,5 @@
-/**
- *
- * @param {import('./../../../bot').client} client
- */
-const db = require('quick.db');
 const { config } = require('./../../../bot');
 const chalk = require('chalk');
-const fs = require('fs');
 const humanizeDuration = require('humanize-duration');
 const { Missing_Permissions } = require('./Missing_Permissions');
 const sleep = async (ms) => {
@@ -95,7 +89,7 @@ module.exports = (client) => {
                     '───────────────────────────────機器人控制台───────────────────────────────\n',
                 ),
             );
-            const { oldmsg, message } = require('./../../Plugins/discord/ReadyUpdater/ReadyUpdater');
+            const { oldmsg, message } = require('../../Plugins/discord/client/ReadyUpdater');
             // 調整時差
             const Today = new Date();
             let day = Today.getDate();

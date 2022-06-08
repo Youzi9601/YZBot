@@ -22,11 +22,9 @@
         partials: ['CHANNEL'],
         // ws: { properties: { $browser: "Discord iOS" } }
     });
-    const { SlashCommandBuilder } = require('@discordjs/builders');
     const { REST } = require('@discordjs/rest');
     const { Routes } = require('discord-api-types/v9');
 
-    const chalk = require('chalk');
 
     exports.client = client;
     exports.path = path;
@@ -44,7 +42,7 @@
         const promises = [];
         for (const command of data) {
             const deleteUrl = `${Routes.applicationCommands(config.clientID)}/${command.id
-            }`;
+                }`;
             promises.push(rest.delete(deleteUrl));
             console.info(deleteUrl);
         }

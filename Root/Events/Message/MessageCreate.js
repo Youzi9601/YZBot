@@ -10,14 +10,6 @@ module.exports = {
      * @param {*} container
      */
     run: async (message, client, container) => {
-
-        // chatbot
-        require('../../Plugins/discord/message/chatbot')(message, client, container);
-        // suggestions_channel
-        require('../../Plugins/discord/message/suggestions_channel')(message, client, container);
-        // counting
-        require('../../Plugins/discord/message/counting/counting_send')(message, client, container);
-
         /*
          // cross-channel
          try {
