@@ -162,7 +162,7 @@ const fetch = require('node-fetch');
     // require('./Root/Plugins/discord/guild/music')(client);
 
     //
-    require('./Root/Plugins/plugins')(client)
+    require('./Root/Plugins/plugins')(client);
     //
 
     if (`${config.webhook.use}` == 'true') {
@@ -261,9 +261,9 @@ const fetch = require('node-fetch');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function (err, data) {
+        fs.readFile('./eula.txt', function(err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function () {
+                fs.writeFile('./eula.txt', '', function() {
                 });
                 console.error(
                     chalk.bgRed(

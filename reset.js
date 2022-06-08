@@ -42,7 +42,7 @@
         const promises = [];
         for (const command of data) {
             const deleteUrl = `${Routes.applicationCommands(config.clientID)}/${command.id
-                }`;
+            }`;
             promises.push(rest.delete(deleteUrl));
             console.info(deleteUrl);
         }

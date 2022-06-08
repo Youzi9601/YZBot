@@ -307,7 +307,7 @@ module.exports = {
         // #endregion
         // #region reload commands
         else if (subcommand == 'reset-commands') {
-            require('./../../../../reset')
+            require('./../../../../reset');
             const sleep = async (ms) => {
                 return new Promise((resolve) => {
                     setTimeout(() => {
@@ -315,10 +315,10 @@ module.exports = {
                     }, ms || 0);
                 });
             };
-            await sleep(120000) // 休息
+            await sleep(120000); // 休息
 
             const path = __dirname;
-            const Handler = require(`./../../../Structures/Handlers/Handler`);
+            const Handler = require('./../../../Structures/Handlers/Handler');
             await Handler.loadMessageCommands(client, path);
 
             await Handler.loadSlashCommands(client, path);

@@ -52,5 +52,5 @@ module.exports =
                      message.channel.send(`> ${message.content} \n <@${message.author.id}> ${data.message} `);
                  });
             */
-        })
+        });
     };
