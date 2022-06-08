@@ -16,6 +16,7 @@ module.exports =
                  * @param {import('distube').Song} song
                  */
                 (queue, song) => {
+                    queue.textChannel.sendTyping()
                     const rows = [
                         new MessageActionRow()
                             .addComponents(
@@ -83,6 +84,7 @@ module.exports =
                         queue.clientMember.guild.me.voice.setSuppressed(false);
                 })
             .on('addSong', (queue, song) => {
+                queue.textChannel.sendTyping()
                 const embed = new MessageEmbed()
                     .setTitle(':ballot_box_with_check: | 將歌曲添加到列隊')
                     .setDescription(`\`${song.name}\` - \`${song.formattedDuration}\` - 由 ${song.user} 請求`)
@@ -91,6 +93,7 @@ module.exports =
                 queue.textChannel.send({ embeds: [embed] });
             })
             .on('addList', (queue, playlist) => {
+                queue.textChannel.sendTyping()
                 const embed = new MessageEmbed()
                     .setTitle(':ballot_box_with_check: | 添加列表')
                     .setDescription(`添加 \`${playlist.name}\` 播放列表（${playlist.songs.length} 首歌曲）到列隊\n${status(queue)}`)
@@ -99,21 +102,25 @@ module.exports =
                 queue.textChannel.send({ embeds: [embed] });
             })
             .on('error', (textChannel, e) => {
+                textChannel.sendTyping()
                 console.error(e);
                 textChannel.send(`遇到錯誤： ${e}`);
             })
             // .on("finish", queue => queue.textChannel.send("***No more song in queue. Leaving the channel***"))
             .on('finishSong', queue => {
+                queue.textChannel.sendTyping()
                 const embed = new MessageEmbed()
-                    .setDescription(`:white_check_mark: | \`${queue.songs[0].name}\` 已播放完畢！`);
+                    .setDescription(`:white_check_mark: | \`${queue.songs[0].name}\` 已播放完畢！準備播放下一首...`);
                 queue.textChannel.send({ embeds: [embed] });
             })
             .on('disconnect', queue => {
+                queue.textChannel.sendTyping()
                 const embed = new MessageEmbed()
                     .setDescription(':x: | 與語音通道斷開連接');
                 queue.textChannel.send({ embeds: [embed] });
             })
             .on('empty', queue => {
+                queue.textChannel.sendTyping()
                 const embed = new MessageEmbed()
                     .setDescription(':x: | 頻道沒有人。離開頻道！');
                 queue.textChannel.send({ embeds: [embed] });

@@ -205,69 +205,92 @@ module.exports = {
         // #endregion
         // #region exit
         else if (subcommand == 'exit') {
+            client.user.setPresence({
+                activities: [
+                    {
+                        name: `${client.user.username} 關機中...`,
+                        // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
+                    },
+                ],
+                // browser: 'DISCORD IOS',
+                status: 'idle', // 還在關機
+            });
             const humanizeDuration = require('humanize-duration');
             await interaction.reply({ content: '關閉機器人......' })
-                .then(() => {
-                    /** */
+
+            /** */
 
 
-                    console.log('\n\n關機｜收到 關閉 信號，關閉機器人......');
-                    console.log(
-                        chalk.gray(
-                            '───────────────────────────────機器人控制台───────────────────────────────\n',
-                        ),
-                    );
-                    const { oldmsg, message } = require('./../../../Plugins/discord/ReadyUpdater/ReadyUpdater');
-                    // 調整時差
-                    const Today = new Date();
-                    let day = Today.getDate();
-                    let hours = Today.getUTCHours() + config.GMT;
+            console.log('\n\n關機｜收到 關閉 信號，關閉機器人......');
+            console.log(
+                chalk.gray(
+                    '───────────────────────────────機器人控制台───────────────────────────────\n',
+                ),
+            );
+            const { oldmsg, message } = require('./../../../Plugins/discord/ReadyUpdater/ReadyUpdater');
+            // 調整時差
+            const Today = new Date();
+            let day = Today.getDate();
+            let hours = Today.getUTCHours() + config.GMT;
 
-                    if (hours >= 24) {
-                        hours = hours - 24;
-                        day = day + 1;
-                    }
+            if (hours >= 24) {
+                hours = hours - 24;
+                day = day + 1;
+            }
 
-                    const msg = '```' +
-                        Today.getFullYear() +
-                        ' 年 ' +
-                        (Today.getMonth() + 1) +
-                        ' 月 ' +
-                        day +
-                        ' 日 ' +
-                        hours +
-                        ' 時 ' +
-                        Today.getMinutes() +
-                        ' 分 ' +
-                        Today.getSeconds() +
-                        ' 秒' +
-                        ' 機器人關機```';
-                    const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
-                        conjunction: ' ',
-                        language: 'zh_TW',
-                    })} `;
-                    const embed = {
-                        color: 0x808080,
-                        description: oldmsg + ' ' + msg,
-                        author: {
-                            name: `${client.user.username} - 機器人運作資訊`,
-                            iconURL: client.user.avatarURL({ dynamic: true }),
-                        },
-                        fields: [
-                            { name: '版本:', value: `v${require('./../../../../package.json').version}`, inline: true },
-                            { name: 'Discord.js:', value: `${require('discord.js').version}`, inline: true },
-                            { name: 'Node.js', value: `${process.version}`, inline: true },
-                            { name: '\u200B', value: '\u200B', inline: false },
-                            {
-                                name: '運行時間:',
-                                value: `${uptime}`,
-                                inline: true,
-                            },
-                        ],
-                        timestamp: new Date(),
-                    };
-                    message.edit({ embeds: [embed] });
-                });
+            const msg = '```' +
+                Today.getFullYear() +
+                ' 年 ' +
+                (Today.getMonth() + 1) +
+                ' 月 ' +
+                day +
+                ' 日 ' +
+                hours +
+                ' 時 ' +
+                Today.getMinutes() +
+                ' 分 ' +
+                Today.getSeconds() +
+                ' 秒' +
+                ' 機器人關機```';
+            const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+                conjunction: ' ',
+                language: 'zh_TW',
+            })} `;
+            const embed = {
+                color: 0x808080,
+                description: oldmsg + ' ' + msg,
+                author: {
+                    name: `${client.user.username} - 機器人運作資訊`,
+                    iconURL: client.user.avatarURL({ dynamic: true }),
+                },
+                fields: [
+                    { name: '版本:', value: `v${require('./../../../../package.json').version}`, inline: true },
+                    { name: 'Discord.js:', value: `${require('discord.js').version}`, inline: true },
+                    { name: 'Node.js', value: `${process.version}`, inline: true },
+                    { name: '\u200B', value: '\u200B', inline: false },
+                    {
+                        name: '運行時間:',
+                        value: `${uptime}`,
+                        inline: true,
+                    },
+                ],
+                timestamp: new Date(),
+            };
+            try {
+                message.edit({ embeds: [embed] });
+            } catch (error) { }
+
+            client.user.setPresence({
+                activities: [
+                    {
+                        name: `機器人暫停服務 - ${client.user.username}`,
+                        // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
+                    },
+                ],
+                // browser: 'DISCORD IOS',
+                status: 'DND', // 還在關機
+                afk: true,
+            });
 
             const sleep = async (ms) => {
                 return new Promise((resolve) => {
@@ -276,9 +299,7 @@ module.exports = {
                     }, ms || 0);
                 });
             };
-            // try {
             await sleep(10000);
-            // } catch (error) { }
 
             /** */
             process.exit(0);
