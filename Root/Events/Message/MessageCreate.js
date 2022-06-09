@@ -36,7 +36,7 @@ module.exports = {
         // 其他工作
 
         // logging
-        if (message.inGuild) {
+        if (message.guild) {
             const isBotLog = ((message.embeds[0] ? (message.embeds[0].description ? message.embeds[0].description : 'no description') : 'no embed')).includes('```') || false;
             if (message.author.id == client.user.id && isBotLog) {
                 //
