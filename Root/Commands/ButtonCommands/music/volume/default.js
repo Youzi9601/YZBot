@@ -19,7 +19,7 @@ module.exports = {
             return interaction.reply({ content: '請先加入語音頻道！', ephemeral: true });
         }
         if (!queue) {
-            const queueError = new Discord.MessageEmbed()
+            const queueError = new container.Discord.MessageEmbed()
                 .setDescription(':x: 啊喔...沒有東西在列隊裡播放')
                 .setColor('RANDOM');
             return interaction.reply({ embeds: [queueError] });
