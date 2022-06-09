@@ -1,6 +1,6 @@
 const { translate_Permissions } = require('../../Language/Language');
 
-module.exports = async function (message, command, Discord) {
+module.exports = async function(message, command, Discord) {
     if (!command.anyClientPermission) return false;
     if (command.anyClientPermission.some(i => message.member.permissions.has(i))) return false;
     else {

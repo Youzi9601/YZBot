@@ -108,7 +108,7 @@ module.exports = {
         // 取得子指令
         const subcommand = interaction.options.getSubcommand();
 
-        /**@param {import('discord.js').TextChannel} channel */
+        /** @param {import('discord.js').TextChannel} channel */
         const channel = interaction.options.getChannel('channel') || interaction.channel;
 
         if (!isNotTextChannel) {
@@ -160,11 +160,11 @@ module.exports = {
                 await interaction.deferReply();
                 var cross_server_system = new db.table('cross_server_system');
                 // 取得資料
-                const cross_id = 'main' || interaction.options.getString('id')
+                const cross_id = 'main' || interaction.options.getString('id');
 
                 await channel.sendTyping();
                 await channel.send(`跨群代碼： ${cross_id} (因為目前暫時鎖定只開一個)，只是目前沒有跨群的作用...你想做啥==`);
-                await interaction.editReply('成功創立跨群！')
+                await interaction.editReply('成功創立跨群！');
                 cross_server_system.set(`${interaction.guild.id}`, {
                     guildid: interaction.guild.id,
                     channelid: channel.id,
