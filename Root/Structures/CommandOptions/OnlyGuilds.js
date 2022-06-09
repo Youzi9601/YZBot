@@ -1,5 +1,5 @@
 const { config } = require('./../../../bot');
-module.exports = async function(client, message, command, Discord) {
+module.exports = async function (client, message, command, Discord) {
     // bypass
     if (config.developers.some(id => message.member.user.id == id)) return false;
     //
@@ -18,7 +18,7 @@ module.exports = async function(client, message, command, Discord) {
                     new Discord.MessageEmbed()
                         .setAuthor({
                             name: message.member.user.tag,
-                            iconURL: message.member.user.displayAvatarURL({ dynamic: true }),
+                            iconURL: message.member.user.displayAvatarURL({ dynamic: true }) || message.member.user.defaultAvatarURL,
                         })
                         .setColor('#FF0000')
                         .setTimestamp()

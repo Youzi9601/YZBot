@@ -1,6 +1,6 @@
 const db = require('quick.db');
 const humanizeDuration = require('humanize-duration');
-module.exports = async function(
+module.exports = async function (
     client,
     message,
     command,
@@ -37,7 +37,7 @@ module.exports = async function(
                 new Discord.MessageEmbed()
                     .setAuthor({
                         name: message.member.user.tag,
-                        iconURL: message.member.user.displayAvatarURL({ dynamic: true }),
+                        iconURL: message.member.user.displayAvatarURL({ dynamic: true }) || message.member.user.defaultAvatarURL,
                     })
                     .setTimestamp()
                     .setColor('#FF0000')

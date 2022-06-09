@@ -133,7 +133,7 @@ module.exports = {
                 .setTimestamp()
                 .setAuthor({
                     name: interaction.member.user.tag,
-                    iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }),
+                    iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
                 })
                 .setDescription('伺服器列表已列於控制台！');
             // 添加到最前端

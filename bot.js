@@ -93,17 +93,22 @@ const fetch = require('node-fetch');
     const path = __dirname;
     const client = new Discord.Client({
         intents: [
-            Discord.Intents.FLAGS.GUILDS,
-            Discord.Intents.FLAGS.GUILD_MESSAGES,
-            Discord.Intents.FLAGS.GUILD_PRESENCES,
-            Discord.Intents.FLAGS.DIRECT_MESSAGES,
-            Discord.Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
-            Discord.Intents.FLAGS.GUILD_MEMBERS,
-            Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-            Discord.Intents.FLAGS.GUILD_WEBHOOKS,
-            Discord.Intents.FLAGS.GUILD_VOICE_STATES,
-            Discord.Intents.FLAGS.GUILD_INVITES,
-            Discord.Intents.FLAGS.GUILD_BANS,
+            'DIRECT_MESSAGES',
+            'DIRECT_MESSAGE_REACTIONS',
+            'DIRECT_MESSAGE_TYPING',
+            'GUILDS',
+            'GUILD_BANS',
+            'GUILD_EMOJIS_AND_STICKERS',
+            'GUILD_INTEGRATIONS',
+            'GUILD_INVITES',
+            'GUILD_MEMBERS',
+            'GUILD_MESSAGES',
+            'GUILD_MESSAGE_REACTIONS',
+            'GUILD_MESSAGE_TYPING',
+            'GUILD_PRESENCES',
+            'GUILD_SCHEDULED_EVENTS',
+            'GUILD_VOICE_STATES',
+            'GUILD_WEBHOOKS',
         ],
         partials: ['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'GUILD_SCHEDULED_EVENT'],
         // ws可用於讓機器人上線狀態為使用"手機"
@@ -261,9 +266,9 @@ const fetch = require('node-fetch');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function() {
+                fs.writeFile('./eula.txt', '', function () {
                 });
                 console.error(
                     chalk.bgRed(

@@ -41,7 +41,7 @@ module.exports = {
                 .setTimestamp()
                 .setAuthor({
                     name: interaction.member.user.tag,
-                    iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }),
+                    iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
                 })
                 .setDescription('🛑 您不能封鎖一個含有封鎖成員權限的成員。');
             interaction.reply({ embeds: [msg] });
@@ -51,7 +51,7 @@ module.exports = {
                 .setTimestamp()
                 .setAuthor({
                     name: interaction.member.user.tag,
-                    iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }),
+                    iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
                 })
                 .setDescription('✅ 已從伺服器封鎖該用戶！');
             interaction.guild.members.ban(user, { reason });

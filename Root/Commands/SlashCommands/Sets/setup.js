@@ -107,6 +107,8 @@ module.exports = {
     run: async (client, interaction, container) => {
         // 取得子指令
         const subcommand = interaction.options.getSubcommand();
+
+        /**@param {import('discord.js').TextChannel} channel */
         const channel = interaction.options.getChannel('channel') || interaction.channel;
 
         if (!isNotTextChannel) {
@@ -140,30 +142,35 @@ module.exports = {
             // #endregion
             // #region cross-servers
             else if (subcommand == 'corss-servers') {
-                interaction.deferReply();
+                // 如果非官方人員
+                if (!config.developers.some(id => interaction.user.id == id)) interaction.reply({
+                    embeds: [new Discord.MessageEmbed()
+                        .setAuthor({
+                            name: interaction.member.user.tag,
+                            iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
+                        })
+                        .setColor('#FF0000')
+                        .setTimestamp()
+                        .setDescription('此命令是為機器人的開發人員所使用的。')],
+                    allowedMentions: {
+                        repliedUser: false,
+                    },
+                });
+
+                await interaction.deferReply();
                 var cross_server_system = new db.table('cross_server_system');
                 // 取得資料
-                const cross_id = interaction.options.getString('id');
-                const webhook = channel.createWebhook(
-                    'YZB 跨群聊天',
-                    {
-                        avatar:
-                            client.user.displayAvatarURL()
-                            || client.user.defaultAvatarURL,
-                    },
-                );
+                const cross_id = 'main' || interaction.options.getString('id')
 
-                console.log(webhook);
-                channel.sendTyping();
-                channel.send(`跨群代碼： ${cross_id}，只是目前沒有跨群的作用...你想做啥==`);
-                interaction.deferReply();
+                await channel.sendTyping();
+                await channel.send(`跨群代碼： ${cross_id} (因為目前暫時鎖定只開一個)，只是目前沒有跨群的作用...你想做啥==`);
+                await interaction.editReply('成功創立跨群！')
                 cross_server_system.set(`${interaction.guild.id}`, {
                     guildid: interaction.guild.id,
                     channelid: channel.id,
                     cross_id: cross_id,
-                    webhook_token: webhook.token,
-                    webhook_id: webhook.id,
                 });
+
             }
             // #endregion
             // else

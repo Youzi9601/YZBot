@@ -652,7 +652,7 @@ module.exports = {
                 client.channels.cache.get(
                     interaction.options.getString('channel_id'),
                 ) || interaction.channel;
-            const content = interaction.options.getString('contents') || '';
+            const content = interaction.options.getString('contents') || undefined;
             const embed = {};
             // EMBED
             // main
@@ -755,7 +755,7 @@ module.exports = {
                 // 設定
                 msg.embeds = [embed];
             }
-            interaction.channel.messages.fetch({ around: interaction.options.getString('message_id'), limit: 1 })
+            channel.messages.fetch({ around: interaction.options.getString('message_id'), limit: 1 })
                 .then(message => {
                     const fetchedMsg = message.first();
                     fetchedMsg.edit(msg);
@@ -793,7 +793,7 @@ module.exports = {
                 client.channels.cache.get(
                     interaction.options.getString('channel_id'),
                 ) || interaction.channel;
-            const content = interaction.options.getString('contents') || '';
+            const content = interaction.options.getString('contents') || undefined;
             const embed = {};
             // EMBED
             // main
@@ -1019,6 +1019,155 @@ module.exports = {
 
         }
         // #endregion
+        else if (subcommand == 'webhook') {
+            const channel = interaction.channel
+            await interaction.deferReply();
+
+            const username = interaction.options.getString('name') || client.user.username;
+            const avatar = interaction.options.getString('avatar') || client.user.avatarURL({ dynamic: true }) || client.user.defaultAvatarURL
+
+            const content = interaction.options.getString('contents') || undefined;
+            const embed = {};
+            // EMBED
+            // main
+            const embed_title = interaction.options.getString('title') || undefined;
+            if (embed_title) {
+                embed.title = embed_title.replace(/\\n/g, '\n');
+            }
+            const embed_description =
+                interaction.options.getString('description') || undefined;
+            if (embed_description) {
+                embed.description = embed_description.replace(/\\n/g, '\n');
+            }
+            const embed_title_url =
+                interaction.options.getString('title_url') || undefined;
+            if (embed_title_url) {
+                embed.url = embed_title_url;
+            }
+            // author
+            const embed_author_name =
+                interaction.options.getString('author_name') || undefined;
+            const embed_author_icon =
+                interaction.options.getString('author_icon') || undefined;
+            const embed_author_url =
+                interaction.options.getString('author_url') || undefined;
+            if (embed_author_name || embed_author_url || embed_author_icon) {
+                embed.author = {};
+                if (embed_author_name) {
+                    embed.author.name = embed_author_name;
+                }
+                if (embed_author_icon) {
+                    embed.author.icon = embed_author_icon;
+                }
+                if (embed_author_url) {
+                    embed.author.url = embed_author_url;
+                }
+            }
+            // thumbnail
+            const embed_thumbnail =
+                interaction.options.getString('thumbnail') || undefined;
+            if (embed_thumbnail) {
+                embed.thumbnail = {};
+                embed.thumbnail.url = embed_thumbnail;
+            }
+            // image
+            const embed_image = interaction.options.getString('image') || undefined;
+            if (embed_image) {
+                embed.image = {};
+                embed.image.url = embed_image;
+            }
+            // footer
+
+            const embed_footer_text =
+                interaction.options.getString('footer_text') || undefined;
+            const embed_footer_icon =
+                interaction.options.getString('footer_icon') || undefined;
+            if (embed_footer_icon || embed_footer_text) {
+                embed.footer = {};
+                if (embed_footer_text) {
+                    embed.footer.text = embed_footer_text;
+                }
+                if (embed_footer_icon) {
+                    embed.footer.icon_url = embed_footer_icon;
+                }
+            }
+            // fields
+            const embed_fields =
+                interaction.options.getString('fields') || undefined;
+            if (embed_fields) {
+                // 分開每個部件
+                const fields = embed_fields.split(';');
+                const fields_return = [];
+                // 整理每個部件的項目
+                fields.forEach((field) => {
+                    const obj = field.split(',');
+                    fields_return.push({
+                        name: obj[0],
+                        value: obj[1],
+                        inline: obj[2] || false,
+                    });
+                });
+                embed.fields = [fields_return];
+            }
+
+            // 取得訊息內容
+            const msg = {};
+            if (content) {
+                msg.content = content.replace(/\\n/g, '\n\u200b');
+            }
+
+            if (
+                embed.title ||
+                embed.description ||
+                embed.footer ||
+                embed.image ||
+                embed.thumbnail ||
+                embed.fields
+            ) {
+                // timestamp & color
+                const embed_color = interaction.options.getString('color') || '000000';
+                if (embed_color) {
+                    embed.color = '0x' + embed_color;
+                }
+                const embed_timestamp =
+                    interaction.options.getString('timestamp') || false;
+                if (embed_timestamp == true) {
+                    embed.timestamp = new Date();
+                } else {
+                    // 不新增
+                }
+                // 設定
+                msg.embeds = [embed];
+            } else msg.embeds = []
+
+            try {
+                const webhooks = await channel.fetchWebhooks();
+                let webhook = webhooks.find(wh => wh.token);
+
+                if (!webhook) {
+                    webhook = await interaction.channel.createWebhook(
+                        client.user.username + ' - Webhook系統',
+                        {
+                            avatar:
+                                client.user.displayAvatarURL()
+                                || client.user.defaultAvatarURL,
+                        },
+                    );
+                }
+
+                await webhook.send({
+                    username: username,
+                    avatarURL: avatar,
+                    content: msg.content,
+                    embeds: msg.embeds,
+                });
+            } catch (error) {
+                return await interaction.editReply(`:x: 發生了錯誤：\`\`\`js\n${error}\`\`\``)
+            }
+            await interaction.editReply('成功發送！')
+
+        }
+        // #region 未完成
         else {
             try {
                 await interaction.reply({
@@ -1031,5 +1180,6 @@ module.exports = {
             }
 
         }
+        // #endregion
     },
 };
