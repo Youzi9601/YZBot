@@ -20,21 +20,21 @@ module.exports = {
         });
         // Since there's only 1 audit log entry in this collection, grab the first one
         const deletionLog = fetchedLogs.entries.first();
-        let msg = ''
+        let msg = '';
         // Perform a coherence check to make sure that there's *something*
         if (!deletionLog) {
-            msg = ` 的一條消息已被刪除，但未找到相關審核日誌。`
+            msg = ' 的一條消息已被刪除，但未找到相關審核日誌。';
         } else {
-            //現在獲取刪除消息的人的用戶對象
-            //同時抓取這個動作的目標來仔細檢查        
+            // 現在獲取刪除消息的人的用戶對象
+            // 同時抓取這個動作的目標來仔細檢查
             const { executor, target } = deletionLog;
 
-            //用更多信息更新輸出
-            //同時運行檢查以確保返回的日誌是針對同一作者的消息    
+            // 用更多信息更新輸出
+            // 同時運行檢查以確保返回的日誌是針對同一作者的消息
             if (target.id === message.author.id) {
-                msg = ` 的消息被 ${executor.tag} (${executor.id}) 刪除了。`
+                msg = ` 的消息被 ${executor.tag} (${executor.id}) 刪除了。`;
             } else {
-                msg = ` 的一條消息已被刪除，但我們不知道是誰刪除的。`
+                msg = ' 的一條消息已被刪除，但我們不知道是誰刪除的。';
             }
         }
         log('info',
