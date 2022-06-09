@@ -1020,11 +1020,11 @@ module.exports = {
         }
         // #endregion
         else if (subcommand == 'webhook') {
-            const channel = interaction.channel
+            const channel = interaction.channel;
             await interaction.deferReply();
 
             const username = interaction.options.getString('name') || client.user.username;
-            const avatar = interaction.options.getString('avatar') || client.user.avatarURL({ dynamic: true }) || client.user.defaultAvatarURL
+            const avatar = interaction.options.getString('avatar') || client.user.avatarURL({ dynamic: true }) || client.user.defaultAvatarURL;
 
             const content = interaction.options.getString('contents') || undefined;
             const embed = {};
@@ -1138,7 +1138,7 @@ module.exports = {
                 }
                 // 設定
                 msg.embeds = [embed];
-            } else msg.embeds = []
+            } else msg.embeds = [];
 
             try {
                 const webhooks = await channel.fetchWebhooks();
@@ -1162,9 +1162,9 @@ module.exports = {
                     embeds: msg.embeds,
                 });
             } catch (error) {
-                return await interaction.editReply(`:x: 發生了錯誤：\`\`\`js\n${error}\`\`\``)
+                return await interaction.editReply(`:x: 發生了錯誤：\`\`\`js\n${error}\`\`\``);
             }
-            await interaction.editReply('成功發送！')
+            await interaction.editReply('成功發送！');
 
         }
         // #region 未完成
