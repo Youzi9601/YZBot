@@ -16,45 +16,76 @@ module.exports = { log };
  * @param {Client} client 機器人
  * @param {ID} channel 頻道ID(預設為 config.Channels.All 的內容)
  */
-function log(level, msg, SendToDiscord = false, client = bot.client, discordmsg = undefined, channel = `${config.Channels.All}`) {
-
-    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${`${level}`.toUpperCase()}｜${msg} `, function(err) {
-        // none
-    });
+function log(level = 'log', msg, SendToDiscord = false, client = bot.client, discordmsg = undefined, channel = `${config.Channels.All}`) {
+    const prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`
 
 
-    // info
+
+    // 控制台顯示
+    // log
     if (level == 'log') {
-        console.log(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`,
-        ) + msg);
+        console.log(chalk.gray(prefix,) + msg);
     }
     // info
     else if (level == 'info') {
-        console.info(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`,
-        ) + msg);
+        console.info(chalk.gray(prefix) + msg);
     }
     // warn
     else if (level == 'warn') {
-        console.warn(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`,
-        ) + msg);
+        console.warn(chalk.gray(prefix,) + msg);
     }
     // error
     else if (level == 'error') {
-        console.error(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`,
-        ) + msg);
-    } else if (level == 'debug') {
-        console.debug(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`,
-        ) + msg);
-    } else {
-        console.info(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`,
-        ) + msg);
+        console.error(chalk.gray(prefix,) + msg);
     }
+    // debug
+    else if (level == 'debug') {
+        console.debug(chalk.gray(prefix,) + msg);
+    }
+    // guild.logs
+    else if (level == 'guild-log') {
+        const Box = require('cli-box');
+        const data = [
+            chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + `${msg.event} 事件`,
+        ]
+        data.push(msg.content)
+        const guild_log_box = new Box(
+            {
+                w: Math.floor(75),
+                h: data.join('\n').split(/\n/g).length,
+                stringify: false,
+                marks: {
+                    nw: '╭',
+                    n: '─',
+                    ne: '',
+                    e: '',
+                    se: '',
+                    s: '',
+                    sw: '',
+                    w: ''
+                },
+                hAlign: 'left',
+            },
+            data.join('\n')
+        ).stringify();
+        // 紀錄本地
+        console.info(guild_log_box);
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${guild_log_box} `, function (err) {
+            // none
+        });
+        // 傳輸Discord
+
+
+        return;
+    }
+    // 沒有level
+    else {
+        console.info(chalk.gray(prefix,) + msg);
+    }
+    // 寫入檔案
+    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${prefix}${msg} `, function (err) {
+        // none
+    });
 
     //
     if ((channel != '') && SendToDiscord) {

@@ -11,11 +11,14 @@ const sleep = async (ms) => {
 };
 
 module.exports = (client) => {
+
     // #region 事件
     // 處理錯誤
     process
         .on('unhandledRejection', (reason, promise) => {
-            if (`${reason.message}`.includes('Unknown interaction') || `${reason.message}`.includes('Request failed with status code 500')) return; // 避免非機器人端的錯誤導致輸出錯誤
+            if (`${reason.message}`.includes('Unknown interaction')
+                || `${reason.message}`.includes('Request failed with status code 500')
+                || `${reason.message}`.includes('Unknown message')) return; // 避免非機器人端的錯誤導致輸出錯誤
 
             Missing_Permissions(promise, reason, client);
 
@@ -48,7 +51,9 @@ module.exports = (client) => {
 
             console.error('ERROR｜未處理的同步代碼承諾拒絕：\n', ' ', promise, '\n原因：', reason + '\n');
             try {
-                if (`${reason.message}`.includes('Missing Permissions') || `${reason.message}`.includes('Missing Access')) return;
+                if (`${reason.message}`.includes('Missing Permissions')
+                    || `${reason.message}`.includes('Missing Access')
+                    || `${reason.message}`.includes('Unknown message')) return;
 
                 // console 頻道
                 const error_channel = client.channels.cache.get(

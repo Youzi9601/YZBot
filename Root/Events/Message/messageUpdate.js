@@ -13,8 +13,21 @@ module.exports = {
     run: async (oldMessage, newMessage, client, container) => {
 
         if (!oldMessage.guild || !oldMessage.author || oldMessage.author.bot) return;
-        log('info',
-            `${oldMessage.author.tag} (${oldMessage.author.id}) 在 ${oldMessage.guild.name} (${oldMessage.guild.id}) ${oldMessage.channel.name} (${oldMessage.channel.id}) 編輯了訊息： ${oldMessage.content} -> ${newMessage.content}`,
+        const msg = {
+            event: 'messageUpdate',
+            content: [
+                `成員：${oldMessage.author ? oldMessage.author.tag + ` (${oldMessage.author.id})` : '無法取得使成員 (??????)'}`,
+                `位置`,
+                `- 伺服器： ${oldMessage.guild.name} (${oldMessage.guild.id}) `,
+                `- 頻道： #${oldMessage.channel.name} (${oldMessage.channel.id})`,
+                `訊息(${oldMessage.id})`,
+                `- 舊：${oldMessage.content} ${oldMessage.attachments.map(a => a.url).join('\n')}${(oldMessage.embeds.length !== 0) ? '```json\n' + JSON.stringify(oldMessage.embeds, null, 2) + '```' : ''}`,
+                `- 新：${newMessage.content} ${newMessage.attachments.map(a => a.url).join('\n')}${(newMessage.embeds.length !== 0) ? '```json\n' + JSON.stringify(newMessage.embeds, null, 2) + '```' : ''}`
+            ].join('\n'),
+        }
+
+        log('guild-log',
+            msg,
             true,
             client,
         );

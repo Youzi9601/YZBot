@@ -1,4 +1,3 @@
-const { config, client } = require('../../../../bot');
 const db = require('quick.db');
 const axios = require('axios');
 

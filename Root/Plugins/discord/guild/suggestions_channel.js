@@ -1,4 +1,3 @@
-const { client } = require('../../../../bot');
 const db = require('quick.db');
 const { log } = require('../../../Utils/log');
 
