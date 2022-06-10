@@ -45,14 +45,14 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
     else if (level == 'guild-log') {
         // const Box = require('cli-box');
         const data = [
-            `╭` + `─`.repeat(75),
+            '╭' + '─'.repeat(75),
             chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + `${msg.event} 事件`,
         ];
         data.push(msg.content, '');
-        const guild_log_box = data.join('\n')
+        const guild_log_box = data.join('\n');
         // 紀錄本地
         console.info(guild_log_box);
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${guild_log_box} `, function (err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${guild_log_box} `, function(err) {
             // none
         });
         // 傳輸Discord
@@ -65,7 +65,7 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
         console.info(chalk.gray(prefix) + msg);
     }
     // 寫入檔案
-    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${prefix}${msg} `, function (err) {
+    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${prefix}${msg} `, function(err) {
         // none
     });
 
