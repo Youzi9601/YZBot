@@ -32,7 +32,7 @@ module.exports = {
                 '位置：',
                 `伺服器 - ${message.guild.name} (${message.guild.id}) `,
                 `頻道 - #${message.channel.name} (${message.channel.id})`,
-                `訊息內容：${message.content} ${message.attachments.map(a => a.url).join('\n')} ${message.embeds.toString}`,
+                `訊息內容：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : ''}`,
             ].join('\n');
         } else {
             // 現在獲取刪除消息的人的用戶對象
@@ -49,7 +49,7 @@ module.exports = {
                     '位置：',
                     `伺服器 - ${message.guild.name} (${message.guild.id}) `,
                     `頻道 - #${message.channel.name} (${message.channel.id})`,
-                    `訊息內容：${message.content} ${message.attachments.map(a => a.url).join('\n')} ${message.embeds.toString}`,
+                    `訊息內容：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : ''}`,
                 ].join('\n');
             } else {
                 msg.content = [
