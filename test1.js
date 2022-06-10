@@ -1,20 +1,20 @@
-run()
+run();
 async function run() {
-    console.log('加載相關啟動文件！')
+    console.log('加載相關啟動文件！');
 
     /**
      * 設定變數
      */
-    const botToken = "";
-    const channelId = "";
-    const server = { port: 3000, path: './SendToMinecraft' }
+    const botToken = '';
+    const channelId = '';
+    const server = { port: 3000, path: './SendToMinecraft' };
 
 
-    // 
-    const fastify = require('fastify')()
-    const axios = require('axios').default
+    //
+    const fastify = require('fastify')();
+    const axios = require('axios').default;
     // 基本機器人登入
-    const Discord = require('discord.js')
+    const Discord = require('discord.js');
     const client = new Discord.Client({
         intents: [
             'DIRECT_MESSAGES',
@@ -35,10 +35,9 @@ async function run() {
     });
 
 
-
     // 登入
     await client.login(botToken);
-    console.log('使用 ' + client.user.tag + '登入！')
+    console.log('使用 ' + client.user.tag + '登入！');
 
     // 導出client
     exports.client = client;
@@ -46,7 +45,7 @@ async function run() {
     client.user.setPresence({
         activities: [
             {
-                name: `123456`,
+                name: '123456',
                 // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
             },
         ],
@@ -59,7 +58,7 @@ async function run() {
     /**
      * Ws Server 創建
      */
-    const { WebSocketServer } = require('ws')
+    const { WebSocketServer } = require('ws');
     const wss = new WebSocketServer({ server });
     // 連線
     wss.on('connection', function connection(ws) {
@@ -73,10 +72,10 @@ async function run() {
         client.on('messageCreate', (message) => {
             if (message.channel.id != channelId) return; // 如果非監測頻道
             if (message.author.bot) return; // 如果為機器人則返回
-            if (message.content == "") return;
+            if (message.content == '') return;
             console.log({ messageId: message.id, messageAuthor: message.member.nickname || message.member.user.username, messageContent: message.content });
             const result = { messageId: message.id, messageAuthor: message.member.nickname || message.member.user.username, messageContent: message.content };
-            console.log('新訊息已發送!')
+            console.log('新訊息已發送!');
 
             ws.send(JSON.stringify(result));
         });
@@ -86,8 +85,8 @@ async function run() {
 
     // app.listen(8080);
 
-    console.log("TCP伺服器已開啟")
+    console.log('TCP伺服器已開啟');
     // 訊息事件發生
 
-};
-console.log('機器人已開啟並上線')
+}
+console.log('機器人已開啟並上線');

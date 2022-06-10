@@ -20,19 +20,19 @@ module.exports = {
         });
         // Since there's only 1 audit log entry in this collection, grab the first one
         const deletionLog = fetchedLogs.entries.first();
-        let msg = {
+        const msg = {
             event: 'messageDelete',
-            content: ''
+            content: '',
         };
         // Perform a coherence check to make sure that there's *something*
         if (!deletionLog) {
             msg.content = [
-                `*沒有任何審核日誌輸出...`,
+                '*沒有任何審核日誌輸出...',
                 `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
-                `位置：`,
+                '位置：',
                 `伺服器 - ${message.guild.name} (${message.guild.id}) `,
                 `頻道 - ${message.channel.name} (${message.channel.id})`,
-                `訊息內容：${message.content} ${message.attachments.map(a => a.url).join('\n')} ${message.embeds.toString}`
+                `訊息內容：${message.content} ${message.attachments.map(a => a.url).join('\n')} ${message.embeds.toString}`,
             ].join('\n');
         } else {
             // 現在獲取刪除消息的人的用戶對象
@@ -43,23 +43,23 @@ module.exports = {
             // 同時運行檢查以確保返回的日誌是針對同一作者的消息
             if (target.id === message.member.id) {
                 msg.content = [
-                    `*訊息被人刪除了`,
+                    '*訊息被人刪除了',
                     `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
                     `刪除者：${executor.tag} (${executor.id})`,
-                    `位置：`,
+                    '位置：',
                     `伺服器 - ${message.guild.name} (${message.guild.id}) `,
                     `頻道 - ${message.channel.name} (${message.channel.id})`,
-                    `訊息內容：${message.content} ${message.attachments.map(a => a.url).join('\n')} ${message.embeds.toString}`
-                ].join('\n')
+                    `訊息內容：${message.content} ${message.attachments.map(a => a.url).join('\n')} ${message.embeds.toString}`,
+                ].join('\n');
             } else {
                 msg.content = [
-                    `*訊息不知被誰刪除了(可能是自己?)`,
+                    '*訊息不知被誰刪除了(可能是自己?)',
                     `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
-                    `位置：`,
+                    '位置：',
                     `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
                     `- 頻道 ${message.channel.name} (${message.channel.id})`,
-                    `訊息(${message.id})：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '```json\n' + JSON.stringify(message.embeds, null, 2) + '```' : ''}`
-                ].join('\n')
+                    `訊息(${message.id})：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '```json\n' + JSON.stringify(message.embeds, null, 2) + '```' : ''}`,
+                ].join('\n');
             }
         }
         log('guild-log',

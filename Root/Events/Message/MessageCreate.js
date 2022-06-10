@@ -38,17 +38,17 @@ module.exports = {
         // logging
         if (message.guild) {
             if (message.author.bot) return;
-            let msg = {
+            const msg = {
                 event: 'messageCreate',
-                content: ''
+                content: '',
             };
             msg.content = [
                 `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
-                `位置：`,
+                '位置：',
                 `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
                 `- 頻道 ${message.channel.name} (${message.channel.id})`,
-                `訊息(${message.id})：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '```json\n' + JSON.stringify(message.embeds, null, 2) + '```' : ''}`
-            ].join('\n')
+                `訊息(${message.id})：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '```json\n' + JSON.stringify(message.embeds, null, 2) + '```' : ''}`,
+            ].join('\n');
 
             log('guild-log',
                 msg,

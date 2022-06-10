@@ -17,14 +17,13 @@ module.exports = { log };
  * @param {ID} channel 頻道ID(預設為 config.Channels.All 的內容)
  */
 function log(level = 'log', msg, SendToDiscord = false, client = bot.client, discordmsg = undefined, channel = `${config.Channels.All}`) {
-    const prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`
-
+    const prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`;
 
 
     // 控制台顯示
     // log
     if (level == 'log') {
-        console.log(chalk.gray(prefix,) + msg);
+        console.log(chalk.gray(prefix) + msg);
     }
     // info
     else if (level == 'info') {
@@ -32,23 +31,23 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
     }
     // warn
     else if (level == 'warn') {
-        console.warn(chalk.gray(prefix,) + msg);
+        console.warn(chalk.gray(prefix) + msg);
     }
     // error
     else if (level == 'error') {
-        console.error(chalk.gray(prefix,) + msg);
+        console.error(chalk.gray(prefix) + msg);
     }
     // debug
     else if (level == 'debug') {
-        console.debug(chalk.gray(prefix,) + msg);
+        console.debug(chalk.gray(prefix) + msg);
     }
     // guild.logs
     else if (level == 'guild-log') {
         const Box = require('cli-box');
         const data = [
             chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + `${msg.event} 事件`,
-        ]
-        data.push(msg.content)
+        ];
+        data.push(msg.content);
         const guild_log_box = new Box(
             {
                 w: Math.floor(75),
@@ -62,15 +61,15 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
                     se: '',
                     s: '',
                     sw: '',
-                    w: ''
+                    w: '',
                 },
                 hAlign: 'left',
             },
-            data.join('\n')
+            data.join('\n'),
         ).stringify();
         // 紀錄本地
         console.info(guild_log_box);
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${guild_log_box} `, function (err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${guild_log_box} `, function(err) {
             // none
         });
         // 傳輸Discord
@@ -80,10 +79,10 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
     }
     // 沒有level
     else {
-        console.info(chalk.gray(prefix,) + msg);
+        console.info(chalk.gray(prefix) + msg);
     }
     // 寫入檔案
-    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${prefix}${msg} `, function (err) {
+    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${prefix}${msg} `, function(err) {
         // none
     });
 
