@@ -31,7 +31,7 @@ module.exports = {
                 `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
                 '位置：',
                 `伺服器 - ${message.guild.name} (${message.guild.id}) `,
-                `頻道 - ${message.channel.name} (${message.channel.id})`,
+                `頻道 - #${message.channel.name} (${message.channel.id})`,
                 `訊息內容：${message.content} ${message.attachments.map(a => a.url).join('\n')} ${message.embeds.toString}`,
             ].join('\n');
         } else {
@@ -48,7 +48,7 @@ module.exports = {
                     `刪除者：${executor.tag} (${executor.id})`,
                     '位置：',
                     `伺服器 - ${message.guild.name} (${message.guild.id}) `,
-                    `頻道 - ${message.channel.name} (${message.channel.id})`,
+                    `頻道 - #${message.channel.name} (${message.channel.id})`,
                     `訊息內容：${message.content} ${message.attachments.map(a => a.url).join('\n')} ${message.embeds.toString}`,
                 ].join('\n');
             } else {
@@ -57,8 +57,8 @@ module.exports = {
                     `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
                     '位置：',
                     `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
-                    `- 頻道 ${message.channel.name} (${message.channel.id})`,
-                    `訊息(${message.id})：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '```json\n' + JSON.stringify(message.embeds, null, 2) + '```' : ''}`,
+                    `- 頻道 #${message.channel.name} (${message.channel.id})`,
+                    `訊息(${message.id})：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : ''}`,
                 ].join('\n');
             }
         }

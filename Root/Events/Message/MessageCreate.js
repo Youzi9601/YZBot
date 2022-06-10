@@ -46,8 +46,8 @@ module.exports = {
                 `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
                 '位置：',
                 `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
-                `- 頻道 ${message.channel.name} (${message.channel.id})`,
-                `訊息(${message.id})：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '```json\n' + JSON.stringify(message.embeds, null, 2) + '```' : ''}`,
+                `- 頻道 #${message.channel.name} (${message.channel.id})`,
+                `訊息(${message.id})：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : ''}`,
             ].join('\n');
 
             log('guild-log',
@@ -58,7 +58,7 @@ module.exports = {
 
 
             /*
-                        const isBotLog = ((message.embeds[0] ? (message.embeds[0].description ? message.embeds[0].description : 'no description') : 'no embed')).includes('```') || false;
+                        const isBotLog = ((message.embeds[0] ? (message.embeds[0].description ? message.embeds[0].description : 'no description') : 'no embed')).includes('\n```') || false;
                         if (message.author.id == client.user.id && isBotLog) {
                             //
                         } else {

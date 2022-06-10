@@ -21,8 +21,8 @@ module.exports = {
                 `- 伺服器： ${oldMessage.guild.name} (${oldMessage.guild.id}) `,
                 `- 頻道： #${oldMessage.channel.name} (${oldMessage.channel.id})`,
                 `訊息(${oldMessage.id})`,
-                `- 舊：${oldMessage.content} ${oldMessage.attachments.map(a => a.url).join('\n')}${(oldMessage.embeds.length !== 0) ? '```json\n' + JSON.stringify(oldMessage.embeds, null, 2) + '```' : ''}`,
-                `- 新：${newMessage.content} ${newMessage.attachments.map(a => a.url).join('\n')}${(newMessage.embeds.length !== 0) ? '```json\n' + JSON.stringify(newMessage.embeds, null, 2) + '```' : ''}`,
+                `- 舊：${oldMessage.content} ${oldMessage.attachments.map(a => a.url).join('\n')}${(oldMessage.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(oldMessage.embeds, null, 2) + '\n```' : ''}`,
+                `- 新：${newMessage.content} ${newMessage.attachments.map(a => a.url).join('\n')}${(newMessage.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(newMessage.embeds, null, 2) + '\n```' : ''}`,
             ].join('\n'),
         };
 
