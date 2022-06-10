@@ -27,7 +27,7 @@ module.exports = {
         // Perform a coherence check to make sure that there's *something*
         if (!deletionLog) {
             msg.content = [
-                '*沒有任何審核日誌輸出...',
+                '*沒有任何審核日誌輸出...(可能為自己?)',
                 `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
                 '位置：',
                 `伺服器 - ${message.guild.name} (${message.guild.id}) `,
@@ -41,9 +41,9 @@ module.exports = {
 
             // 用更多信息更新輸出
             // 同時運行檢查以確保返回的日誌是針對同一作者的消息
-            if (target.id === message.member.id) {
+            if (target.id != executor.id) {
                 msg.content = [
-                    '*訊息被人刪除了',
+                    '*訊息 被人 刪除了',
                     `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
                     `刪除者：${executor.tag} (${executor.id})`,
                     '位置：',
@@ -53,7 +53,7 @@ module.exports = {
                 ].join('\n');
             } else {
                 msg.content = [
-                    '*訊息不知被誰刪除了(可能是自己?)',
+                    '*訊息 不知被誰 刪除了',
                     `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
                     '位置：',
                     `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
