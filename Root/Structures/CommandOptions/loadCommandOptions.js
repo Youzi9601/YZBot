@@ -14,7 +14,7 @@ const { log } = require('../../Utils/log');
  * @param {*} interactionType 'Button'||'SelectMenus'||'SlashCommand'||'ContextMenus'
  * @returns
  */
-module.exports = async function (
+module.exports = async function(
     client,
     message,
     command,
@@ -28,7 +28,6 @@ module.exports = async function (
         Config: config,
         Discord: Discord,
     };
-
 
 
     // Log紀錄命令使用

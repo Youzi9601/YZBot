@@ -7,7 +7,7 @@ const {
     MessageEmbed,
     MessageSelectMenu,
 } = require('discord.js');
-const ms = require('ms')
+const ms = require('ms');
 
 module.exports = {
     command: {
@@ -40,17 +40,17 @@ module.exports = {
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MODERATE_MEMBERS'],
     userPermissions: ['MODERATE_MEMBERS'],
     /**
-     * 
-     * @param {import('discord.js').Client} client 
-     * @param {import('discord.js').CommandInteraction} interaction 
-     * @param {*} container 
+     *
+     * @param {import('discord.js').Client} client
+     * @param {import('discord.js').CommandInteraction} interaction
+     * @param {*} container
      */
     run: async (client, interaction, container) => {
         // 內容
 
         const user = interaction.options.getMember('user');
-        const duration = interaction.options.getString('duration')
-        const reason = interaction.options.getString('reason')
+        const duration = interaction.options.getString('duration');
+        const reason = interaction.options.getString('reason');
         if (user.permissions.has('MODERATE_MEMBERS')) {
             const msg = new container.Discord.MessageEmbed()
                 .setColor('#FF0000')
@@ -89,7 +89,7 @@ module.exports = {
                 })
                 .setDescription('✅ 已從伺服器禁言該用戶！');
 
-            user.timeout(ms_duration, reason)
+            user.timeout(ms_duration, reason);
             interaction.reply({ embeds: [msg] });
         }
     },

@@ -56,7 +56,7 @@ module.exports = {
                 client,
                 undefined,
                 undefined,
-                oldMessage.guild.id
+                oldMessage.guild.id,
             );
 
 

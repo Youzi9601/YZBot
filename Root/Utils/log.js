@@ -52,7 +52,7 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
         const guild_log_box = data.join('\n');
         // 紀錄本地
         console.info('╭' + '─'.repeat(75) + '\n' + guild_log_box);
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, '╭' + '─'.repeat(75) + `\n${guild_log_box} `, function (err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, '╭' + '─'.repeat(75) + `\n${guild_log_box} `, function(err) {
             // none
         });
         // 傳輸Discord
@@ -64,7 +64,7 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
         if (logger_system_data == '000') {
         } // 不做動作
         else {
-            const logger_channel = client.channels.cache.get(logger_system_data)
+            const logger_channel = client.channels.cache.get(logger_system_data);
             try {
                 logger_channel.send({
                     embeds: [
@@ -72,16 +72,16 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
                             description: `${guild_log_box}`,
                             color: 0x808080,
                             timestamp: new Date(),
-                        }
-                    ]
-                })
+                        },
+                    ],
+                });
             } catch (error) {
                 //
-                console.error(error)
+                console.error(error);
             }
         }
         // 支援伺服器
-        const log_channel = client.channels.cache.get(channel)
+        const log_channel = client.channels.cache.get(channel);
         try {
             log_channel.send({
                 embeds: [
@@ -89,12 +89,12 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
                         description: `${guild_log_box}`,
                         color: 0x808080,
                         timestamp: new Date(),
-                    }
-                ]
-            })
+                    },
+                ],
+            });
         } catch (error) {
             //
-            console.error(error)
+            console.error(error);
         }
 
         return;
@@ -109,14 +109,14 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
         const guild_log_box = data.join('\n');
         // 紀錄本地
         console.info('╭' + '─'.repeat(75) + '\n' + guild_log_box);
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, '╭' + '─'.repeat(75) + `\n${guild_log_box} `, function (err) {
+        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, '╭' + '─'.repeat(75) + `\n${guild_log_box} `, function(err) {
             // none
         });
 
         // 傳輸Discord
         if (msg.event == '訊息創建') return;
         // 支援伺服器
-        const log_channel = client.channels.cache.get(channel)
+        const log_channel = client.channels.cache.get(channel);
         try {
             log_channel.send({
                 embeds: [
@@ -124,12 +124,12 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
                         description: `${guild_log_box}`,
                         color: 0x808080,
                         timestamp: new Date(),
-                    }
-                ]
-            })
+                    },
+                ],
+            });
         } catch (error) {
             //
-            console.error(error)
+            console.error(error);
         }
 
         return;
@@ -139,7 +139,7 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
         console.info(chalk.gray(prefix) + msg);
     }
     // 寫入檔案
-    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${prefix}${msg} `, function (err) {
+    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${prefix}${msg} `, function(err) {
         // none
     });
 

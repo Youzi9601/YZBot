@@ -1188,27 +1188,27 @@ module.exports = {
         // #region clone-reactions
         else if (subcommand == 'clone-reactions') {
             await interaction.deferReply();
-            const reactions = interaction.options.getString('reactions').match(/<\:.*?\:\d*?>/ig)
-            let msg = []
+            const reactions = interaction.options.getString('reactions').match(/<\:.*?\:\d*?>/ig);
+            const msg = [];
             try {
                 reactions.forEach(r => {
                     const id = r.match(/\d{18}/g)[0];
                     const name = r.match(/\:.*?\:/g)[0].replace(':', '').replace(':', '');
-                    const animated = r.includes('<a:')
-                    const url = animated ? `https://cdn.discordapp.com/emojis/${id}.gif` : `https://cdn.discordapp.com/emojis/${id}.png`
+                    const animated = r.includes('<a:');
+                    const url = animated ? `https://cdn.discordapp.com/emojis/${id}.gif` : `https://cdn.discordapp.com/emojis/${id}.png`;
                     interaction.guild.emojis.create(url, name)
                         .catch(e => {
-                            console.error(e)
-                            msg.push(`:x: ${name} (${id}) 無法新增！`)
+                            console.error(e);
+                            msg.push(`:x: ${name} (${id}) 無法新增！`);
                         });
-                })
+                });
             } catch (error) {
                 return await interaction.editReply({
-                    content: `:x: umm... 發生了錯誤...\`${interaction.options.getString('reactions')}\`裡面沒有任何是自訂的表情符號！`
+                    content: `:x: umm... 發生了錯誤...\`${interaction.options.getString('reactions')}\`裡面沒有任何是自訂的表情符號！`,
                 });
             }
             await interaction.editReply({
-                content: `成功複製部分表情符號！(${msg.length} 個表情符號新增失敗！)`
+                content: `成功複製部分表情符號！(${msg.length} 個表情符號新增失敗！)`,
             });
 
         }
@@ -1218,9 +1218,9 @@ module.exports = {
             const channel = interaction.channel;
             await interaction.deferReply();
             //
-            const user = interaction.options.getMember('user')
-            const username = user.nickname || user.user.username
-            const avatar = user.displayAvatarURL({ dynamic: true }) || user.user.defaultAvatarURL
+            const user = interaction.options.getMember('user');
+            const username = user.nickname || user.user.username;
+            const avatar = user.displayAvatarURL({ dynamic: true }) || user.user.defaultAvatarURL;
 
             const content = interaction.options.getString('contents') || undefined;
             const embed = {};

@@ -287,18 +287,18 @@ module.exports = {
      */
     run: async (client, interaction, container) => {
         // 取得子指令
-        const subcommandGroup = interaction.options.getSubcommandGroup()
+        const subcommandGroup = interaction.options.getSubcommandGroup();
         const subcommand = interaction.options.getSubcommand();
         if (subcommandGroup == 'guild') {
             if (subcommand == 'bot-logger') {
-                await interaction.deferReply()
+                await interaction.deferReply();
                 const channel = interaction.options.getChannel('channel') || interaction.channel;
 
                 // 傳輸Discord
                 var logger_system = new db.table('logger_system');
                 // 取得頻道之伺服器
-                logger_system.set(`${interaction.guild.id}`, channel.id)
-                await interaction.editReply('完成設定！')
+                logger_system.set(`${interaction.guild.id}`, channel.id);
+                await interaction.editReply('完成設定！');
             }
             //
             else if (subcommand == '?welcome_msg') {
