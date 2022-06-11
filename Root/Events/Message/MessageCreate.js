@@ -39,7 +39,7 @@ module.exports = {
         if (message.guild) {
             if (message.author.bot) return;
             const msg = {
-                event: 'messageCreate',
+                event: '訊息創建',
                 content: '',
             };
             msg.content = [
@@ -54,6 +54,9 @@ module.exports = {
                 msg,
                 true,
                 client,
+                undefined,
+                undefined,
+                oldMessage.guild.id
             );
 
 

@@ -21,7 +21,7 @@ module.exports = {
         // Since there's only 1 audit log entry in this collection, grab the first one
         const deletionLog = fetchedLogs.entries.first();
         const msg = {
-            event: 'messageDelete',
+            event: '訊息刪除',
             content: '',
         };
         // Perform a coherence check to make sure that there's *something*
@@ -66,6 +66,9 @@ module.exports = {
             msg,
             true,
             client,
+            undefined,
+            undefined,
+            oldMessage.guild.id
         );
     },
 };

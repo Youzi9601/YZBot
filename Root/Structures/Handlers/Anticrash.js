@@ -18,7 +18,9 @@ module.exports = (client) => {
         .on('unhandledRejection', (reason, promise) => {
             if (`${reason.message}`.includes('Unknown interaction')
                 || `${reason.message}`.includes('Request failed with status code 500')
-                || `${reason.message}`.includes('Unknown message')) return; // 避免非機器人端的錯誤導致輸出錯誤
+                || `${reason.message}`.includes('Unknown message')
+                || `${reason.message}`.includes('reason: getaddrinfo ENOTFOUND discord.com')
+            ) return; // 避免非機器人端的錯誤導致輸出錯誤
 
             Missing_Permissions(promise, reason, client);
 
@@ -53,7 +55,9 @@ module.exports = (client) => {
             try {
                 if (`${reason.message}`.includes('Missing Permissions')
                     || `${reason.message}`.includes('Missing Access')
-                    || `${reason.message}`.includes('Unknown message')) return;
+                    || `${reason.message}`.includes('Unknown message')
+                    || `${reason.message}`.includes('reason: getaddrinfo ENOTFOUND discord.com')
+                ) return;
 
                 // console 頻道
                 const error_channel = client.channels.cache.get(

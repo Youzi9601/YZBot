@@ -34,6 +34,19 @@ module.exports = {
             },
             {
                 type: 1,
+                name: 'google',
+                description: 'Google? 他可是你的好夥伴！',
+                options: [
+                    {
+                        type: 3,
+                        name: 'search',
+                        description: '搜索關鍵字',
+                        required: true,
+                    },
+                ],
+            },
+            {
+                type: 1,
                 name: 'get-ip',
                 description: '從 網址 或 ip 取得它的資訊',
                 options: [
@@ -109,7 +122,9 @@ module.exports = {
                 },
             );
 
-        } else if (subcommand == 'get-ip') {
+        }
+        //
+        else if (subcommand == 'get-ip') {
             const axios = require('axios');
             const dns = require('dns');
 
@@ -186,6 +201,25 @@ module.exports = {
             });
 
 
+        }
+        // 
+        else if (subcommand == 'google') {
+
+            const search = interaction.options.getString('search')
+            await interaction.reply({
+                embeds: [
+                    {
+                        title: `Google搜尋`,
+                        description: `這是您的搜索結果 <@${interaction.user.id}>...\n\n搜索: ||${search}||\n\n鏈接: [點擊這裡](https://www.google.com/search?q=${encodeURIComponent(search)})`,
+                        color: 0xFFFFFF,
+                        author: {
+                            name: `Google 搜索查詢`,
+                            icon_url: `https://lh3.googleusercontent.com/6kf0Q1jk8i1YHbjpx1tkukx-eNjoR9u8At_saPrhHPU9YJ90H_UQfnZvZIawUWNXYISWXzoeFZlNKIfIJbK3L9gCOG8=w1000-e365`
+                        },
+
+                    }
+                ]
+            })
         }
         // 內容
         else interaction.reply({

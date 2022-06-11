@@ -62,6 +62,7 @@ module.exports = {
             },
             // #endregion
             // #region other
+            /*
             {
                 type: 1,
                 name: 'other',
@@ -87,6 +88,7 @@ module.exports = {
                     },
                 ],
             },
+            */
             // #endregion
         ],
     },

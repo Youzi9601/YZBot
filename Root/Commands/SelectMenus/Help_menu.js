@@ -62,6 +62,7 @@ module.exports = {
                         '```diff',
                         '/ban <user> [reason] 封禁成員，',
                         '/kick <user> [reason] 踢出成員',
+                        '/timeout <user> <duration> [reason] 禁言成員',
                         '```',
                     ].join('\n'))
                 .setAuthor(
@@ -120,6 +121,7 @@ module.exports = {
                         '/fun 樂趣',
                         '   ◟ 8ball 一個神奇海螺?',
                         '   ◟ get-ip 從網址取得IP資訊',
+                        '   ◟ google Google搜尋一下!?',
                         '/giveaways 抽獎系統',
                         '         ◟ create <prize> <duration> [winners] [channel] [drop]',
                         '              創建抽獎活動',
@@ -153,6 +155,10 @@ module.exports = {
                         '    ◟ suggestions-channel 建議頻道',
                         '    ◟ counting 一個數數字的頻道',
                         '    ◟ 敬請期待！',
+                        '/setting 設定',
+                        '    ◟ guild 伺服器系列',
+                        '       ◟ bot-logger 設定機器人日誌輸出',
+
                         '```',
                     ].join('\n'))
                 .setAuthor(
@@ -176,6 +182,9 @@ module.exports = {
                         '   ◟ edit-message <message_id> ... 以機器人身分編輯訊息',
                         '   ◟ say ... 以機器人身分發送訊息',
                         '   ◟ delete-msg <message_id> 以機器人身分刪除訊息',
+                        '   ◟ webhook ... 創建一個webhook訊息！',
+                        '   ◟ clone ... 創建一個以其他成員的身分所發出的webhook訊息！',
+                        '   ◟ clone-reactions <emojis> 複製任何表情符號並加入到伺服器中！(除了原版)',
                         '/? 敬請期待！',
                         '```',
                     ].join('\n'))
@@ -199,6 +208,7 @@ module.exports = {
                         '   ◟ leave-server <id> 離開伺服器',
                         '   ◟ list-servers 列出伺服器',
                         '   ◟ exit 關閉機器人',
+                        '/bot set-status 設定機器人狀態',
                         '>eval 評估Javascript代碼',
                         '>exec 執行終端機',
                         '/? 敬請期待！',
@@ -220,7 +230,6 @@ module.exports = {
                         '',
                         '**其他**',
                         '```diff',
-
                         '/? 敬請期待！',
                         '```',
                     ].join('\n'))

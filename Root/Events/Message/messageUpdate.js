@@ -14,7 +14,7 @@ module.exports = {
 
         if (!oldMessage.guild || !oldMessage.author || oldMessage.author.bot) return;
         const msg = {
-            event: 'messageUpdate',
+            event: '訊息編輯',
             content: [
                 `成員：${oldMessage.author ? oldMessage.author.tag + ` (${oldMessage.author.id})` : '無法取得使成員 (??????)'}`,
                 '位置',
@@ -30,6 +30,9 @@ module.exports = {
             msg,
             true,
             client,
+            undefined,
+            undefined,
+            oldMessage.guild.id
         );
     },
 };

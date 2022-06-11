@@ -13,7 +13,6 @@ module.exports = {
 
         /** @param {import('distube').Queue} queue */
         const queue = await client.distube.getQueue(interaction);
-        const args = queue.volume - 10;
         const voiceChannel = interaction.member.voice.channel;
         if (!voiceChannel) {
             return interaction.reply({ content: '請先加入語音頻道！', ephemeral: true });
@@ -27,6 +26,7 @@ module.exports = {
         if (interaction.member.guild.me.voice.channelId !== interaction.member.voice.channelId) {
             return interaction.reply({ content: ':x: 啊喔...你和我不在同一個語音頻道！', ephemeral: true });
         }
+        const args = queue.volume - 10;
         const volume = parseInt(args);
         if (volume < 1 || volume > 200) {
             return interaction.reply({ content: '這是一個無效的命令（低於 0% ！）', ephemeral: true });

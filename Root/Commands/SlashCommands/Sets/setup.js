@@ -144,7 +144,7 @@ module.exports = {
             else if (subcommand == 'corss-servers') {
                 // 如果非官方人員
                 if (!config.developers.some(id => interaction.user.id == id)) interaction.reply({
-                    embeds: [new Discord.MessageEmbed()
+                    embeds: [new container.Discord.MessageEmbed()
                         .setAuthor({
                             name: interaction.member.user.tag,
                             iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
@@ -174,7 +174,7 @@ module.exports = {
             }
             // #endregion
             // else
-            else return interaction.reply({
+            else return await interaction.reply({
                 content: '此功能尚未完成！ :/',
                 ephemeral: true,
             }).catch((err) => { });

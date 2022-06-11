@@ -14,7 +14,7 @@ const { log } = require('../../Utils/log');
  * @param {*} interactionType 'Button'||'SelectMenus'||'SlashCommand'||'ContextMenus'
  * @returns
  */
-module.exports = async function(
+module.exports = async function (
     client,
     message,
     command,
@@ -29,87 +29,70 @@ module.exports = async function(
         Discord: Discord,
     };
 
+
+
     // Log紀錄命令使用
+
+    const msg = {
+        event: '交互創建',
+        content: '',
+    };
+
     if (interactionType == 'SlashCommand')
-        log(
-            'info',
-            `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}  `,
-            true,
-            client,
-            {
-                embeds: [
-                    {
-                        color: 0x808080,
-                        description: `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} \n${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用命令： ${message}  \`\`\``,
-                    },
-                ],
-            },
-            config.Channels.commandRec,
-        );
+        msg.content = [
+            `成員：${message.user ? message.user.tag + `(${message.user.id})` : '無法取得使成員 (??????)'}`,
+            '位置：',
+            `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
+            `- 頻道 #${message.channel.name} (${message.channel.id})`,
+            `[ (/)斜線 SlashCommand ] 命令(${message.id})： ${message}`,
+        ].join('\n');
     else if (interactionType == 'SelectMenus')
-        log(
-            'info',
-            `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用選單： ${message.customId} ，選擇了 ${message.values.join(',')}`,
-            true,
-            client,
-            {
-                embeds: [
-                    {
-                        color: 0x808080,
-                        description: `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} \n${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用選單： ${message.customId} ，選擇了 ${message.values.join(',')}\`\`\``,
-                    },
-                ],
-            },
-            config.Channels.commandRec,
-        );
+        msg.content = [
+            `成員：${message.user ? message.user.tag + `(${message.user.id})` : '無法取得使成員 (??????)'}`,
+            '位置：',
+            `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
+            `- 頻道 #${message.channel.name} (${message.channel.id})`,
+            `[ 選單 SelectMenus ] 命令(${message.id})：${message.customId} ，選擇了 ${message.values.join(',')}`,
+        ].join('\n');
     else if (interactionType == 'Button')
-        log(
-            'info',
-            `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用按鈕 ${message.customId}`,
-            true,
-            client,
-            {
-                embeds: [
-                    {
-                        color: 0x808080,
-                        description: `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} \n${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用按鈕 ${message.customId}\`\`\``,
-                    },
-                ],
-            },
-            config.Channels.commandRec,
-        );
+        msg.content = [
+            `成員：${message.user ? message.user.tag + `(${message.user.id})` : '無法取得使成員 (??????)'}`,
+            '位置：',
+            `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
+            `- 頻道 #${message.channel.name} (${message.channel.id})`,
+            `[ 按鈕 Button ] 命令(${message.id})：${message.customId}`,
+        ].join('\n');
     else if (interactionType == 'ContextMenus')
-        log(
-            'info',
-            `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用訊息選單交互 ${message.commandName}`,
-            true,
-            client,
-            {
-                embeds: [
-                    {
-                        color: 0x808080,
-                        description: `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} \n${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 使用訊息選單交互 ${message.commandName}\`\`\``,
-                    },
-                ],
-            },
-            config.Channels.commandRec,
-        );
+        msg.content = [
+            `成員：${message.user ? message.user.tag + `(${message.user.id})` : '無法取得使成員 (??????)'}`,
+            '位置：',
+            `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
+            `- 頻道 #${message.channel.name} (${message.channel.id})`,
+            `[ 上下文選單 ContextMenus ] 命令(${message.id})：${message.commandName}`,
+        ].join('\n');
     else if (interactionType == 'Modal')
-        log(
-            'info',
-            `${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 發送 modal : ${message.commandName}`,
-            true,
-            client,
-            {
-                embeds: [
-                    {
-                        color: 0x808080,
-                        description: `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} \n${message.user.tag} (${message.user.id}) 於 ${message.guild.name} (${message.guild.id}) #${message.channel.name} (${message.channel.id}) 發送 modal :  ${message.customId}\`\`\``,
-                    },
-                ],
-            },
-            config.Channels.commandRec,
-        );
+        msg.content = [
+            `成員：${message.user ? message.user.tag + `(${message.user.id})` : '無法取得使成員 (??????)'}`,
+            '位置：',
+            `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
+            `- 頻道 #${message.channel.name} (${message.channel.id})`,
+            `[ 模態 Modal ] 命令(${message.id})：${message.customId}`,
+        ].join('\n');
+    else msg.content = [
+        `成員：${message.user ? message.user.tag + `(${message.user.id})` : '無法取得使成員 (??????)'}`,
+        '位置：',
+        `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
+        `- 頻道 #${message.channel.name} (${message.channel.id})`,
+        `[ ??? ] 命令(${message.id})：??? 無法讀取`,
+    ].join('\n');
+
+    log('botguild-log',
+        msg,
+        true,
+        client,
+        undefined,
+        config.Channels.commandRec,
+    );
 
     // 檢查是否有以下指令設定
     if (await require('./OnlyRunOnGuilds')(message, command, Discord)) return;
@@ -162,16 +145,16 @@ module.exports = async function(
                 .trim()
                 .split(' ')[0];
             const command =
-                    client.commands.messageCommands.get(cmdName) ??
-                    client.commands.messageCommands.get(
-                        client.commands.messageCommands.aliases.get(cmdName),
-                    );
+                client.commands.messageCommands.get(cmdName) ??
+                client.commands.messageCommands.get(
+                    client.commands.messageCommands.aliases.get(cmdName),
+                );
             if (!command) return;
 
             let args = message.content.slice(prefix.length).trim();
             if (args.toLowerCase().startsWith(cmdName))
                 args = args.slice(cmdName.length).trim().split(' ');
-                // 執行文字命令
+            // 執行文字命令
             command.run(client, message, args, container);
         });
     }

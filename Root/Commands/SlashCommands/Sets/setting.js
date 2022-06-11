@@ -8,6 +8,7 @@ const {
     MessageSelectMenu,
 } = require('discord.js');
 const { config } = require('./../../../../bot');
+const db = require('quick.db');
 
 module.exports = {
     command: {
@@ -242,10 +243,25 @@ module.exports = {
                         ],
                     },
                     // #endregion
+                    // #region logger
+                    {
+                        type: 1,
+                        name: 'bot-logger',
+                        description: '設定機器人使用日誌輸出頻道',
+                        options: [
+                            {
+                                type: 7,
+                                name: 'channel',
+                                description: '頻道位置',
+                                required: false,
+                            },
+                        ],
+                    },
+                    // #endregion
                 ],
             },
             // #endregion
-            // #region say
+            // #region channel
             {
                 type: 2,
                 name: 'channel',
@@ -271,8 +287,31 @@ module.exports = {
      */
     run: async (client, interaction, container) => {
         // 取得子指令
+        const subcommandGroup = interaction.options.getSubcommandGroup()
         const subcommand = interaction.options.getSubcommand();
-        interaction.reply({
+        if (subcommandGroup == 'guild') {
+            if (subcommand == 'bot-logger') {
+                await interaction.deferReply()
+                const channel = interaction.options.getChannel('channel') || interaction.channel;
+
+                // 傳輸Discord
+                var logger_system = new db.table('logger_system');
+                // 取得頻道之伺服器
+                logger_system.set(`${interaction.guild.id}`, channel.id)
+                await interaction.editReply('完成設定！')
+            }
+            //
+            else if (subcommand == '?welcome_msg') {
+
+            }
+            // 未完成
+            else await interaction.reply({
+                content: '此功能尚未完成！ :/',
+                ephemeral: true,
+            });
+        }
+        // 未完成
+        else await interaction.reply({
             content: '此功能尚未完成！ :/',
             ephemeral: true,
         });
