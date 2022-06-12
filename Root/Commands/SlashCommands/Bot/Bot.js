@@ -1188,7 +1188,7 @@ module.exports = {
         // #region clone-reactions
         else if (subcommand == 'clone-reactions') {
             await interaction.deferReply();
-            const reactions = interaction.options.getString('reactions').match(/<\:.*?\:\d*?>/ig);
+            const reactions = interaction.options.getString('reactions').match(/<.*?\:.*?\:\d*?>/ig);
             const msg = [];
             try {
                 reactions.forEach(r => {
@@ -1203,6 +1203,7 @@ module.exports = {
                         });
                 });
             } catch (error) {
+                console.log(error)
                 return await interaction.editReply({
                     content: `:x: umm... 發生了錯誤...\`${interaction.options.getString('reactions')}\`裡面沒有任何是自訂的表情符號！`,
                 });

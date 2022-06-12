@@ -162,15 +162,46 @@ module.exports = {
                 // 取得資料
                 const cross_id = 'main' || interaction.options.getString('id');
 
+                // 搜尋&檢查
+                const guild_data = cross_server_system.get(message.guild.id)
+                /*
+                [
+                    {
+                        channelID: '100000',
+                        id: 'a'
+                    },
+                    {
+                        channelID: '120000',
+                        id: 'b'
+                    },
+                ]
+                */
+                // 尋找channelID，並刪除該資料
+                guild_data.forEach(data => {
+                    if (data.channelID == channel.id) {
+                        const pos = guild_data.indexOf({ channelID: channel.id })
+                        guild_data.splice(pos, 1)
+                    }
+                })
+                // 將資料放入
+                guild_data.push(
+                    {
+                        "channelID": channel.id,
+                        "id": cross_id
+                    }
+                )
+                // cross_server_system.get(`${interaction.guild.id}`)
+                // 如果沒有，則新增它
+                cross_server_system.set(`${interaction.guild.id}`,
+                    guild_data
+                )
+
+
+                //
                 await channel.sendTyping();
                 await channel.send(`跨群代碼： ${cross_id} (因為目前暫時鎖定只開一個)，只是目前沒有跨群的作用...你想做啥==`);
+                //
                 await interaction.editReply('成功創立跨群！');
-                cross_server_system.set(`${interaction.guild.id}`, {
-                    guildid: interaction.guild.id,
-                    channelid: channel.id,
-                    cross_id: cross_id,
-                });
-
             }
             // #endregion
             // else
