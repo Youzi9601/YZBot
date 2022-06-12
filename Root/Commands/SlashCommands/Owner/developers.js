@@ -209,6 +209,7 @@ module.exports = {
                 activities: [
                     {
                         name: `${client.user.username} 關機中...`,
+                        type: `LISTENING`
                         // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                     },
                 ],
@@ -277,18 +278,19 @@ module.exports = {
                 timestamp: new Date(),
             };
             try {
-                message.edit({ embeds: [embed] });
+                await message.edit({ embeds: [embed] });
             } catch (error) { }
 
             client.user.setPresence({
                 activities: [
                     {
-                        name: `機器人暫停服務 - ${client.user.username}`,
+                        name: `暫停服務 - ${client.user.username}`,
+                        type: `LISTENING`
                         // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                     },
                 ],
                 // browser: 'DISCORD IOS',
-                status: 'DND', // 還在關機
+                status: 'dnd',
                 afk: true,
             });
 
@@ -299,7 +301,7 @@ module.exports = {
                     }, ms || 0);
                 });
             };
-            await sleep(10000);
+            await sleep(1000);
 
             /** */
             process.exit(0);

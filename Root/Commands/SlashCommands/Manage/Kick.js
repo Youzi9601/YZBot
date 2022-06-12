@@ -31,10 +31,17 @@ module.exports = {
     OnlyRunOnGuilds: true,
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'KICK_MEMBERS'],
     userPermissions: ['KICK_MEMBERS'],
+    /**
+  *
+  * @param {import('discord.js').Client} client
+  * @param {import('discord.js').CommandInteraction} interaction
+  * @param {*} container
+  */
     run: async (client, interaction, container) => {
         // 內容
 
         const user = interaction.options.getMember('user');
+        const reason = interaction.options.getString('reason') || '沒有原因'
         if (user.permissions.has('KICK_MEMBERS')) {
             const msg = new container.Discord.MessageEmbed()
                 .setColor('#FF0000')
@@ -54,7 +61,7 @@ module.exports = {
                     iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
                 })
                 .setDescription('✅ 已從伺服器踢出該用戶！');
-            interaction.guild.members.KICK(user, { reason });
+            interaction.guild.members.kick(user, reason);
             interaction.reply({ embeds: [msg] });
         }
     },

@@ -50,7 +50,7 @@ module.exports = {
 
         const user = interaction.options.getMember('user');
         const duration = interaction.options.getString('duration');
-        const reason = interaction.options.getString('reason');
+        const reason = interaction.options.getString('reason') || '沒有原因';
         if (user.permissions.has('MODERATE_MEMBERS')) {
             const msg = new container.Discord.MessageEmbed()
                 .setColor('#FF0000')

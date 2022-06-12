@@ -24,6 +24,18 @@ module.exports = {
                 description: '原因',
                 required: false,
             },
+            {
+                name: 'days',
+                type: 'NUMBER',
+                description: '封鎖的天數',
+                required: false,
+            },
+            /*{
+                name: 'delete-days',
+                type: 'NUMBER',
+                description: '刪除該成員訊息的天數',
+                required: false,
+            },*/
         ],
         default_member_permissions: ['BAN_MEMBERS'],
     },
@@ -31,10 +43,20 @@ module.exports = {
     OnlyRunOnGuilds: true,
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'BAN_MEMBERS'],
     userPermissions: ['BAN_MEMBERS'],
+    /**
+     *
+     * @param {import('discord.js').Client} client
+     * @param {import('discord.js').CommandInteraction} interaction
+     * @param {*} container
+     */
     run: async (client, interaction, container) => {
+        await interaction.deferReply()
         // 內容
 
         const user = interaction.options.getMember('user');
+        const reason = interaction.options.getString('reason') || '沒有原因'
+        const days = interaction.options.getNumber('days') ? { days: interaction.options.getNumber('days') } : undefined
+        const ddays = interaction.options.getNumber('delete-days')
         if (user.permissions.has('BAN_MEMBERS')) {
             const msg = new container.Discord.MessageEmbed()
                 .setColor('#FF0000')
@@ -44,8 +66,11 @@ module.exports = {
                     iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
                 })
                 .setDescription('🛑 您不能封鎖一個含有封鎖成員權限的成員。');
-            interaction.reply({ embeds: [msg] });
+            //
+            await interaction.editReply({ embeds: [msg] });
+
         } else {
+
             const msg = new container.Discord.MessageEmbed()
                 .setColor('#00FF00')
                 .setTimestamp()
@@ -54,8 +79,9 @@ module.exports = {
                     iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
                 })
                 .setDescription('✅ 已從伺服器封鎖該用戶！');
-            interaction.guild.members.ban(user, { reason });
-            interaction.reply({ embeds: [msg] });
+            await interaction.guild.members.ban(user, { reason: reason, days });
+            //
+            await interaction.editReply({ embeds: [msg] });
         }
     },
 };

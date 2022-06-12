@@ -152,7 +152,7 @@ module.exports = {
                 config.Channels.report,
             );
             const user = interaction.options.getString('user').replace(/\\n/g, '\n');
-            const reason = interaction.options.getString('reason').replace(/\\n/g, '\n') || undefined;
+            const reason = interaction.options.getString('reason').replace(/\\n/g, '\n') || '無';
             const message_link = (interaction.options.getString('message_link') || '無').replace(/\\n/g, '\n') || undefined;
 
             const report_embed = new MessageEmbed()
