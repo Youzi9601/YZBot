@@ -41,7 +41,7 @@ module.exports = {
         // 內容
 
         const user = interaction.options.getMember('user');
-        const reason = interaction.options.getString('reason') || '沒有原因'
+        const reason = interaction.options.getString('reason') || '沒有原因';
         if (user.permissions.has('KICK_MEMBERS')) {
             const msg = new container.Discord.MessageEmbed()
                 .setColor('#FF0000')

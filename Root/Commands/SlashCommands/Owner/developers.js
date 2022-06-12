@@ -209,7 +209,7 @@ module.exports = {
                 activities: [
                     {
                         name: `${client.user.username} 關機中...`,
-                        type: `LISTENING`
+                        type: 'LISTENING',
                         // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                     },
                 ],
@@ -285,7 +285,7 @@ module.exports = {
                 activities: [
                     {
                         name: `暫停服務 - ${client.user.username}`,
-                        type: `LISTENING`
+                        type: 'LISTENING',
                         // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                     },
                 ],

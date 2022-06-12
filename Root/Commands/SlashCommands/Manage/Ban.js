@@ -30,7 +30,7 @@ module.exports = {
                 description: '封鎖的天數',
                 required: false,
             },
-            /*{
+            /* {
                 name: 'delete-days',
                 type: 'NUMBER',
                 description: '刪除該成員訊息的天數',
@@ -50,13 +50,13 @@ module.exports = {
      * @param {*} container
      */
     run: async (client, interaction, container) => {
-        await interaction.deferReply()
+        await interaction.deferReply();
         // 內容
 
         const user = interaction.options.getMember('user');
-        const reason = interaction.options.getString('reason') || '沒有原因'
-        const days = interaction.options.getNumber('days') ? { days: interaction.options.getNumber('days') } : undefined
-        const ddays = interaction.options.getNumber('delete-days')
+        const reason = interaction.options.getString('reason') || '沒有原因';
+        const days = interaction.options.getNumber('days') ? { days: interaction.options.getNumber('days') } : undefined;
+        const ddays = interaction.options.getNumber('delete-days');
         if (user.permissions.has('BAN_MEMBERS')) {
             const msg = new container.Discord.MessageEmbed()
                 .setColor('#FF0000')
