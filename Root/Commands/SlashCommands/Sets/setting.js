@@ -279,6 +279,7 @@ module.exports = {
     },
     clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
     userPermissions: ['ADMINISTRATOR'],
+    ownerOnly: true,
     /**
      *
      * @param {import('discord.js').Client} client

@@ -155,7 +155,7 @@ module.exports = {
                         '    ◟ suggestions-channel 建議頻道',
                         '    ◟ counting 一個數數字的頻道',
                         '    ◟ 敬請期待！',
-                        '/setting 設定',
+                        '/setting 設定[開發人員暫定使用]',
                         '    ◟ guild 伺服器系列',
                         '       ◟ bot-logger 設定機器人日誌輸出',
 
