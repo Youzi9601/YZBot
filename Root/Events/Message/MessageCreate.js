@@ -1,4 +1,5 @@
-const { messageCreate, Message } = require('discord.js');
+const { messageCreate, Message, MessageActionRow, MessageButton } = require('discord.js');
+const { config } = require('../../../bot');
 const { log } = require('../../Utils/log');
 
 module.exports = {
@@ -36,7 +37,48 @@ module.exports = {
         // 其他工作
 
         // logging
-        if (message.guild) {
+        if (!message.guild) {
+            if (message.author.bot) return;
+            message.channel.sendTyping()
+            const Buttons = new MessageButton()
+                .setLabel('加入伺服器')
+                .setStyle('LINK')
+                .setURL(`https://discord.gg/${config.invite_code}`)
+                .setDisabled(false);
+            const row = new MessageActionRow()
+                .addComponents(Buttons)
+            message.channel.send({
+                embeds: [
+                    {
+                        title: `機器人不支援私信、群組喔！`,
+                        description: `${client.user.tag} 不支援於這裡使用任何服務喔！`
+                    }
+                ],
+                components: [row]
+            })
+            const msg = {
+                event: '訊息創建',
+                content: '',
+            };
+            msg.content = [
+                `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
+                '位置：',
+                `- 私信頻道`,
+                `訊息(${message.id})：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : ''}`,
+            ].join('\n');
+
+            log('guild-log',
+                msg,
+                true,
+                client,
+                undefined,
+                undefined,
+                undefined,
+            );
+
+
+        }
+        else if (message.guild) {
             if (message.author.bot) return;
             const msg = {
                 event: '訊息創建',

@@ -188,6 +188,9 @@ module.exports = {
                 interaction.reply(`:x: umm... 我看不懂\`${duration}\`是甚麼... \n如果抽獎時間為\`5天3小時10分鐘30秒\`，請輸入\`5d3h10m30s\``);
                 return error;
             }
+            if (ms_duration >= ms('30d')) // 如果時間超過1個月
+                return interaction.reply(`:x: \`${duration}\`超過了1個月！(30天)`);
+
             // Start the giveaway
             try {
                 client.giveawaysManager.start(channel, {
