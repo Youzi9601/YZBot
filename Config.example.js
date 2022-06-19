@@ -238,7 +238,8 @@ module.exports = {
 
     },
     sharding: {
-
+        // 生成數量(預設自動)
+        amount: process.env.sharding_amount || 'auto'
     },
 
     /**

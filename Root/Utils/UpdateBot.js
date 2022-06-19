@@ -309,8 +309,9 @@ module.exports = {
         totalMachines: process.env.hosting_totalMachines || \'${Config.hosting.totalMachines || '1'}\',
 
     },
-    sharding: {
-
+     sharding: {
+        // 生成數量(預設自動)
+        amount: process.env.sharding_amount || \'${Config.sharding.amount || 'auto'}\',
     },
 
 
