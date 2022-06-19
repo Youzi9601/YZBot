@@ -1,21 +1,10 @@
 const {
-    // Collection,
-    Client,
-    // Formatters,
-    MessageActionRow,
-    MessageButton,
-    MessageEmbed,
-    MessageSelectMenu,
-    Interaction,
     //
     CommandInteraction,
-    ReactionCollector,
 } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 const { config } = require('../../../../bot');
-const { log } = require('./../../../Utils/log');
 
 module.exports = {
     command:

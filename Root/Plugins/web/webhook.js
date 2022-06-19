@@ -13,7 +13,7 @@ module.exports =
 
         app.use(express.json({ verify: (req, res, buffer) => { req.rawBody = buffer; } }));
 
-        app.post('/webhook', function(req, res) {
+        app.post('/webhook', function (req, res) {
             return new Promise((resolve) => {
                 if (config.webhook.authorization &&
                     req.headers.authorization !== config.webhook.authorization)
@@ -26,9 +26,15 @@ module.exports =
         }); // 附加中間件
 
         const port = Number(config.webhook.port);
-        // app.listen(port) //你的港口
-        http.createServer(app).listen(port);
-        console.log(` -> Webhook 接收於 Port:${port}`);
+        try {
+
+            // app.listen(port) //你的港口
+            http.createServer(app).listen(port);
+            console.log(` -> Webhook 接收於 Port:${port}`);
+        } catch (error) {
+            console.error(error)
+            console.log('Webhook系統早已開啟(或是Port無法使用?)')
+        }
 
     };
 
@@ -68,7 +74,7 @@ function vote(body, client) {
                 },
             ],
         },
-        config.webhook.channel);
+            config.webhook.channel);
     } else if (type == 'upvote') {
         log('info', `有人投票了！> ${body.user.name + '#' + body.user.discriminator}`, true, client, {
             content: '新的投票！',
@@ -92,7 +98,7 @@ function vote(body, client) {
                 },
             ],
         },
-        config.webhook.channel);
+            config.webhook.channel);
     }
 
 }

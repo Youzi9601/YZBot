@@ -86,7 +86,12 @@ module.exports = (client) => {
             setTimeout(() => {
                 // 內部不執行
             }, 10000);
-        });
+        })
+        .on('beforeExit', async (code) => {
+            console.log('\n\n\n\n\n');
+            console.log(code);
+            console.log('=== 退出前 Before Exit ===\n\n\n\n\n'.toUpperCase());
+        })
     // 設定信號退出
     const signal = ['SIGINT', 'SIGTERM', 'SIGHUP'];
     signal.forEach(signal => {

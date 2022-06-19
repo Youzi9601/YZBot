@@ -216,6 +216,32 @@ module.exports = {
     },
 
     /**
+     * 
+     * 分片系統(允許跨主機使用同一個機器人/減少機器人過多的執行問題)
+     * 
+     * *注意：這是一個危險的功能！
+     * 用於：2000個伺服器以上的機器人
+     * 需要：至少2台主機(一台為主要核心，
+     * 另一台為機器人執行專案，機器人執行專案可以多個，但需要互相呼叫。)
+     * 
+     */
+    hosting: {
+        ip: process.env.hosting_ip || 'localhost',
+        // 主核心的port
+        port: process.env.hosting_port || '4444',
+        // 驗證的密碼(隨意填寫，但每個主機要相同，否則無法連線)
+        authToken: process.env.hosting_authToken || 'yzbBot_authToken',
+        // 分片數量(建議自動)
+        totalShards: process.env.hosting_totalShards || 'auto',
+        // 主機的數量(運行機器人的主機數輛)
+        totalMachines: process.env.hosting_totalMachines || '1',
+
+    },
+    sharding: {
+
+    },
+
+    /**
      *
      * 開發(測試)版本
      * // 這功能絕大部分都不能使用！

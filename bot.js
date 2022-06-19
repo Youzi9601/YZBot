@@ -90,8 +90,12 @@ const fetch = require('node-fetch');
     const chalk = require('chalk');
     const moment = require('moment');
     const Discord = require('discord.js');
+    const Cluster = require('discord-hybrid-sharding');
+
     const path = __dirname;
     const client = new Discord.Client({
+        shards: Cluster.data.SHARD_LIST, // 將生成的分片列表數組
+        shardCount: Cluster.data.TOTAL_SHARDS, // 總分片數
         intents: [
             'DIRECT_MESSAGES',
             'DIRECT_MESSAGE_REACTIONS',
@@ -114,6 +118,11 @@ const fetch = require('node-fetch');
         // ws可用於讓機器人上線狀態為使用"手機"
         // ws: { properties: { $browser: 'Discord iOS' } },
     });
+
+    client.cluster = new Cluster.Client(client);
+
+    const { Shard } = require('discord-cross-hosting');
+    client.machine = new Shard(client.cluster); // Initialize Cluster
 
     const { DiscordTogether } = require('discord-together');
     client.discordTogether = new DiscordTogether(client);
@@ -170,14 +179,6 @@ const fetch = require('node-fetch');
     require('./Root/Plugins/plugins')(client);
     //
 
-    if (`${config.webhook.use}` == 'true') {
-        console.info(
-            chalk.gray(
-                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-            ) + '啟動Webhook接收...',
-        );
-        require('./Root/Plugins/web/webhook')(client);
-    }
     // #endregion
 
 
@@ -266,9 +267,9 @@ const fetch = require('node-fetch');
 
     // eula 認證
     if (ci == 'false' || !ci) { // 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function() {
+                fs.writeFile('./eula.txt', '', function () {
                 });
                 console.error(
                     chalk.bgRed(
@@ -377,6 +378,17 @@ const fetch = require('node-fetch');
             `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
         ) + chalk.green('完成讀取！'),
     );
+
+    // 處理Webhook
+    if (`${config.webhook.use}` == 'true') {
+        console.info(
+            chalk.gray(
+                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            ) + '啟動Webhook接收...',
+        );
+        require('./Root/Plugins/web/webhook')(client);
+    }
+
 
     // 處理網頁
     if (`${config.web.noWeb}` == 'false') {
