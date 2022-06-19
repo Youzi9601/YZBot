@@ -5,16 +5,21 @@ const config = require('./Config');
 const client = new Client({
     agent: 'bot',
     host: config.hosting.ip, // Domain without https
-    port: Math(config.hosting.port), // Proxy Connection (Replit) needs Port 443
+    port: Math.floor(config.hosting.port), // Proxy Connection (Replit) needs Port 443
     // handshake: true, When Replit or any other Proxy is used
     authToken: config.hosting.authToken,
 });
 client.on('debug', console.log);
 client.connect();
 
+
+
+let totalShards;
+if (config.hosting.totalShards == 'auto') totalShards = 'auto'
+else totalShards = Math.round(config.hosting.totalShards)
 const manager = new Cluster.Manager(`${__dirname}/bot.js`,
     {
-        totalShards: config.hosting.totalShards,
+        totalShards: totalShards,
         totalClusters: 'auto'
     }
 ); // Some dummy Data

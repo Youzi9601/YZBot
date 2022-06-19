@@ -386,7 +386,11 @@ const fetch = require('node-fetch');
                 `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
             ) + '啟動Webhook接收...',
         );
-        require('./Root/Plugins/web/webhook')(client);
+        try {
+            require('./Root/Plugins/web/webhook')(client);
+        } catch (error) {
+            console.error('錯誤：Port已被占用！(或是不可用)')
+        }
     }
 
 
