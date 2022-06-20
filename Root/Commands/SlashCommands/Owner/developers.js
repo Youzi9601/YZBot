@@ -99,78 +99,91 @@ module.exports = {
         else {
             if (subcommandGroup == 'guild') {
                 if (subcommand == 'list') {
-                    const { MessageEmbed } = require('discord.js');
-                    let i = 1;
-                    let page = 1;
-                    const embed = [];
-                    let field = [];
-                    client.guilds.cache.forEach(
-                        /** @param {import('discord.js').Guild} guild */
-                        (guild) => {
 
-                            if (Math.round(i / 20) == i / 20) {
-                                embed.push(
-                                    new MessageEmbed()
-                                        .setTitle(`第${page}頁`)
-                                        .addFields(field)
-                                        .setColor('WHITE'),
-                                );
-                                field = [];
-                                page++;
+                    //#region
+                    try {
+                        const { MessageEmbed, MessageButton, MessageActionRow, MessageSelectMenu } = require('discord.js');
+
+                        const embeds = [];
+                        let k = 10;
+                        const guilds = client.guilds.cache.map(g => {
+                            return {
+                                name: g.name,
+                                id: g.id,
+                                memberCount: g.memberCount,
+                                member: g.members.cache.filter((m) => !m.user.bot).size,
+                                bot: g.members.cache.filter((m) => m.user.bot).size
                             }
-                            field.push(
+                        });
+                        // defining each Pages
+                        for (let i = 0; i < guilds.length; i += 10) {
+                            const qus = guilds;
+                            const current = qus.slice(i, k);
+                            let j = i + 1;
+                            const info = current.map((g) => `**${ j++ }.** \n**|** \`${ String(g.name) }\` (\`${ g.id }\`) \n**|** ${ g.memberCount }人(${ g.member }真人/${ g.bot }機器人)`).join('\n');
+                            const embed = new MessageEmbed()
+                                .setColor('RANDOM')
+                                .setDescription(`${ info }`);
+                            if (i < 10) {
+                                embed.setTitle(`📑 **伺服器列表**`);
+                                embed.setDescription(`${ info }`);
+                            }
+                            embeds.push(embed);
+                            k += 10; // Raise k to 10
+                        }
+                        embeds[embeds.length - 1] = embeds[embeds.length - 1]
+                            .setFooter(
                                 {
-                                    name: `${i}. ${guild.name} (${guild.id})`,
-                                    value: [
-                                        ` 所有者 ${guild.ownerId}`,
-                                        `總共${guild.memberCount}人 | 成員${guild.members.cache.filter((m) => !m.user.bot).size}人 | 機器人${guild.members.cache.filter((m) => m.user.bot).size}人`,
-                                    ].join('\n'),
-                                    inline: true,
+                                    text: `\n${ guilds.length } 個伺服器`,
                                 },
                             );
-
-
-                            console.info(
-                                chalk.gray(
-                                    `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-                                ) +
-                                chalk.gray('└ ') +
-                                `${guild.name} | ${guild.id} | 所有者 ${guild.ownerId
-                                } \n                        └ 總共${guild.memberCount}人 | 成員${guild.members.cache.filter((m) => !m.user.bot).size
-                                }人 | 機器人${guild.members.cache.filter((m) => m.user.bot).size}人`,
-                            );
-
-                            i++;
+                        let pages = [];
+                        for (let i = 0; i < embeds.length; i += 3) {
+                            pages.push(embeds.slice(i, i + 3));
+                        }
+                        pages = pages.slice(0, 24);
+                        const Menu = new MessageSelectMenu()
+                            .setCustomId('SERVERPAGES')
+                            .setPlaceholder('選擇一個頁碼')
+                            .addOptions([
+                                pages.map((page, index) => {
+                                    const Obj = {};
+                                    Obj.label = `第 ${ index + 1 } 頁`;
+                                    Obj.value = `${ index }`;
+                                    Obj.description = `第 ${ index + 1 }/${ pages.length } 頁！`;
+                                    return Obj;
+                                }),
+                            ]);
+                        const row = new MessageActionRow().addComponents([Menu]);
+                        interaction.reply({
+                            embeds: [embeds[0]],
+                            components: [row],
                         });
+                        // Event
+                        client.on('interactionCreate', (i) => {
+                            if (!i.isSelectMenu()) return;
+                            if (i.customId === 'SERVERPAGES' && i.applicationId == client.user.id) {
+                                i.update({
+                                    embeds: pages[Number(i.values[0])],
+                                }).catch(e => { });
+                            }
+                        });
+                    } catch (e) {
+                        console.log(e.stack ? e.stack : e);
+                        interaction.reply({
+                            content: '錯誤: ',
+                            embeds: [
+                                new MessageEmbed().setColor('RED')
+                                    .setDescription(`\`\`\`${ e }\`\`\``),
+                            ],
 
-                    if (field != []) {
-                        embed.push(
-                            new MessageEmbed()
-                                .setTitle(`第${page}頁`)
-                                .addFields(field)
-                                .setColor('WHITE'),
-                        );
+                        });
                     }
+                    //#endregion
 
-                    // 發送訊息
-                    const msg = new container.Discord.MessageEmbed()
-                        .setColor('RANDOM')
-                        .setTimestamp()
-                        .setAuthor({
-                            name: interaction.member.user.tag,
-                            iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
-                        })
-                        .setDescription('伺服器列表已列於控制台！');
-                    // 添加到最前端
-                    embed.unshift(msg);
-                    interaction.reply({
-                        embeds: embed,
-                        allowedMentions: {
-                            repliedUser: false,
-                        },
-                        ephemeral: true,
-                    });
-                    // interaction.channel.send({ embeds: embed })
+
+
+
                 }
                 else if (subcommand == 'create-invite') {
                     const id = interaction.options.getString('id');
@@ -197,15 +210,15 @@ module.exports = {
                                 // 進退變動 加入
                                 interaction.reply(
                                     '```diff' +
-                                    `\n+ 機器人邀請已生成！ ${guild.name} (${guild.id}) (擁有者： ${owner.user.tag} ${guild.ownerId}) ` +
+                                    `\n+ 機器人邀請已生成！ ${ guild.name } (${ guild.id }) (擁有者： ${ owner.user.tag } ${ guild.ownerId }) ` +
                                     '\n```' +
-                                    `https://discord.gg/${invite_code}`,
+                                    `https://discord.gg/${ invite_code }`,
                                 );
                             });
                         // end
 
                     } catch (err) {
-                        interaction.reply({ content: `生成邀請時發生錯誤： \`${err.message}\`` });
+                        interaction.reply({ content: `生成邀請時發生錯誤： \`${ err.message }\`` });
                     }
                 }
                 else if (subcommand == 'leave') {
@@ -217,9 +230,9 @@ module.exports = {
                         }
 
                         await guild.leave();
-                        interaction.reply({ content: `成功離開 **${guild.name}**，少了\`${guild.memberCount}\`位成員。` });
+                        interaction.reply({ content: `成功離開 **${ guild.name }**，少了\`${ guild.memberCount }\`位成員。` });
                     } catch (err) {
-                        interaction.reply({ content: `離開伺服器時發生錯誤： \`${err.message}\`` });
+                        interaction.reply({ content: `離開伺服器時發生錯誤： \`${ err.message }\`` });
                     }
                 }
 
@@ -229,7 +242,7 @@ module.exports = {
                     client.user.setPresence({
                         activities: [
                             {
-                                name: `${client.user.username} 關機中...`,
+                                name: `${ client.user.username } 關機中...`,
                                 type: 'LISTENING',
                                 // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                             },
@@ -274,25 +287,25 @@ module.exports = {
                         Today.getSeconds() +
                         ' 秒' +
                         ' 機器人關機```';
-                    const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+                    const uptime = `${ humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
                         conjunction: ' ',
                         language: 'zh_TW',
-                    })} `;
+                    }) } `;
                     const embed = {
                         color: 0x808080,
                         description: oldmsg + ' ' + msg,
                         author: {
-                            name: `${client.user.username} - 機器人運作資訊`,
+                            name: `${ client.user.username } - 機器人運作資訊`,
                             iconURL: client.user.avatarURL({ dynamic: true }),
                         },
                         fields: [
-                            { name: '版本:', value: `v${require('./../../../../package.json').version}`, inline: true },
-                            { name: 'Discord.js:', value: `${require('discord.js').version}`, inline: true },
-                            { name: 'Node.js', value: `${process.version}`, inline: true },
+                            { name: '版本:', value: `v${ require('./../../../../package.json').version }`, inline: true },
+                            { name: 'Discord.js:', value: `${ require('discord.js').version }`, inline: true },
+                            { name: 'Node.js', value: `${ process.version }`, inline: true },
                             { name: '\u200B', value: '\u200B', inline: false },
                             {
                                 name: '運行時間:',
-                                value: `${uptime}`,
+                                value: `${ uptime }`,
                                 inline: true,
                             },
                         ],
@@ -305,7 +318,7 @@ module.exports = {
                     client.user.setPresence({
                         activities: [
                             {
-                                name: `暫停服務 - ${client.user.username}`,
+                                name: `暫停服務 - ${ client.user.username }`,
                                 type: 'LISTENING',
                                 // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                             },
@@ -370,7 +383,7 @@ module.exports = {
                     if (Math.round(i / 20) == i / 20) {
                         embed.push(
                             new MessageEmbed()
-                                .setTitle(`第${page}頁`)
+                                .setTitle(`第${ page }頁`)
                                 .addFields(field)
                                 .setColor('WHITE'),
                         );
@@ -379,10 +392,10 @@ module.exports = {
                     }
                     field.push(
                         {
-                            name: `${i}. ${guild.name} (${guild.id})`,
+                            name: `${ i }. ${ guild.name } (${ guild.id })`,
                             value: [
-                                ` 所有者 ${guild.ownerId}`,
-                                `總共${guild.memberCount}人 | 成員${guild.members.cache.filter((m) => !m.user.bot).size}人 | 機器人${guild.members.cache.filter((m) => m.user.bot).size}人`,
+                                ` 所有者 ${ guild.ownerId }`,
+                                `總共${ guild.memberCount }人 | 成員${ guild.members.cache.filter((m) => !m.user.bot).size }人 | 機器人${ guild.members.cache.filter((m) => m.user.bot).size }人`,
                             ].join('\n'),
                             inline: true,
                         },
@@ -391,12 +404,12 @@ module.exports = {
 
                     console.info(
                         chalk.gray(
-                            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+                            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
                         ) +
                         chalk.gray('└ ') +
-                        `${guild.name} | ${guild.id} | 所有者 ${guild.ownerId
-                        } \n                        └ 總共${guild.memberCount}人 | 成員${guild.members.cache.filter((m) => !m.user.bot).size
-                        }人 | 機器人${guild.members.cache.filter((m) => m.user.bot).size}人`,
+                        `${ guild.name } | ${ guild.id } | 所有者 ${ guild.ownerId
+                        } \n                        └ 總共${ guild.memberCount }人 | 成員${ guild.members.cache.filter((m) => !m.user.bot).size
+                        }人 | 機器人${ guild.members.cache.filter((m) => m.user.bot).size }人`,
                     );
 
                     i++;
@@ -405,7 +418,7 @@ module.exports = {
             if (field != []) {
                 embed.push(
                     new MessageEmbed()
-                        .setTitle(`第${page}頁`)
+                        .setTitle(`第${ page }頁`)
                         .addFields(field)
                         .setColor('WHITE'),
                 );
@@ -443,9 +456,9 @@ module.exports = {
                 }
 
                 await guild.leave();
-                interaction.reply({ content: `成功離開 **${guild.name}**，少了\`${guild.memberCount}\`位成員。` });
+                interaction.reply({ content: `成功離開 **${ guild.name }**，少了\`${ guild.memberCount }\`位成員。` });
             } catch (err) {
-                interaction.reply({ content: `離開伺服器時發生錯誤： \`${err.message}\`` });
+                interaction.reply({ content: `離開伺服器時發生錯誤： \`${ err.message }\`` });
             }
         }
         // #endregion
@@ -475,15 +488,15 @@ module.exports = {
                         // 進退變動 加入
                         interaction.reply(
                             '```diff' +
-                            `\n+ 機器人邀請已生成！ ${guild.name} (${guild.id}) (擁有者： ${owner.user.tag} ${guild.ownerId}) ` +
+                            `\n+ 機器人邀請已生成！ ${ guild.name } (${ guild.id }) (擁有者： ${ owner.user.tag } ${ guild.ownerId }) ` +
                             '\n```' +
-                            `https://discord.gg/${invite_code}`,
+                            `https://discord.gg/${ invite_code }`,
                         );
                     });
                 // end
 
             } catch (err) {
-                interaction.reply({ content: `生成邀請時發生錯誤： \`${err.message}\`` });
+                interaction.reply({ content: `生成邀請時發生錯誤： \`${ err.message }\`` });
             }
         }
         // #endregion
@@ -492,7 +505,7 @@ module.exports = {
             client.user.setPresence({
                 activities: [
                     {
-                        name: `${client.user.username} 關機中...`,
+                        name: `${ client.user.username } 關機中...`,
                         type: 'LISTENING',
                         // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                     },
@@ -537,25 +550,25 @@ module.exports = {
                 Today.getSeconds() +
                 ' 秒' +
                 ' 機器人關機```';
-            const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+            const uptime = `${ humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
                 conjunction: ' ',
                 language: 'zh_TW',
-            })} `;
+            }) } `;
             const embed = {
                 color: 0x808080,
                 description: oldmsg + ' ' + msg,
                 author: {
-                    name: `${client.user.username} - 機器人運作資訊`,
+                    name: `${ client.user.username } - 機器人運作資訊`,
                     iconURL: client.user.avatarURL({ dynamic: true }),
                 },
                 fields: [
-                    { name: '版本:', value: `v${require('./../../../../package.json').version}`, inline: true },
-                    { name: 'Discord.js:', value: `${require('discord.js').version}`, inline: true },
-                    { name: 'Node.js', value: `${process.version}`, inline: true },
+                    { name: '版本:', value: `v${ require('./../../../../package.json').version }`, inline: true },
+                    { name: 'Discord.js:', value: `${ require('discord.js').version }`, inline: true },
+                    { name: 'Node.js', value: `${ process.version }`, inline: true },
                     { name: '\u200B', value: '\u200B', inline: false },
                     {
                         name: '運行時間:',
-                        value: `${uptime}`,
+                        value: `${ uptime }`,
                         inline: true,
                     },
                 ],
@@ -568,7 +581,7 @@ module.exports = {
             client.user.setPresence({
                 activities: [
                     {
-                        name: `暫停服務 - ${client.user.username}`,
+                        name: `暫停服務 - ${ client.user.username }`,
                         type: 'LISTENING',
                         // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                     },
