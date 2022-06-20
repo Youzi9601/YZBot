@@ -120,7 +120,7 @@ module.exports = {
                             const qus = guilds;
                             const current = qus.slice(i, k);
                             let j = i + 1;
-                            const info = current.map((g) => `**${ j++ }.** \n**|** \`${ String(g.name) }\` (\`${ g.id }\`) \n**|** ${ g.memberCount }人(${ g.member }真人/${ g.bot }機器人)`).join('\n');
+                            const info = current.map((g) => `**${ j++ }.** \n\`\`\`${ String(g.name) } ( ${ g.id } )\n>  ${ g.memberCount }人(${ g.member }真人/${ g.bot }機器人)\`\`\` `).join('\n');
                             const embed = new MessageEmbed()
                                 .setColor('RANDOM')
                                 .setDescription(`${ info }`);
