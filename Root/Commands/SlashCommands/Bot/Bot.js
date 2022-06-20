@@ -1451,7 +1451,7 @@ module.exports = {
         else {
 
             if (subcommandGroup == 'chat') {
-                interaction.deferReply({ ephemeral: true })
+                await interaction.deferReply({ ephemeral: true })
                 //#region  取得基本命令內容
                 // 取得指令內容
                 const channel =
