@@ -117,14 +117,14 @@ module.exports = {
             // #region chat_bot
             if (subcommand == 'chat-bot') {
                 var chat_bot = new db.table('chat_bot_system');
-                chat_bot.set(`${interaction.guild.id}`, { channelid: channel.id });
+                chat_bot.set(`${ interaction.guild.id }`, { channelid: channel.id });
             }
             // #endregion
             // #region suggestions-channel
             else if (subcommand == 'suggestions-channel') {
                 interaction.deferReply();
                 var suggestions_system = new db.table('suggestions_system');
-                suggestions_system.set(`${interaction.guild.id}`, { channelid: channel.id, num: 0 });
+                suggestions_system.set(`${ interaction.guild.id }`, { channelid: channel.id, num: 0 });
             }
             // #endregion
             // #region counting
@@ -132,10 +132,10 @@ module.exports = {
 
                 interaction.deferReply();
                 var countting_system = new db.table('countting_system');
-                countting_system.set(`${interaction.guild.id}`, {
+                countting_system.set(`${ interaction.guild.id }`, {
                     channelid: channel.id,
-                    WrongReset: `${interaction.options.getBoolean('wrong_reset')}` || 'true',
-                    noTwice: `${interaction.options.getBoolean('no_twice')}` || 'true',
+                    WrongReset: `${ interaction.options.getBoolean('wrong_reset') }` || 'true',
+                    noTwice: `${ interaction.options.getBoolean('no_twice') }` || 'true',
                 });
 
             }
@@ -151,7 +151,7 @@ module.exports = {
                         })
                         .setColor('#FF0000')
                         .setTimestamp()
-                        .setDescription('此命令是為機器人的開發人員所使用的。')],
+                        .setDescription('[跨群系統暫不開放]：此命令是為機器人的開發人員所使用的。')],
                     allowedMentions: {
                         repliedUser: false,
                     },
@@ -192,14 +192,14 @@ module.exports = {
                 )
                 // cross_server_system.get(`${interaction.guild.id}`)
                 // 如果沒有，則新增它
-                cross_server_system.set(`${interaction.guild.id}`,
+                cross_server_system.set(`${ interaction.guild.id }`,
                     guild_data
                 )
 
 
                 //
                 await channel.sendTyping();
-                await channel.send(`跨群代碼： ${cross_id} (因為目前暫時鎖定只開一個)，只是目前沒有跨群的作用...你想做啥==`);
+                await channel.send(`跨群代碼： ${ cross_id } (因為目前暫時鎖定只開一個)，只是目前沒有跨群的作用...你想做啥==`);
                 //
                 await interaction.editReply('成功創立跨群！');
             }
@@ -213,7 +213,7 @@ module.exports = {
 
             try {
                 channel.sendTyping();
-                channel.send({ content: `這裡！ <@${interaction.user.id}>` });
+                channel.send({ content: `這裡！ <@${ interaction.user.id }>` });
             } catch (error) {
                 //
             }
@@ -221,11 +221,11 @@ module.exports = {
         }
 
         interaction.reply({
-            content: `${subcommand} 的頻道成功指向 <#${channel.id}> ，去試試看?`,
+            content: `${ subcommand } 的頻道成功指向 <#${ channel.id }> ，去試試看?`,
         })
             .catch((err) => {
                 interaction.editReply({
-                    content: `${subcommand} 的頻道成功指向 <#${channel.id}>，去試試看?`,
+                    content: `${ subcommand } 的頻道成功指向 <#${ channel.id }>，去試試看?`,
                 }).catch((err) => {
 
                 });

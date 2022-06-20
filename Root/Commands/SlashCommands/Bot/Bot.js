@@ -1346,18 +1346,18 @@ module.exports = {
                     const type = interaction.options.getString('type');
                     const url = undefined;
                     if (type == 'STREAMING') {
-                        url = { url: `${interaction.options.getString('url')}` };
+                        url = { url: `${ interaction.options.getString('url') }` };
                     }
                     client.user.setPresence({
                         activities: [
                             {
-                                name: `${name}`,
-                                type: `${type}`,
+                                name: `${ name }`,
+                                type: `${ type }`,
                                 url,
                             },
                         ],
                         // browser: "DISCORD IOS",
-                        status: `${status}`,
+                        status: `${ status }`,
                     });
                     interaction.reply({
                         embeds: [
@@ -1370,7 +1370,7 @@ module.exports = {
                                 })
                                 .setColor('#00FF00')
                                 .setTimestamp()
-                                .setDescription(`成功設定機器人的狀態！\n${status} - **${type}** ${name}`),
+                                .setDescription(`成功設定機器人的狀態！\n${ status } - **${ type }** ${ name }`),
                         ],
                         allowedMentions: {
                             repliedUser: false,
@@ -1404,7 +1404,7 @@ module.exports = {
 
                 if (!Array.isArray(reactions))
                     return await interaction.editReply({
-                        content: `:x: umm... 發生了錯誤...\`${interaction.options.getString('reactions')}\`裡面沒有任何是自訂的表情符號！`,
+                        content: `:x: umm... 發生了錯誤...\`${ interaction.options.getString('reactions') }\`裡面沒有任何是自訂的表情符號！`,
                     });
 
                 const msg = [];
@@ -1413,21 +1413,54 @@ module.exports = {
                         const id = r.match(/\d{18}/g)[0];
                         const name = r.match(/\:.*?\:/g)[0].replace(':', '').replace(':', '');
                         const animated = r.includes('<a:');
-                        const url = animated ? `https://cdn.discordapp.com/emojis/${id}.gif` : `https://cdn.discordapp.com/emojis/${id}.png`;
+                        const url = animated ? `https://cdn.discordapp.com/emojis/${ id }.gif` : `https://cdn.discordapp.com/emojis/${ id }.png`;
                         interaction.guild.emojis.create(url, name)
                             .catch(e => {
                                 console.error(e);
-                                msg.push(`:x: ${name} (${id}) 無法新增！`);
+                                msg.push(`:x: ${ name } (${ id }) 無法新增！`);
                             });
                     });
                 } catch (error) {
                     console.log(error)
                     return await interaction.editReply({
-                        content: `:x: umm... 發生了錯誤...\`${interaction.options.getString('reactions')}\`裡面沒有任何是自訂的表情符號！`,
+                        content: `:x: umm... 發生了錯誤...\`${ interaction.options.getString('reactions') }\`裡面沒有任何是自訂的表情符號！`,
                     });
                 }
                 await interaction.editReply({
-                    content: `成功複製部分表情符號！(${msg.length} 個表情符號新增失敗！)`,
+                    content: `成功複製部分表情符號！(${ msg.length } 個表情符號新增失敗！)`,
+                });
+
+            }
+            else if (subcommand == 'clone-stiker') {
+                await interaction.deferReply();
+                const reactions = interaction.options.getString('reactions').match(/<.*?\:.*?\:\d*?>/ig);
+
+                if (!Array.isArray(reactions))
+                    return await interaction.editReply({
+                        content: `:x: umm... 發生了錯誤...\`${ interaction.options.getString('reactions') }\`裡面沒有任何是自訂的表情符號！`,
+                    });
+
+                const msg = [];
+                try {
+                    reactions.forEach(r => {
+                        const id = r.match(/\d{18}/g)[0];
+                        const name = r.match(/\:.*?\:/g)[0].replace(':', '').replace(':', '');
+                        const animated = r.includes('<a:');
+                        const url = animated ? `https://cdn.discordapp.com/emojis/${ id }.gif` : `https://cdn.discordapp.com/emojis/${ id }.png`;
+                        interaction.guild.emojis.create(url, name)
+                            .catch(e => {
+                                console.error(e);
+                                msg.push(`:x: ${ name } (${ id }) 無法新增！`);
+                            });
+                    });
+                } catch (error) {
+                    console.log(error)
+                    return await interaction.editReply({
+                        content: `:x: umm... 發生了錯誤...\`${ interaction.options.getString('reactions') }\`裡面沒有任何是自訂的表情符號！`,
+                    });
+                }
+                await interaction.editReply({
+                    content: `成功複製部分表情符號！(${ msg.length } 個表情符號新增失敗！)`,
                 });
 
             }
@@ -1585,7 +1618,7 @@ module.exports = {
                                 });
                             }).catch((error) => {
                                 console.error(error);
-                                interaction.editReply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${reply_id} 的訊息 ...` });
+                                interaction.editReply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${ reply_id } 的訊息 ...` });
                                 return;
                             });
 
@@ -1594,7 +1627,7 @@ module.exports = {
                             await channel.send(msg);
                         } catch (error) {
                             console.error(error);
-                            await interaction.editReply({ content: `啊喔...發生了錯誤：無法發送訊息...\n\`\`\`js\n${error}\`\`\`` });
+                            await interaction.editReply({ content: `啊喔...發生了錯誤：無法發送訊息...\n\`\`\`js\n${ error }\`\`\`` });
                             return;
                         }
                     await interaction.editReply({
@@ -1615,7 +1648,7 @@ module.exports = {
                             });
                         }).catch((error) => {
                             console.error(error);
-                            interaction.editReply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${interaction.options.getString('message_id')} 的訊息 ...` });
+                            interaction.editReply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${ interaction.options.getString('message_id') } 的訊息 ...` });
                             return;
                         });
                 }
@@ -1634,15 +1667,15 @@ module.exports = {
                     interaction.channel.messages.fetch(message_id)
                         .then(message => {
                             // console.info(message.content);
-                            message.react(`${emoji}`).catch((error) => {
+                            message.react(`${ emoji }`).catch((error) => {
                                 console.error(error);
-                                interaction.editReply({ content: `啊喔...發生了錯誤：看不懂反應 ${emoji} 是甚麼...` });
+                                interaction.editReply({ content: `啊喔...發生了錯誤：看不懂反應 ${ emoji } 是甚麼...` });
                                 return;
                             });
                         })
                         .catch((error) => {
                             console.error(error);
-                            interaction.editReply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${message_id} 的訊息...` });
+                            interaction.editReply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${ message_id } 的訊息...` });
                             return;
                         });
                     // console.info(msg)
@@ -1797,7 +1830,7 @@ module.exports = {
                             embeds: msg.embeds,
                         });
                     } catch (error) {
-                        return await interaction.editReply(`:x: 發生了錯誤：\`\`\`js\n${error}\`\`\``);
+                        return await interaction.editReply(`:x: 發生了錯誤：\`\`\`js\n${ error }\`\`\``);
                     }
                     await interaction.editReply('成功發送！');
 
