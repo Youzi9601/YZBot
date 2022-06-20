@@ -60,10 +60,10 @@ async function update() {
     fetch('https://raw.githubusercontent.com/Youzi9601/YZBot/master/package.json')
         .then((res) => res.json())
         .then((data) => {
-            if (data.version != version || `${config.commit}` == 'true') {
+            if (data.version != version || `${ config.commit }` == 'true') {
 
                 // 執行自動更新，不跳通知
-                if (`${config.autoupdate}` == 'true') {
+                if (`${ config.autoupdate }` == 'true') {
                     // 下載npm
                     // const exec = require('child_process').exec;
                     // pm2 start bot.js --watch --name "YZB"
@@ -77,7 +77,7 @@ async function update() {
                 } else {
                     console.log('\x1b[32m%s\x1b[0m', '───────────────────────────────機器人更新───────────────────────────────');
                     console.log('\x1b[32m%s\x1b[0m', '新版本: v' + data.version);
-                    console.log('\x1b[32m%s\x1b[0m', `啟動機器人後於Discord輸入 \`${config.prefix[0]}exec npm run update\` 來更新機器人`);
+                    console.log('\x1b[32m%s\x1b[0m', `啟動機器人後於Discord輸入 \`${ config.prefix[0] }exec npm run update\` 來更新機器人`);
                     console.log('\x1b[36m%s\x1b[0m', '檢查提交: https://github.com/Youzi9601/YZBot/commits/master');
                     console.log('\x1b[32m%s\x1b[0m', '───────────────────────────────機器人更新───────────────────────────────');
 
@@ -112,7 +112,7 @@ client.connect();
 let totalShards;
 if (config.hosting.totalShards == 'auto') totalShards = 'auto'
 else totalShards = Math.round(config.hosting.totalShards)
-const manager = new Cluster.Manager(`${__dirname}/bot.js`,
+const manager = new Cluster.Manager(`${ __dirname }/bot.js`,
     {
         totalShards: totalShards,
         totalClusters: 'auto'
@@ -120,7 +120,7 @@ const manager = new Cluster.Manager(`${__dirname}/bot.js`,
 ); // Some dummy Data
 
 manager.on('clusterCreate',
-    cluster => console.log(`啟動>> 集群 #${cluster.id} 啟動！`)
+    cluster => console.log(`啟動>> 集群 #${ cluster.id } 啟動！`)
 );
 // manager.on('debug', console.log);
 
