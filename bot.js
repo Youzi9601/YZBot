@@ -88,7 +88,7 @@ module.exports.config = config;
     client.distube = new Distube.default(client, {
         youtubeDL: false,
         leaveOnEmpty: true,
-        emptyCooldown: 30,
+        emptyCooldown: 180,
         leaveOnFinish: false,
         emitNewSongOnly: true,
         updateYouTubeDL: true,
@@ -108,7 +108,7 @@ module.exports.config = config;
     // #region 變數輸出
     console.info(
         chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + '讀取運轉文件...(可能需要花上很多時間)',
     );
     //
@@ -151,11 +151,11 @@ module.exports.config = config;
      */
 
     // 執行讀取
-    const Handler = require(`${path}/Root/Structures/Handlers/Handler`);
+    const Handler = require(`${ path }/Root/Structures/Handlers/Handler`);
 
     console.info(
         chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + '讀取事件觸發...',
     );
     await Handler.loadEvents(client);
@@ -163,18 +163,18 @@ module.exports.config = config;
     // 執行登入
     if (ci === 'true')
         console.info(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + chalk.red('CI測試事件> ') + 'CI測試進行中...');
 
 
     console.info(
         chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + '機器人檔案讀取中...',
     );
     console.info(
         chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + '取得Token中...',
     );
 
@@ -227,7 +227,7 @@ module.exports.config = config;
     client.user.setPresence({
         activities: [
             {
-                name: `${client.user.username} 暫停服務...`,
+                name: `${ client.user.username } 暫停服務...`,
                 // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
             },
         ],
@@ -236,8 +236,8 @@ module.exports.config = config;
     });
     console.log(
         chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + chalk.white(`成功使用 ${client.user.tag} 登入!`),
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
+        ) + chalk.white(`成功使用 ${ client.user.tag } 登入!`),
     );
 
     // 防止崩潰
@@ -260,37 +260,37 @@ module.exports.config = config;
     // 執行登入命令
     console.info(
         chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + '讀取訊息命令...',
     );
     await Handler.loadMessageCommands(client, path);
     console.info(
         chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + '載入斜線命令...',
     );
     await Handler.loadSlashCommands(client, path);
     console.info(
         chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + '載入互動選單...',
     );
     await Handler.loadContextMenus(client, path);
     console.info(
         chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + '讀取按鈕交互...',
     );
     await Handler.loadButtonCommands(client, path);
     console.info(
         chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + '讀取選單交互...',
     );
     await Handler.loadSelectMenus(client, path);
     console.info(
         chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + '讀取模態交互...',
     );
     await Handler.loadModals(client, path);
@@ -298,15 +298,15 @@ module.exports.config = config;
 
     console.info(
         chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + chalk.green('完成讀取！'),
     );
 
     // 處理Webhook
-    if (`${config.webhook.use}` == 'true') {
+    if (`${ config.webhook.use }` == 'true') {
         console.info(
             chalk.gray(
-                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+                `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
             ) + '啟動Webhook接收...',
         );
         try {
@@ -318,11 +318,11 @@ module.exports.config = config;
 
 
     // 處理網頁
-    if (`${config.web.noWeb}` == 'false') {
+    if (`${ config.web.noWeb }` == 'false') {
         const web = require('./Root/Plugins/web/web.js');
         console.info(
             chalk.gray(
-                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+                `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
             ) + chalk.white('連線網站...'),
         );
         await web.web(client);
@@ -331,8 +331,8 @@ module.exports.config = config;
             port80 = true;
         }
         console.info(chalk.gray(
-            `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
-        ) + chalk.white('請將以下網址複製到') + chalk.blue(` https://discord.com/developers/applications/${config.clientID}/oauth2/general`) + chalk.white(' 中的 Redirects ！') + chalk.blue(`\n${config.web.domain}${port80 ? '' : `:${config.web.port}`}/discord/callback`));
+            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
+        ) + chalk.white('請將以下網址複製到') + chalk.blue(` https://discord.com/developers/applications/${ config.clientID }/oauth2/general`) + chalk.white(' 中的 Redirects ！') + chalk.blue(`\n${ config.web.domain }${ port80 ? '' : `:${ config.web.port }` }/discord/callback`));
         // console.info(`${config.web.domain}${port80 ? '' : `:${config.web.port}`}`)
     }
 

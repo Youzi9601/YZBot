@@ -10,7 +10,9 @@ const fetch = require('node-fetch');
 
 
 //#region 更新系統
-update()
+update().then(() => {
+    run()
+})
 
 async function update() {
     // 更新系統
@@ -57,13 +59,13 @@ async function update() {
     exports.config = config;
 
     // 檢測更新
-    fetch('https://raw.githubusercontent.com/Youzi9601/YZBot/master/package.json')
+    await fetch('https://raw.githubusercontent.com/Youzi9601/YZBot/master/package.json')
         .then((res) => res.json())
         .then((data) => {
-            if (data.version != version || `${config.commit}` == 'true') {
+            if (data.version != version || `${ config.commit }` == 'true') {
 
                 // 執行自動更新，不跳通知
-                if (`${config.autoupdate}` == 'true') {
+                if (`${ config.autoupdate }` == 'true') {
                     // 下載npm
                     // const exec = require('child_process').exec;
                     // pm2 start bot.js --watch --name "YZB"
@@ -77,7 +79,7 @@ async function update() {
                 } else {
                     console.log('\x1b[32m%s\x1b[0m', '───────────────────────────────機器人更新───────────────────────────────');
                     console.log('\x1b[32m%s\x1b[0m', '新版本: v' + data.version);
-                    console.log('\x1b[32m%s\x1b[0m', `啟動機器人後於Discord輸入 \`${config.prefix[0]}exec npm run update\` 來更新機器人`);
+                    console.log('\x1b[32m%s\x1b[0m', `啟動機器人後於Discord輸入 \`${ config.prefix[0] }exec npm run update\` 來更新機器人`);
                     console.log('\x1b[36m%s\x1b[0m', '檢查提交: https://github.com/Youzi9601/YZBot/commits/master');
                     console.log('\x1b[32m%s\x1b[0m', '───────────────────────────────機器人更新───────────────────────────────');
 
@@ -97,43 +99,46 @@ async function update() {
 
 
 //#region 主程式
-// 主程式
-let totalShards;
-if (config.hosting.totalShards == 'auto') totalShards = 'auto'
-else totalShards = Math.round(config.hosting.totalShards)
-const manager = new Cluster.Manager(`${__dirname}/bot.js`, {
-    totalShards: 'auto',  // 或 'auto' 
-    /// 檢查下面的更多選項
-    shardsPerClusters: 3,
-    // totalClusters: 7,
-    mode: 'process', // you can also choose "worker"
-    token: config.token,
-    // 自動分片設定
-    respawn: true,
+function run() {
+
+    // 主程式
+    let totalShards;
+    if (config.hosting.totalShards == 'auto') totalShards = 'auto'
+    else totalShards = Math.round(config.hosting.totalShards)
+    const manager = new Cluster.Manager(`${ __dirname }/bot.js`, {
+        totalShards: 'auto',  // 或 'auto' 
+        /// 檢查下面的更多選項
+        shardsPerClusters: 3,
+        // totalClusters: 7,
+        mode: 'process', // you can also choose "worker"
+        token: config.token,
+        // 自動分片設定
+        respawn: true,
 
 
-    restarts: {
-        max: 3,
-        interval: ms('5d'),
-        current: 10000,
-    },
+        restarts: {
+            max: 3,
+            interval: ms('5d'),
+            current: 10000,
+        },
 
 
-    //避免的東西
-    execArgv: ['--trace-warnings'],
-    shardArgs: ['--ansi', '--color'],
-});
+        //避免的東西
+        execArgv: ['--trace-warnings'],
+        shardArgs: ['--ansi', '--color'],
+    });
 
-manager.on('clusterCreate', cluster =>
-    console.log(`\n\n\n\n\n==============================\n啟動> 集群#${cluster.id} 啟動！\n==============================`)
-);
+    manager.on('clusterCreate', cluster =>
+        console.log(`\n\n\n\n\n==============================\n啟動> 集群#${ cluster.id } 啟動！\n==============================`)
+    );
 
-let amount;
-if (config.sharding.amount == 'auto') amount = 'auto'
-else amount = Math.round(config.sharding.amount)
-manager.spawn({
-    amount: 'auto',
-    timeout: -1,
-    delay: ms('7s')
-});
+    let amount;
+    if (config.sharding.amount == 'auto') amount = 'auto'
+    else amount = Math.round(config.sharding.amount)
+    manager.spawn({
+        amount: 'auto',
+        timeout: -1,
+        delay: ms('7s')
+    });
+}
     //#endregion 主程式
