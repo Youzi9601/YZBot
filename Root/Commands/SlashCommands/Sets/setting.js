@@ -264,9 +264,14 @@ module.exports = {
                         name: 'button-role',
                         description: '新增按鈕給予身分組',
                         options: [
+                            /*
                             {
-                            type:''
-                        },
+                                type: 3,
+                                name: 'contents',
+                                description: '純文字',
+                                required: false,
+                            },
+                            */
                             {
                                 type: 3,
                                 name: 'contents',
