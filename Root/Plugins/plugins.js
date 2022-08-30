@@ -5,10 +5,11 @@ module.exports =
             './discord/guild/music',
             './discord/guild/counting',
             './discord/guild/chatbot',
-            './discord/guild/suggestions_channel.js',
+            './discord/guild/suggestions_channel',
+            './discord/guild/button_role',
         ];
         plugins.forEach(path => {
-            require(`${path}`)(client);
+            require(`${ path }`)(client);
         });
 
     };
