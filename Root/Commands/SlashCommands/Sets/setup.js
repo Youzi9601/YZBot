@@ -93,6 +93,19 @@ module.exports = {
                     },
                 ],
             },
+            {
+                type: 1,
+                name: 'counting-num',
+                description: '設定數數頻道的數字',
+                options: [
+                    {
+                        type: 3,
+                        name: 'num',
+                        description: '數字',
+                        required: true,
+                    },
+                ],
+            },
             // #endregion
         ],
     },
@@ -138,6 +151,22 @@ module.exports = {
                     noTwice: `${ interaction.options.getBoolean('no_twice') }` || 'true',
                 });
 
+            }
+            else if (subcommand == 'counting-num') {
+
+                await interaction.deferReply();
+                let num = interaction.options.getString('num').match(/\d+/g)[0]
+                var countting_system = new db.table('countting_system');
+                const count_data = countting_system.get(`${ interaction.guild.id }`) || { channelid: '000' };
+                countting_system.set(`${ interaction.guild.id }`, {
+                    channelid: count_data.channelid,
+                    WrongReset: count_data.WrongReset,
+                    noTwice: count_data.noTwice,
+                    latestUserId: `0`,
+                    num: num,
+                });
+                await interaction.editReply({ content: `成功將數字設定為${ num }，請接續下個數字繼續數喔！` })
+                return;
             }
             // #endregion
             // #region cross-servers
