@@ -2,7 +2,8 @@ const chalk = require('chalk');
 const Box = require('cli-box');
 const { config } = require('.././../../../../bot');
 const moment = require('moment');
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 const { GuildMember, Client } = require('discord.js');
 const { log } = require('../../../../Utils/log');
 /**
@@ -19,7 +20,7 @@ module.exports = {
         const guild = member.guild;
         log(
             'info',
-            `新的成員加入 ${guild.name}： ${member.user.tag}`,
+            `新的成員加入 ${ guild.name }： ${ member.user.tag }`,
             true,
             client);
     },

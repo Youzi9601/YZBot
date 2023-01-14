@@ -1,6 +1,7 @@
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 const humanizeDuration = require('humanize-duration');
-module.exports = async function(
+module.exports = async function (
     client,
     message,
     command,
@@ -20,13 +21,13 @@ module.exports = async function(
 
     const oldTime =
         (await db.get(
-            `CooldownSystem.${message.guild.id}.${command.command.name}.${interactionType ?? 'Normal'
-            }.${user.id}`,
+            `CooldownSystem.${ message.guild.id }.${ command.command.name }.${ interactionType ?? 'Normal'
+            }.${ user.id }`,
         )) ?? 0;
     if (Math.floor(currentTime - oldTime) >= cooldown || oldTime == 0) {
         await db.set(
-            `CooldownSystem.${message.guild.id}.${command.command.name}.${interactionType ?? 'Normal'
-            }.${user.id}`,
+            `CooldownSystem.${ message.guild.id }.${ command.command.name }.${ interactionType ?? 'Normal'
+            }.${ user.id }`,
             currentTime,
         );
         return false;
@@ -42,9 +43,9 @@ module.exports = async function(
                     .setTimestamp()
                     .setColor('#FF0000')
                     .setDescription(
-                        `你目前處於冷卻狀態，請等待\`${human_time}\`！\n直到 <t:${Math.floor(
+                        `你目前處於冷卻狀態，請等待\`${ human_time }\`！\n直到 <t:${ Math.floor(
                             Math.floor(oldTime + cooldown) / 1000,
-                        )}> ！`,
+                        ) }> ！`,
                     ),
             ],
             allowedMentions: {

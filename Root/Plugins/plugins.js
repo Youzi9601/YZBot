@@ -5,6 +5,7 @@ module.exports =
             './discord/guild/music',
             './discord/guild/counting',
             './discord/guild/chatbot',
+ //           './discord/guild/openai_chatGPT',
             './discord/guild/suggestions_channel',
             './discord/guild/button_role',
         ];

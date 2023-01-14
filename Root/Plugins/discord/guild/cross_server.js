@@ -1,5 +1,6 @@
 const { config, client } = require('../../../../bot');
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 const { log } = require('../../../Utils/log');
 
 module.exports =
@@ -10,7 +11,7 @@ module.exports =
     (client) => {
         client.on('messageCreate', message => {
             // 取得該資料
-            var cross_server_system = new db.table('cross_server_system');
+            var cross_server_system = db.table('cross_server_system');
             // 查詢該頻道是否為webhook
             /**@param {Array} this_guild */
             const this_guild = cross_server_system.get(message.guild.id)
@@ -57,7 +58,7 @@ module.exports =
                     }
                     // 發送消息
                     await webhook.send({
-                        username: `${message.member.nickname ? `${message.member.nickname} (${message.author.tag})` : message.author.tag} 來自 ${message.guild.name}`,
+                        username: `${ message.member.nickname ? `${ message.member.nickname } (${ message.author.tag })` : message.author.tag } 來自 ${ message.guild.name }`,
                         avatarURL: message.author.displayAvatarURL({ dynamic: true }) || message.author.defaultAvatarURL,
                         content: message.content,
                         embeds: message.embeds,
@@ -65,7 +66,7 @@ module.exports =
 
                 } catch (error) {
                     console.error(error)
-                    return await message.reply(`:x: 發生了錯誤：\`\`\`js\n${error}\`\`\``);
+                    return await message.reply(`:x: 發生了錯誤：\`\`\`js\n${ error }\`\`\``);
                 }
 
             })

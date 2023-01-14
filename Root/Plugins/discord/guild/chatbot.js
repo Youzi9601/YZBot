@@ -1,4 +1,5 @@
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 const axios = require('axios');
 
 module.exports =
@@ -12,8 +13,8 @@ module.exports =
         client.on('messageCreate', message => {
             if (!message.inGuild()) return;
             // 檢查是否發送
-            var chat_bot = new db.table('chat_bot_system');
-            const chatbot_data = chat_bot.get(`${message.guild.id}`) || { channelid: '000' };
+            var chat_bot = db.table('chat_bot_system');
+            const chatbot_data = chat_bot.get(`${ message.guild.id }`) || { channelid: '000' };
 
             if (chatbot_data.channelid != message.channel.id) return;
             if (message.author.bot) return;
@@ -24,7 +25,7 @@ module.exports =
             // 發送消息
             try {
                 axios(
-                    `https://api.affiliateplus.xyz/api/chatbot?message=${encodeURIComponent(message.content)}&botname=${encodeURIComponent(client.user.username)}&ownername=${encodeURIComponent('Youzi9601 [程式碼作者]')}&user=${encodeURIComponent(message.author.username)}`)
+                    `https://api.affiliateplus.xyz/api/chatbot?message=${ encodeURIComponent(message.content) }&botname=${ encodeURIComponent(client.user.username) }&ownername=${ encodeURIComponent('Youzi9601 [程式碼作者]') }&user=${ encodeURIComponent(message.author.username) }`)
                     .then((returnMsg) => {
                         if (!returnMsg || !returnMsg.data.message) return;
                         if (returnMsg.data.error)
@@ -33,7 +34,7 @@ module.exports =
                         // return message.reply(':x: 你在說什麼? 再說詳細一點！')
                         //  console.log(returnMsg)
 
-                        message.reply(`${returnMsg.data.message}`);
+                        message.reply(`${ returnMsg.data.message }`);
                     });
             } catch (error) {
                 message.reply(':x: 出了一些差錯...請求的API目前狀態為關閉');

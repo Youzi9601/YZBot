@@ -1,7 +1,8 @@
 /**
  * 網頁設定
  */
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 const moment = require('moment');
 const chalk = require('chalk');
 const {
@@ -28,7 +29,7 @@ module.exports = {
     web: async (client) => {
         console.info(
             chalk.gray(
-                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+                `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
             ) + chalk.green('讀取網頁中！'),
         );
         // #region 網頁
@@ -46,7 +47,7 @@ module.exports = {
         const DarkDashboard = require('dbd-dark-dashboard');
 
 
-        await DBD.useLicense(`${config.web.License_ID}`);
+        await DBD.useLicense(`${ config.web.License_ID }`);
         DBD.Dashboard = DBD.UpdatedClass();
 
         const Dashboard = new DBD.Dashboard({
@@ -57,39 +58,39 @@ module.exports = {
 
             port: config.web.port,
             client: {
-                id: `${config.clientID}`,
-                secret: `${config.clientSECRET}`,
+                id: `${ config.clientID }`,
+                secret: `${ config.clientSECRET }`,
             },
-            redirectUri: `${config.web.domain}${port80 ? '' : `:${config.web.port}`}/discord/callback`,
-            domain: `${config.web.domain}`,
+            redirectUri: `${ config.web.domain }${ port80 ? '' : `:${ config.web.port }` }/discord/callback`,
+            domain: `${ config.web.domain }`,
             bot: client,
             requiredPermissions: [DBD.DISCORD_FLAGS.Permissions.ADMINISTRATOR],
             theme: DarkDashboard({
                 colourUpperCase: 'Color',
                 colourLowerCase: 'color',
                 information: {
-                    createdBy: `${config.botName}`,
-                    websiteTitle: `${config.botName} 機器人設定網頁`,
-                    websiteName: `${config.botName}`,
-                    websiteUrl: `${config.web.domain}${port80 ? '' : `:${config.web.port}`}`,
-                    dashboardUrl: `${config.web.domain}${port80 ? '' : `:${config.web.port}`}`,
+                    createdBy: `${ config.botName }`,
+                    websiteTitle: `${ config.botName } 機器人設定網頁`,
+                    websiteName: `${ config.botName }`,
+                    websiteUrl: `${ config.web.domain }${ port80 ? '' : `:${ config.web.port }` }`,
+                    dashboardUrl: `${ config.web.domain }${ port80 ? '' : `:${ config.web.port }` }`,
                     supporteMail: 'yoyowu9601.tw@gmail.com',
-                    supportServer: `https://discord.gg/${config.invite_code}`,
-                    imageFavicon: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                    iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
+                    supportServer: `https://discord.gg/${ config.invite_code }`,
+                    imageFavicon: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
+                    iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
                     pageBackGround: 'linear-gradient(#2CA8FF, #155b8d)',
                     loggedIn: '登錄成功！',
                     mainColor: '#29FB77',
                     subColor: '#187AFD',
                     // preloader: "owo..."
-                    preloader: `${config.botName} 正在加載...`,
+                    preloader: `${ config.botName } 正在加載...`,
                 },
                 popupMsg: {
                     savedSettings: '變更已儲存！',
                     noPerms: '你沒有權限！',
                 },
                 invite: {
-                    clientId: `${config.clientID}`,
+                    clientId: `${ config.clientID }`,
                     scopes: ['bot'],
                     permissions: '8',
                     redirectUri: '',
@@ -101,7 +102,7 @@ module.exports = {
                 // },
                 guildAfterAuthorization: {
                     use: true,
-                    guildId: `${config.ServerID}`,
+                    guildId: `${ config.ServerID }`,
                 },
                 sidebar: {
                     keepDefault: false,
@@ -133,10 +134,10 @@ module.exports = {
                 },
                 index: {
                     card: {
-                        category: `${config.botName} 的面板 ｜ 一切的中心`,
-                        title: `歡迎來到 ${config.botName} 機器人的官網，您可以在其中控制機器人的核心功能。`,
-                        image: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        footer: `<a href="https://discord.gg/${config.invite_code}"> ↠ 點我加入伺服器！</a>`,
+                        category: `${ config.botName } 的面板 ｜ 一切的中心`,
+                        title: `歡迎來到 ${ config.botName } 機器人的官網，您可以在其中控制機器人的核心功能。`,
+                        image: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
+                        footer: `<a href="https://discord.gg/${ config.invite_code }"> ↠ 點我加入伺服器！</a>`,
                     },
                     information: {
                         category: '公告',
@@ -219,12 +220,12 @@ module.exports = {
                             optionType: DBD.formTypes.select({ '繁體中文': 'zh_TW', 'English(尚未完成！)': 'en' }),
                             getActualSet: async ({ guild }) => {
                                 const langsSettings = await db.get(
-                                    `websystem.${guild.id}.setting.lang`,
+                                    `websystem.${ guild.id }.setting.lang`,
                                 ) ?? 'zh_TW';
                                 return langsSettings || null;
                             },
                             setNew: async ({ guild, newData }) => {
-                                const db_data = `websystem.${guild.id}.setting.lang`;
+                                const db_data = `websystem.${ guild.id }.setting.lang`;
                                 newdate_update(newData, db_data);
                             },
                         },
@@ -241,13 +242,13 @@ module.exports = {
                             optionDescription: '與機器人互動',
                             optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
                             getActualSet: async ({ guild }) => {
-                                const db_data = `websystem.${guild.id}.guild.channel.ai.channel`;
+                                const db_data = `websystem.${ guild.id }.guild.channel.ai.channel`;
                                 const channel = await db.get(db_data) ?? null;
                                 return channel || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 // 檢查是否要清除
-                                const db_data = `websystem.${guild.id}.guild.channel.ai.channel`;
+                                const db_data = `websystem.${ guild.id }.guild.channel.ai.channel`;
                                 newdate_update(newData, db_data);
 
                             },
@@ -270,12 +271,12 @@ module.exports = {
 
                             getActualSet: async ({ guild }) => {
                                 const disabled = await db.get(
-                                    `websystem.${guild.id}.guild.join.disabled`,
+                                    `websystem.${ guild.id }.guild.join.disabled`,
                                 ) ?? null;
                                 return disabled || true;
                             },
                             setNew: async ({ guild, newData }) => {
-                                const db_data = `websystem.${guild.id}.guild.join.disabled`;
+                                const db_data = `websystem.${ guild.id }.guild.join.disabled`;
                                 newdate_update(newData, db_data);
                             },
                         },
@@ -287,12 +288,12 @@ module.exports = {
 
                             getActualSet: async ({ guild }) => {
                                 const embedjoin = await db.get(
-                                    `websystem.${guild.id}.guild.join.channel`,
+                                    `websystem.${ guild.id }.guild.join.channel`,
                                 ) ?? null;
                                 return embedjoin || null;
                             },
                             setNew: async ({ guild, newData }) => {
-                                const db_data = `websystem.${guild.id}.guild.join.channel`;
+                                const db_data = `websystem.${ guild.id }.guild.join.channel`;
                                 newdate_update(newData, db_data);
                             },
                             /* 檢查*/
@@ -327,12 +328,12 @@ module.exports = {
                             ),
                             getActualSet: async ({ guild }) => {
                                 const embedjoin = await db.get(
-                                    `websystem.${guild.id}.guild.join.msg`,
+                                    `websystem.${ guild.id }.guild.join.msg`,
                                 ) ?? null;
                                 return embedjoin || null;
                             },
                             setNew: async ({ guild, newData }) => {
-                                const db_data = `websystem.${guild.id}.guild.join.msg`;
+                                const db_data = `websystem.${ guild.id }.guild.join.msg`;
                                 newdate_update(newData, db_data);
                             },
                         },
@@ -345,12 +346,12 @@ module.exports = {
 
                             getActualSet: async ({ guild }) => {
                                 const disabled = await db.get(
-                                    `websystem.${guild.id}.guild.leave.disabled`,
+                                    `websystem.${ guild.id }.guild.leave.disabled`,
                                 ) ?? null;
                                 return disabled || true;
                             },
                             setNew: async ({ guild, newData }) => {
-                                const db_data = `websystem.${guild.id}.guild.leave.disabled`;
+                                const db_data = `websystem.${ guild.id }.guild.leave.disabled`;
                                 newdate_update(newData, db_data);
                             },
                         },
@@ -362,13 +363,13 @@ module.exports = {
 
                             getActualSet: async ({ guild }) => {
                                 const embedleave = await db.get(
-                                    `websystem.${guild.id}.guild.leave.channel`,
+                                    `websystem.${ guild.id }.guild.leave.channel`,
                                 ) ?? null;
                                 return embedleave || null;
                             },
                             setNew: async ({ guild, newData }) => {
 
-                                const db_data = `websystem.${guild.id}.guild.leave.channel`;
+                                const db_data = `websystem.${ guild.id }.guild.leave.channel`;
                                 newdate_update(newData, db_data);
                             },
                         },
@@ -394,13 +395,13 @@ module.exports = {
                             ),
                             getActualSet: async ({ guild }) => {
                                 const embedjoin = await db.get(
-                                    `websystem.${guild.id}.guild.leave.msg`,
+                                    `websystem.${ guild.id }.guild.leave.msg`,
                                 ) ?? null;
                                 return embedjoin || null;
                             },
                             setNew: async ({ guild, newData }) => {
 
-                                const db_data = `websystem.${guild.id}.guild.leave.msg`;
+                                const db_data = `websystem.${ guild.id }.guild.leave.msg`;
                                 newdate_update(newData, db_data);
 
                             },

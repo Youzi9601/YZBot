@@ -1,4 +1,5 @@
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 const { evaluate } = require('mathjs');
 
 module.exports =
@@ -11,7 +12,7 @@ module.exports =
         client.on('messageCreate', message => {
             if (!message.inGuild()) return;
             // 檢查是否發送
-            var countting_system = new db.table('countting_system');
+            var countting_system = db.table('countting_system');
             const count_data = countting_system.get(`${ message.guild.id }`) || { channelid: '000' };
 
             if (message.author.bot) return;
@@ -138,7 +139,7 @@ module.exports =
 
                 if (!newMessage.inGuild()) return;
                 // 檢查是否發送
-                var countting_system = new db.table('countting_system');
+                var countting_system = db.table('countting_system');
                 const count_data = countting_system.get(`${ newMessage.guild.id }`) || { channelid: '000' };
 
                 if (!oldMessage.author) return;
@@ -171,7 +172,7 @@ module.exports =
 
                 if (!message.inGuild() || message.author == null) return;
                 // 檢查是否發送
-                var countting_system = new db.table('countting_system');
+                var countting_system = db.table('countting_system');
                 const count_data = countting_system.get(`${ message.guild.id }`) || { channelid: '000' };
 
                 if (`${ message.author.bot ? 'true' : 'false' }` == 'true') return;

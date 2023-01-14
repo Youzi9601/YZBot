@@ -1,4 +1,5 @@
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 const { log } = require('../../../Utils/log');
 
 module.exports =
@@ -13,8 +14,8 @@ module.exports =
             .on('messageCreate', message => {
                 if (!message.inGuild()) return;
                 // 檢查是否發送
-                var suggestions_system = new db.table('suggestions_system');
-                const suggestion_systems_data = suggestions_system.get(`${message.guild.id}`) || { channelid: '000' };
+                var suggestions_system = db.table('suggestions_system');
+                const suggestion_systems_data = suggestions_system.get(`${ message.guild.id }`) || { channelid: '000' };
 
                 if (suggestion_systems_data.channelid != message.channel.id) return;
                 if (message.author.bot) return;
@@ -23,18 +24,18 @@ module.exports =
                 message.channel.sendTyping();
                 const num = Math.round(Number(suggestion_systems_data.num) + 1) || 1;
                 const embed = {
-                    title: `#${num} 提議：`,
-                    description: `${message.content}`,
+                    title: `#${ num } 提議：`,
+                    description: `${ message.content }`,
                     color: 0xb21818,
                     footer: {
-                        text: `${message.author.tag} 提出 ｜ ${client.user.username} 建議系統`,
-                        icon_url: `${message.author.displayAvatarURL({ dynamic: true }) || message.author.defaultAvatarURL}`,
+                        text: `${ message.author.tag } 提出 ｜ ${ client.user.username } 建議系統`,
+                        icon_url: `${ message.author.displayAvatarURL({ dynamic: true }) || message.author.defaultAvatarURL }`,
                     },
                 };
                 if (message.attachments.first() !== undefined) {
 
                     embed.image = {
-                        url: `${message.attachments.first().url}`,
+                        url: `${ message.attachments.first().url }`,
                     };
 
                 }
@@ -48,19 +49,19 @@ module.exports =
                     }).then((msg) => {
                         msg.react('✅').then(() => msg.react('❌'));
                         msg.startThread({
-                            name: `提議 ${num} ｜ 討論串`,
+                            name: `提議 ${ num } ｜ 討論串`,
                             autoArchiveDuration: 60,
                             reason: '可在此區討論！或許會有些新的想法可以在這裡作補充！',
                         }).then((thread) => {
-                            thread.members.add(`${message.author.id}`);
-                            log('info', `THREAD｜討論串新增 - ${thread.guild.name} (${thread.guild.id}) #${thread.parent.name} (${thread.parent.id}) : ${thread.name} (${thread.id})`, 'true', client);
+                            thread.members.add(`${ message.author.id }`);
+                            log('info', `THREAD｜討論串新增 - ${ thread.guild.name } (${ thread.guild.id }) #${ thread.parent.name } (${ thread.parent.id }) : ${ thread.name } (${ thread.id })`, 'true', client);
                         });
 
                     });
                 } catch (error) {
                     console.log(error);
                 }
-                suggestions_system.set(`${message.guild.id}`, { channelid: message.channel.id, num: num });
+                suggestions_system.set(`${ message.guild.id }`, { channelid: message.channel.id, num: num });
 
                 //
 

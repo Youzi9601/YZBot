@@ -8,6 +8,14 @@ const ms = require('ms');
 const fs = require('fs');
 const fetch = require('node-fetch');
 
+/*
+browser_launch();
+async function browser_launch() {
+    const puppeteer = require("puppeteer")
+    const browser = await puppeteer.launch({ executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe' });
+}
+*/
+
 
 //#region 更新系統
 update().then(() => {

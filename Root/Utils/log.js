@@ -4,7 +4,8 @@ const { config } = require('./../../bot');
 const chalk = require('chalk');
 const { Client, Message } = require('discord.js');
 const bot = require('./../../bot');
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 
 module.exports = { log };
 
@@ -17,8 +18,8 @@ module.exports = { log };
  * @param {Client} client 機器人
  * @param {ID} channel 頻道ID(預設為 config.Channels.All 的內容)
  */
-function log(level = 'log', msg, SendToDiscord = false, client = bot.client, discordmsg = undefined, channel = `${config.Channels.All}`, guild_id = undefined) {
-    const prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜`;
+function log(level = 'log', msg, SendToDiscord = false, client = bot.client, discordmsg = undefined, channel = `${ config.Channels.All }`, guild_id = undefined) {
+    const prefix = `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix } ${ `${ level }`.toUpperCase() }｜`;
 
 
     // 控制台顯示
@@ -46,21 +47,21 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
     else if (level == 'guild-log') {
         // const Box = require('cli-box');
         const data = [
-            chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + `${msg.event} 事件`,
+            chalk.gray(`[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`) + `${ msg.event } 事件`,
         ];
         data.push(msg.content, '');
         const guild_log_box = data.join('\n');
         // 紀錄本地
         console.info('╭' + '─'.repeat(75) + '\n' + guild_log_box);
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, '╭' + '─'.repeat(75) + `\n${guild_log_box} `, function(err) {
+        fs.appendFile(`logs/${ moment().format('YYYY-MM-DD') }.log`, '╭' + '─'.repeat(75) + `\n${ guild_log_box } `, function (err) {
             // none
         });
         // 傳輸Discord
         if (msg.event == '訊息創建') return;
-        var logger_system = new db.table('logger_system');
+        var logger_system = db.table('logger_system');
 
         // 取得頻道之伺服器
-        const logger_system_data = logger_system.get(`${guild_id}`) || '000';
+        const logger_system_data = logger_system.get(`${ guild_id }`) || '000';
         if (logger_system_data == '000') {
         } // 不做動作
         else {
@@ -69,7 +70,7 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
                 logger_channel.send({
                     embeds: [
                         {
-                            description: `${guild_log_box}`,
+                            description: `${ guild_log_box }`,
                             color: 0x808080,
                             timestamp: new Date(),
                         },
@@ -86,7 +87,7 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
             log_channel.send({
                 embeds: [
                     {
-                        description: `${guild_log_box}`,
+                        description: `${ guild_log_box }`,
                         color: 0x808080,
                         timestamp: new Date(),
                     },
@@ -103,13 +104,13 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
     else if (level == 'botguild-log') {
         // const Box = require('cli-box');
         const data = [
-            chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`) + `${msg.event} 事件`,
+            chalk.gray(`[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`) + `${ msg.event } 事件`,
         ];
         data.push(msg.content, '');
         const guild_log_box = data.join('\n');
         // 紀錄本地
         console.info('╭' + '─'.repeat(75) + '\n' + guild_log_box);
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, '╭' + '─'.repeat(75) + `\n${guild_log_box} `, function(err) {
+        fs.appendFile(`logs/${ moment().format('YYYY-MM-DD') }.log`, '╭' + '─'.repeat(75) + `\n${ guild_log_box } `, function (err) {
             // none
         });
 
@@ -121,7 +122,7 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
             log_channel.send({
                 embeds: [
                     {
-                        description: `${guild_log_box}`,
+                        description: `${ guild_log_box }`,
                         color: 0x808080,
                         timestamp: new Date(),
                     },
@@ -139,7 +140,7 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
         console.info(chalk.gray(prefix) + msg);
     }
     // 寫入檔案
-    fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n${prefix}${msg} `, function(err) {
+    fs.appendFile(`logs/${ moment().format('YYYY-MM-DD') }.log`, `\n${ prefix }${ msg } `, function (err) {
         // none
     });
 
@@ -160,7 +161,7 @@ function log(level = 'log', msg, SendToDiscord = false, client = bot.client, dis
                 {
                     color: 0x808080,
                     description: discordmsg ||
-                        `\`\`\`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix} ${`${level}`.toUpperCase()}｜ ${msg}\`\`\``
+                        `\`\`\`[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix } ${ `${ level }`.toUpperCase() }｜ ${ msg }\`\`\``
                         || 'ERROR: 未知的訊息',
                 },
             ];

@@ -8,7 +8,8 @@ const {
     MessageSelectMenu,
 } = require('discord.js');
 const { config } = require('./../../../../bot');
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 
 module.exports = {
     command: {
@@ -415,7 +416,7 @@ module.exports = {
                 const channel = interaction.options.getChannel('channel') || interaction.channel;
 
                 // 傳輸Discord
-                var logger_system = new db.table('logger_system');
+                var logger_system = db.table('logger_system');
                 // 取得頻道之伺服器
                 logger_system.set(`${ interaction.guild.id }`, channel.id);
                 await interaction.editReply('完成設定！');

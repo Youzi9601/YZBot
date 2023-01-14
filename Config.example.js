@@ -213,6 +213,11 @@ module.exports = {
             // 提及所有人?
             everyoneMention: false,
         },
+        chatgpt: {
+            email: process.env.openai_email || "",
+            password: process.env.openai_password || "",
+            markdown: false
+        }
     },
 
     /**

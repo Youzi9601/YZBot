@@ -8,7 +8,8 @@ const {
     MessageSelectMenu,
 } = require('discord.js');
 const { config } = require('./../../../../bot');
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 
 
 module.exports = {
@@ -21,6 +22,21 @@ module.exports = {
                 type: 1,
                 name: 'chat-bot',
                 description: '設定一個聊天機器人頻道',
+                options: [
+                    {
+                        type: 7,
+                        name: 'channel',
+                        description: '指向的頻道',
+                        required: false,
+                    },
+                ],
+            },
+            // #endregion
+            // #region chat-bot
+            {
+                type: 1,
+                name: 'openai-chatgpt',
+                description: '設定一個AI聊天機器人頻道，會各種問題以及幫你製作東西。',
                 options: [
                     {
                         type: 7,
@@ -129,14 +145,20 @@ module.exports = {
         } else {
             // #region chat_bot
             if (subcommand == 'chat-bot') {
-                var chat_bot = new db.table('chat_bot_system');
+                var chat_bot = db.table('chat_bot_system');
+                chat_bot.set(`${ interaction.guild.id }`, { channelid: channel.id });
+            }
+            // #endregion
+            // #region openai_chatGPT
+            if (subcommand == 'openai-chatgpt') {
+                var chat_bot = db.table('openai_chatGPT');
                 chat_bot.set(`${ interaction.guild.id }`, { channelid: channel.id });
             }
             // #endregion
             // #region suggestions-channel
             else if (subcommand == 'suggestions-channel') {
                 interaction.deferReply();
-                var suggestions_system = new db.table('suggestions_system');
+                var suggestions_system = db.table('suggestions_system');
                 suggestions_system.set(`${ interaction.guild.id }`, { channelid: channel.id, num: 0 });
             }
             // #endregion
@@ -144,7 +166,7 @@ module.exports = {
             else if (subcommand == 'counting') {
 
                 interaction.deferReply();
-                var countting_system = new db.table('countting_system');
+                var countting_system = db.table('countting_system');
                 countting_system.set(`${ interaction.guild.id }`, {
                     channelid: channel.id,
                     WrongReset: `${ interaction.options.getBoolean('wrong_reset') }` || 'true',
@@ -156,7 +178,7 @@ module.exports = {
 
                 await interaction.deferReply();
                 let num = interaction.options.getString('num').match(/\d+/g)[0]
-                var countting_system = new db.table('countting_system');
+                var countting_system = db.table('countting_system');
                 const count_data = countting_system.get(`${ interaction.guild.id }`) || { channelid: '000' };
                 countting_system.set(`${ interaction.guild.id }`, {
                     channelid: count_data.channelid,
@@ -187,7 +209,7 @@ module.exports = {
                 });
 
                 await interaction.deferReply();
-                var cross_server_system = new db.table('cross_server_system');
+                var cross_server_system = db.table('cross_server_system');
                 // 取得資料
                 const cross_id = 'main' || interaction.options.getString('id');
 

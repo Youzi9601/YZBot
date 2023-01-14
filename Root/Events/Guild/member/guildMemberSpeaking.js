@@ -2,7 +2,8 @@ const chalk = require('chalk');
 const Box = require('cli-box');
 const { config } = require('./../../../../bot');
 const moment = require('moment');
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 const { GuildMember, Client } = require('discord.js');
 const { log } = require('./../../../Utils/log');
 /**
@@ -19,7 +20,7 @@ module.exports = {
     run: async (member, speaking, client, container) => {
         log(
             'info',
-            `${member.guild.name} - ${member.user.tag} ${speaking ? '開始' : '停止'}發言`,
+            `${ member.guild.name } - ${ member.user.tag } ${ speaking ? '開始' : '停止' }發言`,
             true,
             client);
     },

@@ -2,7 +2,8 @@ const chalk = require('chalk');
 const Box = require('cli-box');
 const { config } = require('./../../../../../bot');
 const moment = require('moment');
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 const { GuildMember, Client } = require('discord.js');
 const { log } = require('../../../../Utils/log');
 const chunker = {};
@@ -10,29 +11,29 @@ const chunker = {};
  *
  */
 module.exports = {
-    name: 'guildMembersChunk',
-    /**
-     * @description 一個事件
-     * @deprecated
-     * @param {import('discord.js').Collection <Snowflake, GuildMember>} members
-     * @param {import('discord.js').Guild} guild 機器人
-     * @param {import('discord.js').ClientEvents} chunk ClientEvents
-     * //param {ClientEvents.guildMembersChunk[2]}
-     * @param {import('discord.js').Client} client 機器人
-     */
-    run: async (members, guild, chunk, client, container) => {
-        log(
-            'error',
-            `收到大量成員於 ${guild.name}： ${members.size}個成員取得`,
-            true,
-            client);
-        log(
-            'error',
-            JSON.stringify(chunk, null, 2),
-        );
-        // chunk.guildMembersChunk[2].
-        console.log(chunk);
-    },
+  name: 'guildMembersChunk',
+  /**
+   * @description 一個事件
+   * @deprecated
+   * @param {import('discord.js').Collection <Snowflake, GuildMember>} members
+   * @param {import('discord.js').Guild} guild 機器人
+   * @param {import('discord.js').ClientEvents} chunk ClientEvents
+   * //param {ClientEvents.guildMembersChunk[2]}
+   * @param {import('discord.js').Client} client 機器人
+   */
+  run: async (members, guild, chunk, client, container) => {
+    log(
+      'error',
+      `收到大量成員於 ${ guild.name }： ${ members.size }個成員取得`,
+      true,
+      client);
+    log(
+      'error',
+      JSON.stringify(chunk, null, 2),
+    );
+    // chunk.guildMembersChunk[2].
+    console.log(chunk);
+  },
 };
 
 /*
