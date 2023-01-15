@@ -33,6 +33,7 @@ module.exports = {
             },
             // #endregion
             // #region chat-bot
+            /*
             {
                 type: 1,
                 name: 'openai-chatgpt',
@@ -46,8 +47,10 @@ module.exports = {
                     },
                 ],
             },
+            */
             // #endregion
             // #region cross-servers
+            /*
             {
                 type: 1,
                 name: 'corss-servers',
@@ -67,6 +70,7 @@ module.exports = {
                     },
                 ],
             },
+            */
             // #endregion
             // #region suggestions-channel
             {
