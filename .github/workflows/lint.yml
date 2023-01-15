@@ -17,10 +17,10 @@ jobs:
           node-version: 16
 
      - name: 安裝 Node.js 依賴項
-        run: execute npm ci
+        run: npm ci
 
       - name: 安裝 ESLint
-        run: execute npm install -g eslint prettier
+        run: npm install -g eslint prettier
 
       - name: 運行 linters
         uses: wearerequired/lint-action@v2

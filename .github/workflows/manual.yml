@@ -27,4 +27,4 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: 打個招呼
-        execute echo "嗨, ${{ github.event.inputs.name }}，我們盡量在3天內回答您的問題"
+        run: echo "嗨, ${{ github.event.inputs.name }}，我們盡量在3天內回答您的問題"
