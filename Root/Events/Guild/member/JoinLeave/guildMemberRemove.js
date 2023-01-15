@@ -16,7 +16,7 @@ module.exports = {
      * @param {GuildMember} member
      * @param {import('discord.js').Client} client 機器人
      */
-    run: async (member, client, container) => {
+    async run(member, client, container) {
         const guild = member.guild;
         log(
             'info',

@@ -24,7 +24,7 @@ module.exports = {
       * @param {import('discord.js').CommandInteraction} interaction
       * @param {*} container
       */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const args = interaction.options.getNumber('amount');
         const voiceChannel = interaction.member.voice.channel;
         const queue = await client.distube.getQueue(interaction);
@@ -42,10 +42,10 @@ module.exports = {
         }
         const time = parseInt(args);
         if (!time) return interaction.reply({ content: '請指定時間，時間以秒為單位。' });
-        if (time >= queue.songs[0].duration) return interaction.reply({ content: `時間： \`${queue.songs[0].duration} 秒\`` });
+        if (time >= queue.songs[0].duration) return interaction.reply({ content: `時間： \`${ queue.songs[0].duration } 秒\`` });
         client.distube.seek(interaction, Number(args));
         const embed = new Discord.MessageEmbed()
-            .setDescription(`跳轉到 \`${args} 秒\``)
+            .setDescription(`跳轉到 \`${ args } 秒\``)
             .setColor('RANDOM');
         return interaction.reply({ embeds: [embed] });
     },

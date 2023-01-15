@@ -7,7 +7,7 @@ module.exports = {
         options: [],
     },
     cooldown: 5000,
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const voiceChannel = interaction.member.voice.channel;
         if (!voiceChannel) {
             return interaction.reply({ content: '請先加入語音頻道！', ephemeral: true });

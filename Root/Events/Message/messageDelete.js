@@ -9,7 +9,7 @@ module.exports = {
      * @param {import('discord.js').Client} client 機器人
      * @param {*} container
      */
-    run: async (message, client, container) => {
+    async run(message, client, container) {
 
 
         // Ignore direct messages
@@ -27,11 +27,11 @@ module.exports = {
         // Perform a coherence check to make sure that there's *something*
         if (!deletionLog) {
             msg.content = [
-                `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
+                `成員：${ message.author ? message.author.tag + `(${ message.author.id })` : '無法取得使成員 (??????)' }`,
                 '位置：',
-                `伺服器 - ${message.guild.name} (${message.guild.id}) `,
-                `頻道 - #${message.channel.name} (${message.channel.id})`,
-                `訊息內容：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : ''}`,
+                `伺服器 - ${ message.guild.name } (${ message.guild.id }) `,
+                `頻道 - #${ message.channel.name } (${ message.channel.id })`,
+                `訊息內容：${ message.content } ${ message.attachments.map(a => a.url).join('\n') }${ (message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : '' }`,
             ].join('\n');
         } else {
             // 現在獲取刪除消息的人的用戶對象
@@ -42,20 +42,20 @@ module.exports = {
             // 同時運行檢查以確保返回的日誌是針對同一作者的消息
             if (target.id != executor.id) {
                 msg.content = [
-                    `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
-                    `刪除者：${executor.tag} (${executor.id})`,
+                    `成員：${ message.author ? message.author.tag + `(${ message.author.id })` : '無法取得使成員 (??????)' }`,
+                    `刪除者：${ executor.tag } (${ executor.id })`,
                     '位置：',
-                    `伺服器 - ${message.guild.name} (${message.guild.id}) `,
-                    `頻道 - #${message.channel.name} (${message.channel.id})`,
-                    `訊息內容：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : ''}`,
+                    `伺服器 - ${ message.guild.name } (${ message.guild.id }) `,
+                    `頻道 - #${ message.channel.name } (${ message.channel.id })`,
+                    `訊息內容：${ message.content } ${ message.attachments.map(a => a.url).join('\n') }${ (message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : '' }`,
                 ].join('\n');
             } else {
                 msg.content = [
-                    `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
+                    `成員：${ message.author ? message.author.tag + `(${ message.author.id })` : '無法取得使成員 (??????)' }`,
                     '位置：',
-                    `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
-                    `- 頻道 #${message.channel.name} (${message.channel.id})`,
-                    `訊息(${message.id})：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : ''}`,
+                    `- 伺服器 ${ message.guild.name } (${ message.guild.id }) `,
+                    `- 頻道 #${ message.channel.name } (${ message.channel.id })`,
+                    `訊息(${ message.id })：${ message.content } ${ message.attachments.map(a => a.url).join('\n') }${ (message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : '' }`,
                 ].join('\n');
             }
         }

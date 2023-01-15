@@ -49,7 +49,7 @@ module.exports = {
      * @param {import('discord.js').CommandInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         await interaction.deferReply();
         // 內容
 

@@ -15,12 +15,12 @@ module.exports = {
    * @param {import('discord.js').SelectMenuInteraction} interaction
    * @param {*} container
    */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         let embed = new MessageEmbed()
             .setAuthor(
                 {
-                    iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                    name: `${client.user.username} 幫助介面`,
+                    iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
+                    name: `${ client.user.username } 幫助介面`,
                 })
             .setColor('RANDOM')
             .setDescription('請選擇一個類別！');
@@ -46,8 +46,8 @@ module.exports = {
                     ].join('\n'))
                 .setAuthor(
                     {
-                        iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`,
+                        iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
+                        name: `${ client.user.username } 幫助介面`,
                     })
                 .setColor('RANDOM');
 
@@ -67,8 +67,8 @@ module.exports = {
                     ].join('\n'))
                 .setAuthor(
                     {
-                        iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`,
+                        iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
+                        name: `${ client.user.username } 幫助介面`,
                     })
                 .setColor('RANDOM');
 
@@ -105,8 +105,8 @@ module.exports = {
                     ].join('\n'))
                 .setAuthor(
                     {
-                        iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`,
+                        iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
+                        name: `${ client.user.username } 幫助介面`,
                     })
                 .setColor('RANDOM');
         } else if (type == 'fun') {
@@ -136,8 +136,8 @@ module.exports = {
                     ].join('\n'))
                 .setAuthor(
                     {
-                        iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`,
+                        iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
+                        name: `${ client.user.username } 幫助介面`,
                     })
                 .setColor('RANDOM');
         } else if (type == 'setup') {
@@ -163,8 +163,8 @@ module.exports = {
                     ].join('\n'))
                 .setAuthor(
                     {
-                        iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`,
+                        iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
+                        name: `${ client.user.username } 幫助介面`,
                     })
                 .setColor('RANDOM');
 
@@ -192,8 +192,8 @@ module.exports = {
                     ].join('\n'))
                 .setAuthor(
                     {
-                        iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`,
+                        iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
+                        name: `${ client.user.username } 幫助介面`,
                     })
                 .setColor('RANDOM');
 
@@ -218,8 +218,8 @@ module.exports = {
                     ].join('\n'))
                 .setAuthor(
                     {
-                        iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`,
+                        iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
+                        name: `${ client.user.username } 幫助介面`,
                     })
                 .setColor('RANDOM');
 
@@ -237,8 +237,8 @@ module.exports = {
                     ].join('\n'))
                 .setAuthor(
                     {
-                        iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                        name: `${client.user.username} 幫助介面`,
+                        iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
+                        name: `${ client.user.username } 幫助介面`,
                     })
                 .setColor('RANDOM');
         }

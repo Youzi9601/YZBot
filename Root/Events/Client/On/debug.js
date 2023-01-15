@@ -13,10 +13,10 @@ module.exports = {
      * @param {import('discord.js').Client} client 機器人
      * @param {error} e
      */
-    run: async (e, client) => {
-        if (`${config.console.debug}` == 'false') return;
-        console.info(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG\n`) + `${e}`);
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] DEBUG｜${e}`, function(err) {
+    async run(e, client) {
+        if (`${ config.console.debug }` == 'false') return;
+        console.info(chalk.gray(`[${ moment().format('YYYY-MM-DD HH:mm:ss') }] DEBUG\n`) + `${ e }`);
+        fs.appendFile(`logs/${ moment().format('YYYY-MM-DD') }.log`, `\n[${ moment().format('YYYY-MM-DD HH:mm:ss') }] DEBUG｜${ e }`, function (err) {
             if (err)
                 console.info(err);
         });
@@ -28,17 +28,17 @@ module.exports = {
         report.send({
             // content: `<@!${require('Config').ownerId}>`,
             embeds: [new MessageEmbed()
-                .setTitle(`${e.name} DeBug!`)
-                .setDescription(`除錯訊息：${e.message}`)
+                .setTitle(`${ e.name } DeBug!`)
+                .setDescription(`除錯訊息：${ e.message }`)
                 .setFields({
                     name: '出現位置',
                     value:
                         e?.fileName
-                            ? `${e?.fileName}${e?.lineNumber
-                                ? `:${e?.lineNumber}${e?.columnNumber
-                                    ? `:${e?.columnNumber}`
-                                    : ''}`
-                                : ''}`
+                            ? `${ e?.fileName }${ e?.lineNumber
+                                ? `:${ e?.lineNumber }${ e?.columnNumber
+                                    ? `:${ e?.columnNumber }`
+                                    : '' }`
+                                : '' }`
                             : '無',
                 }),
             ],

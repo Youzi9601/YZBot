@@ -10,7 +10,7 @@ module.exports = {
      * @param {import('discord.js').Client} client 機器人
      * @param {*} container
      */
-    run: async (message, client, container) => {
+    async run(message, client, container) {
         /*
          // cross-channel
          try {
@@ -43,7 +43,7 @@ module.exports = {
             const Buttons = new MessageButton()
                 .setLabel('加入伺服器')
                 .setStyle('LINK')
-                .setURL(`https://discord.gg/${config.invite_code}`)
+                .setURL(`https://discord.gg/${ config.invite_code }`)
                 .setDisabled(false);
             const row = new MessageActionRow()
                 .addComponents(Buttons)
@@ -51,7 +51,7 @@ module.exports = {
                 embeds: [
                     {
                         title: `機器人不支援私信、群組喔！`,
-                        description: `${client.user.tag} 不支援於這裡使用任何服務喔！`
+                        description: `${ client.user.tag } 不支援於這裡使用任何服務喔！`
                     }
                 ],
                 components: [row]
@@ -61,10 +61,10 @@ module.exports = {
                 content: '',
             };
             msg.content = [
-                `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
+                `成員：${ message.author ? message.author.tag + `(${ message.author.id })` : '無法取得使成員 (??????)' }`,
                 '位置：',
                 `- 私信頻道`,
-                `訊息(${message.id})：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : ''}`,
+                `訊息(${ message.id })：${ message.content } ${ message.attachments.map(a => a.url).join('\n') }${ (message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : '' }`,
             ].join('\n');
 
             log('guild-log',
@@ -85,11 +85,11 @@ module.exports = {
                 content: '',
             };
             msg.content = [
-                `成員：${message.author ? message.author.tag + `(${message.author.id})` : '無法取得使成員 (??????)'}`,
+                `成員：${ message.author ? message.author.tag + `(${ message.author.id })` : '無法取得使成員 (??????)' }`,
                 '位置：',
-                `- 伺服器 ${message.guild.name} (${message.guild.id}) `,
-                `- 頻道 #${message.channel.name} (${message.channel.id})`,
-                `訊息(${message.id})：${message.content} ${message.attachments.map(a => a.url).join('\n')}${(message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : ''}`,
+                `- 伺服器 ${ message.guild.name } (${ message.guild.id }) `,
+                `- 頻道 #${ message.channel.name } (${ message.channel.id })`,
+                `訊息(${ message.id })：${ message.content } ${ message.attachments.map(a => a.url).join('\n') }${ (message.embeds.length !== 0) ? '\n```json\n' + JSON.stringify(message.embeds, null, 2) + '\n```' : '' }`,
             ].join('\n');
 
             log('guild-log',

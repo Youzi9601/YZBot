@@ -8,7 +8,7 @@ module.exports = {
      *
      * @param {clientUserGuildSettings} clientUserGuildSettings
      */
-    run: async (clientUserGuildSettings) => {
+    async run(clientUserGuildSettings) {
         const discordmsg = {
             content: '機器人的伺服器設定被更改！',
         };

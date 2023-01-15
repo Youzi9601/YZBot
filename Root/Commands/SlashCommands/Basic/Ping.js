@@ -22,14 +22,14 @@ module.exports = {
      * @param {CommandInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const ping = new container.Discord.MessageEmbed()
             .setColor('RANDOM')
             .setTimestamp()
             .setTitle('🏓| Pong! 機器人狀態')
             .setDescription([
-                `🏠| Websocket 延遲: ${client.ws.ping}ms`,
-                `🤖| 機器人延遲: ${Date.now() - interaction.createdTimestamp}ms`,
+                `🏠| Websocket 延遲: ${ client.ws.ping }ms`,
+                `🤖| 機器人延遲: ${ Date.now() - interaction.createdTimestamp }ms`,
                 '',
             ].join('\n'),
             );

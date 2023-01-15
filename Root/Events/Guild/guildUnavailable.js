@@ -8,26 +8,26 @@ const { log } = require('../../Utils/log');
 module.exports = {
     name: 'guildUnavailable',
     once: false,
-    run: async (guild, client, container) => {
+    async run(guild, client, container) {
         const discordmsg = {
             embeds: [{
-                description: `進退變動 > ${guild.name} 不可用`,
+                description: `進退變動 > ${ guild.name } 不可用`,
                 color: 0x808080,
             }],
         };
         log(
             'info',
-            chalk.green('進退變動 > ') + `${guild.name}不可用`,
+            chalk.green('進退變動 > ') + `${ guild.name }不可用`,
             true,
             client,
             discordmsg);
         client.user.setPresence({
             activities: [
                 {
-                    name: `${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者`,
+                    name: `${ client.guilds.cache.size }個伺服器&${ client.users.cache.size }個使用者`,
                 },
             ],
-            status: `${config.botPresence.status}`,
+            status: `${ config.botPresence.status }`,
         });
 
         // console 頻道
@@ -35,7 +35,7 @@ module.exports = {
             config.Channels.inviteChannel,
         );
         // 進退變動 離開
-        invitechannel.send('```diff' + `\n- 機器人已離開：${guild.name}` + '\n```');
+        invitechannel.send('```diff' + `\n- 機器人已離開：${ guild.name }` + '\n```');
 
         // end
     },

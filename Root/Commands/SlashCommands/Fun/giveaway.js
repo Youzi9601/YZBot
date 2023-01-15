@@ -144,7 +144,7 @@ module.exports = {
      * @param {import('discord.js').CommandInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const subcommand = interaction.options.getSubcommand();
         // 如果成員沒有足夠的權限
         // bypass
@@ -185,11 +185,11 @@ module.exports = {
             try {
                 ms_duration = ms(clear_duration);
             } catch (error) {
-                interaction.reply(`:x: umm... 我看不懂\`${duration}\`是甚麼... \n如果抽獎時間為\`5天3小時10分鐘30秒\`，請輸入\`5d3h10m30s\``);
+                interaction.reply(`:x: umm... 我看不懂\`${ duration }\`是甚麼... \n如果抽獎時間為\`5天3小時10分鐘30秒\`，請輸入\`5d3h10m30s\``);
                 return error;
             }
             if (ms_duration >= ms('30d')) // 如果時間超過1個月
-                return interaction.reply(`:x: \`${duration}\`超過了1個月！(30天)`);
+                return interaction.reply(`:x: \`${ duration }\`超過了1個月！(30天)`);
 
             // Start the giveaway
             try {
@@ -220,7 +220,7 @@ module.exports = {
                         dropMessage: '成為第一個按下🎉反應的人！',
                         drawing: '時間： {timestamp}',
                         winMessage: { content: '{winners}', embed: { description: '恭喜以上得獎者贏得 **{this.prize}** !\n[💬 這裡]({this.messageURL})', color: '0x0174DF' } },
-                        embedFooter: `${client.user.username}｜抽獎系統`,
+                        embedFooter: `${ client.user.username }｜抽獎系統`,
                         noWinner: ':octagonal_sign: 抽獎已取消，沒有任何有效的參加者。',
                         hostedBy: '由 {this.hostedBy} 主辦 ',
                         winners: '獲獎者',
@@ -228,11 +228,11 @@ module.exports = {
                     },
                 });
             } catch (error) {
-                interaction.reply(`:x: umm... 我看不懂\`${duration}\`是甚麼... \n如果抽獎時間為\`5天3小時10分鐘30秒\`，請輸入\`5d3h10m30s\``);
+                interaction.reply(`:x: umm... 我看不懂\`${ duration }\`是甚麼... \n如果抽獎時間為\`5天3小時10分鐘30秒\`，請輸入\`5d3h10m30s\``);
                 return error;
             }
 
-            interaction.reply(`抽獎開始於 <#${channel.id}>!`);
+            interaction.reply(`抽獎開始於 <#${ channel.id }>!`);
 
 
         }
@@ -343,7 +343,7 @@ module.exports = {
                 })
                 .catch((e) => {
                     interaction.reply({
-                        content: `:x: 啊喔... 發生了一些狀況...\n已回報給機器人開發者！\n\`\`\`${e}\`\`\` `,
+                        content: `:x: 啊喔... 發生了一些狀況...\n已回報給機器人開發者！\n\`\`\`${ e }\`\`\` `,
                         ephemeral: true,
                     });
                 });
@@ -384,7 +384,7 @@ module.exports = {
                     })
                     .catch((e) => {
                         interaction.reply({
-                            content: `:x: 啊喔... 發生了一些狀況...\n已回報給機器人開發者！\n\`\`\`${e}\`\`\` `,
+                            content: `:x: 啊喔... 發生了一些狀況...\n已回報給機器人開發者！\n\`\`\`${ e }\`\`\` `,
                             ephemeral: true,
                         });
                     });
@@ -397,7 +397,7 @@ module.exports = {
                     })
                     .catch((e) => {
                         interaction.reply({
-                            content: `:x: 啊喔... 發生了一些狀況...\n已回報給機器人開發者！\n\`\`\`${e}\`\`\` `,
+                            content: `:x: 啊喔... 發生了一些狀況...\n已回報給機器人開發者！\n\`\`\`${ e }\`\`\` `,
                             ephemeral: true,
                         });
                     });
@@ -411,7 +411,7 @@ module.exports = {
             client.giveawaysManager.end(messageId).then(() => {
                 interaction.reply('成功！抽獎已結束！');
             }).catch((err) => {
-                interaction.reply(`發生錯誤，請檢查並重試。\n\`${err}\``);
+                interaction.reply(`發生錯誤，請檢查並重試。\n\`${ err }\``);
             });
         }
         // #endregion
@@ -421,7 +421,7 @@ module.exports = {
             client.giveawaysManager.delete(messageId).then(() => {
                 interaction.reply('成功！抽獎已刪除！');
             }).catch((err) => {
-                interaction.reply(`:x: 發生錯誤，請檢查並重試。\n\`${err}\``);
+                interaction.reply(`:x: 發生錯誤，請檢查並重試。\n\`${ err }\``);
             });
         }
         // #endregion

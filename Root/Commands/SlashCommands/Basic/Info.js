@@ -55,7 +55,7 @@ module.exports = {
      * @param {CommandInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const subcommand = interaction.options.getSubcommand();
         if (subcommand == 'server') {
             // #region server
@@ -103,19 +103,19 @@ module.exports = {
                 .setTitle('伺服器資訊')
                 .setDescription('請選擇一個類別！')
                 .setAuthor({
-                    name: `${interaction.guild.name}`,
+                    name: `${ interaction.guild.name }`,
                 })
-                .setFooter({ text: `ID: ${interaction.guild.id}` })
+                .setFooter({ text: `ID: ${ interaction.guild.id }` })
                 .setColor('RANDOM')
                 .setTimestamp()
                 .setFooter({
-                    text: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    iconURL: `${interaction.member.user.displayAvatarURL({
+                    text: `${ interaction.member.user.username }#${ interaction.member.user.discriminator }`,
+                    iconURL: `${ interaction.member.user.displayAvatarURL({
                         dynamic: true,
-                    })}`,
+                    }) }`,
                 });
             if (interaction.guild.iconURL()) {
-                serverinfo.image = { url: `${interaction.guild.iconURL({ dynamic: true })}` };
+                serverinfo.image = { url: `${ interaction.guild.iconURL({ dynamic: true }) }` };
                 serverinfo.author.iconURL = interaction.guild.iconURL({ dynamic: true });
             }
             if (interaction.guild.bannerURL()) {
@@ -167,12 +167,12 @@ module.exports = {
                 .setTitle('成員資訊')
                 .setDescription('請選擇一個類別！')
                 .setAuthor({
-                    name: `${member.nickname ?
+                    name: `${ member.nickname ?
                         member.nickname + ' (' + user.tag + ')'
-                        : user.tag}`,
-                    iconURL: `${user.displayAvatarURL({ dynamic: true }) || user.avatarURL({ dynamic: true }) || user.defaultAvatarURL}`,
+                        : user.tag }`,
+                    iconURL: `${ user.displayAvatarURL({ dynamic: true }) || user.avatarURL({ dynamic: true }) || user.defaultAvatarURL }`,
                 })
-                .setFooter({ text: `ID: ${user.id}` })
+                .setFooter({ text: `ID: ${ user.id }` })
                 .setColor('RANDOM')
                 .setTimestamp();
             /**
@@ -235,12 +235,12 @@ module.exports = {
                 .setTitle('成員資訊')
                 .setDescription('請選擇一個類別！')
                 .setAuthor({
-                    name: `${member.nickname ?
+                    name: `${ member.nickname ?
                         member.nickname + ' (' + user.tag + ')'
-                        : user.tag}`,
-                    iconURL: `${user.displayAvatarURL({ dynamic: true }) || user.avatarURL({ dynamic: true }) || user.defaultAvatarURL}`,
+                        : user.tag }`,
+                    iconURL: `${ user.displayAvatarURL({ dynamic: true }) || user.avatarURL({ dynamic: true }) || user.defaultAvatarURL }`,
                 })
-                .setFooter({ text: `ID: ${user.id}` })
+                .setFooter({ text: `ID: ${ user.id }` })
                 .setColor('RANDOM')
                 .setTimestamp();
 

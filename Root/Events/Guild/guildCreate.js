@@ -14,17 +14,17 @@ module.exports = {
      * @param {*} container
      * @returns
      */
-    run: async (guild, client, container) => {
+    async run(guild, client, container) {
         const owner = await guild.fetchOwner();
         const discordmsg = {
             embeds: [{
-                description: `進退變動 > 加入 ${guild.name} (${guild.id}) (擁有者： ${owner.user.tag} ${guild.ownerId})`,
+                description: `進退變動 > 加入 ${ guild.name } (${ guild.id }) (擁有者： ${ owner.user.tag } ${ guild.ownerId })`,
                 color: 0x808080,
             }],
         };
         log(
             'info',
-            chalk.green('進退變動 > ') + `加入 ${guild.name} (${guild.id}) (擁有者： ${owner.user.tag} ${guild.ownerId})`,
+            chalk.green('進退變動 > ') + `加入 ${ guild.name } (${ guild.id }) (擁有者： ${ owner.user.tag } ${ guild.ownerId })`,
             true,
             client,
             discordmsg);
@@ -32,10 +32,10 @@ module.exports = {
         client.user.setPresence({
             activities: [
                 {
-                    name: `${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者`,
+                    name: `${ client.guilds.cache.size }個伺服器&${ client.users.cache.size }個使用者`,
                 },
             ],
-            status: `${config.botPresence.status}`,
+            status: `${ config.botPresence.status }`,
         });
 
         // console 頻道
@@ -45,9 +45,9 @@ module.exports = {
         /** 設定加入訊息 Home*/
         const invitemsg_embed = new MessageEmbed()
             .setColor(0xe4fff6)
-            .setTitle(`${config.botName}`)
-            .setDescription(`感謝您邀請${config.botName}到您的伺服器`)
-            .setThumbnail(`${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`)
+            .setTitle(`${ config.botName }`)
+            .setDescription(`感謝您邀請${ config.botName }到您的伺服器`)
+            .setThumbnail(`${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`)
             .addFields(
                 { name: '\u200B', value: '\u200B' },
                 {
@@ -56,17 +56,17 @@ module.exports = {
                 },
                 {
                     name: '如果有任何問題',
-                    value: `您可以到 [支援伺服器](https://discord.gg/${config.invite_code}) 來找我們喔！`,
+                    value: `您可以到 [支援伺服器](https://discord.gg/${ config.invite_code }) 來找我們喔！`,
                 },
             )
             .setFooter({
-                text: `${config.botName}`,
-                iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
+                text: `${ config.botName }`,
+                iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
             });
         const invitemsg_button = new MessageButton()
             .setLabel('加入伺服器')
             .setStyle('LINK')
-            .setURL(`https://discord.gg/${config.invite_code}`)
+            .setURL(`https://discord.gg/${ config.invite_code }`)
             .setDisabled(false);
 
         // 合併Components
@@ -95,7 +95,7 @@ module.exports = {
 
         invitechannel.send(
             '```diff' +
-            `\n+ 機器人加入 ${guild.name} (${guild.id}) (擁有者： ${owner.user.tag} ${guild.ownerId}) ` +
+            `\n+ 機器人加入 ${ guild.name } (${ guild.id }) (擁有者： ${ owner.user.tag } ${ guild.ownerId }) ` +
             '\n```',
         );
 

@@ -67,7 +67,7 @@ module.exports = {
      * @param {import('discord.js').CommandInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const subcommand = interaction.options.getSubcommand();
         if (subcommand == '8ball') {
             const data = require('./../../../Language/zh-TW/Placeholder.json');
@@ -75,17 +75,17 @@ module.exports = {
             const random = items[Math.floor(Math.random() * items.length)];
             let msg = new MessageEmbed()
                 .setAuthor({
-                    iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
+                    iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
                     name: client.user.username + '之神奇海螺',
                 })
                 .addFields(
                     {
                         name: '回應',
-                        value: `${random}`,
+                        value: `${ random }`,
                     },
                     {
                         name: '原問題',
-                        value: `||${interaction.options.getString('text')}||`,
+                        value: `||${ interaction.options.getString('text') }||`,
                     },
                 )
                 .setColor('RANDOM');
@@ -93,7 +93,7 @@ module.exports = {
             if (random == 'error_1') {
                 msg = new MessageEmbed()
                     .setAuthor({
-                        iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
+                        iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
                         name: client.user.username + '之神奇海螺',
                     })
                     .addFields(
@@ -103,7 +103,7 @@ module.exports = {
                         },
                         {
                             name: '原問題',
-                            value: `||${interaction.options.getString('text')}||`,
+                            value: `||${ interaction.options.getString('text') }||`,
                         },
                     )
                     .setColor('RANDOM');
@@ -128,10 +128,10 @@ module.exports = {
             const axios = require('axios');
             const dns = require('dns');
 
-            dns.lookup(`${interaction.options.getString('where')}`, (err, address, family) => {
+            dns.lookup(`${ interaction.options.getString('where') }`, (err, address, family) => {
                 const ip = address;
                 axios(
-                    `http://ip-api.com/json/${ip}?fields=66846719&lang=en`,
+                    `http://ip-api.com/json/${ ip }?fields=66846719&lang=en`,
                 ).then((data) => {
 
                     const json = data.data;
@@ -139,7 +139,7 @@ module.exports = {
                     let msg = {};
                     msg = new MessageEmbed()
                         .setAuthor({
-                            iconURL: `${interaction.user.displayAvatarURL({ dynamic: true }) || interaction.user.defaultAvatarURL}`,
+                            iconURL: `${ interaction.user.displayAvatarURL({ dynamic: true }) || interaction.user.defaultAvatarURL }`,
                             name: interaction.user.tag,
                         })
                         .addFields(
@@ -183,7 +183,7 @@ module.exports = {
 
                     //
                     if (json.status != 'success') {
-                        interaction.reply(`:x: 啊喔... 查詢 ${interaction.options.getString('where')} 無結果:/`);
+                        interaction.reply(`:x: 啊喔... 查詢 ${ interaction.options.getString('where') } 無結果:/`);
                     } else interaction.reply(
                         {
                             embeds: [msg],
@@ -210,7 +210,7 @@ module.exports = {
                 embeds: [
                     {
                         title: 'Google搜尋',
-                        description: `這是您的搜索結果 <@${interaction.user.id}>...\n\n搜索: ||${search}||\n\n鏈接: [點擊這裡](https://www.google.com/search?q=${encodeURIComponent(search)})`,
+                        description: `這是您的搜索結果 <@${ interaction.user.id }>...\n\n搜索: ||${ search }||\n\n鏈接: [點擊這裡](https://www.google.com/search?q=${ encodeURIComponent(search) })`,
                         color: 0xFFFFFF,
                         author: {
                             name: 'Google 搜索查詢',

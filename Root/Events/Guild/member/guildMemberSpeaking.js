@@ -17,7 +17,7 @@ module.exports = {
      * @param {boolean} speaking 機器人
      * @param {import('discord.js').Client} client 機器人
      */
-    run: async (member, speaking, client, container) => {
+    async run(member, speaking, client, container) {
         log(
             'info',
             `${ member.guild.name } - ${ member.user.tag } ${ speaking ? '開始' : '停止' }發言`,

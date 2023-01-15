@@ -4,29 +4,29 @@ permissions: write-all
 
 jobs:
   run-linters:
-    name: Run linters
+    name: 運行 linters
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
+      - name: 查看 Git 存儲庫
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
+      - name: 設置 Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      - name: Install Node.js dependencies
-        run: npm ci
+      - name: 安裝 Node.js 依賴項
+        execute npm ci
 
-      - name: Install ESLint
-        run: npm install -g eslint prettier
+      - name: 安裝 ESLint
+        execute npm install -g eslint prettier
 
-      - name: Run linters
-        uses: wearerequired/lint-action@v1
+      - name: 運行 linters
+        uses: wearerequired/lint-action@v2
         with:
           eslint: true
           prettier: false
           auto_fix: true
           git_name: "ESLint"
-          commit_message: "使用 ${linter} 格式化代碼"
+          commit_message: "使用 ${linter} 修飾&格式化程式代碼"

@@ -13,10 +13,10 @@ module.exports = {
      * @param {import('discord.js').Client} client 機器人
      * @param {error} e
      */
-    run: async (e, client) => {
-        if (`${config.console.warn}` == 'false') return;
-        console.warn(chalk.gray(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN\n`) + `${e}`);
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] WARN｜${e}`, function(err) {
+    async run(e, client) {
+        if (`${ config.console.warn }` == 'false') return;
+        console.warn(chalk.gray(`[${ moment().format('YYYY-MM-DD HH:mm:ss') }] WARN\n`) + `${ e }`);
+        fs.appendFile(`logs/${ moment().format('YYYY-MM-DD') }.log`, `\n[${ moment().format('YYYY-MM-DD HH:mm:ss') }] WARN｜${ e }`, function (err) {
             if (err)
                 console.info(err);
         });
@@ -26,19 +26,19 @@ module.exports = {
             config.Channels.report,
         );
         report.send({
-            content: `<@!${require('Config').ownerId}>`,
+            content: `<@!${ require('Config').ownerId }>`,
             embeds: [new MessageEmbed()
-                .setTitle(`${e.name} 警告！`)
-                .setDescription(`警告訊息：${e.message}`)
+                .setTitle(`${ e.name } 警告！`)
+                .setDescription(`警告訊息：${ e.message }`)
                 .setFields({
                     name: '出現位置',
                     value:
                         e?.fileName
-                            ? `${e?.fileName}${e?.lineNumber
-                                ? `:${e?.lineNumber}${e?.columnNumber
-                                    ? `:${e?.columnNumber}`
-                                    : ''}`
-                                : ''}`
+                            ? `${ e?.fileName }${ e?.lineNumber
+                                ? `:${ e?.lineNumber }${ e?.columnNumber
+                                    ? `:${ e?.columnNumber }`
+                                    : '' }`
+                                : '' }`
                             : '無',
                 }),
             ],

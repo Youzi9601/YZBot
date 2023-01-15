@@ -85,7 +85,7 @@ module.exports = {
       * @param {import('discord.js').CommandInteraction} interaction
       * @param {*} container
       */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const queue = await client.distube.getQueue(interaction);
         const choose = interaction.options.getString('filter-name');
         const voiceChannel = interaction.member.voice.channel;
@@ -103,7 +103,7 @@ module.exports = {
         }
         await client.distube.setFilter(interaction, choose);
         const filterembed = new Discord.MessageEmbed()
-            .setDescription(`當前列隊過濾器： ${queue.filters.join(', ') || '關閉'}`)
+            .setDescription(`當前列隊過濾器： ${ queue.filters.join(', ') || '關閉' }`)
             .setColor('RANDOM');
         return interaction.reply({ embeds: [filterembed] });
     },

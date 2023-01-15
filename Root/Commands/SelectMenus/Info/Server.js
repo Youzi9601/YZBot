@@ -15,21 +15,21 @@ module.exports = {
      * @param {import('discord.js').SelectMenuInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const type = interaction.values[0];
         const serverinfo = new MessageEmbed()
             .setTitle('伺服器資訊')
             .setAuthor({
-                name: `${interaction.guild.name}`,
+                name: `${ interaction.guild.name }`,
             })
-            .setFooter({ text: `ID: ${interaction.guild.id}` })
+            .setFooter({ text: `ID: ${ interaction.guild.id }` })
             .setColor('RANDOM')
             .setTimestamp()
             .setFooter({
-                text: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                iconURL: `${interaction.member.user.displayAvatarURL({
+                text: `${ interaction.member.user.username }#${ interaction.member.user.discriminator }`,
+                iconURL: `${ interaction.member.user.displayAvatarURL({
                     dynamic: true,
-                })}`,
+                }) }`,
             });
         const guild = interaction.guild;
 
@@ -40,12 +40,12 @@ module.exports = {
             serverinfo.fields.push(
                 {
                     name: '名稱',
-                    value: `\`\`\`${guild.name}\`\`\``,
+                    value: `\`\`\`${ guild.name }\`\`\``,
                     inline: true,
                 },
                 {
                     name: 'ID',
-                    value: `\`\`\`${guild.id}\`\`\``,
+                    value: `\`\`\`${ guild.id }\`\`\``,
                     inline: true,
                 },
                 {
@@ -55,12 +55,12 @@ module.exports = {
                 },
                 {
                     name: '所有者',
-                    value: `<@${guild.ownerId}>`,
+                    value: `<@${ guild.ownerId }>`,
                     inline: true,
                 },
                 {
                     name: '創建時間',
-                    value: `<t:${await get_time_from_id(guild.id)}:R>`,
+                    value: `<t:${ await get_time_from_id(guild.id) }:R>`,
                     inline: true,
                 },
             );
@@ -71,17 +71,17 @@ module.exports = {
             serverinfo.fields.push(
                 {
                     name: '人數',
-                    value: `\`\`\`${guild.memberCount} 人\`\`\``,
+                    value: `\`\`\`${ guild.memberCount } 人\`\`\``,
                     inline: true,
                 },
                 {
                     name: '成員',
-                    value: `\`\`\`${guild.members.cache.filter((m) => !m.user.bot).size} 人\`\`\``,
+                    value: `\`\`\`${ guild.members.cache.filter((m) => !m.user.bot).size } 人\`\`\``,
                     inline: true,
                 },
                 {
                     name: '機器人',
-                    value: `\`\`\`${guild.members.cache.filter((m) => m.user.bot).size} 人\`\`\``,
+                    value: `\`\`\`${ guild.members.cache.filter((m) => m.user.bot).size } 人\`\`\``,
                     inline: true,
                 },
             );
@@ -93,7 +93,7 @@ module.exports = {
                     role.name != '@everyone' && !role.tags.botId,
                 )
                 .map(
-                    role => `<@&${role.id}>`,
+                    role => `<@&${ role.id }>`,
                 );
             const role_list = roles_tag; // .join(' \u200B')
             let max = false;
@@ -101,15 +101,15 @@ module.exports = {
                 role_list.pop();
                 max = true;
             }
-            const list = role_list.join(' \u200B') + `${max ? '...還有更多' : ''}`;
+            const list = role_list.join(' \u200B') + `${ max ? '...還有更多' : '' }`;
             /**
              * `${roles_tag.length > 1024 ? ``}:``)
              * <@909608773927202906> \u200B
              */
             serverinfo.fields.push(
                 {
-                    name: `共有 ${roles_tag.length} 個身分組(不包含機器人權限身分組以及@everyone)`,
-                    value: `${(roles_tag.length != 0) ? list : '沒有身分組！'}`,
+                    name: `共有 ${ roles_tag.length } 個身分組(不包含機器人權限身分組以及@everyone)`,
+                    value: `${ (roles_tag.length != 0) ? list : '沒有身分組！' }`,
                     inline: true,
                 },
             );
@@ -118,43 +118,43 @@ module.exports = {
 
             serverinfo.fields.push(
                 {
-                    name: `合計${guild.channels.cache.size}個頻道`,
+                    name: `合計${ guild.channels.cache.size }個頻道`,
                     value: '\u200B',
                     inline: false,
                 },
                 {
                     name: '文字頻道',
-                    value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_TEXT').size}個\`\`\``,
+                    value: `\`\`\`${ guild.channels.cache.filter((c) => c.type == 'GUILD_TEXT').size }個\`\`\``,
                     inline: true,
                 },
                 {
                     name: '語音頻道',
-                    value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_VOICE').size}個\`\`\``,
+                    value: `\`\`\`${ guild.channels.cache.filter((c) => c.type == 'GUILD_VOICE').size }個\`\`\``,
                     inline: true,
                 },
                 {
                     name: '類別頻道',
-                    value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_CATEGORY').size}個\`\`\``,
+                    value: `\`\`\`${ guild.channels.cache.filter((c) => c.type == 'GUILD_CATEGORY').size }個\`\`\``,
                     inline: true,
                 },
                 {
                     name: '公告頻道',
-                    value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_NEWS').size}個\`\`\``,
+                    value: `\`\`\`${ guild.channels.cache.filter((c) => c.type == 'GUILD_NEWS').size }個\`\`\``,
                     inline: true,
                 },
                 {
                     name: '舞台頻道',
-                    value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_STAGE_VOICE').size}個\`\`\``,
+                    value: `\`\`\`${ guild.channels.cache.filter((c) => c.type == 'GUILD_STAGE_VOICE').size }個\`\`\``,
                     inline: true,
                 },
                 {
                     name: '討論串',
-                    value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_NEWS_THREAD' || c.type == 'GUILD_PUBLIC_THREAD' || c.type == 'GUILD_PRIVATE_THREAD').size}個\`\`\``,
+                    value: `\`\`\`${ guild.channels.cache.filter((c) => c.type == 'GUILD_NEWS_THREAD' || c.type == 'GUILD_PUBLIC_THREAD' || c.type == 'GUILD_PRIVATE_THREAD').size }個\`\`\``,
                     inline: true,
                 },
                 {
                     name: '商店頻道',
-                    value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_STORE').size}個\`\`\``,
+                    value: `\`\`\`${ guild.channels.cache.filter((c) => c.type == 'GUILD_STORE').size }個\`\`\``,
                     inline: true,
                 },
                 {
@@ -166,15 +166,15 @@ module.exports = {
                     name: '特殊頻道',
                     value: [
                         '**規則頻道**',
-                        `> ${interaction.guild.rulesChannelId ? `<#${interaction.guild.rulesChannelId}>` : '無'}`,
+                        `> ${ interaction.guild.rulesChannelId ? `<#${ interaction.guild.rulesChannelId }>` : '無' }`,
                         '**AFK頻道**',
-                        `> ${interaction.guild.afkChannelId ? `<#${interaction.guild.afkChannelId}>` : '無'}`,
+                        `> ${ interaction.guild.afkChannelId ? `<#${ interaction.guild.afkChannelId }>` : '無' }`,
                         '**小工具頻道**',
-                        `> ${interaction.guild.widgetChannelId ? `<#${interaction.guild.widgetChannelId}>` : '無'}`,
+                        `> ${ interaction.guild.widgetChannelId ? `<#${ interaction.guild.widgetChannelId }>` : '無' }`,
                         '**系統頻道**',
-                        `> ${interaction.guild.systemChannelId ? `<#${interaction.guild.systemChannelId}>` : '無'}`,
+                        `> ${ interaction.guild.systemChannelId ? `<#${ interaction.guild.systemChannelId }>` : '無' }`,
                         '**Discord更新頻道**',
-                        `> ${interaction.guild.publicUpdatesChannelId ? `<#${interaction.guild.publicUpdatesChannelId}>` : '無'}`,
+                        `> ${ interaction.guild.publicUpdatesChannelId ? `<#${ interaction.guild.publicUpdatesChannelId }>` : '無' }`,
                     ].join('\n'),
                     inline: false,
                 },
@@ -184,23 +184,23 @@ module.exports = {
 
             serverinfo.fields.push(
                 {
-                    name: `表情符號共${guild.emojis.cache.size}個`,
+                    name: `表情符號共${ guild.emojis.cache.size }個`,
                     value: '\u200B',
                     inline: false,
                 },
                 {
                     name: '可使用',
-                    value: `\`\`\`${guild.emojis.cache.filter(e => e.available == true).size}個 \`\`\``,
+                    value: `\`\`\`${ guild.emojis.cache.filter(e => e.available == true).size }個 \`\`\``,
                     inline: true,
                 },
                 {
                     name: '一般',
-                    value: `\`\`\`${guild.emojis.cache.filter(e => e.animated == false).size}個 \`\`\``,
+                    value: `\`\`\`${ guild.emojis.cache.filter(e => e.animated == false).size }個 \`\`\``,
                     inline: true,
                 },
                 {
                     name: '動態',
-                    value: `\`\`\`${guild.emojis.cache.filter(e => e.animated == true).size}個 \`\`\``,
+                    value: `\`\`\`${ guild.emojis.cache.filter(e => e.animated == true).size }個 \`\`\``,
                     inline: true,
                 },
                 {
@@ -209,13 +209,13 @@ module.exports = {
                     inline: false,
                 },
                 {
-                    name: `貼圖共${guild.stickers.cache.size}個`,
+                    name: `貼圖共${ guild.stickers.cache.size }個`,
                     value: '\u200B',
                     inline: false,
                 },
                 {
                     name: '可使用',
-                    value: `\`\`\`${guild.stickers.cache.filter(s => s.available).size}個\`\`\``,
+                    value: `\`\`\`${ guild.stickers.cache.filter(s => s.available).size }個\`\`\``,
                     inline: true,
                 },
             );
@@ -227,17 +227,17 @@ module.exports = {
             serverinfo.fields.push(
                 {
                     name: '加成',
-                    value: `\`\`\`${translate_Tier(guild.premiumTier, 'zh-TW')}, ${guild.premiumSubscriptionCount}次加成\`\`\``,
+                    value: `\`\`\`${ translate_Tier(guild.premiumTier, 'zh-TW') }, ${ guild.premiumSubscriptionCount }次加成\`\`\``,
                     inline: false,
                 },
                 {
                     name: '語言環境',
-                    value: `\`\`\`${guild.preferredLocale}\`\`\``,
+                    value: `\`\`\`${ guild.preferredLocale }\`\`\``,
                     inline: true,
                 },
                 {
                     name: '驗證等級',
-                    value: `\`\`\`${translate_Level(guild.verificationLevel, 'zh-TW')}\`\`\``,
+                    value: `\`\`\`${ translate_Level(guild.verificationLevel, 'zh-TW') }\`\`\``,
                     inline: true,
                 },
             );
@@ -245,7 +245,7 @@ module.exports = {
         }
 
         if (interaction.guild.iconURL()) {
-            serverinfo.image = { url: `${interaction.guild.iconURL({ dynamic: true })}` };
+            serverinfo.image = { url: `${ interaction.guild.iconURL({ dynamic: true }) }` };
             serverinfo.author.iconURL = interaction.guild.iconURL({ dynamic: true });
         }
         if (interaction.guild.bannerURL()) {

@@ -9,11 +9,11 @@ module.exports = {
      * @param {Emoji} oldEmoji 表情符號
      * @param {Emoji} newEmoji 表情符號
      */
-    run: async (oldEmoji, newEmoji, client) => {
+    async run(oldEmoji, newEmoji, client) {
         // end
         log(
             'info',
-            `表情符號 ${oldEmoji.name} -> ${newEmoji.name} 變更！`,
+            `表情符號 ${ oldEmoji.name } -> ${ newEmoji.name } 變更！`,
             true,
             client);
     },

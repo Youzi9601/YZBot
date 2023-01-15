@@ -14,7 +14,7 @@ module.exports = {
     },
     ownerOnly: true,
     ignoreFile: true,
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         // 內容
     },
 };

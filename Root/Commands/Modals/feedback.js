@@ -16,7 +16,7 @@ module.exports = {
      * @param {import('discord.js').ModalSubmitInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const firstResponse = interaction.fields.getTextInputValue('msg');
         interaction.reply('你的回饋已收到！' + Formatters.codeBlock('markdown', firstResponse));
     },

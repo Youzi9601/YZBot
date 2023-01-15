@@ -21,7 +21,7 @@ module.exports = {
    * //param {ClientEvents.guildMembersChunk[2]}
    * @param {import('discord.js').Client} client 機器人
    */
-  run: async (members, guild, chunk, client, container) => {
+  async run(members, guild, chunk, client, container) {
     log(
       'error',
       `收到大量成員於 ${ guild.name }： ${ members.size }個成員取得`,

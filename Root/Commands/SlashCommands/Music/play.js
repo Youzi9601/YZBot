@@ -22,7 +22,7 @@ module.exports = {
       * @param {import('discord.js').CommandInteraction} interaction
       * @param {*} container
       */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const voiceChannel = interaction.member.voice.channel;
         const queue = await client.distube.getQueue(interaction);
         const query = interaction.options.get('query') ? interaction.options.get('query').value : 'https://www.youtube.com/watch?v=7tNtU5XFwrU';

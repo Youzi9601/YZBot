@@ -1,4 +1,4 @@
-name: CodeCov Analysis
+name: CodeCov 分析
 on: [push, pull_request]
 permissions: write-all
 
@@ -12,7 +12,7 @@ jobs:
       security-events: write
 
     steps:
-      - name: Codecov
+      - name: Codecov 編碼
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

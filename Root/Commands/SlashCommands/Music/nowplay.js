@@ -1,6 +1,6 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
-const status = (queue) => `音量: \`${queue.volume}%\` | 重複: \`${queue.repeatMode ? queue.repeatMode === 2 ? '所有列隊' : '這首歌' : '關閉'}\` | 自動播放: \`${queue.autoplay ? '開啟' : '關閉'}\` | 過濾器: \`${queue.filters.join(', ') || '關閉'}\``;
+const status = (queue) => `音量: \`${ queue.volume }%\` | 重複: \`${ queue.repeatMode ? queue.repeatMode === 2 ? '所有列隊' : '這首歌' : '關閉' }\` | 自動播放: \`${ queue.autoplay ? '開啟' : '關閉' }\` | 過濾器: \`${ queue.filters.join(', ') || '關閉' }\``;
 module.exports = {
     command: {
         name: 'nowplaying',
@@ -17,7 +17,7 @@ module.exports = {
       * @param {import('discord.js').CommandInteraction} interaction
       * @param {*} container
       */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         /** @param {import('distube').Queue} queue */
         const queue = await client.distube.getQueue(interaction);
         const voiceChannel = interaction.member.voice.channel;
@@ -85,16 +85,16 @@ module.exports = {
 
         ];
         const embed = new MessageEmbed()
-            .setAuthor({ name: `${client.user.username} 正在播放...`, iconURL: 'https://raw.githubusercontent.com/Youzi9601/YZBot/master/Root/assets/music.gif' })
-            .setDescription(`[${song.name}](${song.url})`)
+            .setAuthor({ name: `${ client.user.username } 正在播放...`, iconURL: 'https://raw.githubusercontent.com/Youzi9601/YZBot/master/Root/assets/music.gif' })
+            .setDescription(`[${ song.name }](${ song.url })`)
             .addField('**觀看數:**', song.views.toString(), true)
             .addField('**喜歡數:**', song.likes.toString(), true)
-            .addField('**長度:**', `${queue.formattedCurrentTime} / ${song.formattedDuration}`, true)
-            .addField('**連結**', `[下載這首歌](${song.streamURL})`, true)
+            .addField('**長度:**', `${ queue.formattedCurrentTime } / ${ song.formattedDuration }`, true)
+            .addField('**連結**', `[下載這首歌](${ song.streamURL })`, true)
             .addField('**狀態**', status(queue).toString(), false)
             .setThumbnail(song.thumbnail)
             .setColor('RANDOM')
-            .setFooter({ text: `由 ${song.user.username} 請求`, iconURL: song.user.avatarURL() })
+            .setFooter({ text: `由 ${ song.user.username } 請求`, iconURL: song.user.avatarURL() })
             .setTimestamp();
         return interaction.reply({ embeds: [embed], components: rows });
     },

@@ -27,7 +27,7 @@ module.exports = {
      * @param {import('discord.js').CommandInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         // 內容
 
         // Create the modal

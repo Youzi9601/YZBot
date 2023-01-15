@@ -12,40 +12,19 @@ module.exports.config = config;
     // const { log } = require('./Root/Utils/log')
     const chalk = require('chalk');
     const moment = require('moment');
+    // 主要npm package
     const Discord = require('discord.js');
-    const Cluster = require('discord-hybrid-sharding');
+    const { Client, Events, GatewayIntentBits } = Discord;
 
     const path = __dirname;
-    const client = new Discord.Client({
-        shards: Cluster.data.SHARD_LIST, // 將生成的分片列表數組
-        shardCount: Cluster.data.TOTAL_SHARDS, // 總分片數
-        intents: [
-            'DIRECT_MESSAGES',
-            'DIRECT_MESSAGE_REACTIONS',
-            'DIRECT_MESSAGE_TYPING',
-            'GUILDS',
-            'GUILD_BANS',
-            'GUILD_EMOJIS_AND_STICKERS',
-            'GUILD_INTEGRATIONS',
-            'GUILD_INVITES',
-            'GUILD_MEMBERS',
-            'GUILD_MESSAGES',
-            'GUILD_MESSAGE_REACTIONS',
-            'GUILD_MESSAGE_TYPING',
-            'GUILD_PRESENCES',
-            'GUILD_SCHEDULED_EVENTS',
-            'GUILD_VOICE_STATES',
-            'GUILD_WEBHOOKS',
-        ],
+    const client = new Client({
+        intents: [GatewayIntentBits.Guilds],
         partials: ['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION', 'GUILD_SCHEDULED_EVENT'],
         // ws可用於讓機器人上線狀態為使用"手機"
         // ws: { properties: { $browser: 'Discord iOS' } },
     });
 
-    client.cluster = new Cluster.Client(client);
 
-    const { Shard } = require('discord-cross-hosting');
-    client.machine = new Shard(client.cluster); // Initialize Cluster
 
     const { DiscordTogether } = require('discord-together');
     client.discordTogether = new DiscordTogether(client);
@@ -78,13 +57,13 @@ module.exports.config = config;
     });
     // require('./Root/Plugins/discord/Giveaway')(client);
 
+    /*
     // Distube
     const Distube = require('distube');
     const { SoundCloudPlugin } = require('@distube/soundcloud');
     const { SpotifyPlugin } = require('@distube/spotify');
     const { YouTubeDLPlugin } = require('@distube/yt-dlp');
 
-    /* eslint new-cap: ["error", { "properties": false }] */
     client.distube = new Distube.default(client, {
         youtubeDL: false,
         leaveOnEmpty: true,
@@ -97,7 +76,7 @@ module.exports.config = config;
         plugins: [new SoundCloudPlugin(), new SpotifyPlugin(), new YouTubeDLPlugin()],
     });
     // require('./Root/Plugins/discord/guild/music')(client);
-
+    */
     //
     require('./Root/Plugins/plugins')(client);
     //
@@ -161,24 +140,19 @@ module.exports.config = config;
     await Handler.loadEvents(client);
 
     // 執行登入
-    if (ci === 'true')
+    if (ci === 'true') {
         console.info(chalk.gray(
             `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + chalk.red('CI測試事件> ') + 'CI測試進行中...');
+        process.exit(0)
+    }
 
 
     console.info(
         chalk.gray(
             `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
-        ) + '機器人檔案讀取中...',
+        ) + '機器人設定檔案讀取中...',
     );
-    console.info(
-        chalk.gray(
-            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
-        ) + '取得Token中...',
-    );
-
-
     if (!config.token) {
         console.error(
             chalk.bgRed(

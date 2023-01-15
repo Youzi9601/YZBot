@@ -45,7 +45,7 @@ module.exports = {
      * @param {import('discord.js').CommandInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         // 內容
 
         const user = interaction.options.getMember('user');
@@ -76,7 +76,7 @@ module.exports = {
             try {
                 ms_duration = ms(clear_duration);
             } catch (error) {
-                interaction.reply(`:x: umm... 我看不懂\`${duration}\`是甚麼... \n如果禁言時間為\`5天3小時10分鐘30秒\`，請輸入\`5d3h10m30s\``);
+                interaction.reply(`:x: umm... 我看不懂\`${ duration }\`是甚麼... \n如果禁言時間為\`5天3小時10分鐘30秒\`，請輸入\`5d3h10m30s\``);
                 return error;
             }
 

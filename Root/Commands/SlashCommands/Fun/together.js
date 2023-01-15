@@ -27,13 +27,13 @@ module.exports = {
      * @param {import('discord.js').CommandInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         // const subcommand = interaction.options.getSubcommand();
         const embed = new MessageEmbed()
             .setAuthor(
                 {
-                    iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                    name: `${client.user.username} 一起吧！`,
+                    iconURL: `${ client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL }`,
+                    name: `${ client.user.username } 一起吧！`,
                 })
             .setColor('RANDOM')
             .setDescription('請選擇一個選項！');

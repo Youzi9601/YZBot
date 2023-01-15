@@ -100,7 +100,7 @@ module.exports = {
      * @param {import('discord.js').CommandInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         // 內容
         const subcommand = interaction.options.getSubcommand();
         /*
@@ -120,11 +120,11 @@ module.exports = {
                 .setColor('0x808080')
                 .setTimestamp()
                 .setAuthor({
-                    name: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    icon: `${interaction.member.avatarURL({ dynamic: true })}`,
+                    name: `${ interaction.member.user.username }#${ interaction.member.user.discriminator }`,
+                    icon: `${ interaction.member.avatarURL({ dynamic: true }) }`,
                 })
                 .setTitle('有新的問題回報錯誤！')
-                .setDescription(`${what_happen}${message_link ? `\n[連結](${message_link})` : ''}`);
+                .setDescription(`${ what_happen }${ message_link ? `\n[連結](${ message_link })` : '' }`);
             reportChannel.send({ embeds: [report_embed] });
             interaction.reply({
                 content: '已回報錯誤！感謝您的回報讓我們可以更好！',
@@ -133,11 +133,11 @@ module.exports = {
                 .setColor('0x808080')
                 .setTimestamp()
                 .setAuthor({
-                    name: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    icon: `${interaction.member.avatarURL({ dynamic: true })}`,
+                    name: `${ interaction.member.user.username }#${ interaction.member.user.discriminator }`,
+                    icon: `${ interaction.member.avatarURL({ dynamic: true }) }`,
                 })
                 .setTitle('回報錯誤副本')
-                .setDescription(`${what_happen}${message_link ? `\n[連結](${message_link})` : ''}`);
+                .setDescription(`${ what_happen }${ message_link ? `\n[連結](${ message_link })` : '' }`);
             try {
                 // 嘗試DM成員
                 interaction.member.user.send({ embeds: [report_info] });
@@ -159,11 +159,11 @@ module.exports = {
                 .setColor('0x808080')
                 .setTimestamp()
                 .setAuthor({
-                    name: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    icon: `${interaction.member.avatarURL({ dynamic: true })}`,
+                    name: `${ interaction.member.user.username }#${ interaction.member.user.discriminator }`,
+                    icon: `${ interaction.member.avatarURL({ dynamic: true }) }`,
                 })
                 .setTitle('有新的舉報訊息！')
-                .setDescription(`被檢舉者：${user}\n原因：${reason}${message_link ? `\n[連結](${message_link})` : ''}`);
+                .setDescription(`被檢舉者：${ user }\n原因：${ reason }${ message_link ? `\n[連結](${ message_link })` : '' }`);
             reportChannel.send({ embeds: [report_embed] });
             interaction.reply({
                 content: '已回報錯誤！感謝您的回報讓我們可以更好！',
@@ -172,11 +172,11 @@ module.exports = {
                 .setColor('0x808080')
                 .setTimestamp()
                 .setAuthor({
-                    name: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-                    icon: `${interaction.member.avatarURL({ dynamic: true })}`,
+                    name: `${ interaction.member.user.username }#${ interaction.member.user.discriminator }`,
+                    icon: `${ interaction.member.avatarURL({ dynamic: true }) }`,
                 })
                 .setTitle('檢舉成員副本')
-                .setDescription(`被檢舉者：${user}\n原因：${reason}${message_link ? `\n[連結](${message_link})` : ''}`);
+                .setDescription(`被檢舉者：${ user }\n原因：${ reason }${ message_link ? `\n[連結](${ message_link })` : '' }`);
             try {
                 // 嘗試DM成員
                 interaction.member.user.send({ embeds: [report_info] });

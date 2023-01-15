@@ -12,7 +12,7 @@ module.exports = {
     * @param {import('discord.js').CommandInteraction} interaction
     * @param {*} container
     */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const guild = interaction.guild;
         const queue = await client.distube.getQueue(interaction);
         const voiceChannel = interaction.member.voice.channel;
@@ -33,7 +33,7 @@ module.exports = {
             const newQueue = client.distube.getQueue(interaction.guild.id);
             if (!newQueue || !newQueue.songs || newQueue.songs.length == 0) return interaction.reply({
                 embeds: [
-                    new MessageEmbed().setColor('RANDOM').setTitle(`${client.allEmojis.x} **我目前沒有任何播放的曲目！**`),
+                    new MessageEmbed().setColor('RANDOM').setTitle(`${ client.allEmojis.x } **我目前沒有任何播放的曲目！**`),
                 ],
 
             });
@@ -45,13 +45,13 @@ module.exports = {
                 const qus = theSongs;
                 const current = qus.slice(i, k);
                 let j = i + 1;
-                const info = current.map((track) => `**${j++} -** [\`${String(track.name)}\`](${track.url}) - \`${track.formattedDuration}\``).join('\n');
+                const info = current.map((track) => `**${ j++ } -** [\`${ String(track.name) }\`](${ track.url }) - \`${ track.formattedDuration }\``).join('\n');
                 const embed = new MessageEmbed()
                     .setColor('RANDOM')
-                    .setDescription(`${info}`);
+                    .setDescription(`${ info }`);
                 if (i < 10) {
-                    embed.setTitle(`📑 **歌曲列表｜${guild.name} 的列隊**`);
-                    embed.setDescription(`**當前歌曲:**\n> [\`${theSongs[0].name}\`](${theSongs[0].url})\n\n${info}`);
+                    embed.setTitle(`📑 **歌曲列表｜${ guild.name } 的列隊**`);
+                    embed.setDescription(`**當前歌曲:**\n> [\`${ theSongs[0].name }\`](${ theSongs[0].url })\n\n${ info }`);
                 }
                 embeds.push(embed);
                 k += 10; // Raise k to 10
@@ -59,7 +59,7 @@ module.exports = {
             embeds[embeds.length - 1] = embeds[embeds.length - 1]
                 .setFooter(
                     {
-                        text: `\n${theSongs.length} 首歌曲｜總長度： ${newQueue.formattedDuration}`,
+                        text: `\n${ theSongs.length } 首歌曲｜總長度： ${ newQueue.formattedDuration }`,
                     },
                 );
             let pages = [];
@@ -73,9 +73,9 @@ module.exports = {
                 .addOptions([
                     pages.map((page, index) => {
                         const Obj = {};
-                        Obj.label = `第 ${index + 1} 頁`;
-                        Obj.value = `${index}`;
-                        Obj.description = `第 ${index + 1}/${pages.length} 頁！`;
+                        Obj.label = `第 ${ index + 1 } 頁`;
+                        Obj.value = `${ index }`;
+                        Obj.description = `第 ${ index + 1 }/${ pages.length } 頁！`;
                         return Obj;
                     }),
                 ]);
@@ -99,7 +99,7 @@ module.exports = {
                 content: '錯誤: ',
                 embeds: [
                     new MessageEmbed().setColor('RED')
-                        .setDescription(`\`\`\`${e}\`\`\``),
+                        .setDescription(`\`\`\`${ e }\`\`\``),
                 ],
 
             });

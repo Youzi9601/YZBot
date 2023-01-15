@@ -16,7 +16,7 @@ module.exports = {
       * @param {import('discord.js').CommandInteraction} interaction
       * @param {*} container
       */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const voiceChannel = interaction.member.voice.channel;
         if (!voiceChannel) {
             return interaction.reply({ content: '請先加入語音頻道！', ephemeral: true });
@@ -31,7 +31,7 @@ module.exports = {
                 interaction.guild.me.voice.setSuppressed(false);
             await interaction.reply('***成功加入語音頻道***');
         } catch (error) {
-            return interaction.reply({ content: `連接到語音頻道時出錯: ${error}`, ephemeral: true });
+            return interaction.reply({ content: `連接到語音頻道時出錯: ${ error }`, ephemeral: true });
         }
     },
 };

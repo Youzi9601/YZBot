@@ -25,7 +25,7 @@ module.exports = {
       * @param {import('discord.js').CommandInteraction} interaction
       * @param {*} container
       */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         const args = interaction.options.getNumber('amount');
         const queue = await client.distube.getQueue(interaction);
         const voiceChannel = interaction.member.voice.channel;
@@ -49,7 +49,7 @@ module.exports = {
         const total = 200;
         const current = volume;
         const bar = progressbar.splitBar(total, current, 10, '▬', '🔘')[0];
-        await interaction.reply(`將新音量設置為 ${volume}%。\n${bar}`);
+        await interaction.reply(`將新音量設置為 ${ volume }%。\n${ bar }`);
         const sleep = async (ms) => {
             return new Promise((resolve) => {
                 setTimeout(() => {

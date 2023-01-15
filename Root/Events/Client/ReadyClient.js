@@ -13,7 +13,7 @@ module.exports = {
      * @param {import('discord.js').Client} client
      * @returns null
      */
-    run: async (client) => {
+    async run(client) {
         /*
         console.log(
              chalk.gray(
@@ -25,7 +25,7 @@ module.exports = {
         client.user.setPresence({
             activities: [
                 {
-                    name: `${client.user.username} 啟動中...`,
+                    name: `${ client.user.username } 啟動中...`,
                     // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                 },
             ],
@@ -53,10 +53,10 @@ module.exports = {
             },
             `程序資訊
 
-登入的帳號       ::    ${client.user.tag}
-伺服器數量       ::    ${client.guilds.cache.size}
-成員數量         ::    ${client.users.cache.size}
-Node.JS版本      ::    ${process.version}
+登入的帳號       ::    ${ client.user.tag }
+伺服器數量       ::    ${ client.guilds.cache.size }
+成員數量         ::    ${ client.users.cache.size }
+Node.JS版本      ::    ${ process.version }
 `, //啟動的分片系統 共${client.shard.ids.length()}個
         ).stringify();
 
@@ -79,13 +79,13 @@ Node.JS版本      ::    ${process.version}
             },
             `命令資訊(可能會因為無法取得而導致數字錯誤，但不影響其功能！)
 
-訊息命令         ::     ${client.commands.messageCommands.size} 個
-訊息命令別名     ::     ${client.commands.messageCommands.aliases.size} 個
-斜線命令         ::     ${client.commands.slashCommands.size} 個
-選擇清單         ::     ${client.commands.selectMenus.size} 個
-互動選單         ::     ${client.commands.contextMenus.size} 個
-按鈕命令         ::     ${client.commands.buttonCommands.size} 個
-Client 事件      ::     ${client.events.size} 個
+訊息命令         ::     ${ client.commands.messageCommands.size } 個
+訊息命令別名     ::     ${ client.commands.messageCommands.aliases.size } 個
+斜線命令         ::     ${ client.commands.slashCommands.size } 個
+選擇清單         ::     ${ client.commands.selectMenus.size } 個
+互動選單         ::     ${ client.commands.contextMenus.size } 個
+按鈕命令         ::     ${ client.commands.buttonCommands.size } 個
+Client 事件      ::     ${ client.events.size } 個
 `,
         ).stringify();
 
@@ -100,7 +100,7 @@ Client 事件      ::     ${client.events.size} 個
                 ' \\ \\ / /__  / __ )  |  _ \\(_)___  ___ ___  _ __ __| | | __ )  ___ | |_  ',
                 '  \\ V /  / /|  _ \\  | | | | / __|/ __/ _ \\| \'__/ _` | |  _ \\ / _ \\| __| ',
                 '   | |  / /_| |_) | | |_| | \\__ \\ (_| (_) | | | (_| | | |_) | (_) | |_  ',
-                '   |_| /____|____/  |____/|_|___/\\___\\___/|_|  \\__,_| |____/ \\___/ \\__| ' + `  v${version}`,
+                '   |_| /____|____/  |____/|_|___/\\___\\___/|_|  \\__,_| |____/ \\___/ \\__| ' + `  v${ version }`,
                 '                    [=| -= Made By Youzi9601 =-  |=]                    ',
                 '                                                                        ',
             ].join('\n'),
@@ -129,7 +129,7 @@ Client 事件      ::     ${client.events.size} 個
         // 終端紀錄
         console.info(
             chalk.gray(
-                `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+                `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
             ) +
             chalk.greenBright('啟動') +
             chalk.white('於 ') +
@@ -173,7 +173,7 @@ Client 事件      ::     ${client.events.size} 個
         } catch (error) {
             //
         }
-        fs.appendFile(`logs/${moment().format('YYYY-MM-DD')}.log`, `\n\n[${moment().format('YYYY-MM-DD HH:mm:ss')}] 機器人成功上線！`, function (err) {
+        fs.appendFile(`logs/${ moment().format('YYYY-MM-DD') }.log`, `\n\n[${ moment().format('YYYY-MM-DD HH:mm:ss') }] 機器人成功上線！`, function (err) {
             if (err)
                 console.info(err);
         });
@@ -181,7 +181,7 @@ Client 事件      ::     ${client.events.size} 個
         client.user.setPresence({
             activities: [
                 {
-                    name: `${client.user.username} 啟動成功！`,
+                    name: `${ client.user.username } 啟動成功！`,
                     // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                 },
             ],
@@ -194,7 +194,7 @@ Client 事件      ::     ${client.events.size} 個
         function cie() {
             console.info(
                 chalk.gray(
-                    `[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${config.console_prefix}`,
+                    `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
                 ) + 'CI機器人測試成功! 關閉機器人...',
             );
             process.exit();

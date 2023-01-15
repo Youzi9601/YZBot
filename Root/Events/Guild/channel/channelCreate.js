@@ -8,7 +8,7 @@ module.exports = {
      *
      * @param {GuildChannel} channel 頻道
      */
-    run: async (channel, client) => {
+    async run(channel, client) {
         const type = {
             'GUILD_TEXT': '文字頻道',
             'GUILD_VOICE': '語音頻道',
@@ -22,7 +22,7 @@ module.exports = {
         };
         log(
             'info',
-            `CHANNEL｜${channel.guild.name}(${channel.guild.id})${channel.parent ? '  -' + channel.parent.name + ` (${channel.parent.id}) ` : ''}: ${channel.name}(${channel.id}) ${type[channel.type]}已創建！`,
+            `CHANNEL｜${ channel.guild.name }(${ channel.guild.id })${ channel.parent ? '  -' + channel.parent.name + ` (${ channel.parent.id }) ` : '' }: ${ channel.name }(${ channel.id }) ${ type[channel.type] }已創建！`,
             true,
             client);
     },

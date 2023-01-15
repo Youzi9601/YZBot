@@ -9,7 +9,7 @@ module.exports = {
      * @param {import('discord.js').Interaction} interaction
      * @param {import('discord.js').Client} client 機器人
      */
-    run: async (interaction, client) => {
+    async run(interaction, client) {
         try {
             const loadCommandOptions = require('../Structures/CommandOptions/loadCommandOptions');
             if (interaction.isButton()) loadCommandOptions(client, interaction, client.commands.buttonCommands.get(interaction.customId), true, 'Button');

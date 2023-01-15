@@ -8,7 +8,7 @@ module.exports = {
      * @param {import('discord.js').MessageContextMenuInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
 
         // 創建模態
         const modal = new Modal()
@@ -21,7 +21,7 @@ module.exports = {
             .setStyle('PARAGRAPH')
             .setLabel('舉報資訊')
             .setPlaceholder('連結')
-            .setValue(`https://discord.com/channels/${interaction.guild.id}/${interaction.channel.id}/${interaction.targetMessage.id}\n============\n${interaction.targetMessage.author.tag} (${interaction.targetMessage.author.id}) 說：\n${interaction.targetMessage.content || '無訊息'}`)
+            .setValue(`https://discord.com/channels/${ interaction.guild.id }/${ interaction.channel.id }/${ interaction.targetMessage.id }\n============\n${ interaction.targetMessage.author.tag } (${ interaction.targetMessage.author.id }) 說：\n${ interaction.targetMessage.content || '無訊息' }`)
             .setRequired(true);
         // 創建文本輸入組件
         const SuggestionsInput = new TextInputComponent()

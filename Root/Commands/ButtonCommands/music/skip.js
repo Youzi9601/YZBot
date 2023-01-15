@@ -7,7 +7,7 @@ module.exports = {
      * @param {import('discord.js').ButtonInteraction} interaction
      * @param {*} container
      */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
         await require('../../SlashCommands/Music/skip').run(client, interaction, container);
     },
 };

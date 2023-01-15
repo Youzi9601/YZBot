@@ -8,11 +8,11 @@ module.exports = {
      *
      * @param {Emoji} emoji 表情符號
      */
-    run: async (emoji, client) => {
+    async run(emoji, client) {
         // end
         log(
             'info',
-            `表情符號 ${emoji.name} (${emoji.url}) 已刪除！`,
+            `表情符號 ${ emoji.name } (${ emoji.url }) 已刪除！`,
             true,
             client);
     },

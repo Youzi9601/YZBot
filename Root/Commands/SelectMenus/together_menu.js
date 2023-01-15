@@ -15,7 +15,7 @@ module.exports = {
    * @param {import('discord.js').SelectMenuInteraction} interaction
    * @param {*} container
    */
-    run: async (client, interaction, container) => {
+    async run(client, interaction, container) {
 
         const type = interaction.values[0];
         // 檢查是否於語音頻道
@@ -34,13 +34,13 @@ module.exports = {
                 .setColor('RED');
             return interaction.reply({ embeds: [embed] });
 
-        } else client.discordTogether.createTogetherCode(interaction.member.voice.channel.id, `${type}`).then(async invite => {
+        } else client.discordTogether.createTogetherCode(interaction.member.voice.channel.id, `${ type }`).then(async invite => {
 
             const voice_channel = interaction.guild.members.cache.get(client.user.id).voice.channel;
 
             if (voice_channel && voice_channel.id != interaction.member.voice.channel.id) {
 
-                interaction.channel.send(`一起在這裡！ \n> ${invite.code}`);
+                interaction.channel.send(`一起在這裡！ \n> ${ invite.code }`);
                 interaction.deferReply({ ephemeral: true }).then(cmd => {
                     interaction.editReply({ content: '因為我目前在其他的頻道中...所以無法加入您的頻道！' });
                 });
@@ -51,7 +51,7 @@ module.exports = {
                     guildId: interaction.channel.guild.id,
                     adapterCreator: interaction.guild.voiceAdapterCreator,
                 });
-                interaction.channel.send(`一起在這裡！ \n> ${invite.code}`);
+                interaction.channel.send(`一起在這裡！ \n> ${ invite.code }`);
                 interaction.deferReply().then(cmd => {
                     interaction.deleteReply();
                 });
