@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 16
 
-     - name: 安裝 Node.js 依賴項
+      - name: 安裝 Node.js 依賴項
         run: npm ci
 
       - name: 安裝 ESLint
