@@ -1,6 +1,6 @@
 name: Lint
 on: [push]
-permissions: write-all
+permissions: write-all | read-all
 
 jobs:
   run-linters:
