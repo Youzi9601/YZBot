@@ -23,10 +23,10 @@ jobs:
         run: npm install -g eslint prettier
 
       - name: 運行 linters
-        uses: wearerequired/lint-action@v2
+        uses: wearerequired/lint-action@v1
         with:
           eslint: true
-          prettier: false
+          prettier: true
           auto_fix: true
           git_name: "ESLint"
           commit_message: "使用 ${linter} 修飾&格式化程式代碼"
