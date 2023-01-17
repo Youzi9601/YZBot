@@ -25,7 +25,6 @@ jobs:
       - name: 運行 linters
         uses: wearerequired/lint-action@v2
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
           eslint: true
           prettier: false
           auto_fix: true
