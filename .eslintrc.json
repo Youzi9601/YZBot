@@ -5,7 +5,7 @@
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 2022
+        "ecmaVersion": 2023
     },
     "rules": {
         "arrow-spacing": [
