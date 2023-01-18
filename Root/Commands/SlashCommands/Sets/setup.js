@@ -1,11 +1,11 @@
 const {
-    // Collection,
-    Client,
-    // Formatters,
-    MessageActionRow,
-    MessageButton,
-    MessageEmbed,
-    MessageSelectMenu,
+	// Collection,
+	Client,
+	// Formatters,
+	MessageActionRow,
+	MessageButton,
+	MessageEmbed,
+	MessageSelectMenu,
 } = require('discord.js');
 const { config } = require('./../../../../bot');
 const { QuickDB } = require('quick.db');
@@ -13,27 +13,27 @@ const db = new QuickDB();
 
 
 module.exports = {
-    command: {
-        name: 'setup',
-        description: '設定',
-        options: [
-            // #region chat-bot
-            {
-                type: 1,
-                name: 'chat-bot',
-                description: '設定一個聊天機器人頻道',
-                options: [
-                    {
-                        type: 7,
-                        name: 'channel',
-                        description: '指向的頻道',
-                        required: false,
-                    },
-                ],
-            },
-            // #endregion
-            // #region chat-bot
-            /*
+	command: {
+		name: 'setup',
+		description: '設定',
+		options: [
+			// #region chat-bot
+			{
+				type: 1,
+				name: 'chat-bot',
+				description: '設定一個聊天機器人頻道',
+				options: [
+					{
+						type: 7,
+						name: 'channel',
+						description: '指向的頻道',
+						required: false,
+					},
+				],
+			},
+			// #endregion
+			// #region chat-bot
+			/*
             {
                 type: 1,
                 name: 'openai-chatgpt',
@@ -48,9 +48,9 @@ module.exports = {
                 ],
             },
             */
-            // #endregion
-            // #region cross-servers
-            /*
+			// #endregion
+			// #region cross-servers
+			/*
             {
                 type: 1,
                 name: 'corss-servers',
@@ -71,155 +71,158 @@ module.exports = {
                 ],
             },
             */
-            // #endregion
-            // #region suggestions-channel
-            {
-                type: 1,
-                name: 'suggestions-channel',
-                description: '設定提議/建議頻道',
-                options: [
-                    {
-                        type: 7,
-                        name: 'channel',
-                        description: '指向的頻道',
-                        required: false,
-                    },
-                ],
-            },
-            // #endregion
-            // #region suggestions-channel
-            {
-                type: 1,
-                name: 'counting',
-                description: '設定數數頻道',
-                options: [
-                    {
-                        type: 7,
-                        name: 'channel',
-                        description: '指向的頻道',
-                        required: false,
-                    },
-                    {
-                        type: 5,
-                        name: 'wrong_reset',
-                        description: '如果有人數數錯誤，是否重製? (預設為是)',
-                        required: false,
-                    },
-                    {
-                        type: 5,
-                        name: 'no_twice',
-                        description: '是否禁止有人連續數數? (預設為是)',
-                        required: false,
-                    },
-                ],
-            },
-            {
-                type: 1,
-                name: 'counting-num',
-                description: '設定數數頻道的數字',
-                options: [
-                    {
-                        type: 3,
-                        name: 'num',
-                        description: '數字',
-                        required: true,
-                    },
-                ],
-            },
-            // #endregion
-        ],
-    },
-    clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_CHANNELS'],
-    userPermissions: ['MANAGE_GUILD'],
-    /**
+			// #endregion
+			// #region suggestions-channel
+			{
+				type: 1,
+				name: 'suggestions-channel',
+				description: '設定提議/建議頻道',
+				options: [
+					{
+						type: 7,
+						name: 'channel',
+						description: '指向的頻道',
+						required: false,
+					},
+				],
+			},
+			// #endregion
+			// #region suggestions-channel
+			{
+				type: 1,
+				name: 'counting',
+				description: '設定數數頻道',
+				options: [
+					{
+						type: 7,
+						name: 'channel',
+						description: '指向的頻道',
+						required: false,
+					},
+					{
+						type: 5,
+						name: 'wrong_reset',
+						description: '如果有人數數錯誤，是否重製? (預設為是)',
+						required: false,
+					},
+					{
+						type: 5,
+						name: 'no_twice',
+						description: '是否禁止有人連續數數? (預設為是)',
+						required: false,
+					},
+				],
+			},
+			{
+				type: 1,
+				name: 'counting-num',
+				description: '設定數數頻道的數字',
+				options: [
+					{
+						type: 3,
+						name: 'num',
+						description: '數字',
+						required: true,
+					},
+				],
+			},
+			// #endregion
+		],
+	},
+	clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_CHANNELS'],
+	userPermissions: ['MANAGE_GUILD'],
+	/**
      *
      * @param {import('discord.js').Client} client
      * @param {import('discord.js').CommandInteraction} interaction
      * @param {*} container
      */
-    async run(client, interaction, container) {
-        // 取得子指令
-        const subcommand = interaction.options.getSubcommand();
+	async run(client, interaction, container) {
+		// 取得子指令
+		const subcommand = interaction.options.getSubcommand();
 
-        /** @param {import('discord.js').TextChannel} channel */
-        const channel = interaction.options.getChannel('channel') || interaction.channel;
+		/** @param {import('discord.js').TextChannel} channel */
+		const channel = interaction.options.getChannel('channel') || interaction.channel;
 
-        if (!isNotTextChannel) {
-            // 無
-        } else {
-            // #region chat_bot
-            if (subcommand == 'chat-bot') {
-                var chat_bot = db.table('chat_bot_system');
-                chat_bot.set(`${ interaction.guild.id }`, { channelid: channel.id });
-            }
-            // #endregion
-            // #region openai_chatGPT
-            if (subcommand == 'openai-chatgpt') {
-                var chat_bot = db.table('openai_chatGPT');
-                chat_bot.set(`${ interaction.guild.id }`, { channelid: channel.id });
-            }
-            // #endregion
-            // #region suggestions-channel
-            else if (subcommand == 'suggestions-channel') {
-                interaction.deferReply();
-                var suggestions_system = db.table('suggestions_system');
-                suggestions_system.set(`${ interaction.guild.id }`, { channelid: channel.id, num: 0 });
-            }
-            // #endregion
-            // #region counting
-            else if (subcommand == 'counting') {
+		if (!isNotTextChannel) {
+			// 無
+		}
+		else {
+			// #region chat_bot
+			if (subcommand == 'chat-bot') {
+				var chat_bot = db.table('chat_bot_system');
+				chat_bot.set(`${ interaction.guild.id }`, { channelid: channel.id });
+			}
+			// #endregion
+			// #region openai_chatGPT
+			if (subcommand == 'openai-chatgpt') {
+				var chat_bot = db.table('openai_chatGPT');
+				chat_bot.set(`${ interaction.guild.id }`, { channelid: channel.id });
+			}
+			// #endregion
+			// #region suggestions-channel
+			else if (subcommand == 'suggestions-channel') {
+				interaction.deferReply();
+				const suggestions_system = db.table('suggestions_system');
+				suggestions_system.set(`${ interaction.guild.id }`, { channelid: channel.id, num: 0 });
+			}
+			// #endregion
+			// #region counting
+			else if (subcommand == 'counting') {
 
-                interaction.deferReply();
-                var countting_system = db.table('countting_system');
-                countting_system.set(`${ interaction.guild.id }`, {
-                    channelid: channel.id,
-                    WrongReset: `${ interaction.options.getBoolean('wrong_reset') }` || 'true',
-                    noTwice: `${ interaction.options.getBoolean('no_twice') }` || 'true',
-                });
+				interaction.deferReply();
+				var countting_system = db.table('countting_system');
+				countting_system.set(`${ interaction.guild.id }`, {
+					channelid: channel.id,
+					WrongReset: `${ interaction.options.getBoolean('wrong_reset') }` || 'true',
+					noTwice: `${ interaction.options.getBoolean('no_twice') }` || 'true',
+				});
 
-            }
-            else if (subcommand == 'counting-num') {
+			}
+			else if (subcommand == 'counting-num') {
 
-                await interaction.deferReply();
-                let num = interaction.options.getString('num').match(/\d+/g)[0]
-                var countting_system = db.table('countting_system');
-                const count_data = countting_system.get(`${ interaction.guild.id }`) || { channelid: '000' };
-                countting_system.set(`${ interaction.guild.id }`, {
-                    channelid: count_data.channelid,
-                    WrongReset: count_data.WrongReset,
-                    noTwice: count_data.noTwice,
-                    latestUserId: `0`,
-                    num: num,
-                });
-                await interaction.editReply({ content: `成功將數字設定為${ num }，請接續下個數字繼續數喔！` })
-                return;
-            }
-            // #endregion
-            // #region cross-servers
-            else if (subcommand == 'corss-servers') {
-                // 如果非官方人員
-                if (!config.developers.some(id => interaction.user.id == id)) interaction.reply({
-                    embeds: [new container.Discord.MessageEmbed()
-                        .setAuthor({
-                            name: interaction.member.user.tag,
-                            iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
-                        })
-                        .setColor('#FF0000')
-                        .setTimestamp()
-                        .setDescription('[跨群系統暫不開放]：此命令是為機器人的開發人員所使用的。')],
-                    allowedMentions: {
-                        repliedUser: false,
-                    },
-                });
+				await interaction.deferReply();
+				const num = interaction.options.getString('num').match(/\d+/g)[0];
+				var countting_system = db.table('countting_system');
+				const count_data = countting_system.get(`${ interaction.guild.id }`) || { channelid: '000' };
+				countting_system.set(`${ interaction.guild.id }`, {
+					channelid: count_data.channelid,
+					WrongReset: count_data.WrongReset,
+					noTwice: count_data.noTwice,
+					latestUserId: '0',
+					num: num,
+				});
+				await interaction.editReply({ content: `成功將數字設定為${ num }，請接續下個數字繼續數喔！` });
+				return;
+			}
+			// #endregion
+			// #region cross-servers
+			else if (subcommand == 'corss-servers') {
+				// 如果非官方人員
+				if (!config.developers.some(id => interaction.user.id == id)) {
+					interaction.reply({
+						embeds: [new container.Discord.MessageEmbed()
+							.setAuthor({
+								name: interaction.member.user.tag,
+								iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
+							})
+							.setColor('#FF0000')
+							.setTimestamp()
+							.setDescription('[跨群系統暫不開放]：此命令是為機器人的開發人員所使用的。')],
+						allowedMentions: {
+							repliedUser: false,
+						},
+					});
+				}
 
-                await interaction.deferReply();
-                var cross_server_system = db.table('cross_server_system');
-                // 取得資料
-                const cross_id = 'main' || interaction.options.getString('id');
+				await interaction.deferReply();
+				const cross_server_system = db.table('cross_server_system');
+				// 取得資料
+				const cross_id = 'main' || interaction.options.getString('id');
 
-                // 搜尋&檢查
-                const guild_data = cross_server_system.get(message.guild.id)
-                /*
+				// 搜尋&檢查
+				const guild_data = cross_server_system.get(message.guild.id);
+				/*
                 [
                     {
                         channelID: '100000',
@@ -231,71 +234,75 @@ module.exports = {
                     },
                 ]
                 */
-                // 尋找channelID，並刪除該資料
-                guild_data.forEach(data => {
-                    if (data.channelID == channel.id) {
-                        const pos = guild_data.indexOf({ channelID: channel.id })
-                        guild_data.splice(pos, 1)
-                    }
-                })
-                // 將資料放入
-                guild_data.push(
-                    {
-                        "channelID": channel.id,
-                        "id": cross_id
-                    }
-                )
-                // cross_server_system.get(`${interaction.guild.id}`)
-                // 如果沒有，則新增它
-                cross_server_system.set(`${ interaction.guild.id }`,
-                    guild_data
-                )
+				// 尋找channelID，並刪除該資料
+				guild_data.forEach(data => {
+					if (data.channelID == channel.id) {
+						const pos = guild_data.indexOf({ channelID: channel.id });
+						guild_data.splice(pos, 1);
+					}
+				});
+				// 將資料放入
+				guild_data.push(
+					{
+						'channelID': channel.id,
+						'id': cross_id,
+					},
+				);
+				// cross_server_system.get(`${interaction.guild.id}`)
+				// 如果沒有，則新增它
+				cross_server_system.set(`${ interaction.guild.id }`,
+					guild_data,
+				);
 
 
-                //
-                await channel.sendTyping();
-                await channel.send(`跨群代碼： ${ cross_id } (因為目前暫時鎖定只開一個)，只是目前沒有跨群的作用...你想做啥==`);
-                //
-                await interaction.editReply('成功創立跨群！');
-            }
-            // #endregion
-            // else
-            else return await interaction.reply({
-                content: '此功能尚未完成！ :/',
-                ephemeral: true,
-            }).catch((err) => { });
+				//
+				await channel.sendTyping();
+				await channel.send(`跨群代碼： ${ cross_id } (因為目前暫時鎖定只開一個)，只是目前沒有跨群的作用...你想做啥==`);
+				//
+				await interaction.editReply('成功創立跨群！');
+			}
+			// #endregion
+			// else
+			else {
+				return await interaction.reply({
+					content: '此功能尚未完成！ :/',
+					ephemeral: true,
+				}).catch((err) => { });
+			}
 
 
-            try {
-                channel.sendTyping();
-                channel.send({ content: `這裡！ <@${ interaction.user.id }>` });
-            } catch (error) {
-                //
-            }
+			try {
+				channel.sendTyping();
+				channel.send({ content: `這裡！ <@${ interaction.user.id }>` });
+			}
+			catch (error) {
+				//
+			}
 
-        }
+		}
 
-        interaction.reply({
-            content: `${ subcommand } 的頻道成功指向 <#${ channel.id }> ，去試試看?`,
-        })
-            .catch((err) => {
-                interaction.editReply({
-                    content: `${ subcommand } 的頻道成功指向 <#${ channel.id }>，去試試看?`,
-                }).catch((err) => {
+		interaction.reply({
+			content: `${ subcommand } 的頻道成功指向 <#${ channel.id }> ，去試試看?`,
+		})
+			.catch((err) => {
+				interaction.editReply({
+					content: `${ subcommand } 的頻道成功指向 <#${ channel.id }>，去試試看?`,
+				}).catch((err) => {
 
-                });
-            });
+				});
+			});
 
 
-        // 執行
+		// 執行
 
-        // 檢測不是文字頻道?
-        function isNotTextChannel(interaction) {
-            if (!channel.isText) {
-                interaction.reply({ content: '這不是文字頻道！' });
-                return true;
-            } else return false;
-        }
+		// 檢測不是文字頻道?
+		function isNotTextChannel(interaction) {
+			if (!channel.isText) {
+				interaction.reply({ content: '這不是文字頻道！' });
+				return true;
+			}
+			else {return false;}
+		}
 
-    },
+	},
 };

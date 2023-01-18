@@ -12,58 +12,61 @@ update(require('./../../Config'));
 
 // function
 async function update(config) {
-    const exec = require('child_process').exec;
-    if (fs.existsSync('./.git')) {
-        exec('git reset --hard');
-        console.log('\x1b[34m%s\x1b[0m', '[基本作業]開始載入更新套件......');
-        console.log('\x1b[34m%s\x1b[0m', '[基本作業]套用Config資料......');
-        await config_update(config); // require('./../../bot').config
+	const exec = require('child_process').exec;
+	if (fs.existsSync('./.git')) {
+		exec('git reset --hard');
+		console.log('\x1b[34m%s\x1b[0m', '[基本作業]開始載入更新套件......');
+		console.log('\x1b[34m%s\x1b[0m', '[基本作業]套用Config資料......');
+		await config_update(config); // require('./../../bot').config
 
-        exec('git pull', (err, stdout, stderr) => {
-            if (err) {
-                console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
-                return;
-            }
-            // console.log('' + stdout + '');
-            if (!stdout.includes('Already up to date.')) {
-                console.log('\x1b[32m%s\x1b[0m', '[基本作業]更新成功！請重新啟動！');
-                process.exit(0);
-            } else {
-                console.log('\x1b[32m%s\x1b[0m', '[基本作業]錯誤：沒有新的更新！');
-            }
+		exec('git pull', (err, stdout, stderr) => {
+			if (err) {
+				console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
+				return;
+			}
+			// console.log('' + stdout + '');
+			if (!stdout.includes('Already up to date.')) {
+				console.log('\x1b[32m%s\x1b[0m', '[基本作業]更新成功！請重新啟動！');
+				process.exit(0);
+			}
+			else {
+				console.log('\x1b[32m%s\x1b[0m', '[基本作業]錯誤：沒有新的更新！');
+			}
 
-        });
-        console.log('\x1b[34m%s\x1b[0m', '[基本作業]安裝依賴項......');
-        childProcess.exec('npm install', (err, stdout, stderr) => {
-            if (err) {
-                console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
-                return;
-            }
-            console.log('' + stdout + '');
-            console.log('\x1b[32m%s\x1b[0m', '[基本作業] Package.json 中的依賴項安裝完成！');
-            // exec('node bot.js');
+		});
+		console.log('\x1b[34m%s\x1b[0m', '[基本作業]安裝依賴項......');
+		childProcess.exec('npm install', (err, stdout, stderr) => {
+			if (err) {
+				console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
+				return;
+			}
+			console.log('' + stdout + '');
+			console.log('\x1b[32m%s\x1b[0m', '[基本作業] Package.json 中的依賴項安裝完成！');
+			// exec('node bot.js');
 
-        });
-    } else {
-        console.log('\x1b[31m%s\x1b[0m', '沒有 git 存儲庫！將為您創立一個！');
+		});
+	}
+	else {
+		console.log('\x1b[31m%s\x1b[0m', '沒有 git 存儲庫！將為您創立一個！');
 
-        exec('git clone https://github.com/Youzi9601/YZBot', (err, stdout, stderr) => {
-            if (err) {
-                console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
-                console.log('\x1b[32m%s\x1b[0m', '[基本作業]無法創建！取消自動更新！');
-                return;
-            } else {
-                console.log('\x1b[32m%s\x1b[0m', '[基本作業]創立成功！請將新增的資料夾(YZBot)內的所有內容放置主目錄，並重新啟動機器人！');
-                process.exit(0);
-            }
+		exec('git clone https://github.com/Youzi9601/YZBot', (err, stdout, stderr) => {
+			if (err) {
+				console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
+				console.log('\x1b[32m%s\x1b[0m', '[基本作業]無法創建！取消自動更新！');
+				return;
+			}
+			else {
+				console.log('\x1b[32m%s\x1b[0m', '[基本作業]創立成功！請將新增的資料夾(YZBot)內的所有內容放置主目錄，並重新啟動機器人！');
+				process.exit(0);
+			}
 
-        });
+		});
 
-    }
+	}
 }
 
 async function config_update(Config = require('./../../Config')) {
-    require('fs').writeFileSync('Config.js', `
+	require('fs').writeFileSync('Config.js', `
 require('dotenv').config();
 module.exports = {
     /**
@@ -136,19 +139,19 @@ module.exports = {
              */
             ${ JSON.stringify(Config.botPresence.activities ||
         [
-            {
-                type: 'WATCHING',
-                name: '{count.guilds}個伺服器&{count.members}個使用者',
-            },
-            {
-                name: '訂閱 Youzi9601 ！',
-                type: 'STREAMING',
-                url: 'https://www.twitch.tv/Youzi9601',
-            },
-            {
-                name: 'Youzi9601 訂閱數：{Youtube.subs}位！',
-                type: 'COMPETING',
-            },
+        	{
+        		type: 'WATCHING',
+        		name: '{count.guilds}個伺服器&{count.members}個使用者',
+        	},
+        	{
+        		name: '訂閱 Youzi9601 ！',
+        		type: 'STREAMING',
+        		url: 'https://www.twitch.tv/Youzi9601',
+        	},
+        	{
+        		name: 'Youzi9601 訂閱數：{Youtube.subs}位！',
+        		type: 'COMPETING',
+        	},
         ], null, 2).replace('[', '').replace(']', '') }
         ],
         // 狀態
@@ -158,43 +161,43 @@ module.exports = {
     // 機器人所需要的所有權限
    botPermissions: [${ JSON.stringify(Config.botPermissions ||
             [
-                "CREATE_INSTANT_INVITE",
-                // 管理
-                "MODERATE_MEMBERS",
-                "KICK_MEMBERS",
-                "BAN_MEMBERS",
-                "MANAGE_CHANNELS",
-                //"MANAGE_GUILD",
-                "MANAGE_WEBHOOKS",
-                "MANAGE_THREADS",
-                //"MANAGE_ROLES",
-                "MANAGE_MESSAGES",
-                //"MANAGE_NICKNAMES",
-                "VIEW_AUDIT_LOG",
-                // 聊天
-                "VIEW_CHANNEL",
-                "SEND_MESSAGES",
-                "SEND_TTS_MESSAGES",
-                "EMBED_LINKS",
-                "ADD_REACTIONS",
-                "ATTACH_FILES",
-                "READ_MESSAGE_HISTORY",
-                "USE_EXTERNAL_EMOJIS",
-                "USE_EXTERNAL_STICKERS",
-                "MENTION_EVERYONE",
-                "CHANGE_NICKNAME",
-                // 語音
-                "PRIORITY_SPEAKER",
-                "CONNECT",
-                "SPEAK",
-                "REQUEST_TO_SPEAK",
-                "MOVE_MEMBERS",
-                // 討論串系列
-                "SEND_MESSAGES_IN_THREADS",
-                "USE_PUBLIC_THREADS",
-                "CREATE_PUBLIC_THREADS",
-                "USE_PRIVATE_THREADS",
-                //"CREATE_PRIVATE_THREADS",
+            	'CREATE_INSTANT_INVITE',
+            	// 管理
+            	'MODERATE_MEMBERS',
+            	'KICK_MEMBERS',
+            	'BAN_MEMBERS',
+            	'MANAGE_CHANNELS',
+            	// "MANAGE_GUILD",
+            	'MANAGE_WEBHOOKS',
+            	'MANAGE_THREADS',
+            	// "MANAGE_ROLES",
+            	'MANAGE_MESSAGES',
+            	// "MANAGE_NICKNAMES",
+            	'VIEW_AUDIT_LOG',
+            	// 聊天
+            	'VIEW_CHANNEL',
+            	'SEND_MESSAGES',
+            	'SEND_TTS_MESSAGES',
+            	'EMBED_LINKS',
+            	'ADD_REACTIONS',
+            	'ATTACH_FILES',
+            	'READ_MESSAGE_HISTORY',
+            	'USE_EXTERNAL_EMOJIS',
+            	'USE_EXTERNAL_STICKERS',
+            	'MENTION_EVERYONE',
+            	'CHANGE_NICKNAME',
+            	// 語音
+            	'PRIORITY_SPEAKER',
+            	'CONNECT',
+            	'SPEAK',
+            	'REQUEST_TO_SPEAK',
+            	'MOVE_MEMBERS',
+            	// 討論串系列
+            	'SEND_MESSAGES_IN_THREADS',
+            	'USE_PUBLIC_THREADS',
+            	'CREATE_PUBLIC_THREADS',
+            	'USE_PRIVATE_THREADS',
+            	// "CREATE_PRIVATE_THREADS",
             ], null, 8).replace('[', '').replace(']', '') }],
  
     /**
@@ -338,5 +341,5 @@ module.exports = {
     },
 };
     `);
-    console.log('\x1b[32m%s\x1b[0m', 'Config檔案已經更新！');
+	console.log('\x1b[32m%s\x1b[0m', 'Config檔案已經更新！');
 }

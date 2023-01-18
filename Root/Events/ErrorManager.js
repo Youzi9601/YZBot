@@ -1,7 +1,7 @@
 module.exports = {
-    name: 'errorManager',
-    customEvent: true,
-    async run(client) {
-    //
-},
+	name: 'errorManager',
+	customEvent: true,
+	async run(client) {
+		//
+	},
 };

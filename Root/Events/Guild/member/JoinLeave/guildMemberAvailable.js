@@ -10,18 +10,18 @@ const { log } = require('./../../../../Utils/log');
  *
  */
 module.exports = {
-    name: 'guildMemberAvailable',
-    /**
+	name: 'guildMemberAvailable',
+	/**
      *
      * @param {GuildMember} member
      * @param {import('discord.js').Client} client 機器人
      */
-    async run(member, client, container) {
-        const guild = member.guild;
-        log(
-            'info',
-            `新成員加入社群 ${ guild.name }： ${ member.user.tag }`,
-            true,
-            client);
-    },
+	async run(member, client, container) {
+		const guild = member.guild;
+		log(
+			'info',
+			`新成員加入社群 ${ guild.name }： ${ member.user.tag }`,
+			true,
+			client);
+	},
 };

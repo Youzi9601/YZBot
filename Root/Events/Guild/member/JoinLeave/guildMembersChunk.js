@@ -11,8 +11,8 @@ const chunker = {};
  *
  */
 module.exports = {
-  name: 'guildMembersChunk',
-  /**
+	name: 'guildMembersChunk',
+	/**
    * @description 一個事件
    * @deprecated
    * @param {import('discord.js').Collection <Snowflake, GuildMember>} members
@@ -21,19 +21,19 @@ module.exports = {
    * //param {ClientEvents.guildMembersChunk[2]}
    * @param {import('discord.js').Client} client 機器人
    */
-  async run(members, guild, chunk, client, container) {
-    log(
-      'error',
-      `收到大量成員於 ${ guild.name }： ${ members.size }個成員取得`,
-      true,
-      client);
-    log(
-      'error',
-      JSON.stringify(chunk, null, 2),
-    );
-    // chunk.guildMembersChunk[2].
-    console.log(chunk);
-  },
+	async run(members, guild, chunk, client, container) {
+		log(
+			'error',
+			`收到大量成員於 ${ guild.name }： ${ members.size }個成員取得`,
+			true,
+			client);
+		log(
+			'error',
+			JSON.stringify(chunk, null, 2),
+		);
+		// chunk.guildMembersChunk[2].
+		console.log(chunk);
+	},
 };
 
 /*
