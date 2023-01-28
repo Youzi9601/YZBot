@@ -10,11 +10,7 @@ json.sqlite
 eula.txt
 test.js
 json.sqlite.code.js
-Config.js
 ##忽略的設定檔：
-Root/Web/
-Root/Plugins/discord/guild/corss_server/
-Root/Plugins/TaiwanEarthQuake/
 Storage/*.json
 #Root/Language/
 #無

@@ -4,7 +4,7 @@ orbs: # declare what orbs we are going to use
 version: 2.1 # using 2.1 provides access to orbs and other features
 
 workflows:
-  總測試:
+  CI總測試:
     jobs:
       - node/test:
           name: NodeJS v16.* 測試
