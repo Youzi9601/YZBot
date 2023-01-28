@@ -1,4 +1,4 @@
-const { EmbedBuilder, codeBlock } = require("discord.js"); 
+const { EmbedBuilder, codeBlock } = require("discord.js");
 
 module.exports = {
   config: {
@@ -10,23 +10,27 @@ module.exports = {
   owner: false,
   run: async (client, message, args, prefix, config, db) => {
 
-    if (!args[0]) return message.reply({
+    if (!args[0]) {
+return message.reply({
       embeds: [
         new EmbedBuilder()
           .setDescription("Please provide a command name.")
-          .setColor("Red")
-      ]
+          .setColor("Red"),
+      ],
     });
+}
 
     const command = client.prefix_commands.get(args[0].toLowerCase());
 
-    if (!command) return message.reply({
+    if (!command) {
+return message.reply({
       embeds: [
         new EmbedBuilder()
           .setDescription("Sorry, but that command doesn't exists.")
-          .setColor("Red")
-      ]
+          .setColor("Red"),
+      ],
     });
+}
 
     return message.reply({
       embeds: [
@@ -36,11 +40,11 @@ module.exports = {
             { name: 'Description:', value: command.config.description || "No Description was provided." },
             { name: 'Usage:', value: command.config.usage ? codeBlock('txt', command.config.usage) : "No Usage was provided." },
             { name: 'Permissions:', value: command.permissions.join(", ") },
-            { name: 'Developer only?', value: command.owner ? 'Yes' : 'No' }
+            { name: 'Developer only?', value: command.owner ? 'Yes' : 'No' },
           )
-          .setColor("Blue")
-      ]
+          .setColor("Blue"),
+      ],
     });
-    
+
   },
 };

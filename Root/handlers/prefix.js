@@ -12,11 +12,12 @@ module.exports = (client, config) => {
       if (pull.config.name) {
         client.prefix_commands.set(pull.config.name, pull);
         console.log(`[HANDLER - PREFIX] 加載了一個文件： ${pull.config.name} (#${client.prefix_commands.size})`.brightGreen)
-      } else {
+      }
+ else {
         console.log(`[HANDLER - PREFIX] 無法加載文件 ${file}，缺少模塊名稱值。`.red)
         continue;
-      };
+      }
 
-    };
+    }
   });
 };

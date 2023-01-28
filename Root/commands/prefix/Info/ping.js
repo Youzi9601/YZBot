@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require("discord.js"); 
+const { EmbedBuilder } = require("discord.js");
 
 module.exports = {
   config: {
@@ -12,8 +12,8 @@ module.exports = {
     message.reply({ embeds: [
       new EmbedBuilder()
         .setDescription(`🏓 **Pong!** Client websocket ping: \`${client.ws.ping}\` ms.`)
-        .setColor("Green")
+        .setColor("Green"),
     ] })
-    
+
   },
 };

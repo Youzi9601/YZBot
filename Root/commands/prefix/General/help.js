@@ -20,20 +20,20 @@ module.exports = {
                 name: client.user.tag,
                 iconURL: client.user.displayAvatarURL(
                   {
-                    dynamic: true
-                  }
-                )
-              }
+                    dynamic: true,
+                  },
+                ),
+              },
             )
             .setDescription(commands.join(', '))
             .setFooter(
               {
-                text: `→ Use ${prefix}info for a command info.`
-              }
+                text: `→ Use ${prefix}info for a command info.`,
+              },
             )
-            .setColor('Blue')
-        ]
-      }
+            .setColor('Blue'),
+        ],
+      },
     );
 
   },

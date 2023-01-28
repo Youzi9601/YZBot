@@ -8,7 +8,7 @@ module.exports = {
     permissions: {
         dm_permission: false, // Can in DM channel?
         DEFAULT_PERMISSIONS: "", // Client permissions needed
-        DEFAULT_MEMBER_PERMISSIONS: "" // User permissions needed
+        DEFAULT_MEMBER_PERMISSIONS: "", // User permissions needed
     },
     run: async (client, interaction, config, db) => {
         // execute

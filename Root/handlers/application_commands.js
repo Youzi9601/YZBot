@@ -3,9 +3,9 @@ const fs = require("fs");
 const colors = require("colors");
 
 /**
- * 
- * @param {import("discord.js").Client} client 
- * @param {import("./../../Config")} config 
+ *
+ * @param {import("discord.js").Client} client
+ * @param {import("./../../Config")} config
  * @returns "?"
  */
 module.exports = (client, config) => {
@@ -32,14 +32,15 @@ module.exports = (client, config) => {
           options: pull.options ? pull.options : null,
           dm_permission: pull.permissions.dm_permission ? pull.permissions.dm_permission : false,
           default_permission: pull.permissions.DEFAULT_PERMISSIONS ? pull.permissions.DEFAULT_PERMISSIONS : null,
-          default_member_permissions: pull.permissions.DEFAULT_MEMBER_PERMISSIONS ? PermissionsBitField.resolve(pull.permissions.DEFAULT_MEMBER_PERMISSIONS).toString() : null
+          default_member_permissions: pull.permissions.DEFAULT_MEMBER_PERMISSIONS ? PermissionsBitField.resolve(pull.permissions.DEFAULT_MEMBER_PERMISSIONS).toString() : null,
         });
 
-      } else {
+      }
+ else {
         console.log(`[HANDLER - SLASH] 無法加載文件 ${file}，缺少模塊名稱值、描述或類型不是 1。`.red)
         continue;
-      };
-    };
+      }
+    }
   });
 
   // User commands handler:
@@ -59,11 +60,12 @@ module.exports = (client, config) => {
           type: pull.type || 2,
         });
 
-      } else {
+      }
+ else {
         console.log(`[HANDLER - USER] 無法加載文件 ${file}，缺少的模塊名稱值或類型不是 2。`.red)
         continue;
-      };
-    };
+      }
+    }
   });
 
   // Message commands handler:
@@ -83,18 +85,19 @@ module.exports = (client, config) => {
           type: pull.type || 3,
         });
 
-      } else {
+      }
+ else {
         console.log(`[HANDLER - MESSAGE] 無法加載文件 ${file}，缺少的模塊名稱值或類型不是 3。`.red)
         continue;
-      };
-    };
+      }
+    }
   });
 
   // Registering all the application commands:
   if (!config.bot.clientID) {
     console.log("[CRASH]您需要在 config.js 中提供您的機器人 ID！".red + "\n");
     return process.exit();
-  };
+  }
 
   const rest = new REST({ version: '10' }).setToken(config.bot.token || process.env.token);
 
@@ -104,11 +107,12 @@ module.exports = (client, config) => {
     try {
       await rest.put(
         Routes.applicationCommands(config.bot.clientID),
-        { body: commands }
+        { body: commands },
       );
 
       console.log('[HANDLER] 已成功註冊所有應用程序命令。'.brightGreen);
-    } catch (err) {
+    }
+ catch (err) {
       console.log(err);
     }
   })();

@@ -2,7 +2,7 @@ const client = require("./../../../bot");
 const colors = require("colors");
 
 module.exports = {
-  name: "ready.js"
+  name: "ready.js",
 };
 
 client.once('ready', async () => {
