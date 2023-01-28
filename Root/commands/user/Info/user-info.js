@@ -19,14 +19,12 @@ module.exports = {
                         const joinedDiscordTimestampInString = moment(userInput.user.createdAt).fromNow();
 
                         return joinedDiscordTimestampInString.toString(); // Just making sure it's string.
-                    }
- else if (type === "server") {
+                    } else if (type === "server") {
                         const joinedServerTimestampInNumber = new Date().getTime() - userInput.joinedTimestamp;
                         const joinedServerTimestampInString = moment(userInput.joinedAt).fromNow();
 
                         return joinedServerTimestampInString.toString(); // Just making sure it's string.
-                    }
- else {throw new ReferenceError('Invalid type. Use "discord" or "server" only.');}
+                    } else {throw new ReferenceError('Invalid type. Use "discord" or "server" only.');}
                 },
             },
         };
@@ -51,8 +49,7 @@ module.exports = {
                         if (userInput.permissions.has(PermissionsBitField.Administrator)) result = "Server Administrator";
                         if (userInput.id === interaction.guild.ownerId) result = "Server Owner";
 
-                    }
- catch (e) {
+                    } catch (e) {
                         result = "Server Member";
                     }
 
