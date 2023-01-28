@@ -9,7 +9,7 @@ const colors = require("colors");
  * @returns "?"
  */
 module.exports = (client, config) => {
-    console.log("0------------------| 應用程序命令處理程序：".blue);
+    console.log(">>> 應用程序命令處理程序：".blue);
 
     let commands = [];
 

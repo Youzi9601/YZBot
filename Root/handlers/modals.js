@@ -2,7 +2,7 @@ const fs = require("fs");
 const colors = require("colors");
 
 module.exports = (client, config) => {
-    console.log("0------------------| 模態處理程序：".blue);
+    console.log(">>> 模態處理程序：".blue);
 
     const modals = fs.readdirSync(`./Root/modals/`).filter(file => file.endsWith('.js'));
 

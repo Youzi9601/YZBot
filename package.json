@@ -37,7 +37,7 @@
   "homepage": "https://github.com/Youzi9601/YZBot#readme",
   "dependencies": {
     "axios": "^0.27.2",
-    "better-sqlite3": "^8.0.1",
+    "better-sqlite3": "^8.0.0",
     "chalk": "^4.0.0",
     "child_process": "^1.0.2",
     "cli-box": "^6.0.10",
@@ -60,7 +60,8 @@
     "node-fetch": "^2.6.8",
     "node-gyp": "^9.3.1",
     "quick.db": "^9.0.8",
-    "string-progressbar": "^1.0.4"
+    "string-progressbar": "^1.0.4",
+    "super-djs": "^1.7.4"
   },
   "auto-updater": {
     "repo": "/Youzi9601/YZBot",

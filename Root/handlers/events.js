@@ -2,7 +2,7 @@ const fs = require("fs");
 const colors = require("colors");
 
 module.exports = (client) => {
-    console.log("0------------------| 事件處理程序：".blue);
+    console.log(">>> 事件處理程序：".blue);
 
     fs.readdirSync('./Root/events/').forEach(dir => {
         const commands = fs.readdirSync(`./Root/events/${dir}`).filter(file => file.endsWith('.js'));

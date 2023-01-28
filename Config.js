@@ -26,10 +26,15 @@ module.exports = {
         token: process.env.token,
 
         // 機器人註冊 [ / ] 斜線命令 會使用這個機器人ID (填入機器人ID 或者Developer Portal的Application ID，其實都一樣。)
-        clientID: process.env.clientID || '923159129432940544',
-        clientSECRET: process.env.clientSECRET || 'tBEi9YapP4b0ekApFjNr8xkzn0xLJEOq',
+        clientID: process.env.clientID,
+        clientSECRET: process.env.clientSECRET,
     },
 
+    // 資料庫
+    database: {
+        // 請放置網址於下方，用來連接到資料庫
+        MongoDB: "",
+    },
     // 語言(可於 ./Root/language 中自訂語言)
     language: 'zh-TW',
 
