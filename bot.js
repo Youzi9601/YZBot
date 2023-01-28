@@ -2,16 +2,7 @@ const ci = process.env.CI;
 const fs = require('fs');
 const config = require('./Config');
 module.exports.config = config;
-// 執行登入
-if (ci === 'true') {
-	console.info(chalk.gray(
-		`[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
-	) + chalk.red('CI測試事件> ') + 'CI測試進行中...');
-	process.exit(0);
-}
 
-
-	
 (async () => {
 	// module.exports = { client, path, config };
 
@@ -19,6 +10,13 @@ if (ci === 'true') {
 	// const { log } = require('./Root/Utils/log')
 	const chalk = require('chalk');
 	const moment = require('moment');
+	// 執行登入
+	if (ci === 'true') {
+		console.info(chalk.gray(
+			`[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
+		) + chalk.red('CI測試事件> ') + 'CI測試進行中...');
+		process.exit(0);
+	}
 	// 主要npm package
 	const Discord = require('discord.js');
 	const { Client, GatewayIntentBits, Partials } = Discord;
