@@ -1,15 +1,15 @@
 {
-	"extends": "eslint:recommended",
 	"env": {
 		"node": true,
-		"es6": true
+		"es2021": true
 	},
+	"extends": "eslint:recommended",
 	"parserOptions": {
 		"ecmaVersion": 2021
 	},
 	"rules": {
 		"arrow-spacing": [
-			"warn",
+			"error",
 			{
 				"before": true,
 				"after": true
@@ -17,7 +17,7 @@
 		],
 		"brace-style": [
 			"error",
-			"stroustrup",
+			"1tbs",
 			{
 				"allowSingleLine": true
 			}
@@ -28,25 +28,24 @@
 		],
 		"comma-spacing": "error",
 		"comma-style": "error",
-		"curly": [
-			"error",
-			"multi-line",
-			"consistent"
-		],
 		"dot-location": [
 			"error",
 			"property"
 		],
 		"handle-callback-err": "off",
 		"indent": [
-			"off",
-			"tab"
+			"error",
+			4
 		],
 		"keyword-spacing": "error",
+		"linebreak-style": [
+			"error",
+			"windows"
+		],
 		"max-nested-callbacks": [
 			"error",
 			{
-				"max": 4
+				"max": 6
 			}
 		],
 		"max-statements-per-line": [
@@ -81,10 +80,11 @@
 				]
 			}
 		],
+		"no-unused-vars": "off",
 		"no-trailing-spaces": [
 			"error"
 		],
-		"no-var": "error",
+		"no-var": "off",
 		"object-curly-spacing": [
 			"error",
 			"always"
