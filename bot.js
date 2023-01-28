@@ -103,9 +103,7 @@ module.exports.config = config;
 	//
 	require('./Root/Plugins/plugins')(client);
 	//
-
 	// #endregion
-
 
 	// #region 變數輸出
 	console.info(
