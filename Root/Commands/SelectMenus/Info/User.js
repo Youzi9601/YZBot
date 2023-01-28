@@ -17,11 +17,11 @@ module.exports = {
      * @param {import('discord.js').SelectMenuInteraction} interaction
      * @param {*} container
      */
-    async run(client, interaction, container) {
+    run: async (client, interaction, container) => {
 
         const member = interaction.guild.members.cache
             .get(interaction.message.embeds[0].footer.text.match(/\d{18}/)[0]);
-        const create_at = `${ await get_time_from_id(member.user.id) }`;
+        const create_at = `${await get_time_from_id(member.user.id)}`;
         const join_at = Math.floor(member.joinedAt.getTime() / 1000);
         const type = interaction.values[0];
         let embed;
@@ -30,33 +30,33 @@ module.exports = {
                 .setTitle('成員資訊')
                 .setDescription('\`\`\`一般\`\`\`')
                 .setAuthor({
-                    name: `${ member.nickname ?
+                    name: `${member.nickname ?
                         member.nickname + ' (' + member.user.tag + ')'
-                        : member.user.tag }`,
-                    iconURL: `${ member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL }`,
+                        : member.user.tag}`,
+                    iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`,
                 })
-                .setFooter({ text: `ID: ${ member.user.id }` })
+                .setFooter({ text: `ID: ${member.user.id}` })
                 .setColor(member.displayHexColor)
                 .setTimestamp()
                 .addFields(
                     {
                         name: '名稱',
-                        value: `\`\`\`${ member.user.username }\`\`\``,
+                        value: `\`\`\`${member.user.username}\`\`\``,
                         inline: true,
                     },
                     {
                         name: '匿名',
-                        value: `\`\`\`${ member.nickname || '沒有暱稱' }\`\`\``,
+                        value: `\`\`\`${member.nickname || '沒有暱稱'}\`\`\``,
                         inline: true,
                     },
                     {
                         name: 'ID',
-                        value: `\`\`\`${ member.user.id }\`\`\``,
+                        value: `\`\`\`${member.user.id}\`\`\``,
                         inline: false,
                     },
                     {
                         name: '識別碼',
-                        value: `\`\`\`${ member.user.discriminator }\`\`\``,
+                        value: `\`\`\`${member.user.discriminator}\`\`\``,
                         inline: true,
                     },
                     {
@@ -66,17 +66,17 @@ module.exports = {
                     },
                     {
                         name: '創建時間',
-                        value: `<t:${ create_at }:R>`,
+                        value: `<t:${create_at}:R>`,
                         inline: true,
                     },
                     {
                         name: '加入時間',
-                        value: `<t:${ join_at }:R>`,
+                        value: `<t:${join_at}:R>`,
                         inline: true,
                     },
                     {
                         name: '機器人',
-                        value: `\`\`\`${ member.user.bot ? '是' : '否' }\`\`\``,
+                        value: `\`\`\`${member.user.bot ? '是' : '否'}\`\`\``,
                         inline: true,
                     },
                 );
@@ -86,7 +86,7 @@ module.exports = {
                     role.name != '@everyone',
                 )
                 .map(
-                    role => `<@&${ role.id }>`,
+                    role => `<@&${role.id}>`,
                 );
             const role_list = roles_tag; // .join(' \u200B')
             let max = false;
@@ -94,24 +94,24 @@ module.exports = {
                 role_list.pop();
                 max = true;
             }
-            const list = role_list.join(' \u200B') + `${ max ? '...還有更多' : '' }`;
+            const list = role_list.join(' \u200B') + `${max ? '...還有更多' : ''}`;
 
             embed = new MessageEmbed()
                 .setTitle('成員資訊')
                 .setDescription('\`\`\`身分組\`\`\`')
                 .setAuthor({
-                    name: `${ member.nickname ?
+                    name: `${member.nickname ?
                         member.nickname + ' (' + member.user.tag + ')'
-                        : member.user.tag }`,
-                    iconURL: `${ member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL }`,
+                        : member.user.tag}`,
+                    iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`,
                 })
-                .setFooter({ text: `ID: ${ member.user.id }` })
+                .setFooter({ text: `ID: ${member.user.id}` })
                 .setColor(member.displayHexColor)
                 .setTimestamp()
                 .addFields(
                     {
-                        name: `共有 ${ roles_tag.length } 個身分組`,
-                        value: `${ (roles_tag.length != 0) ? list : '沒有身分組！' }`,
+                        name: `共有 ${roles_tag.length} 個身分組`,
+                        value: `${(roles_tag.length != 0) ? list : '沒有身分組！'}`,
                         inline: true,
                     },
                 );
@@ -141,18 +141,18 @@ module.exports = {
                     .setTitle('成員資訊')
                     .setDescription('\`\`\`權限\`\`\`')
                     .setAuthor({
-                        name: `${ member.nickname ?
+                        name: `${member.nickname ?
                             member.nickname + ' (' + member.user.tag + ')'
-                            : member.user.tag }`,
-                        iconURL: `${ member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL }`,
+                            : member.user.tag}`,
+                        iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`,
                     })
-                    .setFooter({ text: `ID: ${ member.user.id }` })
+                    .setFooter({ text: `ID: ${member.user.id}` })
                     .setColor(member.displayHexColor)
                     .setTimestamp()
                     .addFields(
                         {
                             name: '權限 (如果缺少將會嚴重影響機器人的運作！)',
-                            value: `\`\`\`diff\n${ hasPerm ? '+ ' + has_permissions_translate.join('\n+ ') : '' }\n${ hasMiss != [] ? '- ' + missing.join('\n- ') : '' }\`\`\``,
+                            value: `\`\`\`diff\n${hasPerm ? '+ ' + has_permissions_translate.join('\n+ ') : ''}\n${hasMiss != [] ? '- ' + missing.join('\n- ') : ''}\`\`\``,
                             inline: true,
                         },
                     );
@@ -162,18 +162,18 @@ module.exports = {
                     .setTitle('成員資訊')
                     .setDescription('\`\`\`權限\`\`\`')
                     .setAuthor({
-                        name: `${ member.nickname ?
+                        name: `${member.nickname ?
                             member.nickname + ' (' + member.user.tag + ')'
-                            : member.user.tag }`,
-                        iconURL: `${ member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL }`,
+                            : member.user.tag}`,
+                        iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`,
                     })
-                    .setFooter({ text: `ID: ${ member.user.id }` })
+                    .setFooter({ text: `ID: ${member.user.id}` })
                     .setColor(member.displayHexColor)
                     .setTimestamp()
                     .addFields(
                         {
                             name: '權限',
-                            value: `\`\`\`diff\n${ (has_permissions_translate != []) ? '+ ' + has_permissions_translate.join('\n+ ') : '沒有任何權限...oAo|||' }\`\`\``,
+                            value: `\`\`\`diff\n${(has_permissions_translate != []) ? '+ ' + has_permissions_translate.join('\n+ ') : '沒有任何權限...oAo|||'}\`\`\``,
                             inline: true,
                         },
                     );
@@ -183,10 +183,10 @@ module.exports = {
                 const os = require('os');
                 const version = require('./../../../../package.json').version;
                 const humanizeDuration = require('humanize-duration');
-                const uptime = `${ humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+                const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
                     conjunction: ' ',
                     language: 'zh_TW',
-                }) } `;
+                })} `;
 
                 //
                 // Take the first CPU, considering every CPUs have the same specs
@@ -210,53 +210,53 @@ module.exports = {
                     .setTitle('成員資訊')
                     .setDescription('\`\`\`其他\`\`\`')
                     .setAuthor({
-                        name: `${ member.nickname ?
+                        name: `${member.nickname ?
                             member.nickname + ' (' + member.user.tag + ')'
-                            : member.user.tag }`,
-                        iconURL: `${ member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL }`,
+                            : member.user.tag}`,
+                        iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`,
                     })
-                    .setFooter({ text: `ID: ${ member.user.id }` })
+                    .setFooter({ text: `ID: ${member.user.id}` })
                     .setColor(member.displayHexColor)
                     .setTimestamp()
                     .addFields(
                         {
                             name: '版本',
-                            value: `v${ version }`,
+                            value: `v${version}`,
                             inline: true,
                         },
                         {
                             name: 'Node Js',
-                            value: `${ process.version }`,
+                            value: `${process.version}`,
                             inline: true,
                         },
                         {
                             name: 'Discord Js',
-                            value: `${ (await import('discord.js')).version }`,
+                            value: `${(await import('discord.js')).version}`,
                             inline: true,
                         },
                         {
                             name: 'Websocket 延遲:',
-                            value: `${ client.ws.ping }ms`,
+                            value: `${client.ws.ping}ms`,
                             inline: true,
                         },
                         {
                             name: '平台: ',
-                            value: `\`${ process.platform }\``,
+                            value: `\`${process.platform}\``,
                             inline: true,
                         },
                         {
                             name: '記憶體: ',
-                            value: `\`${ (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2) }MB/ ${ (os.totalmem() / 1024 / 1024).toFixed(0) } MB\``,
+                            value: `\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB/ ${(os.totalmem() / 1024 / 1024).toFixed(0)} MB\``,
                             inline: true,
                         },
                         {
                             name: 'CPU:',
-                            value: `${ perc }%`,
+                            value: `${perc}%`,
                             inline: true,
                         },
                         {
                             name: '運行時間:',
-                            value: `${ uptime }`,
+                            value: `${uptime}`,
                             inline: true,
                         },
                     );
@@ -290,25 +290,25 @@ module.exports = {
                     .setTitle('成員資訊')
                     .setDescription('\`\`\`其他\`\`\`')
                     .setAuthor({
-                        name: `${ member.nickname ?
+                        name: `${member.nickname ?
                             member.nickname + ' (' + member.user.tag + ')'
-                            : member.user.tag }`,
-                        iconURL: `${ member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL }`,
+                            : member.user.tag}`,
+                        iconURL: `${member.user.displayAvatarURL({ dynamic: true }) || member.user.avatarURL({ dynamic: true }) || member.user.defaultAvatarURL}`,
                     })
-                    .setFooter({ text: `ID: ${ member.user.id }` })
+                    .setFooter({ text: `ID: ${member.user.id}` })
                     .setColor(member.displayHexColor)
                     .setTimestamp()
                     .addFields(
                         {
                             name: '頭像連結',
-                            value: `[點我](${ member.displayAvatarURL({ dynamic: true, size: 1024 })
+                            value: `[點我](${member.displayAvatarURL({ dynamic: true, size: 1024 })
                                 || member.avatarURL({ dynamic: true, size: 1024 })
-                                || member.user.defaultAvatarURL })`,
+                                || member.user.defaultAvatarURL})`,
                             inline: true,
                         },
                         {
                             name: '橫幅連結',
-                            value: `${ member.user.banner ? `[點我](${ member.user.bannerURL({ dynamic: true, size: 1024 }) })` : '沒有橫幅' }`,
+                            value: `${member.user.banner ? `[點我](${member.user.bannerURL({ dynamic: true, size: 1024 })})` : '沒有橫幅'}`,
                             inline: true,
                         },
                     );

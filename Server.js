@@ -1,23 +1,18 @@
-/** @param {import('./Config.js')} config */
-let config;
+const { Bridge } = require('discord-cross-hosting');
 
-const Cluster = require('discord-hybrid-sharding');
-const ms = require('ms');
-
-//(async () => {
 const fs = require('fs');
 const fetch = require('node-fetch');
-
+//(async () => {
 
 //#region 更新系統
-update().then(() => {
-    run()
-})
+update()
 
 async function update() {
     // 更新系統
     const version = require('./package.json').version;
 
+    /** @param {import('./Config.js')} config */
+    let config;
 
     try {
         config = require('./Config');
@@ -59,13 +54,13 @@ async function update() {
     exports.config = config;
 
     // 檢測更新
-    await fetch('https://raw.githubusercontent.com/Youzi9601/YZBot/master/package.json')
+    fetch('https://raw.githubusercontent.com/Youzi9601/YZBot/master/package.json')
         .then((res) => res.json())
         .then((data) => {
-            if (data.version != version || `${ config.commit }` == 'true') {
+            if (data.version != version || `${config.commit}` == 'true') {
 
                 // 執行自動更新，不跳通知
-                if (`${ config.autoupdate }` == 'true') {
+                if (`${config.autoupdate}` == 'true') {
                     // 下載npm
                     // const exec = require('child_process').exec;
                     // pm2 start bot.js --watch --name "YZB"
@@ -79,7 +74,7 @@ async function update() {
                 } else {
                     console.log('\x1b[32m%s\x1b[0m', '───────────────────────────────機器人更新───────────────────────────────');
                     console.log('\x1b[32m%s\x1b[0m', '新版本: v' + data.version);
-                    console.log('\x1b[32m%s\x1b[0m', `啟動機器人後於Discord輸入 \`${ config.prefix[0] }exec npm run update\` 來更新機器人`);
+                    console.log('\x1b[32m%s\x1b[0m', `啟動機器人後於Discord輸入 \`${config.prefix[0]}exec npm run update\` 來更新機器人`);
                     console.log('\x1b[36m%s\x1b[0m', '檢查提交: https://github.com/Youzi9601/YZBot/commits/master');
                     console.log('\x1b[32m%s\x1b[0m', '───────────────────────────────機器人更新───────────────────────────────');
 
@@ -93,52 +88,24 @@ async function update() {
             console.log('\x1b[31m%s\x1b[0m', err);
         });
 }
-//})
 //#endregion 更新系統
 
 
+const server = new Bridge({
+    port: 4444, // The Port of the Server | Proxy Connection (Replit) needs Port 443
+    authToken: config.hosting.authToken,
+    totalShards: config.hosting.totalShards, // The Total Shards of the Bot or 'auto'
+    totalMachines: config.hosting.totalMachines, // The Total Machines, where the Clusters will run
+    token: config.token,
+});
 
-//#region 主程式
-function run() {
+server.on('debug', console.log);
+server.start();
+server.on('ready', url => {
+    console.log('伺服器已啟動！ >> ' + url);
+    setInterval(() => {
+        server.broadcastEval('this.guilds.cache.size').then(console.log).catch(console.log);
+    }, 10000);
+});
 
-    // 主程式
-    let totalShards;
-    if (config.hosting.totalShards == 'auto') totalShards = 'auto'
-    else totalShards = Math.round(config.hosting.totalShards)
-    const manager = new Cluster.Manager(`${ __dirname }/bot.js`, {
-        totalShards: 'auto',  // 或 'auto' 
-        /// 檢查下面的更多選項
-        shardsPerClusters: 3,
-        // totalClusters: 7,
-        mode: 'process', // you can also choose "worker"
-        token: config.token,
-        // 自動分片設定
-        respawn: true,
-
-
-        restarts: {
-            max: 3,
-            interval: ms('5d'),
-            current: 10000,
-        },
-
-
-        //避免的東西
-        execArgv: ['--trace-warnings'],
-        shardArgs: ['--ansi', '--color'],
-    });
-
-    manager.on('clusterCreate', cluster =>
-        console.log(`\n\n\n\n\n==============================\n啟動> 集群#${ cluster.id } 啟動！\n==============================`)
-    );
-
-    let amount;
-    if (config.sharding.amount == 'auto') amount = 'auto'
-    else amount = Math.round(config.sharding.amount)
-    manager.spawn({
-        amount: 'auto',
-        timeout: -1,
-        delay: ms('7s')
-    });
-}
-    //#endregion 主程式
+//})

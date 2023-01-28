@@ -1,16 +1,22 @@
 orbs: # declare what orbs we are going to use
-  node: circleci/node@5.0.3 # the node orb provides common node-related configuration
+  node: circleci/node@2.0.2 # the node orb provides common node-related configuration
 
 version: 2.1 # using 2.1 provides access to orbs and other features
 
 workflows:
-  總測試:
+  matrix-tests:
     jobs:
       - node/test:
-          name: NodeJS v16.* 測試
-          version: 16.13.1
+          # This is the node version to use for the `cimg/node` tag
+          # Relevant tags can be found on the CircleCI Developer Hub
+          # https://circleci.com/developer/images/image/cimg/node
+          name: npm test
+          version: "16.10"
+          # If you are using yarn, change the line below from "npm" to "yarn"
           pkg-manager: npm
       - node/test:
-          name: NodeJS v17.* 測試
-          version: 17.2.0
-          pkg-manager: npm
+          name: NodeJS v16.* test
+          version: 16.13.1
+      #- node/test:
+      #    name: NodeJS v17.* test
+      #    version: 17.2.0

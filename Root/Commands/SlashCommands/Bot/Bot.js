@@ -1326,7 +1326,7 @@ module.exports = {
      * @param {CommandInteraction} interaction
      * @param {container} container
      */
-    async run(client, interaction, container) {
+    run: async (client, interaction, container) => {
         //#region 命令
         // 取得子指令
         const subcommand = interaction.options.getSubcommand();

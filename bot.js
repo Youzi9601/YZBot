@@ -1,5 +1,6 @@
 const ci = process.env.CI;
 const fs = require('fs');
+const fetch = require('node-fetch');
 
 let config = require('./Config');
 module.exports.config = config;
@@ -12,15 +13,12 @@ module.exports.config = config;
     const chalk = require('chalk');
     const moment = require('moment');
     const Discord = require('discord.js');
+    const Cluster = require('discord-hybrid-sharding');
 
     const path = __dirname;
-	const client = new Discord.Client({
-		/*
-		shards: Cluster.data.SHARD_LIST,
-		// 將生成的分片列表數組
-		shardCount: Cluster.data.TOTAL_SHARDS,
-		// 總分片數
-		*/
+    const client = new Discord.Client({
+        shards: Cluster.data.SHARD_LIST, // 將生成的分片列表數組
+        shardCount: Cluster.data.TOTAL_SHARDS, // 總分片數
         intents: [
             'DIRECT_MESSAGES',
             'DIRECT_MESSAGE_REACTIONS',
@@ -43,6 +41,11 @@ module.exports.config = config;
         // ws可用於讓機器人上線狀態為使用"手機"
         // ws: { properties: { $browser: 'Discord iOS' } },
     });
+
+    client.cluster = new Cluster.Client(client);
+
+    const { Shard } = require('discord-cross-hosting');
+    client.machine = new Shard(client.cluster); // Initialize Cluster
 
     const { DiscordTogether } = require('discord-together');
     client.discordTogether = new DiscordTogether(client);
@@ -74,6 +77,27 @@ module.exports.config = config;
         },
     });
     // require('./Root/Plugins/discord/Giveaway')(client);
+
+    // Distube
+    const Distube = require('distube');
+    const { SoundCloudPlugin } = require('@distube/soundcloud');
+    const { SpotifyPlugin } = require('@distube/spotify');
+    const { YouTubeDLPlugin } = require('@distube/yt-dlp');
+
+    /* eslint new-cap: ["error", { "properties": false }] */
+    client.distube = new Distube.default(client, {
+        youtubeDL: false,
+        leaveOnEmpty: true,
+        emptyCooldown: 180,
+        leaveOnFinish: false,
+        emitNewSongOnly: true,
+        updateYouTubeDL: true,
+        nsfw: true,
+        youtubeCookie: process.env.ytcookie,
+        plugins: [new SoundCloudPlugin(), new SpotifyPlugin(), new YouTubeDLPlugin()],
+    });
+    // require('./Root/Plugins/discord/guild/music')(client);
+
     //
     require('./Root/Plugins/plugins')(client);
     //
@@ -89,8 +113,7 @@ module.exports.config = config;
     );
     //
     client.commands = {};
-	client.events = new Discord.Collection();
-	// [${moment().format("YYYY-MM-DD HH:mm:ss")}] 為時間截
+    client.events = new Discord.Collection(); // [${moment().format("YYYY-MM-DD HH:mm:ss")}] 為時間截
     client.commands.messageCommands = new Discord.Collection();
     client.commands.messageCommands.aliases = new Discord.Collection();
     client.commands.contextMenus = new Discord.Collection();
@@ -109,7 +132,7 @@ module.exports.config = config;
     /*
     if (`${config.autoupdate}` == 'true') {
         const aufg = require('auto-update-from-github');
-
+ 
         aufg({
             git: 'Youzi9601/YZBot', // 遠程git地址
             dir: '.', // 本地路徑
@@ -138,11 +161,11 @@ module.exports.config = config;
     await Handler.loadEvents(client);
 
     // 執行登入
-    if (ci === 'true') {
+    if (ci === 'true')
         console.info(chalk.gray(
             `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
         ) + chalk.red('CI測試事件> ') + 'CI測試進行中...');
-}
+
 
     console.info(
         chalk.gray(
@@ -166,11 +189,10 @@ module.exports.config = config;
     }
 
     // eula 認證
-	if (ci == 'false' || !ci) {
-		// 避免CI測試進入驗證
-        fs.readFile('./eula.txt', function(err, data) {
+    if (ci == 'false' || !ci) { // 避免CI測試進入驗證
+        fs.readFile('./eula.txt', function (err, data) {
             if (err) {
-                fs.writeFile('./eula.txt', '', function() {
+                fs.writeFile('./eula.txt', '', function () {
                 });
                 console.error(
                     chalk.bgRed(
@@ -191,8 +213,7 @@ module.exports.config = config;
                 process.exit(0);
             }
         });
-    }
- else {
+    } else {
         console.info(
             chalk.bgGray.white(
                 '跳過eula檢查......',
@@ -211,8 +232,7 @@ module.exports.config = config;
             },
         ],
         // browser: 'DISCORD IOS',
-		status: 'dnd',
-		// 還沒啟動完成
+        status: 'dnd', // 還沒啟動完成
     });
     console.log(
         chalk.gray(
@@ -291,9 +311,8 @@ module.exports.config = config;
         );
         try {
             require('./Root/Plugins/web/webhook')(client);
-        }
- catch (error) {
-            console.error('錯誤：Port已被占用！(或是不可用)');
+        } catch (error) {
+            console.error('錯誤：Port已被占用！(或是不可用)')
         }
     }
 

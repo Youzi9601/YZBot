@@ -2,7 +2,7 @@
  <img width="100px" src="https://media.discordapp.net/attachments/941663439879802893/947385760183627786/YZB-5.png" align="center" alt="YZB" />
  
  <h2 align="center">[=|  YZB  |=]</h2>
- <h2 align="center">! Djs v13 版本將不再做更新，將會刪除，重做一個 !</h2>
+
  <p align="center"> 一個簡單、有趣、實用的Discord機器人 </p>
  <p align= "center">
  <a href="https://github.com/Youzi9601">
@@ -15,7 +15,7 @@
 >   </p>
 >
 >   <a href="https://nodejs.org/">
->    <img alt="Node.js" src="https://img.shields.io/badge/Node.js-v16.*~v17.*-blue.svg?style=for-the-badge&logo=node.js" /></a>
+>    <img alt="Node.js" src="https://img.shields.io/badge/Node.js-v16.*-blue.svg?style=for-the-badge&logo=node.js" /></a>
 >
 >   <a href="https://www.npmjs.com/">
 >    <img alt="NPM" src="https://img.shields.io/badge/NPM-v16.0.0+-blue.svg?style=for-the-badge&logo=npm" /></a>
@@ -61,8 +61,6 @@
 
 # 目錄
 
-### 注意：目前機器人檔案還是有問題，就算測試通過了，但還是不能使用。
-
 - [介紹](#介紹)
 - [安裝並啟動](#安裝並啟動)
 - [貢獻你的想法](#貢獻你的想法)
@@ -70,7 +68,7 @@
 # 介紹
 
 一個由 Youzi9601 所製作的機器人，
-內有各種管理命令以及其他有趣的小功能。
+內涵各種管理命令以及其他有趣的小功能。
 
 # 安裝並啟動
 
@@ -82,12 +80,14 @@
 
 2. 解壓縮，並於**終端機**執行 `npm install`
 
-3. 將 `Config.example.js` 改成 `Config.js`
+3. 將 `Ex.Config.js` 改成 `Config.js`
 
-4. 將您的機器人設定填入 `Config.js` & `.env` 中 (內有使用說明)
+4. 將您的機器人設定填入 `Config.js` 中 (內有使用說明)
    ( token 以及 Client ID 可以從 <https://discord.com/developers/applications> 找到 )
 
-5. 運行 `Bot.js` (執行 `node bot.js` 或 `node .`) 讓機器人註冊指令並開始運行，此時機器人會上線 (注意：註冊命令需要一些時間！)。
+5. [可選] 如果你想要使用網頁，可以將 `noWeb` 設定為 "null"(無定義) 即可啟用網頁！
+
+6. 運行 `Bot.js` (執行 `node bot.js` 或 `node .`) 讓機器人註冊指令並開始運行，此時機器人會上線 (注意：註冊命令需要一些時間！)。
 
 </details>
 
@@ -136,6 +136,8 @@
 
 # 感謝
 
+
 - 使用這個東西的人
+- HELLSNAKES 的 Music-Slash-Bot
 - 我自己的努力
 - 幫助我的人

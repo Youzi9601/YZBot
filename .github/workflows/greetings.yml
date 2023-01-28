@@ -9,8 +9,8 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/first-interaction@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          issue-message: "如果有其他請求問題可直接到 支援伺服器 (位於Readme.md中) 告訴我們喔！"
-          pr-message: "如果有其他請求問題可直接到 支援伺服器 (位於Readme.md中) 告訴我們喔！"
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: '如果有其他請求問題可直接到 支援伺服器 (位於Readme.md中) 告訴我們喔！'
+        pr-message: '如果有其他請求問題可直接到 支援伺服器 (位於Readme.md中) 告訴我們喔！'

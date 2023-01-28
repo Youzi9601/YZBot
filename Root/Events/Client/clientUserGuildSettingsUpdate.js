@@ -2,21 +2,21 @@ const chalk = require('chalk');
 const moment = require('moment');
 const { log } = require('./../../Utils/log');
 module.exports = {
-	name: 'clientUserGuildSettingsUpdate',
-	once: false,
-	/**
+    name: 'clientUserGuildSettingsUpdate',
+    once: false,
+    /**
      *
      * @param {clientUserGuildSettings} clientUserGuildSettings
      */
-	async run(clientUserGuildSettings) {
-		const discordmsg = {
-			content: '機器人的伺服器設定被更改！',
-		};
-		log(
-			'info',
-			chalk.gray('機器人的伺服器設定被更改！'),
-			true,
-			client,
-			discordmsg);
-	},
+    run: async (clientUserGuildSettings) => {
+        const discordmsg = {
+            content: '機器人的伺服器設定被更改！',
+        };
+        log(
+            'info',
+            chalk.gray('機器人的伺服器設定被更改！'),
+            true,
+            client,
+            discordmsg);
+    },
 };

