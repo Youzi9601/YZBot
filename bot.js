@@ -1,9 +1,17 @@
 const ci = process.env.CI;
 const fs = require('fs');
-
 const config = require('./Config');
 module.exports.config = config;
+// 執行登入
+if (ci === 'true') {
+	console.info(chalk.gray(
+		`[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
+	) + chalk.red('CI測試事件> ') + 'CI測試進行中...');
+	process.exit(0);
+}
 
+
+	
 (async () => {
 	// module.exports = { client, path, config };
 
@@ -162,14 +170,6 @@ module.exports.config = config;
 		) + '讀取事件觸發...',
 	);
 	await Handler.loadEvents(client);
-
-	// 執行登入
-	if (ci === 'true') {
-		console.info(chalk.gray(
-			`[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
-		) + chalk.red('CI測試事件> ') + 'CI測試進行中...');
-		process.exit(0);
-	}
 
 
 	console.info(
