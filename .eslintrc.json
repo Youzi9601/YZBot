@@ -57,7 +57,7 @@
 			}
 		],
 		"no-console": "off",
-		"no-empty-function": "error",
+		"no-empty-function": "off",
 		"no-floating-decimal": "error",
 		"no-inline-comments": "error",
 		"no-lonely-if": "error",
@@ -88,7 +88,7 @@
 			"error",
 			"always"
 		],
-		"prefer-const": "error",
+		"prefer-const": "off",
 		"quotes": [
 			"error",
 			"single"
