@@ -6,7 +6,6 @@ jobs:
   run-linters:
     name: 運行 linters
     runs-on: ubuntu-latest
-
     steps:
       - name: 查看 Git 存儲庫
         uses: actions/checkout@v3
