@@ -18,7 +18,7 @@ module.exports = {
                                 {
                                     dynamic: true,
                                 },
-                            ) })`
+                            ) })`,
                         )
                         .setImage(user.displayAvatarURL(
                             {

@@ -71,12 +71,12 @@ process
         }, 10000);
     });
 
-    ['SIGINT', 'SIGTERM', 'SIGHUP'].forEach(signal => {
+['SIGINT', 'SIGTERM', 'SIGHUP'].forEach(signal => {
 
-        process.on(signal, async () => {
-            console.log(`\n\n關機｜收到 ${ signal } 信號，關閉機器人......`.red);
-            console.log(
-                '───────────────────────────────機器人控制台───────────────────────────────\n'.green,
-            );
-        })
+    process.on(signal, async () => {
+        console.log(`\n\n關機｜收到 ${ signal } 信號，關閉機器人......`.red);
+        console.log(
+            '───────────────────────────────機器人控制台───────────────────────────────\n'.green,
+        );
     })
+})
