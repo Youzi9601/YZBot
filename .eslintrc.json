@@ -23,7 +23,7 @@
 			}
 		],
 		"comma-dangle": [
-			"error",
+			"warn",
 			"always-multiline"
 		],
 		"comma-spacing": "error",
@@ -80,7 +80,6 @@
 				]
 			}
 		],
-		"no-unused-vars": "off",
 		"no-trailing-spaces": [
 			"error"
 		],

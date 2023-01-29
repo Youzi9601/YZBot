@@ -1,6 +1,11 @@
 const fs = require("fs");
 const colors = require("colors");
 
+/**
+ *
+ * @param {import("discord.js").Client} client
+ * @returns "?"
+ */
 module.exports = (client) => {
     console.log(">>> 事件處理程序：".blue);
 
@@ -11,9 +16,9 @@ module.exports = (client) => {
             let pull = require(`../events/${dir}/${file}`);
             if (pull.name) {
                 client.events.set(pull.name, pull);
-                console.log(`[HANDLER - EVENTS] 加載了一個文件： ${pull.name}`.brightGreen)
+                console.log(`[處理 - EVENTS] 加載了一個文件： ${pull.name}`.brightGreen)
             } else {
-                console.log(`[HANDLER - EVENTS] 無法加載文件 ${file}。缺少姓名或別名。`.red)
+                console.log(`[處理 - EVENTS] 無法加載文件 ${file}。缺少姓名或別名。`.red)
                 continue;
             }
 

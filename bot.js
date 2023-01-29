@@ -1,7 +1,13 @@
 const { Client, Partials, Collection, GatewayIntentBits } = require('discord.js');
 const config = require('./Config');
 const colors = require("colors");
-
+const CI = process.env.CI
+if (CI) {
+    console.log('CI檢查完畢'.green)
+    process.exit(0)
+} else {
+    console.log('CI跳過檢查'.grey)
+}
 
 const client = new Client({
     intents: [

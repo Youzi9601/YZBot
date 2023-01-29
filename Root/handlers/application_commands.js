@@ -23,7 +23,7 @@ module.exports = (client, config) => {
 
             if (pull.name, pull.description, pull.type == 1) {
                 client.slash_commands.set(pull.name, pull);
-                console.log(`[HANDLER - SLASH] 加載了一個文件: ${pull.name} (#${client.slash_commands.size})`.brightGreen);
+                console.log(`[處理 - 斜線命令] 加載了一個文件: ${pull.name} (#${client.slash_commands.size})`.brightGreen);
 
                 commands.push({
                     name: pull.name,
@@ -36,7 +36,7 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[HANDLER - SLASH] 無法加載文件 ${file}，缺少模塊名稱值、描述或類型不是 1。`.red)
+                console.log(`[處理 - 斜線命令] 無法加載文件 ${file}，缺少模塊名稱值、描述或類型不是 1。`.red)
                 continue;
             }
         }
@@ -52,7 +52,7 @@ module.exports = (client, config) => {
 
             if (pull.name, pull.type == 2) {
                 client.user_commands.set(pull.name, pull);
-                console.log(`[HANDLER - USER] 加載了一個文件： ${pull.name} (#${client.user_commands.size})`.brightGreen);
+                console.log(`[處理 - 成員] 加載了一個文件： ${pull.name} (#${client.user_commands.size})`.brightGreen);
 
                 commands.push({
                     name: pull.name,
@@ -60,7 +60,7 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[HANDLER - USER] 無法加載文件 ${file}，缺少的模塊名稱值或類型不是 2。`.red)
+                console.log(`[處理 - 成員] 無法加載文件 ${file}，缺少的模塊名稱值或類型不是 2。`.red)
                 continue;
             }
         }
@@ -76,7 +76,7 @@ module.exports = (client, config) => {
 
             if (pull.name, pull.type == 3) {
                 client.message_commands.set(pull.name, pull);
-                console.log(`[HANDLER - MESSAGE] 加載了一個文件：${pull.name} (#${client.user_commands.size})`.brightGreen);
+                console.log(`[處理 - 訊息命令] 加載了一個文件：${pull.name} (#${client.user_commands.size})`.brightGreen);
 
                 commands.push({
                     name: pull.name,
@@ -84,7 +84,7 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[HANDLER - MESSAGE] 無法加載文件 ${file}，缺少的模塊名稱值或類型不是 3。`.red)
+                console.log(`[處理 - 訊息命令] 無法加載文件 ${file}，缺少的模塊名稱值或類型不是 3。`.red)
                 continue;
             }
         }

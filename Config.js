@@ -35,8 +35,6 @@ module.exports = {
         // 請放置網址於下方，用來連接到資料庫
         MongoDB: "",
     },
-    // 語言(可於 ./Root/language 中自訂語言)
-    language: 'zh-TW',
 
     // 機器人訊息命令前綴(訊息觸發，允許多個前綴！)
     // 例: ["前綴1","前綴2"]
@@ -97,56 +95,22 @@ module.exports = {
         status: 'idle',
     },
 
-    // 機器人所需要的所有權限
-    botPermissions: [
-        'CREATE_INSTANT_INVITE',
-        'MODERATE_MEMBERS',
-        'KICK_MEMBERS',
-        'BAN_MEMBERS',
-        'MANAGE_CHANNELS',
-        'MANAGE_WEBHOOKS',
-        'MANAGE_THREADS',
-        'MANAGE_MESSAGES',
-        'VIEW_AUDIT_LOG',
-        'VIEW_CHANNEL',
-        'SEND_MESSAGES',
-        'SEND_TTS_MESSAGES',
-        'EMBED_LINKS',
-        'ADD_REACTIONS',
-        'ATTACH_FILES',
-        'READ_MESSAGE_HISTORY',
-        'USE_EXTERNAL_EMOJIS',
-        'USE_EXTERNAL_STICKERS',
-        'MENTION_EVERYONE',
-        'CHANGE_NICKNAME',
-        'PRIORITY_SPEAKER',
-        'CONNECT',
-        'SPEAK',
-        'REQUEST_TO_SPEAK',
-        'MOVE_MEMBERS',
-        'SEND_MESSAGES_IN_THREADS',
-        'USE_PUBLIC_THREADS',
-        'CREATE_PUBLIC_THREADS',
-        'USE_PRIVATE_THREADS',
-    ],
 
     /**
      *
      * 日誌輸出
      *
      */
-    // 控制台日誌前綴名稱(可為空)
-    console_prefix: process.env.console_prefix || '',
 
     // 控制台日誌文件紀錄天數(單位：天，等同 ./logs/ 的子目錄下的檔案數量｜0 為永久保存紀錄｜過了這時間以後就會自動刪除)
     console_clear: process.env.console_clear || 3,
 
+    /**
+     * 機器人傳輸頻道設定
+    */
+
     // 伺服器邀請 (https://discord.gg/${邀請代碼})
     invite_code: process.env.invite_code || 'Vq3F8DUNzf',
-
-    /**
-    * 機器人傳輸頻道設定
-    */
     // 紀錄伺服器的ID
     ServerID: process.env.serverid || '941663438944469053',
     // 紀錄伺服器的相關頻道
@@ -182,7 +146,6 @@ module.exports = {
     // 網頁
     web: {
         noWeb: process.env.web_noWeb || true,
-        License_ID: process.env.web_License_ID || '726567d8-d7a6-4d8a-bf7c-721d32bc1aa6',
         // 網站位置
         domain: process.env.web_domain || 'http://localhost',
         port: process.env.web_port || 80,
