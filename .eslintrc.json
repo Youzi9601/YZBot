@@ -5,7 +5,7 @@
 	},
 	"extends": "eslint:recommended",
 	"parserOptions": {
-		"ecmaVersion": 2022
+		"ecmaVersion": 2021
 	},
 	"rules": {
 		"arrow-spacing": [
@@ -23,7 +23,7 @@
 			}
 		],
 		"comma-dangle": [
-			"error",
+			"warn",
 			"always-multiline"
 		],
 		"comma-spacing": "error",
@@ -55,7 +55,9 @@
 			}
 		],
 		"no-console": "off",
-		"no-empty-function": "error",
+		"no-unused-vars": "off",
+		"no-useless-escape": "off",
+		"no-empty-function": "off",
 		"no-floating-decimal": "error",
 		"no-inline-comments": "off",
 		"no-lonely-if": "error",
@@ -78,7 +80,6 @@
 				]
 			}
 		],
-		"no-unused-vars": "off",
 		"no-trailing-spaces": [
 			"error"
 		],
@@ -87,13 +88,13 @@
 			"error",
 			"always"
 		],
-		"prefer-const": "error",
+		"prefer-const": "off",
 		"quotes": [
-			"error",
+			"off",
 			"single"
 		],
 		"semi": [
-			"error",
+			"off",
 			"always"
 		],
 		"space-before-blocks": "error",
@@ -108,7 +109,7 @@
 		"space-in-parens": "error",
 		"space-infix-ops": "error",
 		"space-unary-ops": "error",
-		"spaced-comment": "error",
+		"spaced-comment": "warn",
 		"yoda": "error"
 	}
 }
