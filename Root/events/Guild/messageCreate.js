@@ -40,15 +40,7 @@ client.on('messageCreate', async (message) => {
         }
 
         if (command.owner, command.owner == true) {
-            if (config.Users?.OWNERS) {
-                const allowedUsers = [];
-
-                config.Users.OWNERS.forEach(user => {
-                    const fetchedUser = message.guild.members.cache.get(user);
-                    if (!fetchedUser) return allowedUsers.push('*未知使用者#0000*');
-                    allowedUsers.push(`${fetchedUser.user.tag}`);
-                })
-
+            if (config?.developers) {
                 if (!config.Users.OWNERS.some(ID => message.member.id.includes(ID))) {
                     return await message.reply({
                         embeds: [
