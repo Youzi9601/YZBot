@@ -1,8 +1,8 @@
 const db = require('quick.db');
 const humanizeDuration = require('humanize-duration');
-const {EmbedBuilder} = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 
-module.exports = async function (    client, interaction, command) {
+module.exports = async function(client, interaction, command) {
     if (!command.cooldown) return false;
     const interactionType = 'Normal'
     const currentTime = Date.now();

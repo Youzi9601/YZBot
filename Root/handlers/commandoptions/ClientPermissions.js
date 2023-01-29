@@ -1,9 +1,9 @@
 const { translate_Permissions } = require('../../Language/Language');
-const {EmbedBuilder} = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 /**
  *
- * @param {import('discord.js').Client} client 
- * @param {import('discord.js').Integration} interaction 
+ * @param {import('discord.js').Client} client
+ * @param {import('discord.js').Integration} interaction
  */
 module.exports = async function(client, interaction, command) {
     if (!command.clientPermissions) return false;

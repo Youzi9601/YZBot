@@ -13,7 +13,7 @@ client.on('interactionCreate', async (interaction) => {
     // Slash
     if (interaction.isChatInputCommand()) {
         const command = client.slash_commands.get(interaction.commandName);
-        await require('./../../handlers/commandoptions/loadCommandOptions')(client, interaction, config, db,command);
+        await require('./../../handlers/commandoptions/loadCommandOptions')(client, interaction, config, db, command);
 
         if (!command) return;
 

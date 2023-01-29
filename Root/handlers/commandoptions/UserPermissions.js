@@ -1,5 +1,5 @@
 const { config } = require('./../../../bot');
-const {EmbedBuilder} = require('discord.js')
+const { EmbedBuilder } = require('discord.js')
 const { translate_Permissions } = require('../../Language/Language');
 
 module.exports = async function(client, interaction, command) {
