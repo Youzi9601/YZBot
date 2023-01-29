@@ -14,8 +14,8 @@ module.exports = (client, config) => {
     let commands = [];
 
     // Slash commands handler:
+    console.log('[!] 開始加載斜杠命令...'.yellow);
     fs.readdirSync('./Root/commands/slash/').forEach((dir) => {
-        console.log('[!] 開始加載斜杠命令...'.yellow);
         const SlashCommands = fs.readdirSync(`./Root/commands/slash/${dir}`).filter((file) => file.endsWith('.js'));
 
         for (let file of SlashCommands) {
@@ -42,9 +42,9 @@ module.exports = (client, config) => {
         }
     });
 
+    console.log('[!] 開始加載用戶命令...'.yellow);
     // User commands handler:
     fs.readdirSync('./Root/commands/user/').forEach((dir) => {
-        console.log('[!] 開始加載用戶命令...'.yellow);
         const UserCommands = fs.readdirSync(`./Root/commands/user/${dir}`).filter((file) => file.endsWith('.js'));
 
         for (let file of UserCommands) {
@@ -66,9 +66,9 @@ module.exports = (client, config) => {
         }
     });
 
+    console.log('[!] 開始加載消息命令...'.yellow);
     // Message commands handler:
     fs.readdirSync('./Root/commands/message/').forEach((dir) => {
-        console.log('[!] 開始加載消息命令...'.yellow);
         const UserCommands = fs.readdirSync(`./Root/commands/message/${dir}`).filter((file) => file.endsWith('.js'));
 
         for (let file of UserCommands) {

@@ -12,7 +12,7 @@ module.exports = {
     id: "myModal",
     run: async (_client, interaction, _config, _db) => {
 
-        return interaction.reply({
+        return await interaction.reply({
             embeds: [
                 new EmbedBuilder()
                     .setDescription('模式正在工作！這是您輸入的內容：' + interaction.fields.getTextInputValue('something')),

@@ -9,7 +9,7 @@ module.exports = {
         DEFAULT_MEMBER_PERMISSIONS: "SendMessages",
     },
     run: async (client, interaction, config, db) => {
-        return interaction.reply({
+        return await interaction.reply({
             embeds: [
                 new EmbedBuilder()
                     .setDescription(client.ws.ping + "ms!")

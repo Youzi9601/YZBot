@@ -20,7 +20,7 @@ module.exports = {
             ownersARRAY.push(`${fetchedOWNER}`);
         });
 
-        message.reply({ embeds: [
+        await message.reply({ embeds: [
             new EmbedBuilder()
                 .setDescription(`Only owners command! \nOwners: **${ownersARRAY.join(", ")}**`)
                 .setColor("Yellow"),

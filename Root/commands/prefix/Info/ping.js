@@ -9,9 +9,9 @@ module.exports = {
     owner: false,
     run: async (client, message, args, prefix, config, db) => {
 
-        message.reply({ embeds: [
+        await message.reply({ embeds: [
             new EmbedBuilder()
-                .setDescription(`🏓 **Pong!** Client websocket ping: \`${client.ws.ping}\` ms.`)
+                .setDescription(`🏓 **Pong!** 客戶端 websocket ping： \`${client.ws.ping}\` ms.`)
                 .setColor("Green"),
         ] })
 

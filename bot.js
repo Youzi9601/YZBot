@@ -57,7 +57,26 @@ client.login(AuthenticationToken)
     });
 
 // Handle errors:
-process.on('unhandledRejection', async (err, promise) => {
-    console.error(`[ANTI-CRASH] 未處理的拒絕： ${err}`.red);
-    console.error(promise);
-});
+process
+    .on('unhandledRejection', async (err, promise) => {
+        console.error(`[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
+        console.error(promise);
+    })
+    .on('exit', async (code) => {
+        //
+        console.log('\n\n關機｜正在關機...');
+        console.log(`關機｜退出代碼: ${ code }`);
+        setTimeout(() => {
+            // 內部不執行
+        }, 10000);
+    });
+
+    ['SIGINT', 'SIGTERM', 'SIGHUP'].forEach(signal => {
+
+        process.on(signal, async () => {
+            console.log(`\n\n關機｜收到 ${ signal } 信號，關閉機器人......`.red);
+            console.log(
+                '───────────────────────────────機器人控制台───────────────────────────────\n'.green,
+            );
+        })
+    })

@@ -11,11 +11,11 @@ module.exports = {
     run: async (client, interaction, config, db) => {
         const modal = new ModalBuilder()
             .setCustomId('myModal')
-            .setTitle('My Modal');
+            .setTitle('我的模態');
 
         const something = new TextInputBuilder()
             .setCustomId('something')
-            .setLabel("Type anything here")
+            .setLabel("在這裡輸入任何內容")
             .setStyle(TextInputStyle.Short);
 
         const ActionRow = new ActionRowBuilder().addComponents(something);

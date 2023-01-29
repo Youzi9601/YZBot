@@ -52,7 +52,7 @@ client.on('interactionCreate', async (interaction) => {
         const modal = client.modals.get(interaction.customId);
 
         if (!modal) {
-            return interaction.reply({
+            return await interaction.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setDescription('出了點問題……模態處理程序中可能未定義模態 ID。')

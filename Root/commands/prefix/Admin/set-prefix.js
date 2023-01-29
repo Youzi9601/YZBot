@@ -3,37 +3,37 @@ const { EmbedBuilder } = require("discord.js");
 module.exports = {
     config: {
         name: "prefix",
-        description: "Set the prefix for the guild.",
-        usage: "prefix [new prefix]",
+        description: "設置公會的前綴。",
+        usage: "prefix [新前綴]",
     },
     permissions: ['Administrator'],
     owner: false,
     run: async (client, message, args, prefix, config, db) => {
 
         if (!args[0]) {
-            return message.reply({ embeds: [
+            return await message.reply({ embeds: [
                 new EmbedBuilder()
-                    .setTitle("Missing argument")
-                    .setDescription("Please provide a new prefix!"),
+                    .setTitle("缺少參數")
+                    .setDescription("請提供一個新的前綴！"),
             ] });
         }
 
         if (args[0].length > 5) {
-            return message.reply({ embeds: [
+            return await message.reply({ embeds: [
                 new EmbedBuilder()
-                    .setTitle("Missing argument")
-                    .setDescription("Sorry, but the new prefix's length should be not over 5 characters!"),
+                    .setTitle("缺少參數")
+                    .setDescription("抱歉，新前綴的長度不能超過 5 個字符！"),
             ] });
         }
 
         const newPrefix = await db.set(`guild_prefix_${message.guild.id}`, args[0]);
 
         const finalEmbed = new EmbedBuilder()
-            .setTitle("Success!")
-            .setDescription(`New prefix for this server: \`${newPrefix}\`.`)
+            .setTitle("成功！")
+            .setDescription(`此伺服器的新前綴： \`${newPrefix}\`.`)
             .setColor("Green");
 
-        return message.reply({ embeds: [finalEmbed] });
+        return await message.reply({ embeds: [finalEmbed] });
 
     },
 };

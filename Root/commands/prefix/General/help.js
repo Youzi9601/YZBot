@@ -11,7 +11,7 @@ module.exports = {
     run: async (client, message, args, prefix) => {
         const commands = client.prefix_commands.map(command => `${prefix}${command.config.name}`);
 
-        return message.reply(
+        return await message.reply(
             {
                 embeds: [
                     new EmbedBuilder()

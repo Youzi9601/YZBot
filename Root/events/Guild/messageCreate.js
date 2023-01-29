@@ -29,7 +29,7 @@ client.on('messageCreate', async (message) => {
     if (command) {
         if (command.permissions) {
             if (!message.member.permissions.has(PermissionsBitField.resolve(command.permissions || []))) {
-                return message.reply({
+                return await message.reply({
                     embeds: [
                         new EmbedBuilder()
                             .setDescription(`🚫抱歉，您無權使用此命令。`)
@@ -50,7 +50,7 @@ client.on('messageCreate', async (message) => {
                 })
 
                 if (!config.Users.OWNERS.some(ID => message.member.id.includes(ID))) {
-                    return message.reply({
+                    return await message.reply({
                         embeds: [
                             new EmbedBuilder()
                                 .setDescription(`🚫 抱歉，只有開發者可以使用此命令！`)

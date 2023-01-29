@@ -11,7 +11,7 @@ module.exports = {
     run: async (client, message, args, prefix, config, db) => {
 
         if (!args[0]) {
-            return message.reply({
+            return await message.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setDescription("Please provide a command name.")
@@ -23,7 +23,7 @@ module.exports = {
         const command = client.prefix_commands.get(args[0].toLowerCase());
 
         if (!command) {
-            return message.reply({
+            return await message.reply({
                 embeds: [
                     new EmbedBuilder()
                         .setDescription("Sorry, but that command doesn't exists.")
@@ -32,7 +32,7 @@ module.exports = {
             });
         }
 
-        return message.reply({
+        return await message.reply({
             embeds: [
                 new EmbedBuilder()
                     .setTitle(`Command Information: ${command.config.name.toUpperCase()}`)

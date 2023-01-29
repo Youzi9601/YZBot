@@ -9,14 +9,14 @@
 	},
 	"rules": {
 		"arrow-spacing": [
-			"error",
+			"warn",
 			{
 				"before": true,
 				"after": true
 			}
 		],
 		"brace-style": [
-			"error",
+			"warn",
 			"1tbs",
 			{
 				"allowSingleLine": true
@@ -26,30 +26,30 @@
 			"warn",
 			"always-multiline"
 		],
-		"comma-spacing": "error",
-		"comma-style": "error",
+		"comma-spacing": "warn",
+		"comma-style": "warn",
 		"dot-location": [
-			"error",
+			"warn",
 			"property"
 		],
 		"handle-callback-err": "off",
 		"indent": [
-			"error",
+			"warn",
 			4
 		],
-		"keyword-spacing": "error",
+		"keyword-spacing": "warn",
 		"linebreak-style": [
-			"error",
+			"warn",
 			"windows"
 		],
 		"max-nested-callbacks": [
-			"error",
+			"warn",
 			{
 				"max": 6
 			}
 		],
 		"max-statements-per-line": [
-			"error",
+			"warn",
 			{
 				"max": 2
 			}
@@ -58,12 +58,12 @@
 		"no-unused-vars": "off",
 		"no-useless-escape": "off",
 		"no-empty-function": "off",
-		"no-floating-decimal": "error",
+		"no-floating-decimal": "warn",
 		"no-inline-comments": "off",
-		"no-lonely-if": "error",
-		"no-multi-spaces": "error",
+		"no-lonely-if": "warn",
+		"no-multi-spaces": "warn",
 		"no-multiple-empty-lines": [
-			"error",
+			"warn",
 			{
 				"max": 2,
 				"maxEOF": 1,
@@ -71,7 +71,7 @@
 			}
 		],
 		"no-shadow": [
-			"error",
+			"warn",
 			{
 				"allow": [
 					"err",
@@ -81,11 +81,11 @@
 			}
 		],
 		"no-trailing-spaces": [
-			"error"
+			"warn"
 		],
 		"no-var": "off",
 		"object-curly-spacing": [
-			"error",
+			"warn",
 			"always"
 		],
 		"prefer-const": "off",
@@ -97,19 +97,19 @@
 			"off",
 			"always"
 		],
-		"space-before-blocks": "error",
+		"space-before-blocks": "warn",
 		"space-before-function-paren": [
-			"error",
+			"warn",
 			{
 				"anonymous": "never",
 				"named": "never",
 				"asyncArrow": "always"
 			}
 		],
-		"space-in-parens": "error",
-		"space-infix-ops": "error",
-		"space-unary-ops": "error",
+		"space-in-parens": "warn",
+		"space-infix-ops": "warn",
+		"space-unary-ops": "warn",
 		"spaced-comment": "warn",
-		"yoda": "error"
+		"yoda": "warn"
 	}
 }
