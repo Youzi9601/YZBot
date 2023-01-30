@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>登入｜YZB 控制台</title>
+    <link rel="stylesheet" href="./../css/login-style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="form-box">
+        <img src="./../assets/YZB.png" class="avatar" />
+        <div class="button-box">
+          <div id="btn"></div>
+          <button type="button" class="toggle-btn" onclick="login()">
+            登入
+          </button>
+          <button type="button" class="toggle-btn" onclick="register()">
+            註冊
+          </button>
+        </div>
+        <div id="login" class="input-group" action="">
+          <!-- Discord 登入，請輸入到以下網址 -->
+          <a
+            class="discord-btn"
+            href="https://discord.com/api/oauth2/authorize?client_id=923159129432940544&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2Fdiscord-auth&response_type=code&scope=identify"
+          >
+            用 Discord 登入
+          </a>
+          <script>
+            function generateRandomString() {
+              let randomString = "";
+              const randomNumber = Math.floor(Math.random() * 10);
+
+              for (let i = 0; i < 20 + randomNumber; i++) {
+                randomString += String.fromCharCode(
+                  33 + Math.floor(Math.random() * 94)
+                );
+              }
+
+              return randomString;
+            }
+
+            window.onload = () => {
+              const fragment = new URLSearchParams(
+                window.location.hash.slice(1)
+              );
+              const [accessToken, tokenType, state] = [
+                fragment.get("access_token"),
+                fragment.get("token_type"),
+                fragment.get("state"),
+              ];
+
+              if (!accessToken) {
+                const randomString = generateRandomString();
+                localStorage.setItem("oauth-state", randomString);
+
+                document.getElementById(
+                  "login"
+                ).href += `&state=${encodeURIComponent(btoa(randomString))}`;
+                return (document.getElementById("login").style.display =
+                  "block");
+              }
+
+              if (
+                localStorage.getItem("oauth-state") !==
+                atob(decodeURIComponent(state))
+              ) {
+                return console.log("您可能被點擊劫持了！");
+              }
+
+              fetch("https://discord.com/api/users/@me", {
+                headers: {
+                  authorization: `${tokenType} ${accessToken}`,
+                },
+              })
+                .then((result) => result.json())
+                .then((response) => {
+                  const { username, discriminator } = response;
+                  document.getElementById(
+                    "info"
+                  ).innerText += ` ${username}#${discriminator}`;
+                })
+                .catch(console.error);
+            };
+          </script>
+          <!-- Discord 登入 -->
+          <p align="center">或</p>
+          <input
+            id="login_username"
+            type="text"
+            class="input-field"
+            placeholder="名稱"
+            required
+          />
+          <input
+            id="login_password"
+            type="password"
+            class="input-field"
+            placeholder="輸入密碼"
+            required
+          />
+          <input type="checkbox" class="check-box" /><span>記住我?</span>
+          <button id="login_submit" type="submit" class="submit-btn">
+            登入
+          </button>
+          <script></script>
+        </div>
+        <div id="register" class="input-group" action="">
+          <input
+            id="register_username"
+            type="email"
+            class="input-field"
+            placeholder="Email 帳號"
+            required
+          />
+          <input
+            id="register_password"
+            type="password"
+            class="input-field"
+            placeholder="密碼"
+            required
+          />
+          <input type="checkbox" class="check-box" /><span
+            >我同意此服務政策與隱私條款</span
+          >
+          <button id="register_submit" type="submit" class="submit-btn">
+            註冊
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      // 這是登入&註冊的動畫
+      var x = document.getElementById("login");
+      var y = document.getElementById("register");
+      var z = document.getElementById("btn");
+      function register() {
+        x.style.left = "-400px";
+        y.style.left = "50px";
+        z.style.left = "110px";
+      }
+      function login() {
+        x.style.left = "50px";
+        y.style.left = "450px";
+        z.style.left = "0";
+      }
+
+      // 取得資料
+      async function postData(url = " ", data = {}) {
+        // 預設的選項被標記為 *
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        return response.json();
+      }
+      // #region 登入
+      // 登入的動作
+      let login_form = document.getElementById("login_submit");
+      // 進行按鈕監聽
+      login_form.addEventListener("click", () => {
+        let username = document.getElementById("login_username").value;
+        let password = document.getElementById("login_password").value;
+        console.log("登入帳號密碼：", username, password);
+      });
+      // #endregion 登入
+      // #region 註冊
+      let register_form = document.getElementById("register_submit");
+      // 進行按鈕監聽
+      register_form.addEventListener("click", () => {
+        let username = document.getElementById("register_username").value;
+        let password = document.getElementById("register_password").value;
+        console.log("註冊帳號密碼：", username, password);
+      });
+      // #endregion 註冊
+    </script>
+  </body>
+  <body>
+    <noscript>你需要使用Js才可啟用此html</noscript>
+    <div id="root"></div>
+  </body>
+</html>
