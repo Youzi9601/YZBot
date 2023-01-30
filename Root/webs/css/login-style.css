@@ -110,10 +110,11 @@
   background: linear-gradient(to right, #7289da, #6a5acd);
   border: 0;
   outline: none;
+  font-weight: bold;
   border-radius: 30px;
   text-align: center;
   text-decoration: none;
-  color: #000000;
+  color: #ffffff;
 }
 .discord-btn:hover {
   width: 80%;
@@ -129,6 +130,10 @@
   text-align: center;
   text-decoration: none;
   color: #ffffff;
+}
+.delete-line {
+  text-decoration: line-through;
+  color: #000000;
 }
 
 span {
