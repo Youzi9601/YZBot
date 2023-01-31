@@ -18,10 +18,43 @@
           </button>
         </div>
         <div id="login" class="input-group" action="">
+          <div id="login-error-msg-holder">
+            <script defer src="./../js/login.js"></script>
+            <p id="login-error-msg">無效的 用戶名 或 密碼</p>
+          </div>
+          <script>
+            const loginErrorMsg = document.getElementById("login-error-msg");
+//先取得網址字串，假設此頁網址為
+var url = location.href;
+//再來用去尋找網址列中是否有資料傳遞(QueryString)
+if(url.indexOf('?')!=-1)
+{
+    var err = "";
+    //在此直接將各自的參數資料切割放進ary中
+    var ary = url.split('?')[1].split('&');
+    //此時ary的內容為：
+    //ary[0] = 'err=true'
+    
+    //下迴圈去搜尋每個資料參數
+    for(i=0;i<=ary.length-1;i++)
+    {
+        //如果資料名稱為id的話那就把他取出來
+        if(ary[i].split('=')[0] == 'err')
+            err = ary[i].split('=')[1];
+    }
+    
+    if (err == 'true') {
+      loginErrorMsg.style.opacity = 1;
+      loginErrorMsg.style.visibility = 'visible'
+
+    }
+}
+          
+          </script>
           <!-- Discord 登入，請輸入到以下網址 -->
           <a
             class="discord-btn"
-            href="https://discord.com/api/oauth2/authorize?client_id=923159129432940544&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2Fdiscord-auth&response_type=code&scope=identify"
+            href="./login/discord"
             ><img
               src="./../assets/discord.png"
               width="20"
@@ -45,6 +78,7 @@
               return randomString;
             }
 
+            // 讀取資料
             window.onload = () => {
               const fragment = new URLSearchParams(
                 window.location.hash.slice(1)
@@ -89,13 +123,10 @@
             };
           </script>
           <!-- 或者 -->
-          <p align="center">
-            <a class="delete-line">　　　　　　　</a>　或　<a
-              class="delete-line"
-              >　　　　　　　</a
-            >
+          <p class="login_or">
+            <hr>
           </p>
-          <!-- Discord 登入 -->
+          <!-- 非DC登入 -->
           <input
             id="login_username"
             type="text"
@@ -110,11 +141,10 @@
             placeholder="輸入密碼"
             required
           />
-          <input type="checkbox" class="check-box" /><span>記住我?</span>
+          <input type="checkbox" class="check-box" /><span class="check-box-text">記住我?</span>
           <button id="login_submit" type="submit" class="submit-btn">
             登入
           </button>
-          <script></script>
         </div>
         <div id="register" class="input-group" action="">
           <input
@@ -157,7 +187,8 @@
       }
 
       // 取得資料
-      async function postData(url = " ", data = {}) {
+      async function postData(url = "", data = {}) {
+        console.log(url,data)
         // 預設的選項被標記為 *
         const response = await fetch(url, {
           method: "POST",
@@ -166,25 +197,38 @@
           },
           body: JSON.stringify(data),
         });
-        return response.json();
+        let res_data = await response.json()
+        return res_data;
       }
       // #region 登入
       // 登入的動作
       let login_form = document.getElementById("login_submit");
       // 進行按鈕監聽
-      login_form.addEventListener("click", () => {
+      login_form.addEventListener("click",async () => {
         let username = document.getElementById("login_username").value;
         let password = document.getElementById("login_password").value;
         console.log("登入帳號密碼：", username, password);
+        let resp = await postData('/login',{user: username, password: password,isregister: false})
+        if (resp.success == true) {
+        } else {
+          alert('錯誤：' + resp.errormsg)
+        }
       });
       // #endregion 登入
       // #region 註冊
       let register_form = document.getElementById("register_submit");
       // 進行按鈕監聽
-      register_form.addEventListener("click", () => {
+      register_form.addEventListener("click", async () => {
         let username = document.getElementById("register_username").value;
         let password = document.getElementById("register_password").value;
         console.log("註冊帳號密碼：", username, password);
+        let resp = await postData('/login',{user: username, password: password,isregister: true})
+        if (resp.success == true) {
+          await alert('成功註冊！現在可以登入了！')
+          window.location.href = "./login";
+        } else {
+          alert('錯誤：' + resp.errormsg)
+        }
       });
       // #endregion 註冊
     </script>

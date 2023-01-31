@@ -9,7 +9,7 @@ module.exports = {
      * // 敘述內容
      * 設定名稱: process.env.設定名稱(我們預設的) || "您要填寫的內容"
      * (process.env.設定名稱 的設定檔案位在 ".env" 檔案裡面！)
-	 * 部分設定會希望放在".env"中，以免重要的密鑰等訊息遭到濫用！
+     * 部分設定會希望放在".env"中，以免重要的密鑰等訊息遭到濫用！
      *
      * 建議：
      * 可多加利用 伺服器->設定->整合->機器人整合
@@ -149,7 +149,15 @@ module.exports = {
         // 網站位置
         domain: process.env.web_domain || 'http://localhost',
         port: process.env.web_port || 80,
+        // 網站的連結
+        links: {
+            github: 'https://github.com/Youzi9601',
+            discord: 'https://discord.gg/HKekqu9hWW',
+            discordAuthLoginUrl: 'https://discord.com/oauth2/authorize?client_id=923159129432940544&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2Fdiscord-auth&response_type=code&scope=identify%20guilds%20applications.commands.permissions.update%20email',
+            discordbotinvite: 'https://discord.com/api/oauth2/authorize?client_id=923159129432940544&permissions=543312702935&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2Fdiscord-auth&scope=bot%20applications.commands',
+        },
     },
+
     /**
      * Webhook 投票推播
      */
@@ -164,8 +172,8 @@ module.exports = {
     },
 
     /**
-    * 雜項
-    */
+        * 雜項
+        */
 
     // 調整時差
     // 在GMT-8區為"-8",在GMT+8為"8"
@@ -183,15 +191,15 @@ module.exports = {
 
 
     /**
-     *
-     * 分片系統(允許跨主機使用同一個機器人/減少機器人過多的執行問題)
-     *
-     * *注意：這是一個危險的功能！
-     * 用於：2000個伺服器以上的機器人
-     * 需要：至少2台主機(一台為主要核心，
-     * 另一台為機器人執行專案，機器人執行專案可以多個，但需要互相呼叫。)
-     *
-     */
+         *
+         * 分片系統(允許跨主機使用同一個機器人/減少機器人過多的執行問題)
+         *
+         * *注意：這是一個危險的功能！
+         * 用於：2000個伺服器以上的機器人
+         * 需要：至少2台主機(一台為主要核心，
+         * 另一台為機器人執行專案，機器人執行專案可以多個，但需要互相呼叫。)
+         *
+         */
     hosting: {
         ip: process.env.hosting_ip || 'localhost',
         // 主核心的port
@@ -211,10 +219,10 @@ module.exports = {
 
 
     /**
-     *
-     * 開發(測試)版本
-     * // 這功能絕大部分都不能使用！
-     */
+         *
+         * 開發(測試)版本
+         * // 這功能絕大部分都不能使用！
+         */
     beta: {
         // RPC為Discord遊戲狀態顯示系統，目前為測試版
         rpc: {

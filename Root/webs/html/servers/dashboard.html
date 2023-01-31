@@ -2,30 +2,77 @@
 <html>
   <head>
     <title>伺服器｜YZB 控制台</title>
+    <div id="image"></div>
+    <link rel="stylesheet" href="./../css/dashboard.css" />
   </head>
   <body>
+    <img id="avatar" src="#" class="avatar" />
+    <div id="usernames">成員名稱</div>
     <script>
-      async function postData(url = "", data = {}) {
-        // Default options are marked with *
-        const response = await fetch(url, {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          mode: "cors", // no-cors, *cors, same-origin
-          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: "same-origin", // include, *same-origin, omit
-          headers: {
-            "Content-Type": "application/json",
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          redirect: "follow", // manual, *follow, error
-          referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-          body: JSON.stringify(data), // body data type must match "Content-Type" header
-        });
-        return response.json(); // parses JSON response into native JavaScript objects
-      }
+      window.onload = () => {
+        function getCookie(cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(";");
+          for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == " ") {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+            }
+          }
+          return "";
+        }
 
-      postData("https://example.com/answer", { answer: 42 }).then((data) => {
-        console.log(data); // JSON data parsed by `data.json()` call
-      });
+        let user = getCookie("userdata");
+        console.log(user);
+        console.log(user.id);
+        const { username, discriminator, avatar, id } = user;
+        //set the welcome username string
+        document.getElementById(
+          "usernames"
+        ).innerText = ` ${username}#${discriminator}`;
+
+        //set the avatar image by constructing a url to access discord's cdn
+        document.getElementById(
+          "avatar"
+        ).src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.jpg`;
+        /*
+        
+        const fragment = new URLSearchParams(window.location.hash.slice(1));
+        const [accessToken, tokenType] = [
+          fragment.get("access_token"),
+          fragment.get("token_type"),
+        ];
+
+        if (!accessToken) {
+          window.location.href("/");
+        }
+
+        fetch("https://discord.com/api/users/@me", {
+          headers: {
+            authorization: `${tokenType} ${accessToken}`,
+          },
+        })
+          .then((result) => result.json())
+          .then((response) => {
+            console.log(response);
+            const { username, discriminator, avatar, id } = user;
+            //set the welcome username string
+            document.getElementById(
+              "usernames"
+            ).innerText = ` ${username}#${discriminator}`;
+
+            //set the avatar image by constructing a url to access discord's cdn
+            document.getElementById(
+              "avatar"
+            ).src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.jpg`;
+          })
+          .catch(console.error);
+          */
+      };
     </script>
   </body>
 </html>
