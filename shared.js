@@ -1,6 +1,7 @@
 const { ShardingManager } = require('discord.js');
 const config = require('./Config')
 const CI = process.env.CI
+
 if (CI) {
     console.log('分片 >>> CI檢查完畢'.green)
     process.exit(0)

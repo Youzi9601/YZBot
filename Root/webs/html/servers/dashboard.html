@@ -2,33 +2,45 @@
 <html>
   <head>
     <title>伺服器｜YZB 控制台</title>
-    <div id="image"></div>
-    <link rel="stylesheet" href="./../css/dashboard.css" />
-  </head>
-  <body>
-    <img id="avatar" src="#" class="avatar" />
-    <div id="usernames">成員名稱</div>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./../../css/bootstrap.min.css" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
     <script>
+      //      $(document).ready()
       window.onload = () => {
         function getCookie(cname) {
-          var name = cname + "=";
-          var decodedCookie = decodeURIComponent(document.cookie);
-          var ca = decodedCookie.split(";");
-          for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
+          let name = cname + "=";
+          let ca = document.cookie.split(";");
+          for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
             while (c.charAt(0) == " ") {
               c = c.substring(1);
             }
             if (c.indexOf(name) == 0) {
-              return c.substring(name.length, c.length);
+              return JSON.parse(c.substring(name.length, c.length));
             }
           }
           return "";
         }
 
-        let user = getCookie("userdata");
-        console.log(user);
-        console.log(user.id);
+        // #region userdata
+        // let user = getCookie("userdata");
+        let user = JSON.parse(sessionStorage.getItem("userdata"));
+
         const { username, discriminator, avatar, id } = user;
         //set the welcome username string
         document.getElementById(
@@ -40,39 +52,217 @@
           "avatar"
         ).src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.jpg`;
         /*
-        
-        const fragment = new URLSearchParams(window.location.hash.slice(1));
-        const [accessToken, tokenType] = [
-          fragment.get("access_token"),
-          fragment.get("token_type"),
+
+              const fragment = new URLSearchParams(window.location.hash.slice(1));
+              const [accessToken, tokenType] = [
+                fragment.get("access_token"),
+                fragment.get("token_type"),
+              ];
+
+              if (!accessToken) {
+                window.location.href("/");
+              }
+
+              fetch("https://discord.com/api/users/@me", {
+                headers: {
+                  authorization: `${tokenType} ${accessToken}`,
+                },
+              })
+              .then((result) => result.json())
+              .then((response) => {
+                  console.log(response);
+                  const { username, discriminator, avatar, id } = user;
+                  //set the welcome username string
+                  document.getElementById(
+                    "usernames"
+                  ).innerText = ` ${username}#${discriminator}`;
+
+                  //set the avatar image by constructing a url to access discord's cdn
+                  document.getElementById(
+                    "avatar"
+                  ).src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.jpg`;
+                })
+                .catch(console.error);
+                */
+        // #endregion userdata
+
+        // #region guilddata
+        // Retrieve data from local storage
+        let guilds = JSON.parse(sessionStorage.getItem("userguilds"));
+        // Use retrieved data
+        // console.log(userGuilddata);
+
+        const owo_guilds = [
+          {
+            name: "柚子Youzi 大本營",
+            id: "849809683085525032",
+            icon: "a_a0bad54732c79cc4e86b6964c9e32ae4",
+          },
+          // add more guild objects here
         ];
 
-        if (!accessToken) {
-          window.location.href("/");
+        const container = document.getElementById("guilds-container");
+
+        for (let i = 0; i < guilds.length; i++) {
+          const guild = guilds[i];
+
+          const guildContainer = document.createElement("div");
+          guildContainer.innerHTML = `
+        <div class="guild-card-container">
+          <a href="./dashboard/${guild.id}">
+          <div class="guild-card">
+          <img src="${
+            guild.icon
+              ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.jpg`
+              : `https://via.placeholder.com/80x80/2C2F33/FFFFFF?text=${guild.name.slice(
+                  0,
+                  2
+                )}`
+          }" size="80" radius="40" alt="Logo of ${guild.name}">
+            <div class="guild-container">
+              <div class="guild-name">${guild.name}</div>
+              <div class="guild-position">${guild.position}</div>
+            </div>
+          </div>
+          </a>
+        </div>
+  `;
+
+          container.appendChild(guildContainer);
         }
 
-        fetch("https://discord.com/api/users/@me", {
-          headers: {
-            authorization: `${tokenType} ${accessToken}`,
-          },
-        })
-          .then((result) => result.json())
-          .then((response) => {
-            console.log(response);
-            const { username, discriminator, avatar, id } = user;
-            //set the welcome username string
-            document.getElementById(
-              "usernames"
-            ).innerText = ` ${username}#${discriminator}`;
-
-            //set the avatar image by constructing a url to access discord's cdn
-            document.getElementById(
-              "avatar"
-            ).src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.jpg`;
-          })
-          .catch(console.error);
-          */
+        // #endregion guilddata
       };
     </script>
+  </head>
+  <body>
+    <div class="main">
+      <!-- Navbar -->
+      <link rel="stylesheet" href="./../../css/dashboard.css" />
+      <div class="navbar navbar-expand-md bg-dark navbar-dark">
+        <link rel="stylesheet" href="./../../css/home.css" />
+
+        <div class="container">
+          <a href="#" class="navbar-brand text-info">YZB 機器人網站</a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainmenu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="mainmenu">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+                <a href="#Features" class="nav-link">特色</a>
+              </li>
+              <li class="nav-item">
+                <a href="#Statics" class="nav-link">狀態</a>
+              </li>
+              <li class="nav-item"><a href="#FAQ" class="nav-link">FAQ</a></li>
+              <li class="nav-item">
+                <a href="./home/commands" class="nav-link">命令</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="linksdrop"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  >連結</a
+                >
+                <ul class="dropdown-menu bg-dark" aria-labelledby="linksdrop">
+                  <li>
+                    <a class="dropdown-item text-muted" href="./home/invite_bot"
+                      >邀請</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-muted" href="./home/github"
+                      >Github</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item text-muted" href="./home/discord"
+                      >支持服務器</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <li class="navbar-nav nav-item">
+              <a href="./logout" class="btn btn-outline-info">登出</a>
+            </li>
+          </div>
+        </div>
+      </div>
+
+      <!-- 內容 -->
+      <div id="servers">
+        <br />
+        <div class="wrapper-usercard">
+          <div class="usercard">
+            <div id="image" class="usercard-image">
+              <img id="avatar" src="#" class="avatar" />
+            </div>
+            <div id="usernames" class="usercard-names">成員名稱</div>
+          </div>
+        </div>
+        <!-- 列表 -->
+        <br />
+        <div class="server-list-text">伺服器列表</div>
+        <div>
+          <ul id="guilds-container"></ul>
+        </div>
+        <br />
+      </div>
+
+      <!-- footer -->
+      <div class="footer">
+        <div class="footer-clean bg-dark">
+          <footer>
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-sm-4 col-md-3 item">
+                  <h3>關於</h3>
+                  <ul>
+                    <li><a href="./home/commands">命令</a></li>
+                    <li><a href="#">團隊</a></li>
+                    <li><a href="#">執照</a></li>
+                  </ul>
+                </div>
+                <div class="col-sm-4 col-md-3 item">
+                  <h3>連結</h3>
+                  <ul>
+                    <li><a href="./home/discord">支持服務器</a></li>
+                    <li><a href="./home/invite_bot">邀請機器人</a></li>
+                    <li><a href="./home/github">Github</a></li>
+                  </ul>
+                </div>
+                <div class="col-lg-3 item social">
+                  <a href="./home/discord"
+                    ><ion-icon name="logo-discord"></ion-icon
+                  ></a>
+                  <p class="copyright">YZB © 2023</p>
+                </div>
+              </div>
+            </div>
+            <div class="page-footer font-small text-light mt-5">
+              <div class="footer-copyright text-center">
+                由 <a href="https://github.com/Youzi9601/">Youzi9601</a>
+                製作 © 2023 版權
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+      <script src="./js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </div>
   </body>
 </html>

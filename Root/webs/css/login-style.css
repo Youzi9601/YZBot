@@ -11,7 +11,7 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: local;
   position: absolute;
   font-family: sans-serif;
 }
@@ -33,16 +33,18 @@
   background: rgba(255, 255, 255, 0.808);
   padding: 5px;
   overflow: hidden;
+  animation: fadeIn 1.5s;
 }
+
 .button-box {
   width: 220px;
   margin: 130px auto;
   position: relative;
-  box-shadow: 0 0 20px 9px #ff61241f;
+  box-shadow: 0 0 20px 9px #ff2b241f;
   border-radius: 30px;
 }
 .toggle-btn {
-  padding: 10px 30px;
+  padding: 10px 40px;
   cursor: pointer;
   background: transparent;
   border: 0;
@@ -55,9 +57,12 @@
   position: absolute;
   width: 110px;
   height: 100%;
-  background: linear-gradient(to right, #ff105f, #ffad06);
+  background: linear-gradient(to right, #ffaec9, #1d4ac46b);
   border-radius: 30px;
   transition: 0.5s;
+  text-align: center;
+  font-weight: bold;
+  font-size: 10px;
 }
 .input-group {
   top: 180px;
@@ -72,7 +77,7 @@
 }
 .input-group [type="submit"]:hover {
   cursor: pointer;
-  background: linear-gradient(to right, #da4e35, #b5c908);
+  background: linear-gradient(to right, #ffaec9, #1d4ac46b);
   color: #ffffff;
 }
 .input-field {
@@ -92,10 +97,11 @@
   cursor: pointer;
   display: block;
   margin: auto;
-  background: linear-gradient(to right, #ff105f, #ffad06);
+  background: linear-gradient(to right, #ffaec9, #1d4ac46b);
   border: 0;
   outline: none;
   border-radius: 30px;
+  animation: fadeIn 5s;
 }
 .check-box {
   margin: 30px 10px 30px 10px;
@@ -115,6 +121,7 @@
   text-align: center;
   text-decoration: none;
   color: #ffffff;
+  animation: fadeIn 0.5s;
 }
 .discord-btn:hover {
   width: 80%;
@@ -147,30 +154,49 @@
 #login {
   left: 50px;
 }
-#login-error-msg-holder {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  justify-items: center;
-  align-items: center;
-}
-#login-error-msg {
-  width: 100%;
-  text-align: center;
-  margin: 0;
-  padding: 5px;
-  font-size: 12px;
-  font-weight: bold;
-  color: #8a0000;
-  border: 1px solid #8a0000;
-  background-color: #e58f8f;
-  opacity: 0;
-  visibility: hidden;
-}
-#error-msg-second-line {
-  display: block;
-}
-
 #register {
   left: 450px;
+}
+
+/* The alert message box */
+.login-error-msg {
+  padding: 15px;
+  background-color: #f44336;
+  color: white;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

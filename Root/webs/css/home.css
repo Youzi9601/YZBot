@@ -101,3 +101,33 @@ hr {
   /* Microsoft Edge */
   color: rgb(219, 219, 219);
 }
+
+.main {
+  animation: fadeIn 0.7s;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url(./../assets/background.jpg);
+}
+.container {
+  animation: fadeIn 3s;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

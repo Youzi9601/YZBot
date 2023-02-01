@@ -18,37 +18,35 @@
           </button>
         </div>
         <div id="login" class="input-group" action="">
-          <div id="login-error-msg-holder">
-            <script defer src="./../js/login.js"></script>
-            <p id="login-error-msg">無效的 用戶名 或 密碼</p>
+          <div class="login-error-msg">
+              <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+              無效的 用戶名 或 密碼
           </div>
           <script>
             const loginErrorMsg = document.getElementById("login-error-msg");
-//先取得網址字串，假設此頁網址為
-var url = location.href;
-//再來用去尋找網址列中是否有資料傳遞(QueryString)
-if(url.indexOf('?')!=-1)
-{
-    var err = "";
-    //在此直接將各自的參數資料切割放進ary中
-    var ary = url.split('?')[1].split('&');
-    //此時ary的內容為：
-    //ary[0] = 'err=true'
+            document.querySelector('.login-error-msg').style.display = 'none';
+            //先取得網址字串
+            var url = location.href;
+            //再來用去尋找網址列中是否有資料傳遞(QueryString)
+            if(url.indexOf('?')!=-1){
+                var err = "";
+                //在此直接將各自的參數資料切割放進ary中
+                var ary = url.split('?')[1].split('&');
+                //此時ary的內容為：
+               //ary[0] = 'err=true'
     
-    //下迴圈去搜尋每個資料參數
-    for(i=0;i<=ary.length-1;i++)
-    {
-        //如果資料名稱為id的話那就把他取出來
-        if(ary[i].split('=')[0] == 'err')
-            err = ary[i].split('=')[1];
-    }
+                //下迴圈去搜尋每個資料參數
+                for(i=0;i<=ary.length-1;i++)
+                {
+                    //如果資料名稱為id的話那就把他取出來
+                   if(ary[i].split('=')[0] == 'err')
+                        err = ary[i].split('=')[1];
+                }
     
-    if (err == 'true') {
-      loginErrorMsg.style.opacity = 1;
-      loginErrorMsg.style.visibility = 'visible'
-
-    }
-}
+                if (err == 'true') {
+                  document.querySelector('.login-error-msg').style.display = 'block';
+                }
+            }
           
           </script>
           <!-- Discord 登入，請輸入到以下網址 -->
@@ -153,6 +151,7 @@ if(url.indexOf('?')!=-1)
             class="input-field"
             placeholder="Email 帳號"
             required
+            disabled
           />
           <input
             id="register_password"
@@ -160,12 +159,13 @@ if(url.indexOf('?')!=-1)
             class="input-field"
             placeholder="密碼"
             required
+            disabled
           />
           <input type="checkbox" class="check-box" /><span
             >我同意此服務政策與隱私條款</span
           >
-          <button id="register_submit" type="submit" class="submit-btn">
-            註冊
+          <button id="register_submit" type="submit" class="submit-btn" disabled>
+            註冊 (現在不開放)
           </button>
         </div>
       </div>

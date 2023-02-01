@@ -1,6 +1,6 @@
-/* eslint-disable no-undef */
 const express = require('express');
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const { request } = require('undici');
 
 const { QuickDB } = require('quick.db')
@@ -25,9 +25,12 @@ const config = require('./Config');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use('/', express.static(__dirname + '/Root/webs/'))
 
+
 // 架設資料庫
+app
     /**
      * @INFO 網頁
      */
@@ -82,9 +85,12 @@ app.use('/', express.static(__dirname + '/Root/webs/'))
 // #region API
 // discord auth 的認證用畫面
 app
-    .get('/discord-auth', async ({ query }, res) => {
-        const { code } = query;
-        let userdata;
+    .get('/discord-auth', async (req, res) => {
+        const { code } = req.query;
+        // console.log(req.body)
+
+        let userdata = {};
+        let userGuilddata = [];
 
         if (code) {
             try {
@@ -110,36 +116,89 @@ app
                         authorization: `${ oauthData.token_type } ${ oauthData.access_token }`,
                     },
                 });
+                const userGuildsResult = await request('https://discord.com/api/users/@me/guilds', {
+                    headers: {
+                        authorization: `${ oauthData.token_type } ${ oauthData.access_token }`,
+                    },
+                })
 
                 userdata = await userResult.body.json()
-                console.log(oauthData.guild)
-                console.log(userdata);
+                userGuilddata = await userGuildsResult.body.json()
+                // 處理資料(特殊標籤&要求權限)
+
+                userGuilddata = userGuilddata
+                    .filter(guild => (
+                        guild.owner == true ||
+                        hasPermission(guild.permissions, 8) ||
+                        hasPermission(guild.permissions, 32)))
+                    .map(guild => (
+                        {
+                            id: guild.id,
+                            name: guild.name,
+                            permissions: guild.permissions,
+                            icon: guild.icon,
+                            owner: guild.owner,
+                            position: (guild.owner ? '所有者' : (hasPermission(guild.permissions, 8) ? '管理者' : '管理員')),
+                        }))
+
             } catch (error) {
                 // NOTE: 未經授權的令牌不會拋出錯誤
                 // tokenResponseData.statusCode will be 401
                 console.error(error);
                 return res.redirect('/login?err=true')
-
             }
+            // 傳送資料並返回dashboard
+            // 儲存
+            // res.setHeader('userguilds', `userGuilddata=${encodeURIComponent(JSON.stringify(userGuilddata))};`);
+            // console.log(userdata)
+            // console.log(userGuilddata)
+            await setCookie('userdata', userdata, 2)
+            return res.send(`
+    <html>
+      <head>
+        <script>
+          // Save data to local storage
+          sessionStorage.setItem('userdata', JSON.stringify(${JSON.stringify(userdata)}));
+          // let data = JSON.parse(sessionStorage.getItem('userdata'));
+          sessionStorage.setItem('userguilds', JSON.stringify(${JSON.stringify(userGuilddata)}));
+          // let data = JSON.parse(sessionStorage.getItem('userguilds'));
+         
+          // console.log(data)
+          setTimeout(function() {
+        window.location.href = "./dashboard";
+      }, 500);
+          </script>
+      </head>
+      <body>
+        YZB 的檔案暫時儲存區。
+      </body>
+    </html>
+  `);
+            // 轉網址
+        } else {
+            return res.redirect('/login?err=true')
         }
 
         // 處離傳回用資料
-        function setCookie(cname, cvalue, exdays) {
-            let d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            let expires = "expires=" + d.toUTCString();
-            res.cookie(cname, JSON.stringify(cvalue), { maxAge:exdays });
+        function hasPermission(permissions, permissionFlag) {
+            return (permissions & permissionFlag) === permissionFlag;
         }
-        setCookie('userdata', userdata, 30)
-        // 轉網址
-        return res.redirect('/dashboard')
+        async function setCookie(cname, cvalue, exdays) {
+            res.cookie(cname, JSON.stringify(cvalue), {
+                expires: new Date(Date.now() + (exdays * 24 * 60 * 60 * 1000)),
+                path: '/',
+                encode: String,
+                maxAge: (exdays * 60 * 60 * 24),
+            });
+        }
+
     })
     // discord 伺服器加入機器人
     .get('/guild-oauth', async ({ query }, res) => {
         return res.redirect(`/dashboard/` + '伺服器ID')
     })
     .post('/login', async (req, res) => {
-        console.log(req.body)
+        // console.log(req.body)
 
         /*
         if (req.body) {
@@ -149,6 +208,13 @@ app
         */
 
     })
+
+// 處理404 (最後放置)
+app.get('*', (req, res) => {
+    return res.status(404).sendFile('/Root/webs/html/pages/404.html', { root: __dirname })
+});
+
+
 // #endregion API
 // 監聽&上線
 app.listen(config.web.port, () => console.log(`應用程序監聽 ${ config.web.domain }:${ config.web.port }`));
