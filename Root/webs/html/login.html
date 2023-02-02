@@ -6,6 +6,22 @@
   </head>
   <body>
     <div class="main">
+      <div class="use-cookie-alert">
+        <span class="closebtn" onclick="alert_close()">&times;</span>
+        登入後代表你同意使用 Cookie 以及其相關使用政策。
+      </div>
+      <script>
+        var close = document.getElementsByClassName("closebtn");
+        var i;
+
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function(){
+            var div = this.parentElement;
+            div.style.opacity = "0";
+            setTimeout(function(){ div.style.display = "none"; }, 600);
+          }
+        }
+</script>
       <div class="form-box">
         <img src="./../assets/YZB.png" class="avatar" />
         <div class="button-box">

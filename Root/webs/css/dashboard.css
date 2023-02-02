@@ -47,6 +47,10 @@
   align-self: center;
 }
 
+.guilds-list {
+  align-items: center;
+  margin: 5px;
+}
 .guild-container {
   width: 500px;
   overflow: auto;

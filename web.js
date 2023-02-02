@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session')
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const { request } = require('undici');
@@ -27,6 +28,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/', express.static(__dirname + '/Root/webs/'))
+
+app.use(session({
+    secret: `YZB-DiscordUser`,
+    name: 'user', // optional
+    saveUninitialized: false,
+    resave: true,
+}));
 
 
 // 架設資料庫
@@ -64,9 +72,20 @@ app
     .get('/login/discord', (req, res) => {
         res.redirect(config.web.links.discordAuthLoginUrl)
     })
+    .get('/logout', (req, res) => {
+        res.clearCookie()
+        req.session.cookie.expires = new Date(Date.now() + 1000);
+        req.session.cookie.maxAge = 1000;
+        req.session.user = null
+        req.session.save()
+        res.redirect('/home')
+    })
 
     // 控制台
     .get('/dashboard', (req, res) => {
+        if (!req.session.user) {
+            return res.redirect('/login/discord')
+        }
         res.sendFile('Root/webs/html/servers/dashboard.html', { root: __dirname });
     })
     .get('/dashboard/' + ':GuildID', (req, res) => {
@@ -123,6 +142,10 @@ app
                 })
 
                 userdata = await userResult.body.json()
+                req.session.cookie.expires = new Date(Date.now() + 60 * 60 * 1000);
+                req.session.cookie.maxAge = 60 * 60 * 1000;
+                req.session.user = userdata.id
+                req.session.save()
                 userGuilddata = await userGuildsResult.body.json()
                 // 處理資料(特殊標籤&要求權限)
 
@@ -152,7 +175,7 @@ app
             // res.setHeader('userguilds', `userGuilddata=${encodeURIComponent(JSON.stringify(userGuilddata))};`);
             // console.log(userdata)
             // console.log(userGuilddata)
-            await setCookie('userdata', userdata, 2)
+            // await setCookie('userdata', userdata, 2)
             return res.send(`
     <html>
       <head>
@@ -166,11 +189,11 @@ app
           // console.log(data)
           setTimeout(function() {
         window.location.href = "./dashboard";
-      }, 500);
+      }, 100);
           </script>
       </head>
       <body>
-        YZB 的檔案暫時儲存區。
+        YZB 處理中...
       </body>
     </html>
   `);
