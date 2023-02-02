@@ -7,7 +7,7 @@ const superDjs = require("super-djs");
  * @returns "?"
  */
 module.exports = (client) => {
-    console.log(superDjs.colourText('[DATABASE] 正在連接到 MongoDB...', 'yellow'));
+    console.log(superDjs.colourText(`[#${client.shard.ids}]  ` + '[DATABASE] 正在連接到 MongoDB...', 'yellow'));
     const mongo = process.env.MongoDB || config.database.MongoDB;
 
     if (!mongo) {

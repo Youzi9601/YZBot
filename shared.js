@@ -8,10 +8,13 @@ if (CI) {
 } else {
     console.log('分片系統 >>> CI跳過檢查'.gray)
 }
+
 const manager = new ShardingManager('./bot.js',
     {
+        shardArgs: ['--ansi', '--color'],
+        execArgv: ['--trace-warnings'],
         token: config.bot.token,
-        totalShards: 'auto',
+        totalShards: isNaN(config.sharding.amount) ? 'auto' : Number(config.sharding.amount),
         respawn: true,
     },
 );

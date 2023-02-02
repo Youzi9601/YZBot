@@ -105,7 +105,9 @@
 
         for (let i = 0; i < guilds.length; i++) {
           const guild = guilds[i];
-
+          guild.hasbot = guild.botincludes == "true" ? "已加入" : "未加入";
+          guild.hasbot_color =
+            guild.botincludes == "true" ? "#5cf35d" : "#f44b4b";
           const guildContainer = document.createElement("div");
           guildContainer.innerHTML = `
         <div class="guild-card-container">
@@ -121,7 +123,12 @@
           }" size="80" radius="40" alt="Logo of ${guild.name}">
             <div class="guild-container">
               <div class="guild-name">${guild.name}</div>
-              <div class="guild-position">${guild.position}</div>
+              <div class="guild-tags">
+                <div class="guild-botincludes" style="background-color: ${
+                  guild.hasbot_color
+                };">${guild.hasbot}</div>
+                <div class="guild-position">${guild.position}</div>
+              </div>
             </div>
           </div>
           </a>

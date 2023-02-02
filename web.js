@@ -149,7 +149,16 @@ module.exports = (client) => {
                         },
                     })
                     // 取得機器人資料
-                    client.shard.fetchClientValues('guilds.cache.size').then(console.log);
+                    const clientguilds = await client.shard
+                        .fetchClientValues('guilds.cache')
+                        .then(guilds => {
+                            return guilds
+                        })
+                        .catch(e => {
+                            console.error(`[#${ client.shard.ids }]  網站擷取機器人所有伺服器時發生了錯誤：`)
+                            console.error(e)
+                        });
+                    const guildIds = [].concat(...clientguilds.map(guildArray => guildArray.map(guild => ({ id: guild.id }))));
 
 
                     // 處理資料
@@ -162,9 +171,8 @@ module.exports = (client) => {
                     userGuilddata = await userGuildsResult.body.json()
 
                     // 處理資料(特殊標籤&要求權限)
-                    userGuilddata = userGuilddata
-                        .filter(guild => (
-                            guild.owner == true ||
+                    userGuilddata = userGuilddata.filter(guild => (
+                        guild.owner == true ||
                         hasPermission(guild.permissions, 8) ||
                         hasPermission(guild.permissions, 32)))
                         .map(guild => (
@@ -175,8 +183,9 @@ module.exports = (client) => {
                                 icon: guild.icon,
                                 owner: guild.owner,
                                 position: (guild.owner ? '所有者' : (hasPermission(guild.permissions, 8) ? '管理者' : '管理員')),
+                                botincludes: (guildIds.some(g => g.id === guild.id) ? 'true' : 'false'),
                             }))
-
+                    userGuilddata.sort((a, b) => (a.botincludes === 'true' ? 0 : 1) - (b.botincludes === 'true' ? 0 : 1));
                 } catch (error) {
                 // NOTE: 未經授權的令牌不會拋出錯誤
                 // tokenResponseData.statusCode will be 401

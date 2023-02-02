@@ -17,7 +17,7 @@ module.exports = (client, config) => {
         let pull = require(`../modals/${file}`);
         if (pull.id) {
             client.modals.set(pull.id, pull);
-            console.log(`[#${client.shard.ids}]  [處理 - MODALS] 加載了一個文件: ${file}`.brightGreen)
+            console.log(`[#${client.shard.ids}]  [處理 - MODALS] 加載了一個文件: ${file} (#${client.modals.size})`.brightGreen)
         } else {
             console.log(`[#${client.shard.ids}]  [處理 - MODALS] 無法加載文件 ${file}。缺少模式 ID。`.red)
             continue;
