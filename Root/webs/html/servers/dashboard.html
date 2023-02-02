@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>伺服器｜YZB 控制台</title>
+    <title>Disocrd 機器人 | YZB 伺服器列表</title>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,6 +19,7 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
+
     <script>
       //      $(document).ready()
       window.onload = () => {
@@ -92,15 +93,6 @@
         // Use retrieved data
         // console.log(userGuilddata);
 
-        const owo_guilds = [
-          {
-            name: "柚子Youzi 大本營",
-            id: "849809683085525032",
-            icon: "a_a0bad54732c79cc4e86b6964c9e32ae4",
-          },
-          // add more guild objects here
-        ];
-
         const container = document.getElementById("guilds-container");
 
         for (let i = 0; i < guilds.length; i++) {
@@ -111,7 +103,18 @@
           const guildContainer = document.createElement("div");
           guildContainer.innerHTML = `
         <div class="guild-card-container">
-          <a href="./dashboard/${guild.id}">
+          <a id="guild-url" onclick="
+              if ('${guild.botincludes}' === 'true') {
+                window.location.href = '${"/dashboard/" + guild.id}';
+              } else {
+                document.cookie = 'dashboard_guildid=${
+                  guild.id
+                }; expires=${new Date(Date.now() + 10 * 60 * 1000)}; path=/';
+                window.location.href = '${
+                  guild.url + "&disable_guild_select=true&guild_id=" + guild.id
+                }'
+              }
+            ">
           <div class="guild-card">
           <img src="${
             guild.icon
@@ -209,6 +212,25 @@
         </div>
       </div>
 
+      <div class="guild-oauth-failed">
+        錯誤：無法取得機器人所加入的伺服器(或許是關閉了授權?)
+        <span class="closebtn" onclick="alert_close()">&times;</span>
+      </div>
+      <script>
+        var close = document.getElementsByClassName("closebtn");
+        var i;
+
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function () {
+            var div = this.parentElement;
+            div.style.opacity = "0";
+            setTimeout(function () {
+              div.style.display = "none";
+            }, 600);
+          };
+        }
+      </script>
+
       <!-- 內容 -->
       <div id="servers">
         <br />
@@ -228,6 +250,31 @@
         </div>
         <br />
       </div>
+      <script>
+        const loginErrorMsg = document.getElementById("guild-oauth-failed");
+        document.querySelector(".guild-oauth-failed").style.display = "none";
+        //先取得網址字串
+        var url = location.href;
+        //再來用去尋找網址列中是否有資料傳遞(QueryString)
+        if (url.indexOf("?") != -1) {
+          var err = "";
+          //在此直接將各自的參數資料切割放進ary中
+          var ary = url.split("?")[1].split("&");
+          //此時ary的內容為：
+          //ary[0] = 'err=true'
+
+          //下迴圈去搜尋每個資料參數
+          for (i = 0; i <= ary.length - 1; i++) {
+            //如果資料名稱為id的話那就把他取出來
+            if (ary[i].split("=")[0] == "err") err = ary[i].split("=")[1];
+          }
+
+          if (err == "true") {
+            document.querySelector(".guild-oauth-failed").style.display =
+              "block";
+          }
+        }
+      </script>
 
       <!-- footer -->
       <div class="footer">

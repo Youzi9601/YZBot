@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="../css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../css/style.css" rel="stylesheet" />
-    <link href="../css/commands.css" rel="stylesheet" />
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/commands.css" rel="stylesheet" />
+    <!-- <link href="../../css/home.css" rel="stylesheet" /> -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
@@ -19,8 +19,8 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
-    <link rel="shortcut icon" href="../img/" type="image/x-icon" />
-    <title>Aris Bot</title>
+    <link rel="shortcut icon" href="../../assets/" type="image/x-icon" />
+    <title>Disocrd 機器人 | YZB 命令列表</title>
   </head>
 
   <body>
@@ -28,7 +28,7 @@
 
     <div class="navbar navbar-expand-md bg-dark navbar-dark">
       <div class="container">
-        <a href="../index.html" class="navbar-brand text-info">Aris Bot</a>
+        <a href="#" class="navbar-brand text-info">YZB 機器人網站</a>
 
         <button
           class="navbar-toggler"
@@ -42,7 +42,14 @@
         <div class="collapse navbar-collapse" id="mainmenu">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-              <a href="../index.html" class="nav-link">Home</a>
+              <a href="./home#Features" class="nav-link">特色</a>
+            </li>
+            <li class="nav-item">
+              <a href="./home#Statics" class="nav-link">狀態</a>
+            </li>
+            <li class="nav-item"><a href="#FAQ" class="nav-link">FAQ</a></li>
+            <li class="nav-item">
+              <a href="./home/commands" class="nav-link">命令</a>
             </li>
             <li class="nav-item dropdown">
               <a
@@ -52,25 +59,35 @@
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-                >Links</a
+                >連結</a
               >
               <ul class="dropdown-menu bg-dark" aria-labelledby="linksdrop">
-                <li><a class="dropdown-item text-muted" href="#">Invite</a></li>
-                <li><a class="dropdown-item text-muted" href="#">Github</a></li>
                 <li>
-                  <a class="dropdown-item text-muted" href="#"
-                    >Support Server</a
+                  <a class="dropdown-item text-muted" href="./home/invite_bot"
+                    >邀請</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item text-muted" href="./home/github"
+                    >Github</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item text-muted" href="./home/discord"
+                    >支持服務器</a
                   >
                 </li>
               </ul>
             </li>
           </ul>
           <li class="navbar-nav nav-item">
-            <a href="#" class="btn btn-outline-info">Login</a>
+            <a href="./login" class="btn btn-outline-info">登錄</a>
           </li>
         </div>
       </div>
     </div>
+
+    <!-- info -->
 
     <div class="container">
       <section style="margin-top: 9%">
@@ -419,43 +436,41 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-sm-4 col-md-3 item">
-              <h3>Quick access</h3>
+              <h3>快速訪問</h3>
               <ul>
-                <li><a href="#Features">Features</a></li>
-                <li><a href="#Statics">Statics</a></li>
-                <li><a href="#FAQ">Ask me</a></li>
+                <li><a href="./home#Features">特色</a></li>
+                <li><a href="./home#Statics">狀態</a></li>
+                <li><a href="./home#FAQ">問題</a></li>
               </ul>
             </div>
             <div class="col-sm-4 col-md-3 item">
-              <h3>About</h3>
+              <h3>關於</h3>
               <ul>
-                <li><a href="./pages/commands.html">Commands</a></li>
-                <li><a href="#">Team</a></li>
-                <li><a href="#">License</a></li>
+                <li><a href="./home/commands">命令</a></li>
+                <li><a href="#">團隊</a></li>
+                <li><a href="#">執照</a></li>
               </ul>
             </div>
             <div class="col-sm-4 col-md-3 item">
-              <h3>Links</h3>
+              <h3>連結</h3>
               <ul>
-                <li><a href="#">Support server</a></li>
-                <li><a href="#">Invite bot</a></li>
-                <li><a href="#">Github</a></li>
+                <li><a href="./home/discord">支持服務器</a></li>
+                <li><a href="./home/invite_bot">邀請機器人</a></li>
+                <li><a href="./home/github">Github</a></li>
               </ul>
             </div>
             <div class="col-lg-3 item social">
-              <a href="#"><ion-icon name="logo-discord"></ion-icon></a
-              ><a href="#"><ion-icon name="logo-facebook"></ion-icon></a
-              ><a href="#"><ion-icon name="logo-twitter"></ion-icon></a
-              ><a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-              <p class="copyright">Aris Bot © 2022</p>
+              <a href="./home/discord"
+                ><ion-icon name="logo-discord"></ion-icon
+              ></a>
+              <p class="copyright">YZB © 2023</p>
             </div>
           </div>
         </div>
         <div class="page-footer font-small text-light mt-5">
           <div class="footer-copyright text-center">
-            Made with 💖 by
-            <a href="https://github.com/Hadi-koubeissi/">Hadi Koubeissi</a>
-            © 2022 Copyright
+            由 <a href="https://github.com/Youzi9601/">Youzi9601</a>
+            製作 © 2023 版權
           </div>
         </div>
       </footer>

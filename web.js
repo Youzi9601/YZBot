@@ -96,7 +96,8 @@ module.exports = (client) => {
             res.sendFile('Root/webs/html/servers/dashboard.html', { root: __dirname });
         })
         .get('/dashboard/' + ':GuildID', (req, res) => {
-            res.send('目前還在架設中...')
+            const guildID = req.params.GuildID;
+            res.send(`這是${guildID}伺服器的控制面板。目前還在架設中...`)
         // res.sendFile('Root/webs/html/servers.html', { root: __dirname });
         })
     // 管理員後台
@@ -184,6 +185,7 @@ module.exports = (client) => {
                                 owner: guild.owner,
                                 position: (guild.owner ? '所有者' : (hasPermission(guild.permissions, 8) ? '管理者' : '管理員')),
                                 botincludes: (guildIds.some(g => g.id === guild.id) ? 'true' : 'false'),
+                                url: (guildIds.some(g => g.id === guild.id) ? undefined : config.web.links.discordbotinvite),
                             }))
                     userGuilddata.sort((a, b) => (a.botincludes === 'true' ? 0 : 1) - (b.botincludes === 'true' ? 0 : 1));
                 } catch (error) {
@@ -211,7 +213,7 @@ module.exports = (client) => {
          
           // console.log(data)
           setTimeout(function() {
-        window.location.href = "./dashboard";
+        window.location.href = "./dashboard/";
       }, 100);
           </script>
       </head>
@@ -240,8 +242,22 @@ module.exports = (client) => {
 
         })
     // discord 伺服器加入機器人
-        .get('/guild-oauth', async ({ query }, res) => {
-            return res.redirect(`/dashboard/` + '伺服器ID')
+        .get('/guild-oauth', async (req, res) => {
+            const { code } = req.query;
+            // console.log(req.body)
+            const guildid = req.query.guild_id;
+            if (code) {
+                // 傳送資料並返回dashboard
+                // 儲存
+                // res.setHeader('userguilds', `userGuilddata=${encodeURIComponent(JSON.stringify(userGuilddata))};`);
+                // console.log(userdata)
+                // console.log(userGuilddata)
+                // await setCookie('userdata', userdata, 2)
+                return res.redirect(`/dashboard/${guildid}`)
+            // 轉網址
+            } else {
+                return res.redirect('/dashboard?err=true')
+            }
         })
         .post('/login', async (req, res) => {
         // console.log(req.body)

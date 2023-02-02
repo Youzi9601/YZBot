@@ -58,7 +58,7 @@ module.exports = {
             github: 'https://github.com/Youzi9601',
             discord: 'https://discord.gg/HKekqu9hWW',
             discordAuthLoginUrl: 'https://discord.com/oauth2/authorize?client_id=923159129432940544&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2Fdiscord-auth&response_type=code&scope=identify%20guilds%20applications.commands.permissions.update%20email',
-            discordbotinvite: 'https://discord.com/api/oauth2/authorize?client_id=923159129432940544&permissions=543312702935&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2Fdiscord-auth&scope=bot%20applications.commands',
+            discordbotinvite: 'https://discord.com/api/oauth2/authorize?client_id=923159129432940544&permissions=543312702935&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2Fguild-oauth&response_type=code&scope=identify%20bot%20applications.commands',
         },
     },
 
