@@ -3,10 +3,8 @@ const config = require('./Config');
 const colors = require("colors");
 const CI = process.env.CI
 if (CI) {
-    console.log('CI檢查完畢'.green)
+    console.log(`[#${client.shard.ids}]  [#${client.shard.ids}] ` + 'CI檢查完畢')
     process.exit(0)
-} else {
-    console.log('CI跳過檢查'.grey)
 }
 
 const client = new Client({
@@ -27,10 +25,11 @@ const client = new Client({
     ],
 });
 
+
 // Getting the bot token:
 const AuthenticationToken = process.env.token || config.bot.token;
 if (!AuthenticationToken) {
-    console.warn("[CRASH] 需要 Discord 機器人的身份驗證令牌！使用 Envrionment Secrets 或 config.js。".red)
+    console.warn(`` + "[CRASH] 需要 Discord 機器人的身份驗證令牌！使用 Envrionment Secrets 或 config.js。".red)
     return process.exit();
 }
 
@@ -51,21 +50,20 @@ module.exports = client;
 // Login to the bot:
 client.login(AuthenticationToken)
     .catch((err) => {
-        console.error("[CRASH] 連接到您的機器人時出了點問題...");
-        console.error("[CRASH] 來自 Discord API 的錯誤：" + err);
+        console.error(`[#${client.shard.ids}]  ` + "[CRASH] 連接到您的機器人時出了點問題...");
+        console.error(`[#${client.shard.ids}]  ` + "[CRASH] 來自 Discord API 的錯誤：" + err);
         return process.exit();
     });
 
 // Handle errors:
 process
     .on('unhandledRejection', async (err, promise) => {
-        console.error(`[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
+        console.error(`[#${client.shard.ids}]  ` + `[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
         console.error(promise);
     })
     .on('exit', async (code) => {
         //
-        console.log('\n\n關機｜正在關機...');
-        console.log(`關機｜退出代碼: ${ code }`);
+        console.log(`[#${client.shard.ids}]  關機｜退出代碼: ${ code }`);
         setTimeout(() => {
             // 內部不執行
         }, 10000);
@@ -74,9 +72,14 @@ process
 ['SIGINT', 'SIGTERM', 'SIGHUP'].forEach(signal => {
 
     process.on(signal, async () => {
-        console.log(`\n\n關機｜收到 ${ signal } 信號，關閉機器人......`.red);
+        console.log(`[#${client.shard.ids}]  \n\n關機｜收到 ${ signal } 信號，關閉機器人......`);
         console.log(
-            '───────────────────────────────機器人控制台───────────────────────────────\n'.green,
+            `` + '───────────────────────────────機器人控制台───────────────────────────────\n',
         );
     })
 })
+
+// start the web (如果分片編號是0)
+if (client.shard.ids == 0) {
+    require('./web')(client)
+}

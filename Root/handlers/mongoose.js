@@ -11,7 +11,7 @@ module.exports = (client) => {
     const mongo = process.env.MongoDB || config.database.MongoDB;
 
     if (!mongo) {
-        console.warn("[WARN] 未提供 Mongo URI/URL！ （不需要）");
+        console.warn(`[#${client.shard.ids}]  ` + "[WARN] 未提供 Mongo URI/URL！ （不需要）");
     } else {
         superDjs.connectMongoDB(mongo, true, superDjs.colourText('[DATABASE] 連接到 MongoDB！', 'green'));
     }

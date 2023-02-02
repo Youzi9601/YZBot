@@ -7,12 +7,11 @@
     "node": "^16.x"
   },
   "scripts": {
-    "start": "echo \">>>>>> 啟動機器人！<<<<<<\" && node bot.js",
-    "shared": "echo \">>>>>> 啟動分片！<<<<<<\" && node shared.js",
+    "start": "echo \">>>>>> 啟動分片！<<<<<<\" && node shared.js",
     "exit": "echo \"Error: 沒作用\" && exit 0",
-    "test": "CI=true node --trace-deprecation bot.js",
+    "test": "CI=true node --trace-deprecation shared.js",
     "webpack": "webpack -d -w",
-    "updates": "npm i && echo \"開始更新\" && node Root/Utils/UpdateBot",
+    "updates": "npm i && echo \"開始更新\"",
     "lint": "eslint .",
     "dev": "npm i -g npm-check-updates eslint",
     "check": "npm run update && npm run lint",

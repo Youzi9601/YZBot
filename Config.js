@@ -30,6 +30,39 @@ module.exports = {
         clientSECRET: process.env.clientSECRET,
     },
 
+
+    /**
+         *
+         * 分片系統(使用同一個機器人但為伺服器分區，減少機器人過多的執行問題)
+         *
+         * *注意：這必須使用！
+         * 用於：2000個伺服器以上的機器人
+         *
+         */
+    sharding: {
+        // 生成數量(預設自動)
+        amount: process.env.sharding_amount || '2',
+    },
+
+    /**
+    * 網頁
+    */
+    // 網頁
+    web: {
+        noWeb: process.env.web_noWeb || true,
+        // 網站位置
+        domain: process.env.web_domain || 'http://localhost',
+        port: process.env.web_port || 80,
+        // 網站的連結
+        links: {
+            github: 'https://github.com/Youzi9601',
+            discord: 'https://discord.gg/HKekqu9hWW',
+            discordAuthLoginUrl: 'https://discord.com/oauth2/authorize?client_id=923159129432940544&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2Fdiscord-auth&response_type=code&scope=identify%20guilds%20applications.commands.permissions.update%20email',
+            discordbotinvite: 'https://discord.com/api/oauth2/authorize?client_id=923159129432940544&permissions=543312702935&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2Fdiscord-auth&scope=bot%20applications.commands',
+        },
+    },
+
+
     // 資料庫
     database: {
         // 請放置網址於下方，用來連接到資料庫
@@ -140,23 +173,6 @@ module.exports = {
         // 是否報告 Discord debug 除錯訊息
         debug: process.env.console_console_debug || false,
     },
-    /**
-    * 網頁
-    */
-    // 網頁
-    web: {
-        noWeb: process.env.web_noWeb || true,
-        // 網站位置
-        domain: process.env.web_domain || 'http://localhost',
-        port: process.env.web_port || 80,
-        // 網站的連結
-        links: {
-            github: 'https://github.com/Youzi9601',
-            discord: 'https://discord.gg/HKekqu9hWW',
-            discordAuthLoginUrl: 'https://discord.com/oauth2/authorize?client_id=923159129432940544&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2Fdiscord-auth&response_type=code&scope=identify%20guilds%20applications.commands.permissions.update%20email',
-            discordbotinvite: 'https://discord.com/api/oauth2/authorize?client_id=923159129432940544&permissions=543312702935&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2Fdiscord-auth&scope=bot%20applications.commands',
-        },
-    },
 
     /**
      * Webhook 投票推播
@@ -187,34 +203,6 @@ module.exports = {
             // 提及所有人?
             everyoneMention: false,
         },
-    },
-
-
-    /**
-         *
-         * 分片系統(允許跨主機使用同一個機器人/減少機器人過多的執行問題)
-         *
-         * *注意：這是一個危險的功能！
-         * 用於：2000個伺服器以上的機器人
-         * 需要：至少2台主機(一台為主要核心，
-         * 另一台為機器人執行專案，機器人執行專案可以多個，但需要互相呼叫。)
-         *
-         */
-    hosting: {
-        ip: process.env.hosting_ip || 'localhost',
-        // 主核心的port
-        port: process.env.hosting_port || '4444',
-        // 驗證的密碼(隨意填寫，但每個主機要相同，否則無法連線)
-        authToken: process.env.hosting_authToken || 'yzbBot_authToken',
-        // 分片數量(建議自動)
-        totalShards: process.env.hosting_totalShards || '2',
-        // 主機的數量(運行機器人的主機數輛)
-        totalMachines: process.env.hosting_totalMachines || '1',
-
-    },
-    sharding: {
-        // 生成數量(預設自動)
-        amount: process.env.sharding_amount || '2',
     },
 
 

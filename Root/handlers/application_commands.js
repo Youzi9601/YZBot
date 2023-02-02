@@ -9,12 +9,12 @@ const colors = require("colors");
  * @returns "?"
  */
 module.exports = (client, config) => {
-    console.log(">>> 應用程序命令處理程序：".blue);
+    console.log(`[#${client.shard.ids}]  ` + ">>> 應用程序命令處理程序：".blue);
 
     let commands = [];
 
     // Slash commands handler:
-    console.log('[!] 開始加載斜杠命令...'.yellow);
+    console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載斜杠命令...'.yellow);
     fs.readdirSync('./Root/commands/slash/').forEach((dir) => {
         const SlashCommands = fs.readdirSync(`./Root/commands/slash/${dir}`).filter((file) => file.endsWith('.js'));
 
@@ -23,7 +23,7 @@ module.exports = (client, config) => {
 
             if (pull.name, pull.description, pull.type == 1) {
                 client.slash_commands.set(pull.name, pull);
-                console.log(`[處理 - 斜線命令] 加載了一個文件: ${pull.name} (#${client.slash_commands.size})`.brightGreen);
+                console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 加載了一個文件: ${pull.name} (#${client.slash_commands.size})`.brightGreen);
 
                 commands.push({
                     name: pull.name,
@@ -36,13 +36,13 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[處理 - 斜線命令] 無法加載文件 ${file}，缺少模塊名稱值、描述或類型不是 1。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 無法加載文件 ${file}，缺少模塊名稱值、描述或類型不是 1。`.red)
                 continue;
             }
         }
     });
 
-    console.log('[!] 開始加載用戶命令...'.yellow);
+    console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載用戶命令...'.yellow);
     // User commands handler:
     fs.readdirSync('./Root/commands/user/').forEach((dir) => {
         const UserCommands = fs.readdirSync(`./Root/commands/user/${dir}`).filter((file) => file.endsWith('.js'));
@@ -52,7 +52,7 @@ module.exports = (client, config) => {
 
             if (pull.name, pull.type == 2) {
                 client.user_commands.set(pull.name, pull);
-                console.log(`[處理 - 成員] 加載了一個文件： ${pull.name} (#${client.user_commands.size})`.brightGreen);
+                console.log(`[#${client.shard.ids}]  [處理 - 成員] 加載了一個文件： ${pull.name} (#${client.user_commands.size})`.brightGreen);
 
                 commands.push({
                     name: pull.name,
@@ -60,13 +60,13 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[處理 - 成員] 無法加載文件 ${file}，缺少的模塊名稱值或類型不是 2。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 成員] 無法加載文件 ${file}，缺少的模塊名稱值或類型不是 2。`.red)
                 continue;
             }
         }
     });
 
-    console.log('[!] 開始加載消息命令...'.yellow);
+    console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載消息命令...'.yellow);
     // Message commands handler:
     fs.readdirSync('./Root/commands/message/').forEach((dir) => {
         const UserCommands = fs.readdirSync(`./Root/commands/message/${dir}`).filter((file) => file.endsWith('.js'));
@@ -76,7 +76,7 @@ module.exports = (client, config) => {
 
             if (pull.name, pull.type == 3) {
                 client.message_commands.set(pull.name, pull);
-                console.log(`[處理 - 訊息命令] 加載了一個文件：${pull.name} (#${client.user_commands.size})`.brightGreen);
+                console.log(`[#${client.shard.ids}]  [處理 - 訊息命令] 加載了一個文件：${pull.name} (#${client.user_commands.size})`.brightGreen);
 
                 commands.push({
                     name: pull.name,
@@ -84,7 +84,7 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[處理 - 訊息命令] 無法加載文件 ${file}，缺少的模塊名稱值或類型不是 3。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 訊息命令] 無法加載文件 ${file}，缺少的模塊名稱值或類型不是 3。`.red)
                 continue;
             }
         }
@@ -92,14 +92,14 @@ module.exports = (client, config) => {
 
     // Registering all the application commands:
     if (!config.bot.clientID) {
-        console.log("[CRASH]您需要在 config.js 中提供您的機器人 ID！".red + "\n");
+        console.log(`[#${client.shard.ids}]  ` + "[CRASH]您需要在 config.js 中提供您的機器人 ID！".red + "\n");
         return process.exit();
     }
 
     const rest = new REST({ version: '10' }).setToken(config.bot.token || process.env.token);
 
     (async () => {
-        console.log('[HANDLER] 開始註冊所有應用程序命令。'.yellow);
+        console.log(`[#${client.shard.ids}]  ` + '[HANDLER] 開始註冊所有應用程序命令。'.yellow);
 
         try {
             await rest.put(
@@ -107,7 +107,7 @@ module.exports = (client, config) => {
                 { body: commands },
             );
 
-            console.log('[HANDLER] 已成功註冊所有應用程序命令。'.brightGreen);
+            console.log(`[#${client.shard.ids}]  ` + '[HANDLER] 已成功註冊所有應用程序命令。'.brightGreen);
         } catch (err) {
             console.log(err);
         }

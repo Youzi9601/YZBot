@@ -6,5 +6,5 @@ module.exports = {
 };
 
 client.once('ready', async () => {
-    console.log("\n" + `[準備] ${client.user.tag} 完成登入！`.brightGreen);
+    console.log(`[#${client.shard.ids}]  ` + "\n" + `[準備] ${client.user.tag} 完成登入！`.brightGreen);
 })

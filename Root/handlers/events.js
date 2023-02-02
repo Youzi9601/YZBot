@@ -7,7 +7,7 @@ const colors = require("colors");
  * @returns "?"
  */
 module.exports = (client) => {
-    console.log(">>> 事件處理程序：".blue);
+    console.log(`[#${client.shard.ids}]  ` + ">>> 事件處理程序：".blue);
 
     fs.readdirSync('./Root/events/').forEach(dir => {
         const commands = fs.readdirSync(`./Root/events/${dir}`).filter(file => file.endsWith('.js'));
@@ -16,9 +16,9 @@ module.exports = (client) => {
             let pull = require(`../events/${dir}/${file}`);
             if (pull.name) {
                 client.events.set(pull.name, pull);
-                console.log(`[處理 - EVENTS] 加載了一個文件： ${pull.name}`.brightGreen)
+                console.log(`[#${client.shard.ids}]  [處理 - EVENTS] 加載了一個文件： ${pull.name}`.brightGreen)
             } else {
-                console.log(`[處理 - EVENTS] 無法加載文件 ${file}。缺少姓名或別名。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - EVENTS] 無法加載文件 ${file}。缺少姓名或別名。`.red)
                 continue;
             }
 

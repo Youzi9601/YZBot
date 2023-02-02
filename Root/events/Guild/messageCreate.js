@@ -57,6 +57,7 @@ client.on('messageCreate', async (message) => {
         try {
             command.run(client, message, args, prefix, config, db);
         } catch (error) {
+            console.error(`[#${client.shard.ids}]  執行訊息命令時發生錯誤：`)
             console.error(error);
         }
     }

@@ -20,6 +20,7 @@ client.on('interactionCreate', async (interaction) => {
         try {
             command.run(client, interaction, config, db);
         } catch (e) {
+            console.error(`[#${client.shard.ids}]  執行命令時發生錯誤：`)
             console.error(e)
         }
     }
@@ -33,6 +34,7 @@ client.on('interactionCreate', async (interaction) => {
         try {
             command.run(client, interaction, config, db);
         } catch (e) {
+            console.error(`[#${client.shard.ids}]  執行成員應用時發生錯誤：`)
             console.error(e)
         }
     }
@@ -46,6 +48,7 @@ client.on('interactionCreate', async (interaction) => {
         try {
             command.run(client, interaction, config, db);
         } catch (e) {
+            console.error(`[#${client.shard.ids}]  執行訊息應用時發生錯誤：`)
             console.error(e)
         }
     }
@@ -68,6 +71,7 @@ client.on('interactionCreate', async (interaction) => {
         try {
             modal.run(client, interaction, config, db);
         } catch (e) {
+            console.error(`[#${client.shard.ids}]  執行模塊時發生錯誤：`)
             console.error(e)
         }
     }
