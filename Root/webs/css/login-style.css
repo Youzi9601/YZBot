@@ -6,12 +6,12 @@
 .main {
   height: 100%;
   width: 100%;
+  background-position: center;
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url(./../assets/background.jpg);
-  background-position: center;
-  background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: local;
+  background-size: cover;
+  background-attachment: fixed;
   position: absolute;
   font-family: sans-serif;
 }
