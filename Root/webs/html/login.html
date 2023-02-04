@@ -2,7 +2,10 @@
 <html>
   <head>
     <title>Disocrd 機器人 | YZB 登入</title>
-        <meta name="description" content="YZB 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。">
+    <meta
+      name="description"
+      content="YZB 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。"
+    />
 
     <link rel="stylesheet" href="./../css/login-style.css" />
   </head>
@@ -17,13 +20,15 @@
         var i;
 
         for (i = 0; i < close.length; i++) {
-          close[i].onclick = function(){
+          close[i].onclick = function () {
             var div = this.parentElement;
             div.style.opacity = "0";
-            setTimeout(function(){ div.style.display = "none"; }, 600);
-          }
+            setTimeout(function () {
+              div.style.display = "none";
+            }, 600);
+          };
         }
-</script>
+      </script>
       <div class="form-box">
         <img src="./../assets/YZB.png" class="avatar" />
         <div class="button-box">
@@ -37,39 +42,40 @@
         </div>
         <div id="login" class="input-group" action="">
           <div class="login-error-msg">
-              <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-              無效的 用戶名 或 密碼
+            <span
+              class="closebtn"
+              onclick="this.parentElement.style.display='none';"
+              >&times;</span
+            >
+            無效的 用戶名 或 密碼
           </div>
           <script>
             const loginErrorMsg = document.getElementById("login-error-msg");
-            document.querySelector('.login-error-msg').style.display = 'none';
+            document.querySelector(".login-error-msg").style.display = "none";
             //先取得網址字串
             var url = location.href;
             //再來用去尋找網址列中是否有資料傳遞(QueryString)
-            if(url.indexOf('?')!=-1){
-                var err = "";
-                //在此直接將各自的參數資料切割放進ary中
-                var ary = url.split('?')[1].split('&');
-                //此時ary的內容為：
-               //ary[0] = 'err=true'
-    
-                //下迴圈去搜尋每個資料參數
-                for(i=0;i<=ary.length-1;i++)
-                {
-                    //如果資料名稱為id的話那就把他取出來
-                   if(ary[i].split('=')[0] == 'err')
-                        err = ary[i].split('=')[1];
-                }
-    
-                if (err == 'true') {
-                  document.querySelector('.login-error-msg').style.display = 'block';
-                }
+            if (url.indexOf("?") != -1) {
+              var err = "";
+              //在此直接將各自的參數資料切割放進ary中
+              var ary = url.split("?")[1].split("&");
+              //此時ary的內容為：
+              //ary[0] = 'err=true'
+
+              //下迴圈去搜尋每個資料參數
+              for (i = 0; i <= ary.length - 1; i++) {
+                //如果資料名稱為id的話那就把他取出來
+                if (ary[i].split("=")[0] == "err") err = ary[i].split("=")[1];
+              }
+
+              if (err == "true") {
+                document.querySelector(".login-error-msg").style.display =
+                  "block";
+              }
             }
           </script>
           <!-- Discord 登入，請輸入到以下網址 -->
-          <a
-            class="discord-btn"
-            href="./login/discord"
+          <a class="discord-btn" href="./login/discord"
             ><img
               src="./../assets/discord.png"
               width="20"
@@ -138,9 +144,9 @@
             };
           </script>
           <!-- 或者 -->
-          <p class="login_or">
-            <hr>
-          </p>
+          <h3 class="login_or">
+            <hr />
+          </h3>
           <!-- 非DC登入 -->
           <input
             id="login_username"
@@ -156,7 +162,10 @@
             placeholder="輸入密碼"
             required
           />
-          <input type="checkbox" class="check-box" /><span class="check-box-text">記住我?</span>
+          <input type="checkbox" class="check-box" /><span
+            class="check-box-text"
+            >記住我?</span
+          >
           <button id="login_submit" type="submit" class="submit-btn">
             登入
           </button>
@@ -178,10 +187,19 @@
             required
             disabled
           />
-          <input type="checkbox" class="check-box" /><span
-            >我同意此服務政策與隱私條款</span
+          <input type="checkbox" class="check-box" />
+          <span>
+            我同意此<a href="/home/terms">服務政策</a>與<a
+              href="/home/privacy-policy"
+              >隱私條款</a
+            >
+          </span>
+          <button
+            id="register_submit"
+            type="submit"
+            class="submit-btn"
+            disabled
           >
-          <button id="register_submit" type="submit" class="submit-btn" disabled>
             註冊 (現在不開放)
           </button>
         </div>
@@ -205,7 +223,7 @@
 
       // 取得資料
       async function postData(url = "", data = {}) {
-        console.log(url,data)
+        console.log(url, data);
         // 預設的選項被標記為 *
         const response = await fetch(url, {
           method: "POST",
@@ -214,21 +232,25 @@
           },
           body: JSON.stringify(data),
         });
-        let res_data = await response.json()
+        let res_data = await response.json();
         return res_data;
       }
       // #region 登入
       // 登入的動作
       let login_form = document.getElementById("login_submit");
       // 進行按鈕監聽
-      login_form.addEventListener("click",async () => {
+      login_form.addEventListener("click", async () => {
         let username = document.getElementById("login_username").value;
         let password = document.getElementById("login_password").value;
         console.log("登入帳號密碼：", username, password);
-        let resp = await postData('/login',{user: username, password: password,isregister: false})
+        let resp = await postData("/login", {
+          user: username,
+          password: password,
+          isregister: false,
+        });
         if (resp.success == true) {
         } else {
-          alert('錯誤：' + resp.errormsg)
+          alert("錯誤：" + resp.errormsg);
         }
       });
       // #endregion 登入
@@ -239,12 +261,16 @@
         let username = document.getElementById("register_username").value;
         let password = document.getElementById("register_password").value;
         console.log("註冊帳號密碼：", username, password);
-        let resp = await postData('/login',{user: username, password: password,isregister: true})
+        let resp = await postData("/login", {
+          user: username,
+          password: password,
+          isregister: true,
+        });
         if (resp.success == true) {
-          await alert('成功註冊！現在可以登入了！')
+          await alert("成功註冊！現在可以登入了！");
           window.location.href = "./login";
         } else {
-          alert('錯誤：' + resp.errormsg)
+          alert("錯誤：" + resp.errormsg);
         }
       });
       // #endregion 註冊

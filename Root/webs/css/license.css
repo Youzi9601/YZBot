@@ -1,0 +1,36 @@
+.index {
+  margin: 20px auto;
+  padding: 10px;
+  max-width: 800px;
+  animation: fadeIn 0.7s;
+  background-color: rgba(0, 0, 0, 0.212);
+  box-shadow: 0 2px 5px rgba(179, 179, 179, 0.459);
+  border-radius: 30px;
+}
+.section {
+  margin: 40px;
+  padding: 40px;
+  background-color: rgba(0, 0, 0, 0.13);
+  border-radius: 30px;
+}
+
+li {
+  list-style-type: decimal;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

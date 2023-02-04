@@ -71,7 +71,14 @@ module.exports = (client) => {
         .get('/home/commands', (req, res) => {
             res.sendFile('Root/webs/html/pages/commands.html', { root: __dirname })
         })
-
+    // 隱私政策
+        .get('/home/privacy-policy', (req, res) => {
+            res.sendFile('Root/webs/html/pages/privacy-policy.html', { root: __dirname })
+        })
+    // 服務條款
+        .get('/home/terms', (req, res) => {
+            res.sendFile('Root/webs/html/pages/terms-of-service.html', { root: __dirname })
+        })
     // 登入頁面
         .get('/login', (req, res) => {
             res.sendFile('Root/webs/html/login.html', { root: __dirname })
