@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionsBitField, codeBlock } = require("discord.js");
+const { EmbedBuilder, PermissionsBitField, codeBlock, ChannelType } = require("discord.js");
 const client = require("./../../../bot");
 const config = require("./../../../Config");
 const { QuickDB } = require("quick.db");
@@ -9,8 +9,23 @@ module.exports = {
 };
 
 client.on('messageCreate', async (message) => {
-    if (message.channel.type !== 0) return;
     if (message.author.bot) return;
+
+    if (message.channel.type == ChannelType.DM
+        || message.channel.type == ChannelType.GroupDM) {
+        return;
+        /*
+        await message.reply({
+            embeds: [
+                {
+                    title: '機器人不支援私信、群組喔！',
+                    description: `${ message.client.user.tag } 無法在這裡執行與接收指令，只可傳送相關事情`,
+                    color: `000000`,
+                },
+            ],
+        })
+        */
+    }
 
     const prefix = await db.get(`guild_prefix_${message.guild.id}`) || config.Prefix || "?";
 

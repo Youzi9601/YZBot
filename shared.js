@@ -27,7 +27,10 @@ manager.on('shardCreate', shard => {
     })
 
     shard.on('message', message => {
-        console.log(`[#${shard.id}]  ${message}`);
+        if (config.sharding.logFetchClientValues) {
+            console.log(`[#${ shard.id }]  傳回 process:`);
+            console.log(message);
+        }
     });
 
     shard.on("death", (process) => {
@@ -52,9 +55,44 @@ manager.on('shardCreate', shard => {
     })
 });
 
+// 取得網頁執行的路徑
+const webdir = __dirname + '/web'
+
+// 執行分片生成與刷新資料
 manager
     .spawn()
     .then((_shards) => {
         console.log('成功啟動' + manager.totalShards + '個分片！')
+        // 執行設定資料
+        // 執行Web
+        manager.broadcastEval(client => {
+            if (client.shard.ids == 0) {
+                const promises = [
+                    client.shard.fetchClientValues('guilds.cache.size'),
+                    client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)),
+                    client.shard.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.channels.cache.size, 0)),
+
+                ];
+                Promise.all(promises)
+                    .then(results => {
+                        const totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0);
+                        const totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
+                        const totalChannels = results[2].reduce((acc, channelCount) => acc + channelCount, 0);
+
+                        const { QuickDB } = require('quick.db')
+                        const client_db = new QuickDB().table('client')
+
+                        // 儲存
+                        client_db.set('servers', totalGuilds)
+                        client_db.set('users', totalMembers)
+                        client_db.set('channels', totalChannels)
+                    })
+                    .catch(console.error);
+            }
+
+        });
     })
     .catch(console.error);
+
+
+//

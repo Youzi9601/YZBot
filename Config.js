@@ -42,6 +42,8 @@ module.exports = {
     sharding: {
         // 生成數量(預設自動)
         amount: process.env.sharding_amount || 'auto',
+        // 是否在控制台中輸出 分片廣播 所回傳的全部分片資料(不建議啟用，因為紀錄會太多)
+        logFetchClientValues: false,
     },
 
     /**

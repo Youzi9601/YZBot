@@ -24,6 +24,35 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
+    <script>
+      window.onload = () => {
+        function getCookie(cname) {
+          let name = cname + "=";
+          let ca = document.cookie.split(";");
+          for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == " ") {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+              return JSON.parse(c.substring(name.length, c.length));
+            }
+          }
+          return "";
+        }
+
+        const clientcount = getCookie("clientcount");
+        document.getElementById(
+          "server_count"
+        ).innerText = `${clientcount.servers}`;
+        document.getElementById(
+          "user_count"
+        ).innerText = `${clientcount.users}`;
+        document.getElementById(
+          "channel_count"
+        ).innerText = `${clientcount.channels}`;
+      };
+    </script>
     <link rel="shortcut icon" href="./../assets/" type="image/x-icon" />
   </head>
 
@@ -178,17 +207,20 @@
           </div>
           <div class="col-sm p-5 h1">
             <i class="bi bi-hdd-stack text-primary"></i>
-            <h5>?</h5>
+            <h6></h6>
+            <h3 id="server_count">?</h3>
             <h5>伺服器</h5>
           </div>
           <div class="col-sm p-5 h1">
             <i class="bi bi bi-people-fill text-primary"></i>
-            <h5>?</h5>
+            <h6></h6>
+            <h3 id="user_count">?</h3>
             <h5>使用者</h5>
           </div>
           <div class="col-sm p-5 h1">
             <i class="bi bi bi-hash text-primary"></i>
-            <h5>?</h5>
+            <h6></h6>
+            <h3 id="channel_count">?</h3>
             <h5>頻道</h5>
           </div>
         </div>

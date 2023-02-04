@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const { request } = require('undici');
 
 const { QuickDB } = require('quick.db')
-const db = new QuickDB().table('login')
+const client_db = new QuickDB().table('client')
 
 const config = require('./Config');
 /**
@@ -24,8 +24,7 @@ const config = require('./Config');
  * 網頁
  * @param {import('discord.js').Client} client 客戶端
  */
-module.exports = (client) => {
-
+module.exports = async (client) => {
 
     /**
      * @INFO 基本設定&取得資料
@@ -54,8 +53,27 @@ module.exports = (client) => {
         .get('/', (req, res) => {
             res.redirect('./home')
         })
-        .get('/home', (req, res) => {
+        .get('/home', async (req, res) => {
+            const servers = await client_db.get('servers')
+            const users = await client_db.get('users')
+            const channels = await client_db.get('channels')
+            await setCookie('clientcount',
+                {
+                    servers: servers,
+                    users: users,
+                    channels: channels,
+                },
+                1)
             res.sendFile('Root/webs/html/index.html', { root: __dirname })
+
+            async function setCookie(cname, cvalue, exdays) {
+                res.cookie(cname, JSON.stringify(cvalue), {
+                    expires: new Date(Date.now() + (exdays * 24 * 60 * 60 * 1000)),
+                    path: '/',
+                    encode: String,
+                    maxAge: (exdays * 60 * 60 * 24),
+                });
+            }
         })
     // 首頁的快速導覽
         .get('/home/github', (req, res) => {
@@ -103,9 +121,13 @@ module.exports = (client) => {
             res.sendFile('Root/webs/html/servers/dashboard.html', { root: __dirname });
         })
         .get('/dashboard/' + ':GuildID', (req, res) => {
+            if (!req.session.user) {
+                return res.redirect('/login/discord')
+            }
+            // TODO: 需要將dashboard的session內存入Discord oauth token，並於機器人執行中添加一個資料庫存放 token (雖然無效，但是那是隨機的)，用來避免駭客駭入Web後台。
             const guildID = req.params.GuildID;
             res.send(`這是${guildID}伺服器的控制面板。目前還在架設中...`)
-        // res.sendFile('Root/webs/html/servers.html', { root: __dirname });
+            // res.sendFile('Root/webs/html/servers/0-guild.html', { root: __dirname });
         })
     // 管理員後台
         .get('/admin', (req, res) => {
@@ -168,7 +190,6 @@ module.exports = (client) => {
                         });
                     const guildIds = [].concat(...clientguilds.map(guildArray => guildArray.map(guild => ({ id: guild.id }))));
 
-
                     // 處理資料
 
                     userdata = await userResult.body.json()
@@ -176,6 +197,7 @@ module.exports = (client) => {
                     req.session.cookie.maxAge = 60 * 60 * 1000;
                     req.session.user = userdata.id
                     req.session.save()
+
                     userGuilddata = await userGuildsResult.body.json()
 
                     // 處理資料(特殊標籤&要求權限)
@@ -237,14 +259,6 @@ module.exports = (client) => {
             // 處離傳回用資料
             function hasPermission(permissions, permissionFlag) {
                 return (permissions & permissionFlag) === permissionFlag;
-            }
-            async function setCookie(cname, cvalue, exdays) {
-                res.cookie(cname, JSON.stringify(cvalue), {
-                    expires: new Date(Date.now() + (exdays * 24 * 60 * 60 * 1000)),
-                    path: '/',
-                    encode: String,
-                    maxAge: (exdays * 60 * 60 * 24),
-                });
             }
 
         })
