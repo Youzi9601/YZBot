@@ -3,11 +3,13 @@ const config = require('./Config')
 const CI = process.env.CI
 
 if (CI) {
-    console.log('分片系統 >>> CI檢查完畢'.green)
+    console.log('分片系統 >>> CI檢查完畢')
     process.exit(0)
 } else {
-    console.log('分片系統 >>> CI跳過檢查'.gray)
+    console.log('分片系統 >>> CI跳過檢查')
 }
+
+const { QuickDB } = require('quick.db')
 
 const manager = new ShardingManager('./bot.js',
     {
@@ -20,9 +22,15 @@ const manager = new ShardingManager('./bot.js',
 );
 
 
+const uptime = new QuickDB().table('uptime')
+uptime.deleteAll().then(() => {
+    console.log('清除Uptime狀態資料庫')
+})
 manager.on('shardCreate', shard => {
+
     console.log(`[#${ shard.id }]  啟動分片 #${ shard.id }`)
-    shard.on('ready', r => {
+    shard.on('ready', async r => {
+        await uptime.set(shard.id, 'ready')
         console.log("分片 #" + shard.id + " 已回傳完成啟動");
     })
 
@@ -33,18 +41,24 @@ manager.on('shardCreate', shard => {
         }
     });
 
-    shard.on("death", (process) => {
+    shard.on("death", async (process) => {
+        await uptime.set(shard.id, 'death')
+
         console.error("分片 #" + shard.id + " 意外關閉！ PID：" + process.pid + "; 退出代碼：" + process.exitCode + ".");
 
         if (process.exitCode === null) {
             console.warn("警告: 分片 #" + shard.id + " 以 null 錯誤代碼退出。這可能是缺少可用系統內存的結果。確保分配了足夠的內存以繼續。");
         }
     });
-    shard.on('reconnecting', (event) => {
+    shard.on('reconnecting', async (event) => {
+        await uptime.set(shard.id, 'ready')
+
         console.warn("分片 #" + shard.id + " 正在重新連接...");
         console.log(event);
     });
-    shard.on("disconnect", (event) => {
+    shard.on("disconnect", async (event) => {
+        await uptime.set(shard.id, 'disconnect')
+
         console.warn("分片 #" + shard.id + " 斷開連接。正在轉儲套接字關閉事件...");
         console.log(event);
     });
@@ -55,8 +69,6 @@ manager.on('shardCreate', shard => {
     })
 });
 
-// 取得網頁執行的路徑
-const webdir = __dirname + '/web'
 
 // 執行分片生成與刷新資料
 manager
@@ -79,7 +91,6 @@ manager
                         const totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
                         const totalChannels = results[2].reduce((acc, channelCount) => acc + channelCount, 0);
 
-                        const { QuickDB } = require('quick.db')
                         const client_db = new QuickDB().table('client')
 
                         // 儲存
@@ -94,5 +105,15 @@ manager
     })
     .catch(console.error);
 
-
+process
+    .on('exit', (code) => {
+        //
+        console.log(`[分片系統]  關機｜退出代碼: ${ code }`);
+    })
+    .on('beforeExit', async (code) => {
+        manager.shards.forEach(s => {
+            s.kill();
+            uptime.set(s.id, 'death')
+        })
+    });
 //
