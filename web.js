@@ -13,8 +13,9 @@ const config = require('./Config');
  * 首頁
  * |- 介紹與幫助 home
  * |- 命令 commands
- * |- 登入畫面 login
- * |- |- 伺服器控制台 dashboard (伺服器列表)
+ * |- 伺服器控制台 dashboard
+ * |- |- 登入畫面 login
+ * |- |- 伺服器列表
  * |- |- |- 伺服器ID
  * |- |- |- |- 該伺服器的控制選項
  * |- |- |- 個人帳號
@@ -41,6 +42,43 @@ module.exports = async (client) => {
         saveUninitialized: false,
         resave: true,
     }));
+
+    // 取得連線的訪客
+    const uniqueVisitor = new Set();
+    const inqueueVisiter = new Set();
+    // 執行每N分鐘刷新當前有紀錄的訪客一次
+    setInterval(function() {
+        uniqueVisitor.clear()
+    }, (Number(config.web.maxVisitor.minute) * 60 * 1000));
+    // 每當有任何與伺服器連線的事件
+    app.use((req, res, next) => {
+        // 網頁流量管制 ( 如果不在訪客名單中 且 當前人數超過指定人數 )
+        if (
+            uniqueVisitor.size >= Number(config.web.maxVisitor.count)
+            && !uniqueVisitor.has(req.ip)
+        ) {
+            // 執行排隊
+            inqueueVisiter.add(req.ip)
+            // 取得等待列表中的項目並回傳
+            let array = Array.from(inqueueVisiter);
+            let index = array.indexOf(req.ip);
+
+            // 如果他的排隊號碼是第一個
+            if (index == 0) {
+                uniqueVisitor.add(req.ip);
+                return res.redirect('/dashboard/login')
+            }
+            // 非第一個且不在queue
+            if (!req.query.queue) {
+                return res.redirect('/dashboard/queue?queue=' + `${(index + 1)}`)
+            }
+
+        } else {
+            // 執行紀錄並繼續
+            uniqueVisitor.add(req.ip);
+            next();
+        }
+    });
 
 
     // 架設資料庫
@@ -97,14 +135,14 @@ module.exports = async (client) => {
         .get('/home/terms', (req, res) => {
             res.sendFile('Root/webs/html/pages/terms-of-service.html', { root: __dirname })
         })
-    // 登入頁面
-        .get('/login', (req, res) => {
+    // 控制台 - 登入頁面
+        .get('/dashboard/login', (req, res) => {
             res.sendFile('Root/webs/html/login.html', { root: __dirname })
         })
-        .get('/login/discord', (req, res) => {
+        .get('/dashboard/login/discord', (req, res) => {
             res.redirect(config.web.links.discordAuthLoginUrl)
         })
-        .get('/logout', (req, res) => {
+        .get('/dashboard/logout', (req, res) => {
             res.clearCookie()
             req.session.cookie.expires = new Date(Date.now() + 1000);
             req.session.cookie.maxAge = 1000;
@@ -112,17 +150,22 @@ module.exports = async (client) => {
             req.session.save()
             res.redirect('/home')
         })
+        .get('/dashboard/queue', (req, res) => {
+            // 執行排隊
+            return res.sendFile('Root/webs/html/pages/overloaded.html', { root: __dirname })
 
-    // 控制台
+        })
+
+    // 設定 - 控制台
         .get('/dashboard', (req, res) => {
             if (!req.session.user) {
-                return res.redirect('/login/discord')
+                return res.redirect('/dashboard/login')
             }
             res.sendFile('Root/webs/html/servers/dashboard.html', { root: __dirname });
         })
         .get('/dashboard/' + ':GuildID', (req, res) => {
             if (!req.session.user) {
-                return res.redirect('/login/discord')
+                return res.redirect('/dashboard/login')
             }
             // TODO: 需要將dashboard的session內存入Discord oauth token，並於機器人執行中添加一個資料庫存放 token (雖然無效，但是那是隨機的)，用來避免駭客駭入Web後台。
             const guildID = req.params.GuildID;
@@ -130,7 +173,7 @@ module.exports = async (client) => {
             // res.sendFile('Root/webs/html/servers/0-guild.html', { root: __dirname });
         })
     // 管理員後台
-        .get('/admin', (req, res) => {
+        .get('/dashboard/admin', (req, res) => {
             res.send('這是ADMIN的管理後台...')
         // res.sendFile('Root/webs/html/servers.html', { root: __dirname });
         })
@@ -141,7 +184,8 @@ module.exports = async (client) => {
     // #region API
     // discord auth 的認證用畫面
     app
-        .get('/discord-auth', async (req, res) => {
+        .get('/auth/discord-auth', async (req, res) => {
+            req.login()
             const { code } = req.query;
             // console.log(req.body)
 
@@ -157,7 +201,7 @@ module.exports = async (client) => {
                             client_secret: config.bot.clientSECRET,
                             code,
                             grant_type: 'authorization_code',
-                            redirect_uri: `${ config.web.domain }:${ config.web.port }/discord-auth`,
+                            redirect_uri: `${ config.web.domain }:${ config.web.port }/auth/discord-auth`,
                             scope: 'identify',
                         }).toString(),
                         headers: {
@@ -223,7 +267,7 @@ module.exports = async (client) => {
                 // tokenResponseData.statusCode will be 401
                     console.error(`[#${client.shard.ids}]  執行網站時發生錯誤：`)
                     console.error(error);
-                    return res.redirect('/login?err=true')
+                    return res.redirect('./login?err=true')
                 }
                 // 傳送資料並返回dashboard
                 // 儲存
@@ -243,7 +287,7 @@ module.exports = async (client) => {
          
           // console.log(data)
           setTimeout(function() {
-        window.location.href = "./dashboard/";
+        window.location.href = "/dashboard";
       }, 100);
           </script>
       </head>
@@ -254,7 +298,7 @@ module.exports = async (client) => {
   `);
             // 轉網址
             } else {
-                return res.redirect('/login?err=true')
+                return res.redirect('/dashboard/login?err=true')
             }
 
             // 處離傳回用資料
@@ -264,7 +308,7 @@ module.exports = async (client) => {
 
         })
     // discord 伺服器加入機器人
-        .get('/guild-oauth', async (req, res) => {
+        .get('/auth/guild-oauth', async (req, res) => {
             const { code } = req.query;
             // console.log(req.body)
             const guildid = req.query.guild_id;
@@ -281,7 +325,7 @@ module.exports = async (client) => {
                 return res.redirect('/dashboard?err=true')
             }
         })
-        .post('/login', async (req, res) => {
+        .post('/auth/login', async (req, res) => {
         // console.log(req.body)
 
             /*

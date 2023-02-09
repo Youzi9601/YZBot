@@ -1,3 +1,7 @@
+* {
+  scroll-behavior: smooth;
+}
+
 .footer-clean {
   padding: 50px 0;
   color: #f8f9fa;

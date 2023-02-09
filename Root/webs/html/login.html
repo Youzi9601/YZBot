@@ -79,7 +79,7 @@
             }
           </script>
           <!-- Discord 登入，請輸入到以下網址 -->
-          <a class="discord-btn" href="./login/discord"
+          <a class="discord-btn" href="/dashboard/login/discord"
             ><img
               src="./../assets/discord.png"
               width="20"
@@ -295,7 +295,7 @@
         let username = document.getElementById("login_username").value;
         let password = document.getElementById("login_password").value;
         console.log("登入帳號密碼：", username, password);
-        let resp = await postData("/login", {
+        let resp = await postData("/auth/login", {
           user: username,
           password: password,
           isregister: false,
@@ -313,14 +313,14 @@
         let username = document.getElementById("register_username").value;
         let password = document.getElementById("register_password").value;
         console.log("註冊帳號密碼：", username, password);
-        let resp = await postData("/login", {
+        let resp = await postData("/auth/register", {
           user: username,
           password: password,
           isregister: true,
         });
         if (resp.success == true) {
           await alert("成功註冊！現在可以登入了！");
-          window.location.href = "./login";
+          window.location.href = "/dashboard/login";
         } else {
           alert("錯誤：" + resp.errormsg);
         }

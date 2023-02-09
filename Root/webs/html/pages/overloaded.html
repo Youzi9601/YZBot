@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-tw">
   <head>
-    <title>Disocrd 機器人 | YZB 服務條款</title>
+    <title>Disocrd 機器人 | YZB 超出運轉</title>
     <meta
       name="description"
       content="YZB 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。"
@@ -10,8 +10,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="./../../css/bootstrap.min.css" rel="stylesheet" />
-    <link href="./../../css/license.css" rel="stylesheet" />
     <link href="./../../css/home.css" rel="stylesheet" />
+    <link href="./../../css/overloaded.css" rel="stylesheet" />
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
@@ -96,67 +97,48 @@
 
       <!-- Info -->
 
-      <section class="text-light py-5">
+      <section class="bg-light text-dark text-center py-5">
         <div class="container">
-          <div class="index">
-            <br />
-            <div class="section">
-              <h1>服務條款</h1>
-              <br />
-              <p>
-                歡迎使用 YZB
-                ，使用本服務前，請仔細閱讀並理解本服務條款。通過使用本服務，您同意遵守本服務條款的所有規定和條件。如果您不同意本服務條款的任何規定或條件，請勿使用本服務。本團隊保留隨時修改本服務條款的權利，並有權在任何時候終止本服務。如有任何疑問，請與我們聯繫。
-              </p>
+          <div class="d-flex">
+            <div class="load-gif">
+              <div class="hourglass"></div>
             </div>
-            <br />
-            <div class="section">
-              <h2>1. 定義</h2>
-              <p>
-                Discord機器人：指由本團隊所開發的 YZB
-                及提供的Discord管理工具，用於管理伺服器與利用控制台(網站)設定伺服器。
-              </p>
+            <div>
+              <h1><span class="text-info">Overload</span> 過多的流量</h1>
+              <hr />
+              <h1><p>網站目前有太多使用者使用...</p></h1>
+              <div id="queue">
+                <h1><p>是被攻擊?還是太受歡迎?</p></h1>
+              </div>
+              <h3>等待中...</h3>
+              <script>
+                //先取得網址字串
+                var url = location.href;
+                //再來用去尋找網址列中是否有資料傳遞(QueryString)
+                if (url.indexOf("?") != -1) {
+                  var queue = "";
+                  //在此直接將各自的參數資料切割放進ary中
+                  var ary = url.split("?")[1].split("&");
+                  //此時ary的內容為：
+                  //ary[0] = 'err=true'
+
+                  //下迴圈去搜尋每個資料參數
+                  for (i = 0; i <= ary.length - 1; i++) {
+                    //如果資料名稱為id的話那就把他取出來
+                    if (ary[i].split("=")[0] == "queue")
+                      queue = ary[i].split("=")[1];
+                  }
+                  document.getElementById(
+                    "queue"
+                  ).innerHTML = `<h1><p>當前列隊： ${queue}</p><h1>`;
+                }
+                setTimeout(function () {
+                  window.location.href = "/dashboard/queue";
+                }, 60000);
+              </script>
+              <a class="m-2 btn btn-dark" href="/home">回到首頁</a>
             </div>
-            <br />
-            <div class="section">
-              <h2>2. 免責聲明</h2>
-              <p>
-                本團隊對於使用Discord機器人所造成的任何損失、損害或其他任何直接、間接、特殊、懲罰性的損害，均不負責任。使用者須自行承擔風險，並確保已了解與同意本服務條款。
-              </p>
-            </div>
-            <br />
-            <div class="section">
-              <h2>3. 服務提供</h2>
-              <p>
-                本團隊將盡力提供Discord機器人服務，但不保證服務不會中斷、不會出現錯誤或者沒有缺陷。本團隊保留隨時更改、暫停或終止Discord機器人服務的權利。
-              </p>
-            </div>
-            <br />
-            <div class="section">
-              <h2>4. 使用規範</h2>
-              <p>
-                使用者不得利用Discord機器人進行任何非法或有害的活動，包括但不限於：
-              </p>
-              <ul>
-                <li>傳播色情、暴力或任何不適當的內容</li>
-                <li>干涉他人隱私權</li>
-                <li>破壞、駭客或入侵任何電腦系統</li>
-                <li>其他違反法律法規或違反本服務條款的行為。</li>
-              </ul>
-              <p>
-                如果本團隊發現使用者違反了本服務條款，本團隊有權隨時終止服務或撤銷使用者的帳戶。
-              </p>
-            </div>
-            <br />
-            <div class="section">
-              <h2>5. 知識產權</h2>
-              <p>
-                您的個人資料可能會被轉移到您所在地區以外的地區，以滿足我們的商業需求，如儲存，處理和分析數據。
-                在這種情況下，我們會確保適當的保護措施，以確保您的個人資料的安全。
-              </p>
-              <p>
-                Discord機器人和相關的控制台(網站)的所有知識產權，包括但不限於軟件、技術、程式代碼、界面設計、文字、圖片、音頻、視頻、圖表、圖標、版權、商標等均屬於本團隊或其內部所有人的知識產權。使用者不得擅自使用、複製、傳播、公開、修改、拆解或分發本團隊的任何知識產權。本團隊保留所有對違反上述規定者的法律追究責任的權利。
-              </p>
-            </div>
+            <!-- <img class="img-fluid w-50" src="./../assets/YZB.png" alt="" /> -->
           </div>
         </div>
       </section>
