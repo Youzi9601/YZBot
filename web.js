@@ -185,7 +185,8 @@ module.exports = async (client) => {
     // discord auth 的認證用畫面
     app
         .get('/auth/discord-auth', async (req, res) => {
-            req.login()
+            // 等待加入，使用passport npm package
+            // req.login()
             const { code } = req.query;
             // console.log(req.body)
 
