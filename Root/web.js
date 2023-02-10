@@ -102,7 +102,7 @@ module.exports = async (client) => {
                     channels: channels,
                 },
                 1)
-            res.sendFile('Root/webs/html/index.html', { root: __dirname })
+            res.sendFile('webs/html/index.html', { root: __dirname })
 
             async function setCookie(cname, cvalue, exdays) {
                 res.cookie(cname, JSON.stringify(cvalue), {
@@ -125,19 +125,19 @@ module.exports = async (client) => {
         })
     // 指令頁面
         .get('/home/commands', (req, res) => {
-            res.sendFile('Root/webs/html/pages/commands.html', { root: __dirname })
+            res.sendFile('webs/html/pages/commands.html', { root: __dirname })
         })
     // 隱私政策
         .get('/home/privacy-policy', (req, res) => {
-            res.sendFile('Root/webs/html/pages/privacy-policy.html', { root: __dirname })
+            res.sendFile('webs/html/pages/privacy-policy.html', { root: __dirname })
         })
     // 服務條款
         .get('/home/terms', (req, res) => {
-            res.sendFile('Root/webs/html/pages/terms-of-service.html', { root: __dirname })
+            res.sendFile('webs/html/pages/terms-of-service.html', { root: __dirname })
         })
     // 控制台 - 登入頁面
         .get('/dashboard/login', (req, res) => {
-            res.sendFile('Root/webs/html/login.html', { root: __dirname })
+            res.sendFile('webs/html/login.html', { root: __dirname })
         })
         .get('/dashboard/login/discord', (req, res) => {
             res.redirect(config.web.links.discordAuthLoginUrl)
@@ -152,7 +152,7 @@ module.exports = async (client) => {
         })
         .get('/dashboard/queue', (req, res) => {
             // 執行排隊
-            return res.sendFile('Root/webs/html/pages/overloaded.html', { root: __dirname })
+            return res.sendFile('webs/html/pages/overloaded.html', { root: __dirname })
 
         })
 
@@ -161,7 +161,7 @@ module.exports = async (client) => {
             if (!req.session.user) {
                 return res.redirect('/dashboard/login')
             }
-            res.sendFile('Root/webs/html/servers/dashboard.html', { root: __dirname });
+            res.sendFile('webs/html/servers/dashboard.html', { root: __dirname });
         })
         .get('/dashboard/' + ':GuildID', (req, res) => {
             if (!req.session.user) {
@@ -170,12 +170,12 @@ module.exports = async (client) => {
             // TODO: 需要將dashboard的session內存入Discord oauth token，並於機器人執行中添加一個資料庫存放 token (雖然無效，但是那是隨機的)，用來避免駭客駭入Web後台。
             const guildID = req.params.GuildID;
             res.send(`這是${guildID}伺服器的控制面板。目前還在架設中...`)
-            // res.sendFile('Root/webs/html/servers/0-guild.html', { root: __dirname });
+            // res.sendFile('webs/html/servers/0-guild.html', { root: __dirname });
         })
     // 管理員後台
         .get('/dashboard/admin', (req, res) => {
             res.send('這是ADMIN的管理後台...')
-        // res.sendFile('Root/webs/html/servers.html', { root: __dirname });
+        // res.sendFile('webs/html/servers.html', { root: __dirname });
         })
     // #endregion 網頁
     /**
@@ -332,7 +332,7 @@ module.exports = async (client) => {
             /*
         if (req.body) {
             const { userToken } = req.body;
-            res.sendFile('Root/webs/html/admin.html', { root: __dirname })
+            res.sendFile('webs/html/admin.html', { root: __dirname })
         }
         */
 
