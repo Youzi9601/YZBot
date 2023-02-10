@@ -27,14 +27,6 @@ async function update() {
     if (`${ config.update.auto }` == `true` && fs.existsSync('./.git')) {
 
         await execPromise('git reset --hard')
-            .then((stdout, stderr) => {
-                if (stdout) {
-                    console.log(stdout)
-                }
-                if (stderr) {
-                    console.warn(stderr)
-                }
-            })
             .catch(err => {
                 if (err) {
                     console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
@@ -43,12 +35,6 @@ async function update() {
             })
         await execPromise('git pull')
             .then((stdout, stderr) => {
-                if (stdout) {
-                    console.log(stdout)
-                }
-                if (stderr) {
-                    console.warn(stderr)
-                }
                 // 如果回傳紀錄不包含已更新
                 if (!stdout.includes('Already up to date.')) {
                     console.log('\x1b[32m%s\x1b[0m', '[基本作業]更新成功！請重新啟動！');
@@ -86,14 +72,6 @@ async function run() {
 
         console.log('\x1b[34m%s\x1b[0m', '[基本作業]安裝依賴項......');
         await execPromise('npm install')
-            .then((stdout, stderr) => {
-                if (stdout) {
-                    console.log(stdout)
-                }
-                if (stderr) {
-                    console.warn(stderr)
-                }
-            })
             .catch(err => {
                 if (err) {
                     console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
@@ -121,9 +99,18 @@ function execPromise(command) {
             } else {
                 console.log(stdout)
                 console.warn(stderr)
-
                 resolve({ stdout, stderr });
             }
         });
     });
 }
+
+
+['SIGINT', 'SIGTERM', 'SIGHUP'].forEach(signal => {
+    process.on(signal, async () => {
+        console.log(`\n\n關機｜收到 ${ signal } 信號，關閉機器人......`);
+        console.log(
+            `` + '───────────────────────────────機器人控制台───────────────────────────────\n',
+        );
+    })
+})
