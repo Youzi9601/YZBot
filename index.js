@@ -5,7 +5,7 @@
 const fs = require('fs');
 const config = require('./Config');
 const exec = require('child_process').exec;
-const version = require('./../../../package.json').version;
+const version = require('./package.json').version;
 
 run()
 async function run() {
