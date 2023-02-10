@@ -5,9 +5,20 @@
 const fs = require('fs');
 const config = require('./Config');
 const exec = require('child_process').exec;
+const version = require('./../../../package.json').version;
 
 run()
 async function run() {
+    console.log(
+        [' __   ___________    ____  _                       _   ____        _    ',
+            ' \\ \\ / /__  / __ )  |  _ \\(_)___  ___ ___  _ __ __| | | __ )  ___ | |_  ',
+            '  \\ V /  / /|  _ \\  | | | | / __|/ __/ _ \\| \'__/ _` | |  _ \\ / _ \\| __| ',
+            '   | |  / /_| |_) | | |_| | \\__ \\ (_| (_) | | | (_| | | |_) | (_) | |_  ',
+            '   |_| /____|____/  |____/|_|___/\\___\\___/|_|  \\__,_| |____/ \\___/ \\__| ' + `  v${version}`,
+            '                    [=| -= Made By Youzi9601 =-  |=]                    ',
+            '                                                                        ',
+        ].join('\n'),
+    )
 
     // 偵測是否有git資料夾
     if (`${config.update.auto}` == `true` && fs.existsSync('./.git')) {
