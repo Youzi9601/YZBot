@@ -96,20 +96,22 @@ module.exports = (client, config) => {
         return process.exit();
     }
 
-    const rest = new REST({ version: '10' }).setToken(config.bot.token || process.env.token);
+    if (client.shard.ids == 0) {
+        const rest = new REST({ version: '10' }).setToken(config.bot.token || process.env.token);
 
-    (async () => {
-        console.log(`[#${client.shard.ids}]  ` + '[HANDLER] 開始註冊所有應用程序命令。'.yellow);
+        (async () => {
+            console.log(`[#${client.shard.ids}]  ` + '[HANDLER] 開始註冊所有應用程序命令。'.yellow);
 
-        try {
-            await rest.put(
-                Routes.applicationCommands(config.bot.clientID),
-                { body: commands },
-            );
+            try {
+                await rest.put(
+                    Routes.applicationCommands(config.bot.clientID),
+                    { body: commands },
+                );
 
-            console.log(`[#${client.shard.ids}]  ` + '[HANDLER] 已成功註冊所有應用程序命令。'.brightGreen);
-        } catch (err) {
-            console.log(err);
-        }
-    })();
+                console.log(`[#${client.shard.ids}]  ` + '[HANDLER] 已成功註冊所有應用程序命令。'.brightGreen);
+            } catch (err) {
+                console.log(err);
+            }
+        })();
+    }
 };
