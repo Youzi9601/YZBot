@@ -34,15 +34,6 @@ async function update() {
                 }
             })
         await execPromise('git pull')
-            .then((stdout, stderr) => {
-                // 如果回傳紀錄不包含已更新
-                if (!stdout.includes('Already up to date.')) {
-                    console.log('\x1b[32m%s\x1b[0m', '[基本作業]更新成功！請重新啟動！');
-                    process.exit(0);
-                } else {
-                    console.log('\x1b[32m%s\x1b[0m', '[基本作業]已經是最新的版本！');
-                }
-            })
             .catch(err => {
                 if (err) {
                     console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
@@ -99,6 +90,15 @@ function execPromise(command) {
             } else {
                 console.log(stdout)
                 console.warn(stderr)
+
+                // 如果回傳紀錄不包含已更新
+                if (!stdout.includes('Already up to date.')) {
+                    console.log('\x1b[32m%s\x1b[0m', '[基本作業]更新成功！請重新啟動！');
+                    process.exit(0);
+                } else {
+                    console.log('\x1b[32m%s\x1b[0m', '[基本作業]已經是最新的版本！');
+                }
+
                 resolve({ stdout, stderr });
             }
         });
