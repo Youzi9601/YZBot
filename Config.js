@@ -21,10 +21,10 @@ module.exports = {
     /**
     * 基本設定
     */
-   update: {
+    update: {
         // 自動更新
         auto: process.env.update_auto || false,
-       //自動安裝所有的npm包?
+        // 自動安裝所有的npm包?
         install_package: process.env.update_install_package || true,
     },
 
@@ -227,6 +227,6 @@ module.exports = {
          */
     beta: {
         // RPC為Discord遊戲狀態顯示系統，目前為測試版
-        no: '沒東西', 
+        no: '沒東西',
     },
 };

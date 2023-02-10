@@ -10,7 +10,7 @@ run()
 async function run() {
 
     // 偵測是否有git資料夾
-    if (`${config.update.auto}`== `true` && fs.existsSync('./.git')) {
+    if (`${config.update.auto}` == `true` && fs.existsSync('./.git')) {
         exec('git reset --hard', (err, stdout, stderr) => {
             if (err) {
                 console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
@@ -47,19 +47,18 @@ async function run() {
     }
 
     // 執行安裝依賴項目
-    if (`${config.update.install_package}` == `true`)
-    {
+    if (`${config.update.install_package}` == `true`) {
         console.log('\x1b[34m%s\x1b[0m', '[基本作業]安裝依賴項......');
-    exec('npm install', (err, stdout, stderr) => {
-        if (err) {
-            console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
-            return;
-        }
-        console.log('' + stdout + '');
-        console.log('\x1b[32m%s\x1b[0m', '[基本作業] Package.json 中的依賴項安裝完成！');
-        // exec('node bot.js');
+        exec('npm install', (err, stdout, stderr) => {
+            if (err) {
+                console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
+                return;
+            }
+            console.log('' + stdout + '');
+            console.log('\x1b[32m%s\x1b[0m', '[基本作業] Package.json 中的依賴項安裝完成！');
+            // exec('node bot.js');
 
-    });
+        });
     }
     // 執行機器人檔案
     require('./Root/shared')
