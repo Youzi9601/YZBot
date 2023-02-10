@@ -1,14 +1,5 @@
 const { ShardingManager } = require('discord.js');
 const config = require('../Config')
-const CI = process.env.CI
-
-if (CI) {
-    console.log('分片系統 >>> CI檢查完畢')
-    process.exit(0)
-} else {
-    console.log('分片系統 >>> CI跳過檢查')
-}
-
 
 const manager = new ShardingManager('Root/bot.js',
     {

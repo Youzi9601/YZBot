@@ -7,7 +7,67 @@ const config = require('./Config');
 const exec = require('child_process').exec;
 const version = require('./package.json').version;
 
-run()
+const CI = process.env.CI
+
+if (CI) {
+    console.log('分片系統 >>> CI檢查完畢')
+    process.exit(0)
+} else {
+    console.log('分片系統 >>> CI跳過檢查')
+}
+
+
+update()
+    .then(() => {
+        run();
+    });
+async function update() {
+
+    // 偵測是否有git資料夾
+    if (`${ config.update.auto }` == `true` && fs.existsSync('./.git')) {
+
+        await execPromise('git reset --hard')
+            .then((stdout, stderr) => {
+                if (stdout) {
+                    console.log(stdout)
+                }
+                if (stderr) {
+                    console.warn(stderr)
+                }
+            })
+            .catch(err => {
+                if (err) {
+                    console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
+                    return;
+                }
+            })
+        await execPromise('git pull')
+            .then((stdout, stderr) => {
+                if (stdout) {
+                    console.log(stdout)
+                }
+                if (stderr) {
+                    console.warn(stderr)
+                }
+                // 如果回傳紀錄不包含已更新
+                if (!stdout.includes('Already up to date.')) {
+                    console.log('\x1b[32m%s\x1b[0m', '[基本作業]更新成功！請重新啟動！');
+                    process.exit(0);
+                } else {
+                    console.log('\x1b[32m%s\x1b[0m', '[基本作業]已經是最新的版本！');
+                }
+            })
+            .catch(err => {
+                if (err) {
+                    console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
+                    return;
+                }
+            })
+
+    }
+
+}
+
 async function run() {
     console.log(
         [' __   ___________    ____  _                       _   ____        _    ',
@@ -20,57 +80,50 @@ async function run() {
         ].join('\n'),
     )
 
-    // 偵測是否有git資料夾
-    if (`${config.update.auto}` == `true` && fs.existsSync('./.git')) {
-        exec('git reset --hard', (err, stdout, stderr) => {
-            if (err) {
-                console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
-                return;
-            }
-            if (stdout) {
-                console.log(stdout)
-            }
-            if (stderr) {
-                console.warn(stderr)
-            }
-        });
-        exec('git pull', (err, stdout, stderr) => {
-            if (err) {
-                console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
-                return;
-            }
-            if (stdout) {
-                console.log(stdout)
-            }
-            if (stderr) {
-                console.warn(stderr)
-            }
-            // 如果回傳紀錄不包含已更新
-            if (!stdout.includes('Already up to date.')) {
-                console.log('\x1b[32m%s\x1b[0m', '[基本作業]更新成功！請重新啟動！');
-                process.exit(0);
-            } else {
-                console.log('\x1b[32m%s\x1b[0m', '[基本作業]已經是最新的版本！');
-            }
-
-        });
-
-    }
 
     // 執行安裝依賴項目
-    if (`${config.update.install_package}` == `true`) {
-        console.log('\x1b[34m%s\x1b[0m', '[基本作業]安裝依賴項......');
-        exec('npm install', (err, stdout, stderr) => {
-            if (err) {
-                console.log('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
-                return;
-            }
-            console.log('' + stdout + '');
-            console.log('\x1b[32m%s\x1b[0m', '[基本作業] Package.json 中的依賴項安裝完成！');
-            // exec('node bot.js');
+    if (`${ config.update.install_package }` == `true`) {
 
-        });
+        console.log('\x1b[34m%s\x1b[0m', '[基本作業]安裝依賴項......');
+        await execPromise('npm install')
+            .then((stdout, stderr) => {
+                if (stdout) {
+                    console.log(stdout)
+                }
+                if (stderr) {
+                    console.warn(stderr)
+                }
+            })
+            .catch(err => {
+                if (err) {
+                    console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
+                    return;
+                }
+            })
+
     }
     // 執行機器人檔案
     require('./Root/shared')
+}
+
+
+/**
+ * 執行函數
+ * @param 'EXECCOMMAND' command 執行控制台命令
+ * @returns err / stdout&stderr
+ */
+function execPromise(command) {
+    return new Promise((resolve, reject) => {
+        exec(command, (err, stdout, stderr) => {
+            if (err) {
+                console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
+                reject(err);
+            } else {
+                console.log(stdout)
+                console.warn(stderr)
+
+                resolve({ stdout, stderr });
+            }
+        });
+    });
 }
