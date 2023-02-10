@@ -23,9 +23,10 @@ const config = require('../Config');
  */
 /**
  * 網頁
- * @param {import('discord.js').Client} client 客戶端
+ * @param {import('discord.js').Clienconfig.web.port t} client 客戶端
  */
 module.exports = async (client) => {
+    const host = `${ config.web.domain }:${ config.web.port }`
 
     /**
      * @INFO 基本設定&取得資料
@@ -34,7 +35,7 @@ module.exports = async (client) => {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser());
-    app.use('/', express.static(__dirname + '/Root/webs/'))
+    app.use('/', express.static(__dirname + '/webs/'))
 
     app.use(session({
         secret: `YZB-DiscordUser`,
@@ -202,7 +203,7 @@ module.exports = async (client) => {
                             client_secret: config.bot.clientSECRET,
                             code,
                             grant_type: 'authorization_code',
-                            redirect_uri: `${ config.web.domain }:${ config.web.port }/auth/discord-auth`,
+                            redirect_uri: `${host}/auth/discord-auth`,
                             scope: 'identify',
                         }).toString(),
                         headers: {
@@ -340,12 +341,12 @@ module.exports = async (client) => {
 
     // 處理404 (最後放置)
     app.get('*', (req, res) => {
-        return res.status(404).sendFile('/Root/webs/html/pages/404.html', { root: __dirname })
+        return res.status(404).sendFile('webs/html/pages/404.html', { root: __dirname })
     });
 
 
     // #endregion API
     // 監聽&上線
-    app.listen(config.web.port, () => console.log(`[#${client.shard.ids}]  網站監聽 ${ config.web.domain }:${ config.web.port }`));
+    app.listen(config.web.port, () => console.log(`[#${client.shard.ids}]  網站監聽 ${host}`));
 
 }
