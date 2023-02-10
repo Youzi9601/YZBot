@@ -1,4 +1,4 @@
-const { config } = require('./../../../bot');
+const { config } = require('./../../bot');
 const { EmbedBuilder } = require('discord.js')
 
 module.exports = async function(client, interaction, command) {

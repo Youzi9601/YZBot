@@ -1,4 +1,4 @@
-const { config } = require('./../../../bot');
+const { config } = require('./../../bot');
 const { translate_Permissions } = require('../../Language/Language');
 const { EmbedBuilder } = require('discord.js')
 

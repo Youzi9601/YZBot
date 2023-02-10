@@ -1,4 +1,4 @@
-const client = require("./../../../bot");
+const client = require("./../../bot");
 const colors = require("colors");
 
 module.exports = {

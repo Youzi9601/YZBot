@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require("discord.js");
-const client = require("./../../../bot");
+const client = require("./../../bot");
 const config = require("./../../../Config");
 const { QuickDB } = require("quick.db");
 const db = new QuickDB();

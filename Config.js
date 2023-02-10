@@ -21,6 +21,13 @@ module.exports = {
     /**
     * 基本設定
     */
+   update: {
+        // 自動更新
+        auto: process.env.update_auto || false,
+       //自動安裝所有的npm包?
+        install_package: process.env.update_install_package || true,
+    },
+
     bot: {
         // 啟動時會使用這個金鑰登入 (也就是機器人token)
         token: process.env.token,
@@ -32,13 +39,13 @@ module.exports = {
 
 
     /**
-         *
-         * 分片系統(使用同一個機器人但為伺服器分區，減少機器人過多的執行問題)
-         *
-         * *注意：這必須使用！
-         * 用於：2000個伺服器以上的機器人
-         *
-         */
+     *
+     * 分片系統(使用同一個機器人但為伺服器分區，減少機器人過多的執行問題)
+     *
+     * *注意：這必須使用！
+     * 用於：2000個伺服器以上的機器人
+     *
+     */
     sharding: {
         // 生成數量(預設自動)
         amount: process.env.sharding_amount || 'auto',
@@ -92,7 +99,7 @@ module.exports = {
     ],
 
     // 機器人名稱
-    botName: process.env.botName || '柚子醬測試版',
+    botName: process.env.botName || '機器人',
 
     // 機器人狀態
     botPresence: {
@@ -220,18 +227,6 @@ module.exports = {
          */
     beta: {
         // RPC為Discord遊戲狀態顯示系統，目前為測試版
-        rpc: {
-            run: process.env.rpc_run || false,
-            setActivity: {
-                details: '一個實用的機器人',
-                state: '運作中...',
-                startTimestamp: Date.now(),
-                largeImageKey: 'yzb-5',
-                largeImageText: 'YZB',
-                smallImageKey: 'discord_icon_-_',
-                smallImageText: '柚子Youzi 大本營',
-            },
-        },
-
+        no: '沒東西', 
     },
 };
