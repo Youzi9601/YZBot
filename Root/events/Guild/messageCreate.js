@@ -56,7 +56,7 @@ client.on('messageCreate', async (message) => {
 
         if (command.owner, command.owner == true) {
             if (config?.developers) {
-                if (!config.Users.OWNERS.some(ID => message.member.id.includes(ID))) {
+                if (!config.developers.some(ID => message.member.id.includes(ID))) {
                     return await message.reply({
                         embeds: [
                             new EmbedBuilder()
