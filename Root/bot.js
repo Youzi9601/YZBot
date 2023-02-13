@@ -38,6 +38,7 @@ client.prefix_commands = new Collection();
 client.slash_commands = new Collection();
 client.user_commands = new Collection();
 client.message_commands = new Collection();
+client.button_commands = new Collection();
 client.modals = new Collection();
 client.events = new Collection();
 

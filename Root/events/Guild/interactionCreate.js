@@ -10,7 +10,7 @@ module.exports = {
 
 client.on('interactionCreate', async (interaction) => {
 
-    // Slash
+    // Slash:
     if (interaction.isChatInputCommand()) {
         const command = client.slash_commands.get(interaction.commandName);
         await require('./../../handlers/commandoptions/loadCommandOptions')(client, interaction, config, db, command);
@@ -25,7 +25,7 @@ client.on('interactionCreate', async (interaction) => {
         }
     }
 
-    // Users
+    // Users:
     if (interaction.isUserContextMenuCommand()) {
         const command = client.user_commands.get(interaction.commandName);
 
@@ -70,6 +70,34 @@ client.on('interactionCreate', async (interaction) => {
 
         try {
             modal.run(client, interaction, config, db);
+        } catch (e) {
+            console.error(`[#${client.shard.ids}]  執行模塊時發生錯誤：`)
+            console.error(e)
+        }
+    }
+
+    // Buttons:
+    if (interaction.isButton()) {
+        const button = client.button_commands.get(interaction.customId);
+
+        if (!button) {
+            /*
+            await setTimeout(() => {
+            }, 1000);
+            */
+            if (interaction.isRepliable()) return
+            await interaction.reply({
+                embeds: [
+                    new EmbedBuilder()
+                        .setDescription('出了點問題……按鈕處理程序中可能未定義模態 ID。')
+                        .setColor('Red'),
+                ],
+                ephemeral: true,
+            });
+        }
+
+        try {
+            button.run(client, interaction, config, db);
         } catch (e) {
             console.error(`[#${client.shard.ids}]  執行模塊時發生錯誤：`)
             console.error(e)
