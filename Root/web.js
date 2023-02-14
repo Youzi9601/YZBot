@@ -269,7 +269,7 @@ module.exports = async (client) => {
                 // tokenResponseData.statusCode will be 401
                     console.error(`[#${client.shard.ids}]  執行網站時發生錯誤：`)
                     console.error(error);
-                    return res.redirect('./login?err=true')
+                    return res.redirect('/dashboard/login?err=true')
                 }
                 // 傳送資料並返回dashboard
                 // 儲存
