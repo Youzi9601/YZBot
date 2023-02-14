@@ -36,23 +36,23 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 無法加載文件 ${file}，缺少模塊名稱值、描述或類型不是 1。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 無法加載文件 ${file}，缺少斜線命令名稱值、描述或類型不是 1。`.red)
                 continue;
             }
         }
     });
 
     console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載用戶命令...'.yellow);
-    // User commands handler:
-    fs.readdirSync('./Root/commands/user/').forEach((dir) => {
-        const UserCommands = fs.readdirSync(`./Root/commands/user/${dir}`).filter((file) => file.endsWith('.js'));
+    // User contextmenus commands handler:
+    fs.readdirSync('./Root/commands/contextmenus/user/').forEach((dir) => {
+        const UserCommands = fs.readdirSync(`./Root/commands/contextmenus/user/${dir}`).filter((file) => file.endsWith('.js'));
 
         for (let file of UserCommands) {
-            let pull = require(`../commands/user/${dir}/${file}`);
+            let pull = require(`../commands/contextmenus/user/${dir}/${file}`);
 
             if (pull.name, pull.type == 2) {
                 client.user_commands.set(pull.name, pull);
-                console.log(`[#${client.shard.ids}]  [處理 - 成員] 加載了一個文件： ${pull.name} (#${client.user_commands.size})`.brightGreen);
+                console.log(`[#${client.shard.ids}]  [處理 - 成員命令] 加載了一個文件： ${pull.name} (#${client.user_commands.size})`.brightGreen);
 
                 commands.push({
                     name: pull.name,
@@ -60,19 +60,19 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - 成員] 無法加載文件 ${file}，缺少的模塊名稱值或類型不是 2。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 成員命令] 無法加載文件 ${file}，缺少的成員命令名稱值或類型不是 2。`.red)
                 continue;
             }
         }
     });
 
     console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載消息命令...'.yellow);
-    // Message commands handler:
-    fs.readdirSync('./Root/commands/message/').forEach((dir) => {
-        const UserCommands = fs.readdirSync(`./Root/commands/message/${dir}`).filter((file) => file.endsWith('.js'));
+    // Message contextmenus commands handler:
+    fs.readdirSync('./Root/commands/contextmenus/message/').forEach((dir) => {
+        const MessageCommands = fs.readdirSync(`./Root/commands/contextmenus/message/${dir}`).filter((file) => file.endsWith('.js'));
 
-        for (let file of UserCommands) {
-            let pull = require(`../commands/message/${dir}/${file}`);
+        for (let file of MessageCommands) {
+            let pull = require(`../commands/contextmenus/message/${dir}/${file}`);
 
             if (pull.name, pull.type == 3) {
                 client.message_commands.set(pull.name, pull);
@@ -84,7 +84,7 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - 訊息命令] 無法加載文件 ${file}，缺少的模塊名稱值或類型不是 3。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 訊息命令] 無法加載文件 ${file}，缺少的訊息命令名稱值或類型不是 3。`.red)
                 continue;
             }
         }

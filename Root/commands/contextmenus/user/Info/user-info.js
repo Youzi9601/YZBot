@@ -1,6 +1,4 @@
 const { EmbedBuilder, PermissionsBitField } = require('discord.js');
-const moment = require('moment');
-
 
 module.exports = {
     name: "成員資訊",
@@ -16,10 +14,11 @@ module.exports = {
 
         const user = interaction.guild.members.cache.get(interaction.targetId);
 
+
         // Bot type handler:
         const bot = {
-            true: "Yes",
-            false: "No",
+            true: "是",
+            false: "否",
         };
 
         // Acknowledgements handler:

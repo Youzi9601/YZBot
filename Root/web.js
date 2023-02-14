@@ -269,7 +269,7 @@ module.exports = async (client) => {
                 // tokenResponseData.statusCode will be 401
                     console.error(`[#${client.shard.ids}]  執行網站時發生錯誤：`)
                     console.error(error);
-                    return res.redirect('./login?err=true')
+                    return res.redirect('/dashboard/login?err=true')
                 }
                 // 傳送資料並返回dashboard
                 // 儲存
@@ -347,6 +347,11 @@ module.exports = async (client) => {
 
     // #endregion API
     // 監聽&上線
-    app.listen(config.web.port, () => console.log(`[#${client.shard.ids}]  網站監聽 ${host}`));
+    app.listen(config.web.port, () => {
+        console.log(`[#${ client.shard.ids }]  網站監聽 ${ host }`)
+        console.log(`[#${ client.shard.ids }]  請將以下連結放入 Discord Applications 的 OAuth2 Redirects 來讓網站允許取用資料：`)
+        console.log(`[#${ client.shard.ids }]  http://${host}/auth/discord-auth`)
+        console.log(`[#${ client.shard.ids }]  http://${host}/auth/guild-auth`)
+    });
 
 }
