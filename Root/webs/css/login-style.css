@@ -182,7 +182,7 @@
 }
 .inputBox input:focus ~ i,
 .inputBox input:valid ~ i {
-  transform: translateY(-9.0px);
+  transform: translateY(-9px);
   font-size: 0.75em;
   color: rgb(56, 56, 56);
 }

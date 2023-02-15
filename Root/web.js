@@ -8,6 +8,7 @@ const { QuickDB } = require('quick.db')
 const client_db = new QuickDB().table('client')
 
 const config = require('../Config');
+
 /**
  * 網頁架構備忘錄
  * 首頁
@@ -23,10 +24,14 @@ const config = require('../Config');
  */
 /**
  * 網頁
- * @param {import('discord.js').Clienconfig.web.port t} client 客戶端
+ * @param {import('discord.js').Client} client 客戶端
  */
 module.exports = async (client) => {
     const host = `${ config.web.domain }:${ config.web.port }`
+    const discordurl = {
+        discordAuthLoginUrl: `https://discord.com/oauth2/authorize?client_id=${config.bot.clientID}&redirect_uri=${encodeURI(host)}%2Fauth%2Fdiscord-auth&response_type=code&scope=identify%20guilds%20applications.commands.permissions.update%20email`,
+        discordbotinvite: `https://discord.com/api/oauth2/authorize?client_id=${config.bot.clientID}&permissions=543312702935&redirect_uri=${encodeURI(host)}%2Fauth%2Fguild-oauth&response_type=code&scope=identify%20bot%20applications.commands`,
+    }
 
     /**
      * @INFO 基本設定&取得資料
@@ -141,7 +146,7 @@ module.exports = async (client) => {
             res.sendFile('webs/html/login.html', { root: __dirname })
         })
         .get('/dashboard/login/discord', (req, res) => {
-            res.redirect(config.web.links.discordAuthLoginUrl)
+            res.redirect(discordurl.discordAuthLoginUrl)
         })
         .get('/dashboard/logout', (req, res) => {
             res.clearCookie()
@@ -261,7 +266,7 @@ module.exports = async (client) => {
                                 owner: guild.owner,
                                 position: (guild.owner ? '所有者' : (hasPermission(guild.permissions, 8) ? '管理者' : '管理員')),
                                 botincludes: (guildIds.some(g => g.id === guild.id) ? 'true' : 'false'),
-                                url: (guildIds.some(g => g.id === guild.id) ? undefined : config.web.links.discordbotinvite),
+                                url: (guildIds.some(g => g.id === guild.id) ? undefined : discordurl.discordbotinvite),
                             }))
                     userGuilddata.sort((a, b) => (a.botincludes === 'true' ? 0 : 1) - (b.botincludes === 'true' ? 0 : 1));
                 } catch (error) {
@@ -349,9 +354,9 @@ module.exports = async (client) => {
     // 監聽&上線
     app.listen(config.web.port, () => {
         console.log(`[#${ client.shard.ids }]  網站監聽 ${ host }`)
-        console.log(`[#${ client.shard.ids }]  請將以下連結放入 Discord Applications 的 OAuth2 Redirects 來讓網站允許取用資料：`)
-        console.log(`[#${ client.shard.ids }]  http://${host}/auth/discord-auth`)
-        console.log(`[#${ client.shard.ids }]  http://${host}/auth/guild-auth`)
+        console.log(`\n[#${ client.shard.ids }]  請將以下連結放入 Discord Applications 的 OAuth2 Redirects 來讓網站允許取用資料：\n機器人以及登入的連結已在內部生成，不須再創建！`)
+        console.log(`[#${ client.shard.ids }]  ${host}/auth/discord-auth`)
+        console.log(`[#${ client.shard.ids }]  ${host}/auth/guild-auth`)
     });
 
 }

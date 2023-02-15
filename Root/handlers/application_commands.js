@@ -22,6 +22,11 @@ module.exports = (client, config) => {
             let pull = require(`../commands/slash/${dir}/${file}`);
 
             if (pull.name, pull.description, pull.type == 1) {
+                // 如果不符合命名規則的匹配
+                if (!RegExp(/^[a-z]{1,32}$/g).test(pull.name))
+                    return console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 無法加載文件 ${file}，需要與命名規則匹配！。`.red)
+
+                // 執行註冊
                 client.slash_commands.set(pull.name, pull);
                 console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 加載了一個文件: ${pull.name} (#${client.slash_commands.size})`.brightGreen);
 

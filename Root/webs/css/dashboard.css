@@ -172,6 +172,10 @@ body {
   width: 100vw;
   font-family: Helvetica;
   transition: opacity 1s;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .loader-page .loader {
