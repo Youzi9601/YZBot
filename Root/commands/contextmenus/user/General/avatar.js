@@ -15,24 +15,23 @@ module.exports = {
         const user = interaction.guild.members.cache.get(interaction.targetId);
 
         const locales = {
-  'zh-TW': {
-    title: `${ user.user.tag }的頭像：`,
-    description: `[[點我下載]](${ user.displayAvatarURL({ dynamic: true }) })`,
-    button: `圖片連結`,
-  },
-  'en': {
-    title: `Avatar of ${ user.user.tag }:`,
-    description: `[[Download]](${ user.displayAvatarURL({ dynamic: true }) })`,
-    button: `Image Link`,
-  },
-  'es': {
-    title: `Avatar de ${ user.user.tag }:`,
-    description: `[[Descargar]](${ user.displayAvatarURL({ dynamic: true }) })`,
-    button: `Enlace de la imagen`,
-  },
-  // 更多語言翻譯...
-};
-
+            'zh-TW': {
+                title: `${ user.user.tag }的頭像：`,
+                description: `[[點我下載]](${ user.displayAvatarURL({ dynamic: true }) })`,
+                button: `圖片連結`,
+            },
+            'en': {
+                title: `Avatar of ${ user.user.tag }:`,
+                description: `[[Download]](${ user.displayAvatarURL({ dynamic: true }) })`,
+                button: `Image Link`,
+            },
+            'es': {
+                title: `Avatar de ${ user.user.tag }:`,
+                description: `[[Descargar]](${ user.displayAvatarURL({ dynamic: true }) })`,
+                button: `Enlace de la imagen`,
+            },
+            // 更多語言翻譯...
+        };
 
 
         const row = new ActionRowBuilder()
