@@ -10,11 +10,11 @@ const colors = require("colors");
 module.exports = (client, config) => {
     console.log(`[#${client.shard.ids}]  ` + ">>> 模態處理程序：".blue);
 
-    const modals = fs.readdirSync(`./Root/modals/`).filter(file => file.endsWith('.js'));
+    const modals = fs.readdirSync(`./Root/commands/modals/`).filter(file => file.endsWith('.js'));
 
     for (let file of modals) {
 
-        let pull = require(`../modals/${file}`);
+        let pull = require(`../commands/modals/${file}`);
         if (pull.id) {
             client.modals.set(pull.id, pull);
             console.log(`[#${client.shard.ids}]  [處理 - MODALS] 加載了一個文件: ${file} (#${client.modals.size})`.brightGreen)
