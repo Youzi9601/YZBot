@@ -101,6 +101,7 @@ module.exports = (client, config) => {
         return process.exit();
     }
 
+    // 交給shard id #0 的機器人來執行註冊命令
     if (client.shard.ids == 0) {
         const rest = new REST({ version: '10' }).setToken(config.bot.token || process.env.token);
 

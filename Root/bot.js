@@ -42,9 +42,12 @@ client.button_commands = new Collection();
 client.modals = new Collection();
 client.events = new Collection();
 
+// 語言設定
+client.language = new Collection();
+
 module.exports = client;
 
-["prefix", "application_commands", "modals", "events", "mongoose"].forEach((file) => {
+["prefix", "application_commands", "modals", "events", "mongoose", "languages_loader"].forEach((file) => {
     require(`./handlers/${file}`)(client, config);
 });
 
