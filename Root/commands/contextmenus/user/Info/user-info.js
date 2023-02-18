@@ -46,7 +46,7 @@ module.exports = {
         const row = new ActionRowBuilder()
             .addComponents(
                 new StringSelectMenuBuilder()
-                    .setCustomId('info_user')
+                    .setCustomId(`cmu-info_user-${interaction.createdTimestamp}`)
                     .setPlaceholder('請選擇資訊類別')
                     .addOptions([
                         {
@@ -132,7 +132,7 @@ module.exports = {
         );
 
 
-        const filter = i => i.customId === 'info_user';
+        const filter = i => i.customId === `cmu-info_user-${interaction.createdTimestamp}`;
         const collector = interaction.channel.createMessageComponentCollector(
             {
                 filter,
