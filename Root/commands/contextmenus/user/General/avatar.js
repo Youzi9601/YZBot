@@ -3,6 +3,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('
 module.exports = {
     name: "取得頭像",
     type: 2,
+    disabled: true,
     /**
      *
      * @param {import("discord.js").Client} client

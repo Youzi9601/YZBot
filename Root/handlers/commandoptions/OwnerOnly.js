@@ -1,9 +1,8 @@
-const { config } = require('../../../bot');
 const { EmbedBuilder } = require('discord.js')
 
-module.exports = async function(client, interaction, command) {
+module.exports = async function(client, interaction, config, db, command) {
     if (!command.ownerOnly) return false;
-    if (config.developers.some(id => interaction.member.user.id == id)) return false;
+    if (client.config.developers.some(id => interaction.member.user.id == id)) return false;
     else {
         if (command.returnOwnerOnly == false || command.returnNoErrors) return true;
         else interaction.reply({

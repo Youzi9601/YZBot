@@ -8,6 +8,7 @@ module.exports = {
     },
     permissions: ['SendMessages'],
     owner: false,
+    disabled: true,
     run: async (client, message, args, prefix) => {
         const commands = client.prefix_commands.map(command => `${prefix}${command.config.name}`);
 

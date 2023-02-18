@@ -1,15 +1,17 @@
-const { config } = require('./../../bot');
-const { EmbedBuilder } = require('discord.js')
-const { translate_Permissions } = require('../../Language/Language');
 
-module.exports = async function(client, interaction, command) {
+const { EmbedBuilder } = require('discord.js')
+
+
+module.exports = async function(client, interaction, config, db, command) {
     // bypass
     if (config.developers.some(id => interaction.member.user.id == id)) return false;
     //
     if (!command.userPermissions) return false;
     const missing = [];
+    const language = client.language.get(interaction.locale + '/' + 'discord')?.Permissions || client.language.get('zh-TW' + '/' + 'discord').Permissions
+
     command.userPermissions.forEach(i => {
-        if (!interaction.member.permissions.has(i)) missing.push(translate_Permissions(i, 'zh-TW'));
+        if (!interaction.member.permissions.has(i)) missing.push(language[i]);
     });
     if (missing.length == 0) return false;
     else {

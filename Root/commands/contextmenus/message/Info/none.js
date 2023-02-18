@@ -4,7 +4,8 @@ const moment = require('moment');
 
 module.exports = {
     name: "?",
-    type: -1,
+    type: 3,
+    disabled: true,
     /**
      *
      * @param {import("discord.js").Client} client

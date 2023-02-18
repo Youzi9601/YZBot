@@ -1,9 +1,7 @@
-const { config } = require('./../../bot');
-const { translate_Permissions } = require('../../Language/Language');
 const { EmbedBuilder } = require('discord.js')
 
 
-module.exports = async function(client, interaction, command) {
+module.exports = async function(client, interaction, config, db, command) {
     // bypass
     if (config.developers.some(id => interaction.member.user.id == id)) return false;
     //
@@ -13,9 +11,11 @@ module.exports = async function(client, interaction, command) {
         if (command.returnAnyUserPermissions == false || command.returnNoErrors) return true;
         else {
             const perm = [];
+            const language = client.language.get(interaction.locale + '/' + 'discord')?.Permissions || client.language.get('zh-TW' + '/' + 'discord').Permissions
+
             for (let i = 0; i < command.anyUserPermission.length; i++) {
                 const ver = command.anyUserPermission[i];
-                perm.push(translate_Permissions(ver, 'zh-TW'));
+                perm.push(language[ver]);
             }
             interaction.reply({
                 embeds: [new EmbedBuilder

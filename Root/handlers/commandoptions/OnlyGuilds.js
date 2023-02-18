@@ -1,8 +1,8 @@
-const { config } = require('./../../bot');
+
 const { EmbedBuilder } = require('discord.js')
 
 
-module.exports = async function(client, interaction, command) {
+module.exports = async function(client, interaction, config, db, command) {
     // bypass
     if (config.developers.some(id => interaction.member.user.id == id)) return false;
     //

@@ -21,27 +21,20 @@ module.exports = (client, config) => {
         for (let file of SlashCommands) {
             let pull = require(`../commands/slash/${dir}/${file}`);
 
-            if (pull.name, pull.description, pull.type == 1) {
+            if (pull.disabled) return;
+            if (pull.data, pull.data.name, pull.data.description) {
                 // 如果不符合命名規則的匹配
-                if (!RegExp(/^[a-z]{1,32}$/g).test(pull.name))
+                if (!RegExp(/^[a-z]{1,32}$/g).test(pull.data.name))
                     return console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 無法加載文件 ${file}，需要與命名規則匹配！。`.red)
 
                 // 執行註冊
-                client.slash_commands.set(pull.name, pull);
-                console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 加載了一個文件: ${pull.name} (#${client.slash_commands.size})`.brightGreen);
+                client.slash_commands.set(pull.data.name, pull);
+                console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 加載了一個文件: ${pull.data.name} (#${client.slash_commands.size})`.brightGreen);
 
-                commands.push({
-                    name: pull.name,
-                    description: pull.description,
-                    type: pull.type || 1,
-                    options: pull.options ? pull.options : null,
-                    dm_permission: pull.permissions.dm_permission ? pull.permissions.dm_permission : false,
-                    default_permission: pull.permissions.DEFAULT_PERMISSIONS ? pull.permissions.DEFAULT_PERMISSIONS : null,
-                    default_member_permissions: pull.permissions.DEFAULT_MEMBER_PERMISSIONS ? PermissionsBitField.resolve(pull.permissions.DEFAULT_MEMBER_PERMISSIONS).toString() : null,
-                });
+                commands.push(pull.data);
 
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 無法加載文件 ${file}，缺少斜線命令名稱值、描述或類型不是 1。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 無法加載文件 ${file}，缺少斜線命令名稱值或描述。`.red)
                 continue;
             }
         }
@@ -55,6 +48,7 @@ module.exports = (client, config) => {
         for (let file of UserCommands) {
             let pull = require(`../commands/contextmenus/user/${dir}/${file}`);
 
+            if (pull.disabled) return;
             if (pull.name, pull.type == 2) {
                 client.user_commands.set(pull.name, pull);
                 console.log(`[#${client.shard.ids}]  [處理 - 成員命令] 加載了一個文件： ${pull.name} (#${client.user_commands.size})`.brightGreen);
@@ -79,6 +73,7 @@ module.exports = (client, config) => {
         for (let file of MessageCommands) {
             let pull = require(`../commands/contextmenus/message/${dir}/${file}`);
 
+            if (pull.disabled) return;
             if (pull.name, pull.type == 3) {
                 client.message_commands.set(pull.name, pull);
                 console.log(`[#${client.shard.ids}]  [處理 - 訊息命令] 加載了一個文件：${pull.name} (#${client.user_commands.size})`.brightGreen);

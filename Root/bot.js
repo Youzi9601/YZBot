@@ -1,6 +1,7 @@
 const { Client, Partials, Collection, GatewayIntentBits } = require('discord.js');
 const config = require('../Config');
-const colors = require("colors");
+require("colors");
+
 const CI = process.env.CI
 if (CI) {
     console.log(`[#${client.shard.ids}]  [#${client.shard.ids}] ` + 'CI檢查完畢')
@@ -42,6 +43,7 @@ client.button_commands = new Collection();
 client.modals = new Collection();
 client.events = new Collection();
 
+client.config = config;
 // 語言設定
 client.language = new Collection();
 

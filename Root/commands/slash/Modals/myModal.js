@@ -1,13 +1,16 @@
 const { EmbedBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = require("discord.js");
 
 module.exports = {
-    name: "mymodal",
-    description: "Replies with a modal menu!",
-    type: 1,
-    options: [],
-    permissions: {
-        DEFAULT_MEMBER_PERMISSIONS: "SendMessages",
+    data: {
+        name: "mymodal",
+        description: "Replies with a modal menu!",
+        type: 1,
+        options: [],
+        permissions: {
+            DEFAULT_MEMBER_PERMISSIONS: "SendMessages",
+        },
     },
+    disabled: true,
     run: async (client, interaction, config, db) => {
         const modal = new ModalBuilder()
             .setCustomId('myModal')

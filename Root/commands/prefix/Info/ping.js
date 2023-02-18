@@ -7,6 +7,7 @@ module.exports = {
     },
     permissions: ['SendMessages'],
     owner: false,
+    disabled: true,
     run: async (client, message, args, prefix, config, db) => {
 
         await message.reply({ embeds: [

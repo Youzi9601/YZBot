@@ -2,7 +2,8 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name: "取得json值",
-    type: -1,
+    type: 3,
+    disabled: true,
     /**
      *
      * @param {import("discord.js").Client} client

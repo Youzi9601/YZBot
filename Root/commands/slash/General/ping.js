@@ -1,13 +1,14 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 
 module.exports = {
-    name: "ping",
-    description: "Replies with pong!",
-    type: 1,
-    options: [],
-    permissions: {
-        DEFAULT_MEMBER_PERMISSIONS: "SendMessages",
-    },
+    data: new SlashCommandBuilder()
+        .setName('ping')
+        .setDescription('回傳機器人的狀態')
+        .setDefaultMemberPermissions(
+            PermissionFlagsBits.SendMessages,
+        )
+        .setDMPermission(false)
+        .toJSON(),
     run: async (client, interaction, config, db) => {
         return await interaction.reply({
             embeds: [
@@ -19,3 +20,4 @@ module.exports = {
         })
     },
 };
+

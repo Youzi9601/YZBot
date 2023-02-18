@@ -7,9 +7,20 @@ module.exports = {
     },
     permissions: ['SendMessages'], // Since the "owner" is TRUE, then we can set the permissions to 'sendMessages'.
     owner: true,
+    disabled: true,
+    /**
+     *
+     * @param {*} client
+     * @param {*} message
+     * @param {*} args
+     * @param {*} prefix
+     * @param {import('./../../../../Config')} config
+     * @param {*} db
+     * @returns
+     */
     run: async (client, message, args, prefix, config, db) => {
 
-        const ownersID = config.Users.OWNERS;
+        const ownersID = config.developers;
         if (!ownersID) return;
 
         const ownersARRAY = [];

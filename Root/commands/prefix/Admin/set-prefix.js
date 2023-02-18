@@ -8,6 +8,7 @@ module.exports = {
     },
     permissions: ['Administrator'],
     owner: false,
+    disabled: true,
     run: async (client, message, args, prefix, config, db) => {
 
         if (!args[0]) {
