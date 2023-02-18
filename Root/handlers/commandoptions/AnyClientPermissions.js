@@ -1,4 +1,3 @@
-
 const { EmbedBuilder } = require('discord.js')
 
 module.exports = async function(client, interaction, config, db, command) {
