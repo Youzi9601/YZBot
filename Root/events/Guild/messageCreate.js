@@ -27,7 +27,7 @@ client.on('messageCreate', async (message) => {
         */
     }
 
-    const prefix = await db.get(`guild_prefix_${message.guild.id}`) || config.Prefix || "?";
+    const prefix = await db.get(`guild_prefix_${message.guild.id}`) || config.prefix || ">";
 
     if (!message.content.startsWith(prefix)) return;
     if (!message.guild) return;
