@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { exec } = require('child_process');
 
 module.exports = {
@@ -23,7 +23,7 @@ module.exports = {
                 new ButtonBuilder()
                     .setCustomId('delete')
                     .setLabel('刪除輸出')
-                    .setStyle('DANGER'),
+                    .setStyle(ButtonStyle.Danger),
             );
         const lola = args.join(' ');
         if (!lola) return message.channel.send('請輸入要在**終端機**中執行的內容！');
@@ -33,14 +33,20 @@ module.exports = {
                 message.channel.send({
                     content: `\`\`\`js\n${error.message.replace(client.config.bot.token, '機器人Token')}\n\`\`\``,
                     components: [row],
+                    allowedMentions: {
+                        repliedUser: false,
+                    },
                 });
-                console.log('終端機>' + error.message.replace(client.config.bot.token, '機器人Token'))
+                console.log('終端機>  ' + error.message.replace(client.config.bot.token, '機器人Token'))
             } else {
                 message.channel.send({
                     content: `\`\`\`js\n${response.replace(client.config.bot.token, '機器人Token')}\n\`\`\``,
                     components: [row],
+                    allowedMentions: {
+                        repliedUser: false,
+                    },
                 });
-                console.log('終端機>' + response.replace(client.config.bot.token, '機器人Token'))
+                console.log('終端機>  ' + response.replace(client.config.bot.token, '機器人Token'))
             }
         });
     },

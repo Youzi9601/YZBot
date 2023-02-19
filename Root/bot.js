@@ -46,6 +46,16 @@ client.events = new Collection();
 client.config = config;
 // 語言設定
 client.language = new Collection();
+/**
+ * 語言檔案設定與取得
+ * @param {'zh_TW'} locale 語言
+ * @param {} file 檔案
+ * @returns langs
+ */
+client.language_data = (locale, file) => {
+    return client.language.get(locale + '/' + file) || client.language.get('zh-TW' + '/' + file)
+}
+
 
 module.exports = client;
 

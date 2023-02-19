@@ -19,5 +19,6 @@ module.exports = (client, config) => {
             console.log(`[#${client.shard.ids}]  讀取語言檔案: ${dir + '/' + file.replace('.json', '')}`.brightGreen)
         }
     });
+
     // 設定全部語言包
 }

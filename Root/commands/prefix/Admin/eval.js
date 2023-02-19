@@ -1,4 +1,4 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require("discord.js");
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { inspect } = require('util');
 
 module.exports = {
@@ -14,7 +14,8 @@ module.exports = {
             return await message.reply({ embeds: [
                 new EmbedBuilder()
                     .setTitle("缺少參數")
-                    .setDescription("請提供一個參數！"),
+                    .setDescription("請提供一個參數！")
+                    .setColor('Red'),
             ] });
         }
 
@@ -23,7 +24,7 @@ module.exports = {
                 new ButtonBuilder()
                     .setCustomId('delete')
                     .setLabel('刪除輸出')
-                    .setStyle('DANGER'),
+                    .setStyle(ButtonStyle.Danger),
             );
         let code = args.join(' ').trim();
         const originalCode = code;
@@ -46,7 +47,7 @@ module.exports = {
                         repliedUser: false,
                     },
                 });
-                console.log('JS偵錯>' + code)
+                console.log('JS偵錯>  ' + code)
             }
         } catch (error) {
             console.error(error);

@@ -16,25 +16,26 @@ module.exports = (client, config) => {
     // Slash commands handler:
     console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載斜杠命令...'.yellow);
     fs.readdirSync('./Root/commands/slash/').forEach((dir) => {
-        const SlashCommands = fs.readdirSync(`./Root/commands/slash/${dir}`).filter((file) => file.endsWith('.js'));
+        const SlashCommands = fs.readdirSync(`./Root/commands/slash/${ dir }`).filter((file) => file.endsWith('.js'));
 
         for (let file of SlashCommands) {
-            let pull = require(`../commands/slash/${dir}/${file}`);
+            let pull = require(`../commands/slash/${ dir }/${ file }`);
 
-            if (pull.disabled) return;
+            if (pull.disabled)
+                return;
             if (pull.data, pull.data.name, pull.data.description) {
                 // 如果不符合命名規則的匹配
                 if (!RegExp(/^[a-z]{1,32}$/g).test(pull.data.name))
-                    return console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 無法加載文件 ${file}，需要與命名規則匹配！。`.red)
+                    return console.log(`[#${ client.shard.ids }]  [處理 - 斜線命令] 無法加載文件 ${ file }，需要與命名規則匹配！。`.red);
 
                 // 執行註冊
                 client.slash_commands.set(pull.data.name, pull);
-                console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 加載了一個文件: ${pull.data.name} (#${client.slash_commands.size})`.brightGreen);
+                console.log(`[#${ client.shard.ids }]  [處理 - 斜線命令] 加載了一個文件: ${ pull.data.name } (#${ client.slash_commands.size })`.brightGreen);
 
                 commands.push(pull.data);
 
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - 斜線命令] 無法加載文件 ${file}，缺少斜線命令名稱值或描述。`.red)
+                console.log(`[#${ client.shard.ids }]  [處理 - 斜線命令] 無法加載文件 ${ file }，缺少斜線命令名稱值或描述。`.red);
                 continue;
             }
         }
@@ -85,6 +86,25 @@ module.exports = (client, config) => {
 
             } else {
                 console.log(`[#${client.shard.ids}]  [處理 - 訊息命令] 無法加載文件 ${file}，缺少的訊息命令名稱值或類型不是 3。`.red)
+                continue;
+            }
+        }
+    });
+
+    console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載按鈕命令...'.yellow);
+    // Button commands handler:
+    fs.readdirSync('./Root/commands/buttons').forEach((dir) => {
+        const ButtonCommands = fs.readdirSync(`./Root/commands/buttons/${dir}`).filter((file) => file.endsWith('.js'));
+
+        for (let file of ButtonCommands) {
+            let pull = require(`../commands/buttons/${dir}/${file}`);
+
+            if (pull.disabled) return;
+            if (pull.name) {
+                client.button_commands.set(pull.name, pull);
+                console.log(`[#${client.shard.ids}]  [處理 - 按鈕命令] 加載了一個文件：${pull.name} (#${client.user_commands.size})`.brightGreen);
+            } else {
+                console.log(`[#${client.shard.ids}]  [處理 - 按鈕命令] 無法加載文件 ${file}，缺少了按鈕命令名稱值。`.red)
                 continue;
             }
         }

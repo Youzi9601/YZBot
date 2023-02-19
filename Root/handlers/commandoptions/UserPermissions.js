@@ -7,7 +7,7 @@ module.exports = async function(client, interaction, config, db, command) {
     //
     if (!command.userPermissions) return false;
     const missing = [];
-    const language = client.language.get(interaction.locale + '/' + 'discord')?.Permissions || client.language.get('zh-TW' + '/' + 'discord').Permissions
+    const language = client.language_data(interaction.locale, 'discord').Permissions
 
     command.userPermissions.forEach(i => {
         if (!interaction.member.permissions.has(i)) missing.push(language[i]);

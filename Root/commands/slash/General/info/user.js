@@ -186,7 +186,7 @@ async function load(client, interaction, config, db) {
                 );
 
         } else if (type == 'permissions') {
-            const language = client.language.get(interaction.locale + '/' + 'discord')?.Permissions || client.language.get('zh-TW' + '/' + 'discord').Permissions
+            const language = client.language_data(interaction.locale, 'discord').Permissions
             // 有的 member.permissions.toArray
             const has_permissions = collector_member.permissions.toArray();
             const has_permissions_translate = [];

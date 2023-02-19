@@ -87,8 +87,8 @@ module.exports = {
                     inline: true,
                 },
                 {
-                    name: `共有 [${member.roles.cache.size - 1}] 個身分組`,
-                    value: `${member.roles.cache.map((ROLE) => ROLE).join(' ').replace('@everyone', '') || "[沒有角色]"}`,
+                    name: `身分組`,
+                    value: `共 ${member.roles.cache.size - 1} 個`,
                     inline: true,
                 },
                 {
@@ -175,12 +175,12 @@ module.exports = {
                         },
                         {
                             name: 'ID',
-                            value: `${collector_member.user.id}`,
+                            value: `\`${collector_member.user.id}\``,
                             inline: false,
                         },
                         {
                             name: '識別碼',
-                            value: `${collector_member.user.discriminator}`,
+                            value: `\`#${collector_member.user.discriminator}\``,
                             inline: true,
                         },
                         {
@@ -241,8 +241,8 @@ module.exports = {
                     );
 
             } else if (type == 'permissions') {
-                const language = client.language.get(interaction.locale + '/' + 'discord')?.Permissions || client.language.get('zh-TW' + '/' + 'discord').Permissions
-                console.log(language)
+
+                const language = client.language_data(interaction.locale, 'discord').Permissions
                 // 有的 member.permissions.toArray
                 const has_permissions = collector_member.permissions.toArray();
                 const has_permissions_translate = [];
