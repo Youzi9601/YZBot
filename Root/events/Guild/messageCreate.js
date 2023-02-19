@@ -1,4 +1,4 @@
-const { EmbedBuilder, PermissionsBitField, codeBlock, ChannelType } = require("discord.js");
+const { EmbedBuilder, PermissionsBitField, ChannelType, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require("discord.js");
 const client = require("./../../bot");
 const config = require("./../../../Config");
 const { QuickDB } = require("quick.db");
@@ -46,6 +46,13 @@ client.on('messageCreate', async (message) => {
         if (!command) return;
 
         if (command) {
+            const row = new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                        .setCustomId('delete')
+                        .setLabel('刪除回應')
+                        .setStyle(ButtonStyle.Danger),
+                );
             if (command.permissions) {
                 if (!message.member.permissions.has(PermissionsBitField.resolve(command.permissions || []))) {
                     return await message.reply({
@@ -54,6 +61,8 @@ client.on('messageCreate', async (message) => {
                                 .setDescription(`🚫抱歉，您無權使用此命令。`)
                                 .setColor("Red"),
                         ],
+                        components: [row],
+
                     })
                 }
             }
@@ -61,6 +70,7 @@ client.on('messageCreate', async (message) => {
             if (command.owner, command.owner == true) {
                 if (config?.developers) {
                     if (!config.developers.some(ID => message.member.id.includes(ID))) {
+
                         return await message.reply({
                             embeds: [
                                 new EmbedBuilder()
@@ -68,6 +78,7 @@ client.on('messageCreate', async (message) => {
                                 // 允許的用戶:\n**${allowedUsers.join(", ")}**
                                     .setColor("Red"),
                             ],
+                            components: [row],
                         })
                     }
                 }

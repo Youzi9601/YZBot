@@ -10,14 +10,6 @@ module.exports = {
     owner: true,
     run: async (client, message, args, prefix, config, db) => {
 
-        if (!args[0]) {
-            return await message.reply({ embeds: [
-                new EmbedBuilder()
-                    .setTitle("缺少參數")
-                    .setDescription("請提供一個參數！"),
-            ] });
-        }
-
         const row = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
@@ -25,6 +17,18 @@ module.exports = {
                     .setLabel('刪除輸出')
                     .setStyle(ButtonStyle.Danger),
             );
+
+        if (!args[0]) {
+            return await message.reply({
+                embeds: [
+                    new EmbedBuilder()
+                        .setTitle("缺少參數")
+                        .setDescription("請提供一個參數！"),
+                ],
+                components: [row],
+            });
+        }
+
         const lola = args.join(' ');
         if (!lola) return message.channel.send('請輸入要在**終端機**中執行的內容！');
         exec(`${lola}`, (error, stdout) => {

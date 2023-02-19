@@ -10,15 +10,6 @@ module.exports = {
     owner: true,
     run: async (client, message, args, prefix, config, db) => {
 
-        if (!args[0]) {
-            return await message.reply({ embeds: [
-                new EmbedBuilder()
-                    .setTitle("缺少參數")
-                    .setDescription("請提供一個參數！")
-                    .setColor('Red'),
-            ] });
-        }
-
         const row = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
@@ -26,6 +17,19 @@ module.exports = {
                     .setLabel('刪除輸出')
                     .setStyle(ButtonStyle.Danger),
             );
+
+        if (!args[0]) {
+            return await message.reply({
+                embeds: [
+                    new EmbedBuilder()
+                        .setTitle("缺少參數")
+                        .setDescription("請提供一個參數！")
+                        .setColor('Red'),
+                ],
+                components: [row],
+            });
+        }
+
         let code = args.join(' ').trim();
         const originalCode = code;
         if (!code) return message.channel.send('請輸入要評估 javascript 代碼 的內容！');
