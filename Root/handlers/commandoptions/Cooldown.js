@@ -1,7 +1,14 @@
-const db = require('quick.db');
 const humanizeDuration = require('humanize-duration');
 const { EmbedBuilder } = require('discord.js')
 
+/**
+ *
+ * @param {import('discord.js').Client} client
+ * @param {import('discord.js').Integration} interaction
+ * @param {*} config
+ * @param {import('quick.db').QuickDB} db
+ * @param {*} command
+ */
 module.exports = async function(client, interaction, config, db, command) {
     if (!command.cooldown) return false;
     const interactionType = 'Normal'
