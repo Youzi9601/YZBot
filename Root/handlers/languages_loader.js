@@ -10,6 +10,7 @@ module.exports = (client, config) => {
 
     // 語言
     fs.readdirSync('./Root/languages/').forEach((dir) => {
+        if (dir.endsWith('.md')) return;
         // 檔案路徑
         const langfiles = fs.readdirSync(`./Root/languages/${ dir }`).filter((file) => file.endsWith('.json'));
         for (let file of langfiles) {
