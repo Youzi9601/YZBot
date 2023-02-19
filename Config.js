@@ -153,25 +153,28 @@ module.exports = {
     /**
      * 機器人傳輸頻道設定
     */
-
-    // 伺服器邀請 (https://discord.gg/${邀請代碼})
-    invite_code: process.env.invite_code || 'Vq3F8DUNzf',
-    // 紀錄伺服器的ID
-    ServerID: process.env.serverid || '941663438944469053',
-    // 紀錄伺服器的相關頻道
-    Channels: {
+    guild: {
+        // 伺服器邀請 (https://discord.gg/${邀請代碼})
+        invite_code: process.env.invite_code || 'Vq3F8DUNzf',
+        // 紀錄伺服器的ID
+        ServerID: process.env.serverid || '769587106300428328',
+        // 紀錄伺服器的相關頻道
+        Channels: {
         // 機器人所有記錄會在這個頻道 (填入ID)
-        All: process.env.Channels_All || '940610703683903578',
-        // 機器人啟動時會記錄在這個頻道 (填入ID)
-        ClientOn: process.env.Channels_ClientOnChannel || '940610703683903578',
-        // 若有錯誤的回報(各種)會記錄在這個頻道 (填入ID)
-        report: process.env.Channels_reportChannel || '940610972454912042',
-        // 機器人指令的使用紀錄會記錄在這個頻道 (填入ID)
-        commandRec: process.env.Channels_commandRecChannel || '940610703683903578',
-        // 該伺服器的變動被記錄在這個頻道 (填入ID)
-        serverRec: process.env.Channels_serverRecChannel || '940610811020312606',
-        // 機器人被邀請進入伺服器的紀錄會記錄在這個頻道 (填入ID)
-        inviteChannel: process.env.Channels_inviteChannel || '940611078189096961',
+            All: process.env.Channels_All || '940610972454912042',
+            // 機器人啟動時會記錄在這個頻道 (填入ID)
+            ClientStatus: process.env.Channels_ClientStatus || '940610972454912042',
+            // 機器人啟動時會記錄在這個頻道 (填入ID)
+            ClientOn: process.env.Channels_ClientOnChannel || '940610972454912042',
+            // 若有錯誤的回報(各種)會記錄在這個頻道 (填入ID)
+            report: process.env.Channels_reportChannel || '940610972454912042',
+            // 機器人指令的使用紀錄會記錄在這個頻道 (填入ID)
+            commandRec: process.env.Channels_commandRecChannel || '940610972454912042',
+            // 該伺服器的變動被記錄在這個頻道 (填入ID)
+            serverRec: process.env.Channels_serverRecChannel || '940610972454912042',
+            // 機器人被邀請進入伺服器的紀錄會記錄在這個頻道 (填入ID)
+            inviteChannel: process.env.Channels_inviteChannel || '940610972454912042',
+        },
     },
 
     /**

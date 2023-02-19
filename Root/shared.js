@@ -67,7 +67,7 @@ manager
         console.log('成功啟動' + manager.totalShards + '個分片！')
         // 執行設定資料
         // 執行Web
-        manager.broadcastEval(client => {
+        manager.broadcastEval(async client => {
             if (client.shard.ids == 0) {
                 const promises = [
                     client.shard.fetchClientValues('guilds.cache.size'),
@@ -90,6 +90,11 @@ manager
                     })
                     .catch(console.error);
             }
+
+            const { ActivityType } = require('discord.js')
+            const wait = require('node:timers/promises').setTimeout;
+            await wait(5000)
+            client.user.setPresence({ activities: [{ name: `分片#${client.shard.ids}｜機器人`, type: ActivityType.Competing }], status: 'online' });
 
         });
     })
