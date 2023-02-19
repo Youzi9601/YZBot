@@ -1,5 +1,6 @@
 const config = require("./../../Config");
-const superDjs = require("super-djs");
+require('colors')
+// const superDjs = require("super-djs");
 
 /**
  *
@@ -7,12 +8,13 @@ const superDjs = require("super-djs");
  * @returns "?"
  */
 module.exports = (client) => {
-    console.log(superDjs.colourText(`[#${client.shard.ids}]  ` + '[DATABASE] 正在連接到 MongoDB...', 'yellow'));
+    console.log(`[#${client.shard.ids}]  [DATABASE] 正在連接到 MongoDB...`.yellow);
     const mongo = process.env.MongoDB || config.database.MongoDB;
 
     if (!mongo) {
-        console.warn(`[#${client.shard.ids}]  ` + "[WARN] 未提供 Mongo URI/URL！ （不需要）");
+        console.warn(`[#${client.shard.ids}]  ` + "[DATABASE] 未提供 Mongo URI/URL！ （不需要）");
     } else {
-        superDjs.connectMongoDB(mongo, true, superDjs.colourText('[DATABASE] 連接到 MongoDB！', 'green'));
+        console.error(`[#${client.shard.ids}]  [DATABASE] 當前資料庫系統尚未完成，所以無法使用`.red)
+        // superDjs.connectMongoDB(mongo, true, superDjs.colourText('[DATABASE] 連接到 MongoDB！', 'green'));
     }
 };

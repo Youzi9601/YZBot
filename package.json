@@ -64,8 +64,7 @@
     "passport": "^0.6.0",
     "passport-discord": "^0.1.4",
     "quick.db": "^9.0.8",
-    "string-progressbar": "^1.0.4",
-    "super-djs": "^1.7.4"
+    "string-progressbar": "^1.0.4"
   },
   "auto-updater": {
     "repo": "/Youzi9601/YZBot",
