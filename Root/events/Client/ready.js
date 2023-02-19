@@ -1,10 +1,11 @@
-const client = require("./../../bot");
-const colors = require("colors");
+const { Events } = require('discord.js')
+require("colors");
 
 module.exports = {
-    name: "ready.js",
+    name: Events.ClientReady,
+    once: true,
+    async execute(client, _c) {
+        console.log(`[#${ client.shard.ids }]  ` + `[準備] ${ client.user.tag } 完成登入！`.brightGreen);
+        require('./bot/status')(client)
+    },
 };
-
-client.once('ready', async () => {
-    console.log(`[#${client.shard.ids}]  ` + `[準備] ${client.user.tag} 完成登入！`.brightGreen);
-})

@@ -1,19 +1,17 @@
-const { EmbedBuilder, PermissionsBitField, ChannelType, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require("discord.js");
-const client = require("./../../bot");
+const { EmbedBuilder, PermissionsBitField, ChannelType, ButtonBuilder, ActionRowBuilder, ButtonStyle, Events } = require("discord.js");
 const config = require("./../../../Config");
 const { QuickDB } = require("quick.db");
 const db = new QuickDB();
 
 module.exports = {
-    name: "messageCreate",
-};
+    name: Events.MessageCreate,
+    async execute(client, message) {
 
-client.on('messageCreate', async (message) => {
-    if (message.author.bot) return;
+        if (message.author.bot) return;
 
-    if (message.channel.type == ChannelType.DM
+        if (message.channel.type == ChannelType.DM
         || message.channel.type == ChannelType.GroupDM) {
-        return;
+            return;
         /*
         await message.reply({
             embeds: [
@@ -25,74 +23,78 @@ client.on('messageCreate', async (message) => {
             ],
         })
         */
-    }
+        }
 
-    const all_prefix = config.prefix
-    all_prefix.push(await db.get(`guild_prefix_${ message.guild.id }`), ">")
-    if (!message.guild) return;
-    // 檢查是否已經執行過了
-    let isRun = false;
-    all_prefix.forEach(async prefix => {
+        const all_prefix = config.prefix
+        all_prefix.push(await db.get(`guild_prefix_${ message.guild.id }`), ">")
+        if (!message.guild) return;
+        // 檢查是否已經執行過了
+        let isRun = false;
+        all_prefix.forEach(async prefix => {
 
-        if (!message.content.startsWith(prefix)) return;
-        if (!message.member) message.member = await message.guild.fetchMember(message);
+            if (!message.content.startsWith(prefix)) return;
+            if (!message.member) message.member = await message.guild.fetchMember(message);
 
-        const args = message.content.slice(prefix.length).trim().split(/ +/g);
-        const cmd = args.shift().toLowerCase();
-        if (cmd.length == 0) return;
+            const args = message.content.slice(prefix.length).trim().split(/ +/g);
+            const cmd = args.shift().toLowerCase();
+            if (cmd.length == 0) return;
 
-        const command = client.prefix_commands.get(cmd);
+            const command = client.prefix_commands.get(cmd);
 
-        if (!command) return;
+            if (!command) return;
 
-        if (command) {
-            const row = new ActionRowBuilder()
-                .addComponents(
-                    new ButtonBuilder()
-                        .setCustomId('delete')
-                        .setLabel('刪除回應')
-                        .setStyle(ButtonStyle.Danger),
-                );
-            if (command.permissions) {
-                if (!message.member.permissions.has(PermissionsBitField.resolve(command.permissions || []))) {
-                    return await message.reply({
-                        embeds: [
-                            new EmbedBuilder()
-                                .setDescription(`🚫抱歉，您無權使用此命令。`)
-                                .setColor("Red"),
-                        ],
-                        components: [row],
-
-                    })
-                }
-            }
-
-            if (command.owner, command.owner == true) {
-                if (config?.developers) {
-                    if (!config.developers.some(ID => message.member.id.includes(ID))) {
-
+            if (command) {
+                const row = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('delete')
+                            .setLabel('刪除回應')
+                            .setStyle(ButtonStyle.Danger),
+                    );
+                if (command.permissions) {
+                    if (!message.member.permissions.has(PermissionsBitField.resolve(command.permissions || []))) {
                         return await message.reply({
                             embeds: [
                                 new EmbedBuilder()
-                                    .setDescription(`🚫 抱歉，只有開發者可以使用此命令！`)
-                                // 允許的用戶:\n**${allowedUsers.join(", ")}**
+                                    .setDescription(`🚫抱歉，您無權使用此命令。`)
                                     .setColor("Red"),
                             ],
                             components: [row],
+
                         })
                     }
                 }
-            }
 
-            try {
-                if (isRun) return;
-                isRun = true;
-                command.run(client, message, args, prefix, config, db);
-            } catch (error) {
-                console.error(`[#${client.shard.ids}]  執行訊息命令時發生錯誤：`)
-                console.error(error);
-            }
-        }
-    })
+                if (command.owner, command.owner == true) {
+                    if (config?.developers) {
+                        if (!config.developers.some(ID => message.member.id.includes(ID))) {
 
-});
+                            return await message.reply({
+                                embeds: [
+                                    new EmbedBuilder()
+                                        .setDescription(`🚫 抱歉，只有開發者可以使用此命令！`)
+                                    // 允許的用戶:\n**${allowedUsers.join(", ")}**
+                                        .setColor("Red"),
+                                ],
+                                components: [row],
+                            })
+                        }
+                    }
+                }
+
+                try {
+                    if (isRun) return;
+                    isRun = true;
+                    command.run(client, message, args, prefix, config, db);
+                } catch (error) {
+                    console.error(`[#${client.shard.ids}]  執行訊息命令時發生錯誤：`)
+                    console.error(error);
+                }
+            }
+        })
+
+
+    },
+
+
+}

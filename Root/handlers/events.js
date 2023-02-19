@@ -15,10 +15,15 @@ module.exports = (client) => {
 
             let pull = require(`../events/${dir}/${file}`);
             if (pull.name) {
+                if (pull.once) {
+                    client.once(pull.name, (...args) => pull.execute(client, ...args));
+                } else {
+                    client.on(pull.name, (...args) => pull.execute(client, ...args));
+                }
                 client.events.set(pull.name, pull);
                 console.log(`[#${client.shard.ids}]  [處理 - EVENTS] 加載了一個文件： ${pull.name} (#${client.events.size})`.brightGreen)
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - EVENTS] 無法加載文件 ${file}。缺少姓名或別名。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - EVENTS] 無法加載文件 ${file}。缺少別名或是執行內容。`.red)
                 continue;
             }
 
