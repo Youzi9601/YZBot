@@ -13,9 +13,10 @@ jobs:
     steps:
       - uses: actions/stale@v4
         with:
-          stale-issue-message: "這個 Issue 已經被標記爲穩定，如果五天之内沒有任何留言或其他活動則會關閉 Issue"
-          stale-pr-message: "這個 Issue 已經被標記爲穩定，如果五天之内沒有任何留言或其他活動則會關閉 Issue"
-          close-issue-message: "這個 Issue / PR 已經被關閉，因爲被標記爲穩定後，五天內未有任何活動"
+          stale-issue-label: "閒置"
+          stale-issue-message: "這個 Issue 已經被標記爲閒置，如果五天之内沒有任何留言或其他活動則會關閉 Issue"
+          stale-pr-message: "這個 Issue 已經被標記爲閒置，如果五天之内沒有任何留言或其他活動則會關閉 Issue"
+          close-issue-message: "這個 Issue / PR 已經被關閉，因爲被標記爲閒置後，五天內未有任何活動"
           days-before-stale: 30
           days-before-close: 5
           days-before-pr-close: 30
