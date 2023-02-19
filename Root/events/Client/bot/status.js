@@ -83,7 +83,7 @@ module.exports = async (client) => {
         })
         const shard_status = {
             color: 0x808080,
-            description: `\`\`\`diff\n${shards_msg.join('\n')}\n\`\`\``,
+            description: `(分片#0如果沒上線將會影響網頁與部分功能！)\n\`\`\`diff\n${shards_msg.join('\n')}\n\`\`\``,
             author: {
                 name: `${client.user.username} - 機器人分片節點運行資訊`,
                 iconURL: client.user.avatarURL({ dynamic: true }),
