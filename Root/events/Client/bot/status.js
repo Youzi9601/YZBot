@@ -71,13 +71,13 @@ module.exports = async (client) => {
 
         let shards_msg = [];
         (await shardStatus_data.all()).forEach(s => {
-            let status = `*** #${s.id} 未知`
+            let status = `*** #${s.id} ➖未知`
             if (s.value == 'ready') {
-                status = `  #${s.id} 上線`
+                status = `    #${s.id} 🟢上線`
             } else if (s.value == 'disconnect') {
-                status = `-   #${s.id} 斷線`
+                status = `-   #${s.id} 🔴斷線`
             } else if (s.value == 'death') {
-                status = `*** #${s.id} 已關閉`
+                status = `*** #${s.id} ❌已關閉`
             }
             shards_msg.push(status)
         })
