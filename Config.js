@@ -35,6 +35,9 @@ module.exports = {
         // 機器人註冊 [ / ] 斜線命令 會使用這個機器人ID (填入機器人ID 或者Developer Portal的Application ID，其實都一樣。)
         clientID: process.env.clientID,
         clientSECRET: process.env.clientSECRET,
+
+        // 機器人的權限(用數字表示)
+        permissionID: process.env.clientPermissionID || 543312702935,
     },
 
 

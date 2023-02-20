@@ -113,8 +113,8 @@ module.exports = {
             )
             .setAuthor({
                 name: `${member.nickname ?
-                    member.nickname + ' (' + member.tag + ')'
-                    : member.tag}`,
+                    member.nickname + ' (' + member.user.tag + ')'
+                    : member.user.tag}`,
                 iconURL: `${member.displayAvatarURL({ dynamic: true }) || member.avatarURL({ dynamic: true }) || member.defaultAvatarURL}`,
             })
             .setFooter({ text: `ID: ${member.id}` })
@@ -253,10 +253,12 @@ module.exports = {
                 });
 
                 if (client.user.id == collector_member.user.id) {
-                    const clientPermissions = require('./../../../../bot').config.botPermissions;
+                    const permissionFlags = client.config.bot.permissionID;
+                    const allPermissions = new PermissionsBitField(BigInt(permissionFlags));
+                    const clientPermissions = allPermissions.toArray();
                     const missing = [];
                     clientPermissions.forEach(i => {
-                        if (!collector_member.guild.me.permissions.has(i))
+                        if (!collector_member.permissions.has(i))
                             missing.push(language[i]);
                     });
                     let hasPerm = (has_permissions_translate.length != 0);

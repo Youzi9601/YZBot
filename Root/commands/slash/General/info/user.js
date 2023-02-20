@@ -1,4 +1,4 @@
-const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time } = require('discord.js')
+const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time, PermissionsBitField } = require('discord.js')
 
 module.exports = { load }
 /**
@@ -51,7 +51,7 @@ async function load(client, interaction, config, db) {
         .setDescription('請選擇一個類別！')
         .setAuthor({
             name: `${member.nickname ?
-                member.nickname + ' (' + user.tag + ')'
+                member.nickname + ' (' + member.user.tag + ')'
                 : member.user.tag}`,
             iconURL: `${user.displayAvatarURL({ dynamic: true }) || user.avatarURL({ dynamic: true }) || user.defaultAvatarURL}`,
         })
@@ -197,11 +197,12 @@ async function load(client, interaction, config, db) {
             });
 
             if (client.user.id == collector_member.user.id) {
-                // #TODO 需要處理機器人個人簡介問題
-                const clientPermissions = require('../../../../bot').config.botPermissions;
+                const permissionFlags = client.config.bot.permissionID;
+                const allPermissions = new PermissionsBitField(BigInt(permissionFlags));
+                const clientPermissions = allPermissions.toArray();
                 const missing = [];
                 clientPermissions.forEach(i => {
-                    if (!collector_member.guild.me.permissions.has(i))
+                    if (!collector_member.permissions.has(i))
                         missing.push(language[i]);
                 });
                 let hasPerm = (has_permissions_translate.length != 0);

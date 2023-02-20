@@ -30,7 +30,7 @@ module.exports = async (client) => {
     const host = `${ config.web.domain }:${ config.web.port }`
     const discordurl = {
         discordAuthLoginUrl: `https://discord.com/oauth2/authorize?client_id=${config.bot.clientID}&redirect_uri=${encodeURI(host)}%2Fauth%2Fdiscord-auth&response_type=code&scope=identify%20guilds%20applications.commands.permissions.update%20email`,
-        discordbotinvite: `https://discord.com/api/oauth2/authorize?client_id=${config.bot.clientID}&permissions=543312702935&redirect_uri=${encodeURI(host)}%2Fauth%2Fguild-oauth&response_type=code&scope=identify%20bot%20applications.commands`,
+        discordbotinvite: `https://discord.com/api/oauth2/authorize?client_id=${config.bot.clientID}&permissions=${config.bot.permissionID}&redirect_uri=${encodeURI(host)}%2Fauth%2Fguild-oauth&response_type=code&scope=identify%20bot%20applications.commands`,
     }
 
     /**
