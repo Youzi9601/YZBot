@@ -55,6 +55,7 @@ module.exports = async (client) => {
         name: 'user', // optional
         saveUninitialized: false,
         resave: true,
+        cookie: { maxAge: 24 * 60 * 60 * 1000 },
     }));
 
     // 取得連線的訪客
