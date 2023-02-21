@@ -37,9 +37,10 @@ if (!AuthenticationToken) {
 // Handler:
 client.prefix_commands = new Collection();
 client.slash_commands = new Collection();
-client.user_commands = new Collection();
-client.message_commands = new Collection();
+client.contextmenu_user_commands = new Collection();
+client.contextmenu_message_commands = new Collection();
 client.button_commands = new Collection();
+client.selectmenu_commands = new Collection();
 client.modals = new Collection();
 client.events = new Collection();
 

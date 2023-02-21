@@ -44,7 +44,7 @@ module.exports = async (client) => {
 
     // 設定速率限制
     const RateLimit = require('express-rate-limit');
-    const limiter = new RateLimit({
+    const limiter = RateLimit.rateLimit({
         windowMs: 1 * 60 * 1000, // 1 minute
         max: 5,
     });

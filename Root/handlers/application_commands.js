@@ -22,7 +22,7 @@ module.exports = (client, config) => {
             let pull = require(`../commands/slash/${ dir }/${ file }`);
 
             if (pull.disabled)
-                return;
+                continue;
             if (pull.data, pull.data.name, pull.data.description) {
                 // 如果不符合命名規則的匹配
                 if (!RegExp(/^[a-z]{1,32}$/g).test(pull.data.name))
@@ -41,7 +41,7 @@ module.exports = (client, config) => {
         }
     });
 
-    console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載用戶命令...'.yellow);
+    console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載成員互動命令...'.yellow);
     // User contextmenus commands handler:
     fs.readdirSync('./Root/commands/contextmenus/user/').forEach((dir) => {
         const UserCommands = fs.readdirSync(`./Root/commands/contextmenus/user/${dir}`).filter((file) => file.endsWith('.js'));
@@ -49,10 +49,10 @@ module.exports = (client, config) => {
         for (let file of UserCommands) {
             let pull = require(`../commands/contextmenus/user/${dir}/${file}`);
 
-            if (pull.disabled) return;
+            if (pull.disabled) continue;
             if (pull.name, pull.type == 2) {
-                client.user_commands.set(pull.name, pull);
-                console.log(`[#${client.shard.ids}]  [處理 - 成員命令] 加載了一個文件： ${pull.name} (#${client.user_commands.size})`.brightGreen);
+                client.contextmenu_user_commands.set(pull.name, pull);
+                console.log(`[#${client.shard.ids}]  [處理 - 成員互動命令] 加載了一個文件： ${pull.name} (#${client.contextmenu_user_commands.size})`.brightGreen);
 
                 commands.push({
                     name: pull.name,
@@ -60,13 +60,13 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - 成員命令] 無法加載文件 ${file}，缺少的成員命令名稱值或類型不是 2。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 成員互動命令] 無法加載文件 ${file}，缺少的成員命令名稱值或類型不是 2。`.red)
                 continue;
             }
         }
     });
 
-    console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載消息命令...'.yellow);
+    console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載消息互動命令...'.yellow);
     // Message contextmenus commands handler:
     fs.readdirSync('./Root/commands/contextmenus/message/').forEach((dir) => {
         const MessageCommands = fs.readdirSync(`./Root/commands/contextmenus/message/${dir}`).filter((file) => file.endsWith('.js'));
@@ -74,10 +74,10 @@ module.exports = (client, config) => {
         for (let file of MessageCommands) {
             let pull = require(`../commands/contextmenus/message/${dir}/${file}`);
 
-            if (pull.disabled) return;
+            if (pull.disabled) continue;
             if (pull.name, pull.type == 3) {
-                client.message_commands.set(pull.name, pull);
-                console.log(`[#${client.shard.ids}]  [處理 - 訊息命令] 加載了一個文件：${pull.name} (#${client.user_commands.size})`.brightGreen);
+                client.contextmenu_message_commands.set(pull.name, pull);
+                console.log(`[#${client.shard.ids}]  [處理 - 訊息互動命令] 加載了一個文件：${pull.name} (#${client.contextmenu_message_commands.size})`.brightGreen);
 
                 commands.push({
                     name: pull.name,
@@ -85,7 +85,7 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - 訊息命令] 無法加載文件 ${file}，缺少的訊息命令名稱值或類型不是 3。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 訊息互動命令] 無法加載文件 ${file}，缺少的訊息命令名稱值或類型不是 3。`.red)
                 continue;
             }
         }
@@ -99,12 +99,31 @@ module.exports = (client, config) => {
         for (let file of ButtonCommands) {
             let pull = require(`../commands/buttons/${dir}/${file}`);
 
-            if (pull.disabled) return;
+            if (pull.disabled) continue;
             if (pull.name) {
                 client.button_commands.set(pull.name, pull);
-                console.log(`[#${client.shard.ids}]  [處理 - 按鈕命令] 加載了一個文件：${pull.name} (#${client.user_commands.size})`.brightGreen);
+                console.log(`[#${client.shard.ids}]  [處理 - 按鈕命令] 加載了一個文件：${pull.name} (#${client.button_commands.size})`.brightGreen);
             } else {
                 console.log(`[#${client.shard.ids}]  [處理 - 按鈕命令] 無法加載文件 ${file}，缺少了按鈕命令名稱值。`.red)
+                continue;
+            }
+        }
+    });
+
+    console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載選單命令...'.yellow);
+    // Button commands handler:
+    fs.readdirSync('./Root/commands/selectmenus').forEach((dir) => {
+        const SelectMenuCommands = fs.readdirSync(`./Root/commands/selectmenus/${dir}`).filter((file) => file.endsWith('.js'));
+
+        for (let file of SelectMenuCommands) {
+            let pull = require(`../commands/selectmenus/${dir}/${file}`);
+
+            if (pull.disabled) continue;
+            if (pull.name) {
+                client.selectmenu_commands.set(pull.name, pull);
+                console.log(`[#${client.shard.ids}]  [處理 - 選單命令] 加載了一個文件：${pull.name} (#${client.selectmenu_commands.size})`.brightGreen);
+            } else {
+                console.log(`[#${client.shard.ids}]  [處理 - 選單命令] 無法加載文件 ${file}，缺少了選單命令名稱值。`.red)
                 continue;
             }
         }
@@ -122,7 +141,7 @@ module.exports = (client, config) => {
 
         (async () => {
             console.log(`[#${client.shard.ids}]  ` + '[HANDLER] 開始註冊所有應用程序命令。'.yellow);
-
+            // console.log(JSON.stringify(commands))
             try {
                 await rest.put(
                     Routes.applicationCommands(config.bot.clientID),

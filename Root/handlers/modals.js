@@ -16,7 +16,7 @@ module.exports = (client, config) => {
 
         let pull = require(`../commands/modals/${ file }`);
 
-        if (pull.disabled) return;
+        if (pull.disabled) continue;
         if (pull.id) {
             client.modals.set(pull.id, pull);
             console.log(`[#${client.shard.ids}]  [處理 - MODALS] 加載了一個文件: ${file} (#${client.modals.size})`.brightGreen)

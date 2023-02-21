@@ -16,7 +16,7 @@ module.exports = (client, config) => {
 
             let pull = require(`../commands/prefix/${ dir }/${ file }`);
 
-            if (pull.disabled) return;
+            if (pull.disabled) continue;
             if (pull.config.name) {
                 client.prefix_commands.set(pull.config.name, pull);
                 console.log(`[#${client.shard.ids}]  [處理 - PREFIX] 加載了一個文件： ${pull.config.name} (#${client.prefix_commands.size})`.brightGreen)

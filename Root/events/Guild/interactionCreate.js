@@ -6,6 +6,12 @@ const db = new QuickDB();
 
 module.exports = {
     name: Events.InteractionCreate,
+    /**
+     *
+     * @param {import('discord.js').Client} client
+     * @param {import('discord.js').Interaction} interaction
+     * @returns
+     */
     async execute(client, interaction) {
 
         // Slash:
@@ -25,7 +31,7 @@ module.exports = {
 
         // Users:
         if (interaction.isUserContextMenuCommand()) {
-            const command = client.user_commands.get(interaction.commandName);
+            const command = client.contextmenu_user_commands.get(interaction.commandName);
 
             if (!command) return;
 
@@ -39,7 +45,7 @@ module.exports = {
 
         // Message:
         if (interaction.isMessageContextMenuCommand()) {
-            const command = client.message_commands.get(interaction.commandName);
+            const command = client.contextmenu_message_commands.get(interaction.commandName);
 
             if (!command) return;
 
@@ -96,6 +102,32 @@ module.exports = {
                 button.run(client, interaction, config, db);
             } catch (e) {
                 console.error(`[#${ client.shard.ids }]  執行按鈕時發生錯誤：`)
+                console.error(e)
+            }
+        }
+
+        // Buttons:
+        if (interaction.isAnySelectMenu()) {
+            const selectmenu = client.selectmenu_commands.get(interaction.customId);
+
+            if (!selectmenu) {
+                // 等待並檢查是否有其他內建按鈕執行過了
+                await wait(1000)
+                if (interaction.isRepliable()) return
+                await interaction.reply({
+                    embeds: [
+                        new EmbedBuilder()
+                            .setDescription('出了點問題……選單處理程序中可能未定義的 ID。')
+                            .setColor('Red'),
+                    ],
+                    ephemeral: true,
+                });
+            }
+
+            try {
+                selectmenu.run(client, interaction, config, db);
+            } catch (e) {
+                console.error(`[#${ client.shard.ids }]  執行選單時發生錯誤：`)
                 console.error(e)
             }
         }
