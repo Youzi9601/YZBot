@@ -42,8 +42,16 @@ module.exports = async (client) => {
     app.use(cookieParser());
     app.use('/', express.static(__dirname + '/webs/'))
 
+    // 設定速率限制
+    const RateLimit = require('express-rate-limit');
+    const limiter = new RateLimit({
+        windowMs: 1 * 60 * 1000, // 1 minute
+        max: 5,
+    });
+    app.use(limiter);
+    // 設定session
     app.use(session({
-        secret: `YZB-DiscordUser`,
+        secret: config.web.secret,
         name: 'user', // optional
         saveUninitialized: false,
         resave: true,

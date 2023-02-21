@@ -65,6 +65,9 @@ module.exports = {
         // 網站位置
         domain: process.env.web_domain || 'http://localhost',
         port: process.env.web_port || 80,
+
+        // 網頁的加密&解密 (secret)
+        secret: process.env.web_secret || 'owo',
         // 網站的連結
         links: {
             github: 'https://github.com/Youzi9601',
