@@ -11,6 +11,6 @@ workflows:
           version: 16.13.1
           pkg-manager: npm
       - node/test:
-          name: NodeJS v17.* 測試
-          version: 17.2.0
+          name: NodeJS v19.* 測試
+          version: 19.3.0
           pkg-manager: npm
