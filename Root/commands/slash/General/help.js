@@ -19,13 +19,17 @@ module.exports = {
      * @returns
      */
     run: async (client, interaction, config, db) => {
-        let commands = require('./../../../../Storage/test.json')
-        console.log(client.application.commands.OWOXD) // 嘗試修正這邊的取得命令問題。
-        commands.map(command => {
-            const app_command = client.application.commands.cache.find((x) => x.name == command.data.name);
-            console.log(app_command)
-            return `</${command.data.name}:${app_command?.id}>`
+        let commands = [];
+        client.application.commands.cache.forEach((command) => {
+            let commandStr = `</${command.name}:${command.id}>`;
+            if (command.options) {
+                command.options.forEach((option) => {
+                    commandStr += `\n -- ${option.name}`;
+                });
+            }
+            commands.push(commandStr);
         });
+
         const prefix_commands = client.prefix_commands
         const slash_commands = client.slash_commands
         const contextmenu_user_commands = client.contextmenu_user_commands
@@ -41,4 +45,3 @@ module.exports = {
         })
     },
 };
-
