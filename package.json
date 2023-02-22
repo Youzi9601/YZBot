@@ -10,6 +10,7 @@
     "start": "echo \">>>>>> 啟動分片！<<<<<<\" && node index.js",
     "exit": "echo \"Error: 沒作用\" && exit 0",
     "test": "CI=true node --trace-deprecation index.js",
+    "codespaces": "token=$TOKEN clientSECRET=$CLIENTSECRET node index.js",
     "webpack": "webpack -d -w",
     "updates": "npm i && echo \"開始更新\"",
     "lint": "eslint .",
