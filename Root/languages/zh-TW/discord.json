@@ -54,5 +54,10 @@
         "TIER_1": "等級一",
         "TIER_2": "等級二",
         "TIER_3": "等級三"
+    },
+    "type": {
+        "Subcommands": "子命令",
+        "User": "成員",
+        "Message": "訊息"
     }
 }
