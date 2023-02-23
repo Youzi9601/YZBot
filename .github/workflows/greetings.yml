@@ -12,5 +12,5 @@ jobs:
       - uses: actions/first-interaction@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          issue-message: "如果有其他請求問題可直接到 支援伺服器 (位於Readme.md中) 告訴我們喔！"
-          pr-message: "如果有其他請求問題可直接到 支援伺服器 (位於Readme.md中) 告訴我們喔！"
+          issue-message: "這是您第一次創建問題單，請確認您的問題內容是否完整或是與其他問題單有重複。如果有其他問題可直接到 支援伺服器 (位於Readme.md中) 告訴我們喔！"
+          pr-message: "這是您第一次創建請求單，感謝您為我們盡一份心力，如果有其他提交請求的相關事情可直接到 支援伺服器 (位於Readme.md中) 告訴我們喔！"
