@@ -14,15 +14,25 @@ module.exports = (client, config) => {
     let commands = [];
 
     // Slash commands handler:
-    console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載斜杠命令...'.yellow);
+    console.log(`[#${ client.shard.ids }]  ` + '[!] 開始加載斜杠命令...'.yellow);
+    // 處理類別
+    const type = new Set()
+    type.add('Main') // help的主要目錄
+    // 讀取檔案
     fs.readdirSync('./Root/commands/slash/').forEach((dir) => {
         const SlashCommands = fs.readdirSync(`./Root/commands/slash/${ dir }`).filter((file) => file.endsWith('.js'));
-
+        // 處理命令檔案
         for (let file of SlashCommands) {
             let pull = require(`../commands/slash/${ dir }/${ file }`);
 
             if (pull.disabled)
                 continue;
+
+            // 添加類別
+            pull.type.forEach(v => {
+                type.add(v)
+            })
+
             if (pull.data, pull.data.name, pull.data.description) {
                 // 如果不符合命名規則的匹配
                 if (!RegExp(/^[a-z]{1,32}$/g).test(pull.data.name))
@@ -40,6 +50,12 @@ module.exports = (client, config) => {
             }
         }
     });
+    let category = []
+    type.forEach(v => {
+        category.push(v)
+    });
+    client.command_category = category
+
 
     console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載成員互動命令...'.yellow);
     // User contextmenus commands handler:

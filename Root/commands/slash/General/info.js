@@ -25,6 +25,7 @@ module.exports = {
                 .setDescription('取得此伺服器的資訊'),
         )
         .toJSON(),
+    type: ['Main', 'General'],
     /**
      *
      * @param {import('discord.js').Client} client

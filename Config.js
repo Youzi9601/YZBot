@@ -224,6 +224,7 @@ module.exports = {
             // 提及所有人?
             everyoneMention: false,
         },
+        openaiKEY: process.env.openaiKEY || '你的API密鑰',
     },
 
 

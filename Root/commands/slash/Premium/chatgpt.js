@@ -1,15 +1,25 @@
+/**
+ * 這是一個廢棄的項目
+ * @deprecated 此檔案當前不會使用，因其 AI 的 API 其實還是有些問題，像是生成不當的言論
+ */
 const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('chatgpt')
         .setDescription('用 ChatGPT 來幫助你任何事情！')
+        .addStringOption(s =>
+            s
+                .setName('question')
+                .setDescription('你想要問ChatGpt的問題')
+                .setRequired(true))
         .setDefaultMemberPermissions(
             PermissionFlagsBits.SendMessages,
         )
         .setDMPermission(false)
         .toJSON(),
-    disabled: true, // 記得改成false再來執行這側是
+    type: ['Premium'],
+    disabled: true,
     /**
      *
      * @param {import('discord.js').Client} client
@@ -19,19 +29,27 @@ module.exports = {
      * @returns
      */
     run: async (client, interaction, config, db) => {
-        const openai = require('openai')('YOUR_OPENAI_API_KEY');
+
 
         const question = interaction.options.get('question').value
-        const gptResponse = await openai.complete({
-            engine: 'davinci',
-            prompt: question,
-            maxTokens: 150,
-            n: 1,
-            stop: ['\n'],
-            temperature: 0.5,
-        });
+        // 呼叫 ChatGPT API 取得回答
+        const { Configuration, OpenAIApi } = require("openai");
 
-        const answer = gptResponse.data.choices[0].text.trim();
+        const configuration = new Configuration({
+            apiKey: client.config.plugins?.openaiKEY,
+        });
+        const openai = new OpenAIApi(configuration);
+
+        const completion = await openai.createCompletion({
+            model: "text-davinci-002",
+            prompt: question,
+            temperature: 0.5,
+            n: 1,
+            max_tokens: 100,
+        });
+        console.log(completion.data);
+
+        const answer = completion.data.choices[0].text.trim();
         interaction.reply(answer);
 
 

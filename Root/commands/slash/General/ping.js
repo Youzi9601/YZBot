@@ -9,6 +9,7 @@ module.exports = {
         )
         .setDMPermission(false)
         .toJSON(),
+    type: ['Main', 'General'],
     run: async (client, interaction, config, db) => {
         return await interaction.reply({
             embeds: [

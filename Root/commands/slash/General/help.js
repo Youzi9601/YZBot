@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const { EmbedBuilder, StringSelectMenuBuilder, ActionRowBuilder, SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -9,7 +9,8 @@ module.exports = {
         )
         .setDMPermission(false)
         .toJSON(),
-    disabled: true, // 記得改成false再來執行這側是
+    type: ['Main', 'General'],
+    disabled: false, // 記得改成false再來執行這側是
     /**
      *
      * @param {import('discord.js').Client} client
@@ -19,16 +20,20 @@ module.exports = {
      * @returns
      */
     run: async (client, interaction, config, db) => {
+        const category_language = client.language_data(interaction.locale, 'command').category
         // let client_commands = interaction.client.application.commands.cache
 
-        const contextmenu_user_commands = client.contextmenu_user_commands
-        const contextmenu_message_commands = client.contextmenu_message_commands
-        const prefix_commands = client.prefix_commands
+        // const contextmenu_user_commands = client.contextmenu_user_commands
+        // const contextmenu_message_commands = client.contextmenu_message_commands
+        // const prefix_commands = client.prefix_commands
 
         const commands = interaction.client.slash_commands;
         const data = {};
+        const category = client.command_category
 
+        // 處理結構化
         commands.forEach(command => {
+            if (command.type != 'Main') return;
             const commandName = `/${command.data.name}`;
             const currentCommand = data[commandName] = {
                 description: command.data.description,
@@ -72,6 +77,7 @@ module.exports = {
             }
         });
 
+        // 處理文字
         let helpMessage = '';
         for (const [commandName, commandData] of Object.entries(data)) {
             helpMessage += `${commandName} | ${commandData.description}\n`;
@@ -87,7 +93,27 @@ module.exports = {
             helpMessage += '\n';
         }
 
-        await interaction.reply(`以下是命令列表：\n\`\`\`\n<> 必填 | [] 可選\n${helpMessage}\n\`\`\``);
+        // 處理嵌入
+        const embed = new EmbedBuilder()
+            .setTitle('命令列表')
+            .setDescription(`以下是命令列表：\n\`\`\`\n<> 必填 | [] 可選\n${helpMessage}\n\`\`\``)
+        // 處理選單
+        const selectmenu = new StringSelectMenuBuilder()
+            .setCustomId('help_menu')
+        category.forEach(t => {
+            selectmenu.addOptions(
+                {
+                    label: category_language[t],
+                    description: `${category_language[t]}類別的命令`,
+                    value: t,
+                },
+            )
+        })
+        // 處理交互列
+        const row = new ActionRowBuilder()
+            .addComponents(selectmenu)
+
+        await interaction.reply({ embeds:[embed], components:[row] });
 
 
     },
