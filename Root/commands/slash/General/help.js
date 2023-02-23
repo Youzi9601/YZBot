@@ -33,7 +33,7 @@ module.exports = {
 
         // 處理結構化
         commands.forEach(command => {
-            if (command.type != 'Main') return;
+            if (!command.type.includes('Main')) return;
             const commandName = `/${command.data.name}`;
             const currentCommand = data[commandName] = {
                 description: command.data.description,
