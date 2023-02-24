@@ -78,6 +78,10 @@ process
         console.error(`[#${client.shard.ids}]  ` + `[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
         console.error(promise);
     })
+    .on('uncaughtException', async (err, promise) => {
+        console.error(`[#${client.shard.ids}]  ` + `[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
+        console.error(promise);
+    })
     .on('exit', async (code) => {
         //
         console.log(`[#${client.shard.ids}]  關機｜退出代碼: ${ code }`);
@@ -85,6 +89,7 @@ process
 
 
 // start the web (如果分片編號是0)
-if (client.shard.ids == 0) {
+if (client.shard.ids == 0
+    && config.web.noWeb == 'true') {
     require('./web')(client)
 }
