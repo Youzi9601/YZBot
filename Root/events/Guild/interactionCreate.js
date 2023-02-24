@@ -17,11 +17,12 @@ module.exports = {
         // Slash:
         if (interaction.isChatInputCommand()) {
             const command = client.slash_commands.get(interaction.commandName);
-            await require('./../../handlers/commandoptions/loadCommandOptions')(client, interaction, config, db, command);
-
             if (!command) return;
 
             try {
+                // 檢查命令相關許可
+                await require('./../../handlers/commandoptions/loadCommandOptions')(client, interaction, config, db, command);
+                // 執行命令
                 command.run(client, interaction, config, db);
             } catch (e) {
                 console.error(`[#${ client.shard.ids }]  執行命令時發生錯誤：`)
