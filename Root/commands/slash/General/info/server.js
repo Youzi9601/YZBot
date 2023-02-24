@@ -303,14 +303,16 @@ async function load(client, interaction, config, db) {
 
 
         } else if (type == 'others') {
+            const language = client.language_data(interaction.locale, 'discord')
+
             collect_serverinfo.data.description = '\`\`\`其他\`\`\`';
 
-            const { translate_Tier, translate_Level } = require('./../../../Language/Language');
+            // const { translate_Tier, translate_Level } = require('./../../../Language/Language');
             collect_serverinfo.setFields(
                 [
                     {
                         name: '加成',
-                        value: `\`\`\`${translate_Tier(guild.premiumTier, 'zh-TW')}, ${guild.premiumSubscriptionCount}次加成\`\`\``,
+                        value: `\`\`\`${language.Tier[guild.premiumTier]}, ${guild.premiumSubscriptionCount}次加成\`\`\``,
                         inline: false,
                     },
                     {
@@ -320,7 +322,7 @@ async function load(client, interaction, config, db) {
                     },
                     {
                         name: '驗證等級',
-                        value: `\`\`\`${translate_Level(guild.verificationLevel, 'zh-TW')}\`\`\``,
+                        value: `\`\`\`${language.Level[guild.verificationLevel]}\`\`\``,
                         inline: true,
                     },
                 ],
