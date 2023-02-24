@@ -48,7 +48,7 @@
 不符合本行為準則，並將傳達適度的理由
 適當的時候做出決定。
 
-＃＃ 範圍
+## 範圍
 
 本行為準則適用於所有社區空間，也適用於
 個人在公共場所正式代表社區。
@@ -112,16 +112,15 @@ https://discord.gg/Vq3F8DUNzf。
 **後果**：永久禁止任何形式的公共互動
 社區。
 
-##歸因
+## 歸因
 
-本行為準則改編自[貢獻者文檔][主頁]，
+本行為準則改編自[貢獻者文檔](https://www.contributor-covenant.org)，
 2.0 版，可在
-https://www.contributor-covenant.org/version/2/0/code_of_conduct.html。
+https://www.contributor-covenant.org/version/2/0/code_of_conduct.html 找到。
 
 社區影響指南的靈感來自 [Mozilla 的行為準則
 執法階梯](https://github.com/mozilla/diversity)。
 
-[主頁]：https://www.contributor-covenant.org
 
 有關此行為準則的常見問題的答案，請參閱常見問題解答，網址為
 https://www.contributor-covenant.org/faq。翻譯可在
