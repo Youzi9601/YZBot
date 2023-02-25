@@ -1,10 +1,10 @@
-const { ActivityType, time } = require('discord.js')
+const { ActivityType, time } = require('discord.js');
 
 const humanizeDuration = require('humanize-duration');
 const axios = require('axios');
 const os = require('os');
 const wait = require('node:timers/promises').setTimeout;
-const { QuickDB } = require('quick.db')
+const { QuickDB } = require('quick.db');
 const shardStatus_data = new QuickDB().table('uptime');
 
 /**
@@ -15,11 +15,11 @@ module.exports = async (client) => {
     // 待添加自動刷新內容的功能
     // client.user.setActivity('activity', { type: ActivityType.Watching });
     // client.user.setStatus('idle');
-    await wait(5000)
-    const channel = client.channels.cache.get(client.config.guild.Channels.ClientStatus)
-    const message = await channel.send('機器人已經啟動！')
+    await wait(5000);
+    const channel = client.channels.cache.get(client.config.guild.Channels.ClientStatus);
+    const message = await channel.send('機器人已經啟動！');
 
-    const timer_msg = `啟動時間： ${time(client.readyAt, 'R')}`
+    const timer_msg = `啟動時間： ${time(client.readyAt, 'R')}`;
     for (let i = 0; client.readyTimestamp; i++) {
         const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
             conjunction: ' ',
@@ -71,16 +71,16 @@ module.exports = async (client) => {
         // console.log(client.ws.shards.forEach(s => { return s.ping }))
         let shards_msg = [];
         (await shardStatus_data.all()).forEach(s => {
-            let status = `*** #${s.id} ➖未知`
+            let status = `*** #${s.id} ➖未知`;
             if (s.value == 'ready') {
-                status = `    #${s.id} 🟢上線`
+                status = `    #${s.id} 🟢上線`;
             } else if (s.value == 'disconnect') {
-                status = `-   #${s.id} 🔴斷線`
+                status = `-   #${s.id} 🔴斷線`;
             } else if (s.value == 'death') {
-                status = `*** #${s.id} ❌已關閉`
+                status = `*** #${s.id} ❌已關閉`;
             }
-            shards_msg.push(status)
-        })
+            shards_msg.push(status);
+        });
         const shard_status = {
             color: 0x808080,
             description: `(分片#0如果沒上線將會影響網頁與部分功能！)\n\`\`\`diff\n${shards_msg.join('\n')}\n\`\`\``,
@@ -96,7 +96,7 @@ module.exports = async (client) => {
                 },
             ],
             timestamp: new Date(),
-        }
+        };
         /*
          let owo = {
             content: [oldmsg,
@@ -172,4 +172,4 @@ module.exports = async (client) => {
     }
 
 
-}
+};

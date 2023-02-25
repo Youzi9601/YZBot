@@ -38,9 +38,9 @@ module.exports = {
         const subcommand = interaction.options.getSubcommand();
 
         if (subcommand == 'user') {
-            await require('./info/user').load(client, interaction, config, db)
+            await require('./info/user').load(client, interaction, config, db);
         } else if (subcommand == 'server') {
-            await require('./info/server').load(client, interaction, config, db)
+            await require('./info/server').load(client, interaction, config, db);
         } else return await interaction.reply({
             embeds: [
                 new EmbedBuilder()
@@ -48,7 +48,7 @@ module.exports = {
                     .setColor('Red'),
             ],
             ephemeral: true,
-        })
+        });
     },
 };
 

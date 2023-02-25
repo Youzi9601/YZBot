@@ -94,7 +94,7 @@
 			"single"
 		],
 		"semi": [
-			"off",
+			"warn",
 			"always"
 		],
 		"space-before-blocks": "warn",

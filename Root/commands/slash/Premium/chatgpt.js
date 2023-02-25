@@ -31,7 +31,7 @@ module.exports = {
     run: async (client, interaction, config, db) => {
 
 
-        const question = interaction.options.get('question').value
+        const question = interaction.options.get('question').value;
         // 呼叫 ChatGPT API 取得回答
         const { Configuration, OpenAIApi } = require("openai");
 
@@ -54,4 +54,4 @@ module.exports = {
 
 
     },
-}
+};

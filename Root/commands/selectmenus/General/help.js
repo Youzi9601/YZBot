@@ -13,7 +13,7 @@ module.exports = {
      */
     run: async (client, interaction, config, db) => {
 
-        const value = interaction.values[0]
+        const value = interaction.values[0];
         // await interaction.reply(value + '是你的選擇')
         // 取得json的數值
         // let client_commands = interaction.client.application.commands.cache
@@ -24,7 +24,7 @@ module.exports = {
 
         const commands = interaction.client.slash_commands;
         const data = {};
-        const applications = (await client.application.commands.fetch())
+        const applications = (await client.application.commands.fetch());
 
 
         // 處理結構化
@@ -35,8 +35,8 @@ module.exports = {
             let id;
             applications.forEach(c => {
                 if (c.name == command.data.name)
-                    id = c.id
-            })
+                    id = c.id;
+            });
 
             const commandName = `</${command.data.name}:${id}>`;
             const currentCommand = data[commandName] = {
@@ -84,7 +84,7 @@ module.exports = {
 
         // 處理嵌入
         const embed = new EmbedBuilder()
-            .setTitle('命令列表')
+            .setTitle('命令列表');
 
 
         // 處理文字
@@ -102,7 +102,7 @@ module.exports = {
             }
             helpMessage += '\n';
         }
-        embed.setDescription(`以下是命令列表：\n<> 必填 | [] 可選\n\n${helpMessage}`)
+        embed.setDescription(`以下是命令列表：\n<> 必填 | [] 可選\n\n${helpMessage}`);
 
         await interaction.update({ embeds:[embed] });
 

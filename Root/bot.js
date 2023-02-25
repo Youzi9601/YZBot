@@ -2,10 +2,10 @@ const { Client, Partials, Collection, GatewayIntentBits } = require('discord.js'
 const config = require('../Config');
 require("colors");
 
-const CI = process.env.CI
+const CI = process.env.CI;
 if (CI) {
-    console.log(`[#${client.shard.ids}]  [#${client.shard.ids}] ` + 'CI檢查完畢')
-    process.exit(0)
+    console.log(`[#${client.shard.ids}]  [#${client.shard.ids}] ` + 'CI檢查完畢');
+    process.exit(0);
 }
 
 const client = new Client({
@@ -30,7 +30,7 @@ const client = new Client({
 // Getting the bot token:
 const AuthenticationToken = process.env.token || config.bot.token;
 if (!AuthenticationToken) {
-    console.warn(`` + "[CRASH] 需要 Discord 機器人的身份驗證令牌！使用 Envrionment Secrets 或 config.js。".red)
+    console.warn(`` + "[CRASH] 需要 Discord 機器人的身份驗證令牌！使用 Envrionment Secrets 或 config.js。".red);
     return process.exit();
 }
 
@@ -54,8 +54,8 @@ client.language = new Collection();
  * @returns langs
  */
 client.language_data = (locale, file) => {
-    return client.language.get(locale + '/' + file) || client.language.get('zh-TW' + '/' + file)
-}
+    return client.language.get(locale + '/' + file) || client.language.get('zh-TW' + '/' + file);
+};
 
 
 module.exports = client;
@@ -91,5 +91,5 @@ process
 // start the web (如果分片編號是0)
 if (client.shard.ids == 0
     && config.web.noWeb == 'true') {
-    require('./web')(client)
+    require('./web')(client);
 }

@@ -33,7 +33,7 @@ module.exports = {
         return await interaction.editReply({
             embeds: [ping],
             ephemeral: true,
-        })
+        });
     },
 };
 

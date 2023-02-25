@@ -20,7 +20,7 @@ module.exports = {
      * @returns
      */
     run: async (client, interaction, config, db) => {
-        const category_language = client.language_data(interaction.locale, 'command').category
+        const category_language = client.language_data(interaction.locale, 'command').category;
 
         // let client_commands = interaction.client.application.commands.cache
 
@@ -30,9 +30,9 @@ module.exports = {
 
         const commands = interaction.client.slash_commands;
         const data = {};
-        const category = client.command_category
+        const category = client.command_category;
 
-        const applications = (await client.application.commands.fetch())
+        const applications = (await client.application.commands.fetch());
 
         // 處理結構化
         commands.forEach(command => {
@@ -41,8 +41,8 @@ module.exports = {
             let id;
             applications.forEach(c => {
                 if (c.name == command.data.name)
-                    id = c.id
-            })
+                    id = c.id;
+            });
 
             const commandName = `</${command.data.name}:${id}>`;
             const currentCommand = data[commandName] = {
@@ -90,10 +90,11 @@ module.exports = {
 
         // 處理嵌入
         const embed = new EmbedBuilder()
-            .setTitle('命令列表')
+            .setTitle('命令列表');
         // 處理選單
         const selectmenu = new StringSelectMenuBuilder()
             .setCustomId('help_menu')
+            .setPlaceholder('請選擇命令類別');
         category.forEach(t => {
             selectmenu.addOptions(
                 {
@@ -101,8 +102,8 @@ module.exports = {
                     description: `${category_language[t]}類別的命令`,
                     value: t,
                 },
-            )
-        })
+            );
+        });
 
 
         // 處理文字
@@ -120,12 +121,12 @@ module.exports = {
             }
             helpMessage += '\n';
         }
-        embed.setDescription(`以下是命令列表：\n<> 必填 | [] 可選\n\n${helpMessage}`)
+        embed.setDescription(`以下是命令列表：\n<> 必填 | [] 可選\n\n${helpMessage}`);
 
 
         // 處理交互列
         const row = new ActionRowBuilder()
-            .addComponents(selectmenu)
+            .addComponents(selectmenu);
 
         await interaction.reply({ embeds:[embed], components:[row] });
 
