@@ -24,12 +24,21 @@ module.exports = {
 
         const commands = interaction.client.slash_commands;
         const data = {};
+        const applications = (await client.application.commands.fetch())
+
 
         // 處理結構化
         commands.forEach(command => {
             // 如果不是那一類的就返回
             if (!command.type.includes(value)) return;
-            const commandName = `/${command.data.name}`;
+
+            let id;
+            applications.forEach(c => {
+                if (c.name == command.data.name)
+                    id = c.id
+            })
+
+            const commandName = `</${command.data.name}:${id}>`;
             const currentCommand = data[commandName] = {
                 description: command.data.description,
                 options: [],
@@ -45,13 +54,13 @@ module.exports = {
                     } else {
                         optionName = `[${optionName}]`;
                     }
-                    currentCommand.options.push(`${optionName} (${option.description})`);
+                    currentCommand.options.push(`\`${optionName} (${option.description})\``);
                 });
             }
 
             if (command.data.options && command.data.options.some(option => option.type === 1)) {
                 command.data.options.filter(option => option.type === 1).forEach(subCommandData => {
-                    const subCommandName = `${subCommandData.name}`;
+                    const subCommandName = `</${command.data.name} ${subCommandData.name}:${id}>`;
                     const currentSubCommand = currentCommand.subcommands[subCommandName] = {
                         description: subCommandData.description,
                         options: [],
@@ -65,33 +74,36 @@ module.exports = {
                             } else {
                                 optionName = `[${optionName}]`;
                             }
-                            currentSubCommand.options.push(`${optionName} (${option.description})`);
+                            currentSubCommand.options.push(`\`${optionName} (${option.description})\``);
                         });
                     }
                 });
             }
+
         });
+
+        // 處理嵌入
+        const embed = new EmbedBuilder()
+            .setTitle('命令列表')
+
 
         // 處理文字
         let helpMessage = '';
         for (const [commandName, commandData] of Object.entries(data)) {
             helpMessage += `${commandName} | ${commandData.description}\n`;
             if (commandData.options.length > 0) {
-                helpMessage += `  ${commandData.options.join(', ')}\n`;
+                helpMessage += `> ${commandData.options.join(', ')}\n`;
             }
             for (const [subCommandName, subCommandData] of Object.entries(commandData.subcommands)) {
-                helpMessage += `  - ${subCommandName} | ${subCommandData.description}\n`;
+                helpMessage += `> ${subCommandName} | ${subCommandData.description}\n`;
                 if (subCommandData.options.length > 0) {
-                    helpMessage += `      ${subCommandData.options.join(', ')}\n`;
+                    helpMessage += `> - ${subCommandData.options.join(', ')}\n`;
                 }
             }
             helpMessage += '\n';
         }
+        embed.setDescription(`以下是命令列表：\n<> 必填 | [] 可選\n\n${helpMessage}`)
 
-        const embed = new EmbedBuilder()
-            .setTitle('命令列表')
-            .setDescription(`以下是命令列表：\n\`\`\`\n<> 必填 | [] 可選\n${ helpMessage }\n\`\`\``)
-            .setColor('Random')
         await interaction.update({ embeds:[embed] });
 
     },
