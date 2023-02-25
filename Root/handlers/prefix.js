@@ -19,9 +19,9 @@ module.exports = (client, config) => {
             if (pull.disabled) continue;
             if (pull.config.name) {
                 client.prefix_commands.set(pull.config.name, pull);
-                console.log(`[#${client.shard.ids}]  [處理 - PREFIX] 加載了一個文件： ${pull.config.name} (#${client.prefix_commands.size})`.brightGreen)
+                console.log(`[#${client.shard.ids}]  [處理 - PREFIX] 加載了一個文件： ${pull.config.name} (#${client.prefix_commands.size})`.brightGreen);
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - PREFIX] 無法加載文件 ${file}，缺少模塊名稱值。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - PREFIX] 無法加載文件 ${file}，缺少模塊名稱值。`.red);
                 continue;
             }
 

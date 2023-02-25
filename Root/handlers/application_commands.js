@@ -16,8 +16,8 @@ module.exports = (client, config) => {
     // Slash commands handler:
     console.log(`[#${ client.shard.ids }]  ` + '[!] 開始加載斜杠命令...'.yellow);
     // 處理類別
-    const type = new Set()
-    type.add('Main') // help的主要目錄
+    const type = new Set();
+    type.add('Main'); // help的主要目錄
     // 讀取檔案
     fs.readdirSync('./Root/commands/slash/').forEach((dir) => {
         const SlashCommands = fs.readdirSync(`./Root/commands/slash/${ dir }`).filter((file) => file.endsWith('.js'));
@@ -30,8 +30,8 @@ module.exports = (client, config) => {
 
             // 添加類別
             pull.type.forEach(v => {
-                type.add(v)
-            })
+                type.add(v);
+            });
 
             if (pull.data, pull.data.name, pull.data.description) {
                 // 如果不符合命名規則的匹配
@@ -50,11 +50,11 @@ module.exports = (client, config) => {
             }
         }
     });
-    let category = []
+    let category = [];
     type.forEach(v => {
-        category.push(v)
+        category.push(v);
     });
-    client.command_category = category
+    client.command_category = category;
 
 
     console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載成員互動命令...'.yellow);
@@ -76,7 +76,7 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - 成員互動命令] 無法加載文件 ${file}，缺少的成員命令名稱值或類型不是 2。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 成員互動命令] 無法加載文件 ${file}，缺少的成員命令名稱值或類型不是 2。`.red);
                 continue;
             }
         }
@@ -101,7 +101,7 @@ module.exports = (client, config) => {
                 });
 
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - 訊息互動命令] 無法加載文件 ${file}，缺少的訊息命令名稱值或類型不是 3。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 訊息互動命令] 無法加載文件 ${file}，缺少的訊息命令名稱值或類型不是 3。`.red);
                 continue;
             }
         }
@@ -120,7 +120,7 @@ module.exports = (client, config) => {
                 client.button_commands.set(pull.name, pull);
                 console.log(`[#${client.shard.ids}]  [處理 - 按鈕命令] 加載了一個文件：${pull.name} (#${client.button_commands.size})`.brightGreen);
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - 按鈕命令] 無法加載文件 ${file}，缺少了按鈕命令名稱值。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 按鈕命令] 無法加載文件 ${file}，缺少了按鈕命令名稱值。`.red);
                 continue;
             }
         }
@@ -139,7 +139,7 @@ module.exports = (client, config) => {
                 client.selectmenu_commands.set(pull.name, pull);
                 console.log(`[#${client.shard.ids}]  [處理 - 選單命令] 加載了一個文件：${pull.name} (#${client.selectmenu_commands.size})`.brightGreen);
             } else {
-                console.log(`[#${client.shard.ids}]  [處理 - 選單命令] 無法加載文件 ${file}，缺少了選單命令名稱值。`.red)
+                console.log(`[#${client.shard.ids}]  [處理 - 選單命令] 無法加載文件 ${file}，缺少了選單命令名稱值。`.red);
                 continue;
             }
         }

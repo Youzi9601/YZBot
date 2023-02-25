@@ -25,8 +25,8 @@ module.exports = {
                 // 執行命令
                 command.run(client, interaction, config, db);
             } catch (e) {
-                console.error(`[#${ client.shard.ids }]  執行命令時發生錯誤：`)
-                console.error(e)
+                console.error(`[#${ client.shard.ids }]  執行命令時發生錯誤：`);
+                console.error(e);
             }
         }
 
@@ -39,8 +39,8 @@ module.exports = {
             try {
                 command.run(client, interaction, config, db);
             } catch (e) {
-                console.error(`[#${ client.shard.ids }]  執行成員應用時發生錯誤：`)
-                console.error(e)
+                console.error(`[#${ client.shard.ids }]  執行成員應用時發生錯誤：`);
+                console.error(e);
             }
         }
 
@@ -53,8 +53,8 @@ module.exports = {
             try {
                 command.run(client, interaction, config, db);
             } catch (e) {
-                console.error(`[#${ client.shard.ids }]  執行訊息應用時發生錯誤：`)
-                console.error(e)
+                console.error(`[#${ client.shard.ids }]  執行訊息應用時發生錯誤：`);
+                console.error(e);
             }
         }
 
@@ -76,8 +76,8 @@ module.exports = {
             try {
                 modal.run(client, interaction, config, db);
             } catch (e) {
-                console.error(`[#${ client.shard.ids }]  執行模塊時發生錯誤：`)
-                console.error(e)
+                console.error(`[#${ client.shard.ids }]  執行模塊時發生錯誤：`);
+                console.error(e);
             }
         }
 
@@ -87,8 +87,8 @@ module.exports = {
 
             if (!button) {
                 // 等待並檢查是否有其他內建按鈕執行過了
-                await wait(1000)
-                if (interaction.isRepliable()) return
+                await wait(1000);
+                if (interaction.isRepliable()) return;
                 await interaction.reply({
                     embeds: [
                         new EmbedBuilder()
@@ -102,8 +102,8 @@ module.exports = {
             try {
                 button.run(client, interaction, config, db);
             } catch (e) {
-                console.error(`[#${ client.shard.ids }]  執行按鈕時發生錯誤：`)
-                console.error(e)
+                console.error(`[#${ client.shard.ids }]  執行按鈕時發生錯誤：`);
+                console.error(e);
             }
         }
 
@@ -113,8 +113,8 @@ module.exports = {
 
             if (!selectmenu) {
                 // 等待並檢查是否有其他內建按鈕執行過了
-                await wait(1000)
-                if (interaction.isRepliable()) return
+                await wait(1000);
+                if (interaction.isRepliable()) return;
                 await interaction.reply({
                     embeds: [
                         new EmbedBuilder()
@@ -128,10 +128,10 @@ module.exports = {
             try {
                 selectmenu.run(client, interaction, config, db);
             } catch (e) {
-                console.error(`[#${ client.shard.ids }]  執行選單時發生錯誤：`)
-                console.error(e)
+                console.error(`[#${ client.shard.ids }]  執行選單時發生錯誤：`);
+                console.error(e);
             }
         }
     },
 
-}
+};

@@ -1,6 +1,6 @@
-const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time } = require('discord.js')
+const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time } = require('discord.js');
 
-module.exports = { load }
+module.exports = { load };
 /**
      *
      * @param {import('discord.js').Client} client
@@ -86,7 +86,7 @@ async function load(client, interaction, config, db) {
             time: 10 * 60 * 1000,
             componentType: ComponentType.StringSelect,
         },
-    )
+    );
     collector.on('collect', async collector_interaction => {
 
         const type = collector_interaction.values[0];
@@ -299,11 +299,11 @@ async function load(client, interaction, config, db) {
                     inline: true,
                 },
             ],
-            )
+            );
 
 
         } else if (type == 'others') {
-            const language = client.language_data(interaction.locale, 'discord')
+            const language = client.language_data(interaction.locale, 'discord');
 
             collect_serverinfo.data.description = '\`\`\`其他\`\`\`';
 
@@ -341,5 +341,5 @@ async function load(client, interaction, config, db) {
         collector_interaction.update({
             embeds: [collect_serverinfo],
         });
-    })
+    });
 }
