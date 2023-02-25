@@ -1,0 +1,32 @@
+name: "提議新功能"
+description: 提議新功能來幫助我們變得更好！
+title: "[提議]: "
+labels: ["! 建議"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感謝您為我們盡一份心力！
+        每個提議限填寫 1 個希望的功能，如果有很多點子了話請多開幾個提議單！
+
+  - type: textarea
+    id: feature
+    attributes:
+      label: 你希望有什麽功能？
+      description: 對於功能的名稱
+      placeholder: 例如：可以產生隨機代碼的命令... (也可用圖片描述)
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: 功能的詳細描述？
+      description: 請告訴我們該功能的詳細描述與希望添加的原因！
+      placeholder: 例如：輸入生成長度為3的隨機代碼，他就會回傳... (也可用圖片描述)
+    validations:
+      required: true
+  - type: textarea
+    id: other
+    attributes:
+      label: 其他細節
+      placeholder: 有任何其他細節嗎？
