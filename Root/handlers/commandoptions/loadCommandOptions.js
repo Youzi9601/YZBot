@@ -26,4 +26,4 @@ module.exports = async function(client, interaction, config, db, command) {
     else if (await require('./OnlyGuilds')(client, interaction, config, db, command)) return;
     else if (await require('./OnlyUsers')(client, interaction, config, db, command)) return;
     // #endregion bypass
-}
+};

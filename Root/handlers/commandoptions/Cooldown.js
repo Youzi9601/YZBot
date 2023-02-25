@@ -1,5 +1,5 @@
 const humanizeDuration = require('humanize-duration');
-const { EmbedBuilder } = require('discord.js')
+const { EmbedBuilder } = require('discord.js');
 
 /**
  *
@@ -11,7 +11,7 @@ const { EmbedBuilder } = require('discord.js')
  */
 module.exports = async function(client, interaction, config, db, command) {
     if (!command.cooldown) return false;
-    const interactionType = 'Normal'
+    const interactionType = 'Normal';
     const currentTime = Date.now();
     const user = interaction.member.user;
     const cooldown = command.cooldown;
@@ -37,7 +37,7 @@ module.exports = async function(client, interaction, config, db, command) {
     else {
         interaction.reply({
             embeds: [
-                new EmbedBuilder
+                new EmbedBuilder()
                     .setAuthor({
                         name: interaction.member.user.tag,
                         iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,

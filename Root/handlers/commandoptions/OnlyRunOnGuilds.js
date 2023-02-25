@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('discord.js')
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = async function(client, interaction, config, db, command) {
     if (!command.OnlyRunOnGuilds) return false;
@@ -8,7 +8,7 @@ module.exports = async function(client, interaction, config, db, command) {
     if (interaction.inGuild() == false) {
         interaction.reply({
             embeds: [
-                new EmbedBuilder
+                new EmbedBuilder()
                     .setColor('#FF0000')
                     .setTitle('無法使用')
                     .setDescription('命令無法於非伺服器中做使用！')

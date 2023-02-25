@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('discord.js')
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = async function(client, interaction, config, db, command) {
     if (!command.ownerOnly) return false;
@@ -6,7 +6,7 @@ module.exports = async function(client, interaction, config, db, command) {
     else {
         if (command.returnOwnerOnly == false || command.returnNoErrors) return true;
         else interaction.reply({
-            embeds: [new EmbedBuilder
+            embeds: [new EmbedBuilder()
                 .setAuthor({
                     name: interaction.member.user.tag,
                     iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,

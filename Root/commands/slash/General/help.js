@@ -49,11 +49,13 @@ module.exports = {
                 description: command.data.description,
                 options: [],
                 subcommands: {},
+                subcommandgroups: {},
             };
 
+            // 如果輸入選像
             if (command.data.options) {
                 command.data.options.forEach(option => {
-                    if (option.type === 1) return;
+                    if (option.type === 1 || option.type === 2) return;
                     let optionName = option.name;
                     if (option.required) {
                         optionName = `<${optionName}>`;
@@ -64,6 +66,7 @@ module.exports = {
                 });
             }
 
+            // 如果是子指令
             if (command.data.options && command.data.options.some(option => option.type === 1)) {
                 command.data.options.filter(option => option.type === 1).forEach(subCommandData => {
                     const subCommandName = `</${command.data.name} ${subCommandData.name}:${id}>`;
@@ -85,6 +88,40 @@ module.exports = {
                     }
                 });
             }
+
+            // 如果是子群組指令
+            if (command.data.options && command.data.options.some(option => option.type === 2)) {
+                command.data.options.filter(option => option.type === 2).forEach(subGroupCommandData => {
+                    const subGroupCommandName = `</${command.data.name} ${subGroupCommandData.name}:${id}>`;
+                    const currentSubGroupCommand = currentCommand.subcommandgroups[subGroupCommandName] = {
+                        description: subGroupCommandData.description,
+                        subcommands: {},
+                    };
+
+                    if (subGroupCommandData.options) {
+                        subGroupCommandData.options.filter(option => option.type === 1).forEach(subCommandData => {
+                            const subCommandName = `</${command.data.name} ${subGroupCommandData.name} ${subCommandData.name}:${id}>`;
+                            const currentSubCommand = currentSubGroupCommand.subcommands[subCommandName] = {
+                                description: subCommandData.description,
+                                options: [],
+                            };
+
+                            if (subCommandData.options) {
+                                subCommandData.options.forEach(option => {
+                                    let optionName = option.name;
+                                    if (option.required) {
+                                        optionName = `<${optionName}>`;
+                                    } else {
+                                        optionName = `[${optionName}]`;
+                                    }
+                                    currentSubCommand.options.push(`\`${optionName} (${option.description})\``);
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+
         });
 
 
@@ -111,13 +148,23 @@ module.exports = {
         for (const [commandName, commandData] of Object.entries(data)) {
             helpMessage += `${commandName} | ${commandData.description}\n`;
             if (commandData.options.length > 0) {
-                helpMessage += `> ${commandData.options.join(', ')}\n`;
+                helpMessage += `> └ ${commandData.options.join(', ')}\n`;
             }
             for (const [subCommandName, subCommandData] of Object.entries(commandData.subcommands)) {
-                helpMessage += `> ${subCommandName} | ${subCommandData.description}\n`;
+                helpMessage += `> ├ ${subCommandName} | ${subCommandData.description}\n`;
                 if (subCommandData.options.length > 0) {
-                    helpMessage += `> - ${subCommandData.options.join(', ')}\n`;
+                    helpMessage += `> │ └ ${subCommandData.options.join(', ')}\n`;
                 }
+            }
+            for (const [subCommandGroupName, subCommandGroupData] of Object.entries(commandData.subcommandgroups)) {
+                helpMessage += `> ├ ${ subCommandGroupName } | ${ subCommandGroupData.description }\n`;
+                for (const [subCommandName, subCommandData] of Object.entries(subCommandGroupData.subcommands)) {
+                    helpMessage += `> │ ├ ${subCommandName} | ${subCommandData.description}\n`;
+                    if (subCommandData.options.length > 0) {
+                        helpMessage += `> │ │ └ ${subCommandData.options.join(', ')}\n`;
+                    }
+                }
+
             }
             helpMessage += '\n';
         }

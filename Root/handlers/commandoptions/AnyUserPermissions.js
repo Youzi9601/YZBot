@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('discord.js')
+const { EmbedBuilder } = require('discord.js');
 
 
 module.exports = async function(client, interaction, config, db, command) {
@@ -11,14 +11,14 @@ module.exports = async function(client, interaction, config, db, command) {
         if (command.returnAnyUserPermissions == false || command.returnNoErrors) return true;
         else {
             const perm = [];
-            const language = client.language_data(interaction.locale, 'discord').Permissions
+            const language = client.language_data(interaction.locale, 'discord').Permissions;
 
             for (let i = 0; i < command.anyUserPermission.length; i++) {
                 const ver = command.anyUserPermission[i];
                 perm.push(language[ver]);
             }
             interaction.reply({
-                embeds: [new EmbedBuilder
+                embeds: [new EmbedBuilder()
                     .setAuthor({
                         name: interaction.member.user.tag,
                         iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
