@@ -15,10 +15,10 @@ module.exports = (client, config) => {
         const langfiles = fs.readdirSync(`./Root/languages/${ dir }`).filter((file) => file.endsWith('.json'));
         for (let file of langfiles) {
             let pull = require(`../languages/${dir}/${file}`);
-            client.language.set(dir + '/' + file.replace('.json', ''), pull)
-            console.log(`[#${client.shard.ids}]  讀取語言檔案: ${dir + '/' + file.replace('.json', '')}`.brightGreen)
+            client.language.set(dir + '/' + file.replace('.json', ''), pull);
+            console.log(`[#${client.shard.ids}]  讀取語言檔案: ${dir + '/' + file.replace('.json', '')}`.brightGreen);
         }
     });
 
     // 設定全部語言包
-}
+};

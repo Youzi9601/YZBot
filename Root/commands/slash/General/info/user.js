@@ -1,6 +1,6 @@
-const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time, PermissionsBitField } = require('discord.js')
+const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time, PermissionsBitField } = require('discord.js');
 
-module.exports = { load }
+module.exports = { load };
 /**
      *
      * @param {import('discord.js').Client} client
@@ -85,7 +85,7 @@ async function load(client, interaction, config, db) {
             time: 10 * 60 * 1000,
             componentType: ComponentType.StringSelect,
         },
-    )
+    );
     collector.on('collect', async collector_interaction => {
 
         const collector_member = collector_interaction.guild.members.cache
@@ -186,7 +186,7 @@ async function load(client, interaction, config, db) {
                 );
 
         } else if (type == 'permissions') {
-            const language = client.language_data(interaction.locale, 'discord').Permissions
+            const language = client.language_data(interaction.locale, 'discord').Permissions;
             // 有的 member.permissions.toArray
             const has_permissions = collector_member.permissions.toArray();
             const has_permissions_translate = [];
@@ -391,5 +391,5 @@ async function load(client, interaction, config, db) {
             embeds: [embed],
         });
     },
-    )
+    );
 }

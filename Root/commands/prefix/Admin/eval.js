@@ -51,7 +51,7 @@ module.exports = {
                         repliedUser: false,
                     },
                 });
-                console.log('JS偵錯>  ' + code)
+                console.log('JS偵錯>  ' + code);
             }
         } catch (error) {
             console.error(error);

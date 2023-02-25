@@ -140,7 +140,7 @@ module.exports = {
                 time: 10 * 60 * 1000,
                 componentType: ComponentType.StringSelect,
             },
-        )
+        );
         collector.on('collect', async collector_interaction => {
 
             const collector_member = collector_interaction.guild.members.cache
@@ -242,7 +242,7 @@ module.exports = {
 
             } else if (type == 'permissions') {
 
-                const language = client.language_data(interaction.locale, 'discord').Permissions
+                const language = client.language_data(interaction.locale, 'discord').Permissions;
                 // 有的 member.permissions.toArray
                 const has_permissions = collector_member.permissions.toArray();
                 const has_permissions_translate = [];
@@ -447,6 +447,6 @@ module.exports = {
                 embeds: [embed],
             });
         },
-        )
+        );
     },
 };

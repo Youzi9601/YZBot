@@ -14,7 +14,7 @@ module.exports = {
             new EmbedBuilder()
                 .setDescription(`🏓 **Pong!** 客戶端 websocket ping： \`${client.ws.ping}\` ms.`)
                 .setColor("Green"),
-        ] })
+        ] });
 
     },
 };

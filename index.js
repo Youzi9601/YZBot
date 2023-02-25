@@ -7,13 +7,13 @@ const config = require('./Config');
 const exec = require('child_process').exec;
 const version = require('./package.json').version;
 
-const CI = process.env.CI
+const CI = process.env.CI;
 
 if (CI) {
-    console.log('分片系統 >>> CI檢查完畢')
-    process.exit(0)
+    console.log('分片系統 >>> CI檢查完畢');
+    process.exit(0);
 } else {
-    console.log('分片系統 >>> CI跳過檢查')
+    console.log('分片系統 >>> CI跳過檢查');
 }
 
 
@@ -32,14 +32,14 @@ async function update() {
                     console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
                     return;
                 }
-            })
+            });
         await execPromise('git pull')
             .catch(err => {
                 if (err) {
                     console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
                     return;
                 }
-            })
+            });
 
     }
 
@@ -55,7 +55,7 @@ async function run() {
             '                    [=| -= Made By Youzi9601 =-  |=]                    ',
             '                                                                        ',
         ].join('\n'),
-    )
+    );
 
 
     // 執行安裝依賴項目
@@ -68,11 +68,11 @@ async function run() {
                     console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
                     return;
                 }
-            })
+            });
 
     }
     // 執行機器人檔案
-    require('./Root/shared')
+    require('./Root/shared');
 }
 
 
@@ -88,8 +88,8 @@ function execPromise(command) {
                 console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
                 reject(err);
             } else {
-                console.log(stdout)
-                console.warn(stderr)
+                console.log(stdout);
+                console.warn(stderr);
 
                 // 如果回傳紀錄不包含已更新
                 if (command == 'git pull') {
@@ -114,5 +114,5 @@ function execPromise(command) {
         console.log(
             `` + '───────────────────────────────機器人控制台───────────────────────────────\n',
         );
-    })
-})
+    });
+});

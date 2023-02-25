@@ -35,7 +35,7 @@ module.exports = {
             new EmbedBuilder()
                 .setDescription(`Only owners command! \nOwners: **${ownersARRAY.join(", ")}**`)
                 .setColor("Yellow"),
-        ] })
+        ] });
 
     },
 };

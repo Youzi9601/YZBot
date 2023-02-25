@@ -41,7 +41,7 @@ module.exports = {
                     .setURL(user.displayAvatarURL({ dynamic: true }))
                     .setLabel(locales[interaction.locale] ? locales[interaction.locale].button : locales['zh-TW'].button)
                     .setStyle(ButtonStyle.Link),
-            )
+            );
 
 
         return await interaction.reply(

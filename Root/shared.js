@@ -1,5 +1,5 @@
 const { ShardingManager } = require('discord.js');
-const config = require('../Config')
+const config = require('../Config');
 
 const manager = new ShardingManager('Root/bot.js',
     {
@@ -11,18 +11,18 @@ const manager = new ShardingManager('Root/bot.js',
     },
 );
 
-const { QuickDB } = require('quick.db')
-const uptime = new QuickDB().table('uptime')
+const { QuickDB } = require('quick.db');
+const uptime = new QuickDB().table('uptime');
 uptime.deleteAll().then(() => {
-    console.log('清除Uptime狀態資料庫')
-})
+    console.log('清除Uptime狀態資料庫');
+});
 manager.on('shardCreate', shard => {
 
-    console.log(`[#${ shard.id }]  啟動分片 #${ shard.id }`)
+    console.log(`[#${ shard.id }]  啟動分片 #${ shard.id }`);
     shard.on('ready', async r => {
-        await uptime.set(`${shard.id}`, 'ready')
+        await uptime.set(`${shard.id}`, 'ready');
         console.log("分片 #" + shard.id + " 已回傳完成啟動");
-    })
+    });
 
     shard.on('message', message => {
         if (config.sharding.logFetchClientValues) {
@@ -32,7 +32,7 @@ manager.on('shardCreate', shard => {
     });
 
     shard.on("death", async (process) => {
-        await uptime.set(`${shard.id}`, 'death')
+        await uptime.set(`${shard.id}`, 'death');
 
         console.error("分片 #" + shard.id + " 意外關閉！ PID：" + process.pid + "; 退出代碼：" + process.exitCode + ".");
 
@@ -41,13 +41,13 @@ manager.on('shardCreate', shard => {
         }
     });
     shard.on('reconnecting', async (event) => {
-        await uptime.set(`${shard.id}`, 'ready')
+        await uptime.set(`${shard.id}`, 'ready');
 
         console.warn("分片 #" + shard.id + " 正在重新連接...");
         console.log(event);
     });
     shard.on("disconnect", async (event) => {
-        await uptime.set(`${shard.id}`, 'disconnect')
+        await uptime.set(`${shard.id}`, 'disconnect');
 
         console.warn("分片 #" + shard.id + " 斷開連接。正在轉儲套接字關閉事件...");
         console.log(event);
@@ -55,8 +55,8 @@ manager.on('shardCreate', shard => {
     shard.on('error', err => {
         console.error("分片 #" + shard.id + " 發生錯誤：" + err.name);
         console.error(err.message);
-        if (err.stack) console.error(err.stack)
-    })
+        if (err.stack) console.error(err.stack);
+    });
 });
 
 
@@ -64,7 +64,7 @@ manager.on('shardCreate', shard => {
 manager
     .spawn()
     .then((_shards) => {
-        console.log('成功啟動' + manager.totalShards + '個分片！')
+        console.log('成功啟動' + manager.totalShards + '個分片！');
         // 執行設定資料
         // 執行Web
         manager.broadcastEval(async client => {
@@ -80,20 +80,20 @@ manager
                         const totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0);
                         const totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
                         const totalChannels = results[2].reduce((acc, channelCount) => acc + channelCount, 0);
-                        const db = require('quick.db').QuickDB
-                        const client_db = new db().table('client')
+                        const db = require('quick.db').QuickDB;
+                        const client_db = new db().table('client');
 
                         // 儲存
-                        client_db.set('servers', totalGuilds)
-                        client_db.set('users', totalMembers)
-                        client_db.set('channels', totalChannels)
+                        client_db.set('servers', totalGuilds);
+                        client_db.set('users', totalMembers);
+                        client_db.set('channels', totalChannels);
                     })
                     .catch(console.error);
             }
 
-            const { ActivityType } = require('discord.js')
+            const { ActivityType } = require('discord.js');
             const wait = require('node:timers/promises').setTimeout;
-            await wait(5000)
+            await wait(5000);
             client.user.setPresence({ activities: [{ name: `分片#${client.shard.ids}｜機器人`, type: ActivityType.Competing }], status: 'online' });
 
         });
@@ -110,7 +110,7 @@ process
 
         manager.shards.forEach(s => {
             s.kill();
-            uptime.set(s.id, 'death')
-        })
+            uptime.set(s.id, 'death');
+        });
     });
 //

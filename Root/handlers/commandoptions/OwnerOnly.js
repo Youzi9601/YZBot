@@ -1,4 +1,4 @@
-const { EmbedBuilder } = require('discord.js')
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = async function(client, interaction, config, db, command) {
     if (!command.ownerOnly) return false;

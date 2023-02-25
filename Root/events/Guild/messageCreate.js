@@ -25,8 +25,8 @@ module.exports = {
         */
         }
 
-        const all_prefix = config.prefix
-        all_prefix.push(await db.get(`guild_prefix_${ message.guild.id }`), ">")
+        const all_prefix = config.prefix;
+        all_prefix.push(await db.get(`guild_prefix_${ message.guild.id }`), ">");
         if (!message.guild) return;
         // 檢查是否已經執行過了
         let isRun = false;
@@ -61,7 +61,7 @@ module.exports = {
                             ],
                             components: [row],
 
-                        })
+                        });
                     }
                 }
 
@@ -77,7 +77,7 @@ module.exports = {
                                         .setColor("Red"),
                                 ],
                                 components: [row],
-                            })
+                            });
                         }
                     }
                 }
@@ -87,14 +87,14 @@ module.exports = {
                     isRun = true;
                     command.run(client, message, args, prefix, config, db);
                 } catch (error) {
-                    console.error(`[#${client.shard.ids}]  執行訊息命令時發生錯誤：`)
+                    console.error(`[#${client.shard.ids}]  執行訊息命令時發生錯誤：`);
                     console.error(error);
                 }
             }
-        })
+        });
 
 
     },
 
 
-}
+};

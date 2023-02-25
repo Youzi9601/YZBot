@@ -1,4 +1,4 @@
-const { Events, ActivityType } = require('discord.js')
+const { Events, ActivityType } = require('discord.js');
 require("colors");
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
 
         // 機器人狀態張貼到伺服器上
         if (client.guilds.cache.get(client.config.guild.ServerID)) {
-            require('./bot/status')(client)
+            require('./bot/status')(client);
         }
     },
 };
