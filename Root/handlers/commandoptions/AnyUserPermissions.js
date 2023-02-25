@@ -29,6 +29,7 @@ module.exports = async function(client, interaction, config, db, command) {
                 allowedMentions: {
                     repliedUser: false,
                 },
+                ephemeral: true,
             });
         }
         return true;
