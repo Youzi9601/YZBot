@@ -83,8 +83,10 @@ module.exports = {
 
     // 資料庫
     database: {
+        // 你所使用的儲存方式，有"mongoose","quick.db"(json.sqlite),"locateStorge"(本地json檔案),"none"(不使用)這幾個選項
+        use: process.env.database_use || "none",
         // 請放置網址於下方，用來連接到資料庫
-        MongoDB: "",
+        MongoDB: process.env.database_MongoDB || "",
     },
 
     // 機器人訊息命令前綴(訊息觸發，允許多個前綴！)

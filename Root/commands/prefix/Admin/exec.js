@@ -8,6 +8,16 @@ module.exports = {
         usage: "eval [執行內容]",
     },
     owner: true,
+    /**
+     *
+     * @param {import('discord.js').Client} client
+     * @param {import('discord.js').Message} message
+     * @param {*} args
+     * @param {*} prefix
+     * @param {*} config
+     * @param {*} db
+     * @returns
+     */
     run: async (client, message, args, prefix, config, db) => {
 
         const row = new ActionRowBuilder()

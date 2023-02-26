@@ -60,7 +60,7 @@ client.language_data = (locale, file) => {
 
 module.exports = client;
 
-["prefix", "application_commands", "modals", "events", "mongoose", "languages_loader"].forEach((file) => {
+["prefix", "application_commands", "modals", "events", "database", "languages_loader"].forEach((file) => {
     require(`./handlers/${file}`)(client, config);
 });
 
