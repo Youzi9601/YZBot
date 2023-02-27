@@ -84,7 +84,8 @@ module.exports = {
     // 資料庫
     database: {
         // 你所使用的儲存方式，有"mongoose","quick.db"(json.sqlite),"locateStorge"(本地json檔案),"none"(不使用)這幾個選項
-        use: process.env.database_use || "none",
+        // 但是，Quick.db還是會用於小部分檔案儲存，這些小檔案是不影響機器人運做的(例如：分片系統狀態警報)
+        use: process.env.database_use || "locateStorge",
         // 請放置網址於下方，用來連接到資料庫
         MongoDB: process.env.database_MongoDB || "",
     },

@@ -3,7 +3,7 @@
   * @param {import('discord.js').Client} client
   * @param {import('discord.js').Interaction} interaction
   * @param {*} config
-  * @param {*} db
+  * @param {import('./../../handlers/database/db_function')} db
   */
 module.exports = async function(client, interaction, config, db, command) {
     if (await require('./OnlyRunOnGuilds')(client, interaction, config, db, command)) return;

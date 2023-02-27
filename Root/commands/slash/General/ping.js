@@ -10,6 +10,7 @@ module.exports = {
         .setDMPermission(false)
         .toJSON(),
     type: ['Main', 'General'],
+    cooldown: 1000,
     /**
      *
      * @param {import('discord.js').Client} client

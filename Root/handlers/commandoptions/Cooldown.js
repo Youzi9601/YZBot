@@ -1,3 +1,6 @@
+/**
+ * 此檔案待修復(修正部分DB設定問題)
+ */
 const humanizeDuration = require('humanize-duration');
 const { EmbedBuilder } = require('discord.js');
 
@@ -6,7 +9,7 @@ const { EmbedBuilder } = require('discord.js');
  * @param {import('discord.js').Client} client
  * @param {import('discord.js').Integration} interaction
  * @param {*} config
- * @param {import('quick.db').QuickDB} db
+ * @param {import('./../../handlers/database/db_function')} db
  * @param {*} command
  */
 module.exports = async function(client, interaction, config, db, command) {
@@ -20,17 +23,35 @@ module.exports = async function(client, interaction, config, db, command) {
         conjunction: ', ',
         language: 'zh_TW',
     });
+    let data = await db.get(
+        client,
+        'CooldownSystem',
+        `${interaction.guild.id}`,
+    );
+    const oldTime = Number(
+        (
+            data[command.data.name] ?
+                (
+                    data[command.data.name][interactionType ?? 'Normal'] ?
+                        data[command.data.name][interactionType ?? 'Normal'][user.id]
+                        : undefined
+                ) : undefined
+        ) ?? 0,
+    );
 
-    const oldTime =
-        (await db.get(
-            `CooldownSystem.${interaction.guild.id}.${command.command.name}.${interactionType ?? 'Normal'
-            }.${user.id}`,
-        )) ?? 0;
     if (Math.floor(currentTime - oldTime) >= cooldown || oldTime == 0) {
+        if (!data[command.data.name]) {
+            data[command.data.name] = {};
+        }
+        if (!data[command.data.name][interactionType ?? 'Normal']) {
+            data[command.data.name][interactionType ?? 'Normal'] = {};
+        }
+        data[command.data.name][interactionType ?? 'Normal'][user.id] = currentTime;
         await db.set(
-            `CooldownSystem.${interaction.guild.id}.${command.command.name}.${interactionType ?? 'Normal'
-            }.${user.id}`,
-            currentTime,
+            client,
+            'CooldownSystem',
+            `${interaction.guild.id}`,
+            data,
         );
         return false;
     } else if (command.returnCooldown == false || command.returnNoErrors) return true;

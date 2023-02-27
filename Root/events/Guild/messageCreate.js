@@ -1,7 +1,4 @@
 const { EmbedBuilder, PermissionsBitField, ChannelType, ButtonBuilder, ActionRowBuilder, ButtonStyle, Events } = require("discord.js");
-const config = require("./../../../Config");
-const { QuickDB } = require("quick.db");
-const db = new QuickDB();
 
 module.exports = {
     name: Events.MessageCreate,
@@ -25,8 +22,7 @@ module.exports = {
         */
         }
 
-        const all_prefix = config.prefix;
-        all_prefix.push(await db.get(`guild_prefix_${ message.guild.id }`), ">");
+        const all_prefix = client.config.prefix;
         if (!message.guild) return;
         // 檢查是否已經執行過了
         let isRun = false;
@@ -66,8 +62,8 @@ module.exports = {
                 }
 
                 if (command.owner, command.owner == true) {
-                    if (config?.developers) {
-                        if (!config.developers.some(ID => message.member.id.includes(ID))) {
+                    if (client.config?.developers) {
+                        if (!client.config.developers.some(ID => message.member.id.includes(ID))) {
 
                             return await message.reply({
                                 embeds: [
@@ -85,7 +81,7 @@ module.exports = {
                 try {
                     if (isRun) return;
                     isRun = true;
-                    command.run(client, message, args, prefix, config, db);
+                    command.run(client, message, args, prefix, client.config, client.db);
                 } catch (error) {
                     console.error(`[#${client.shard.ids}]  執行訊息命令時發生錯誤：`);
                     console.error(error);

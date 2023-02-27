@@ -1,8 +1,5 @@
 const { EmbedBuilder, Events } = require("discord.js");
-const config = require("./../../../Config");
-const { QuickDB } = require("quick.db");
 const wait = require('node:timers/promises').setTimeout;
-const db = new QuickDB();
 
 module.exports = {
     name: Events.InteractionCreate,
@@ -21,9 +18,11 @@ module.exports = {
 
             try {
                 // 檢查命令相關許可
-                await require('./../../handlers/commandoptions/loadCommandOptions')(client, interaction, config, db, command);
+                await require('./../../handlers/commandoptions/loadCommandOptions')(client, interaction, client.config, client.db, command)
+                    .then(_v => {
+                        command.run(client, interaction, client.config, client.db);
+                    });
                 // 執行命令
-                command.run(client, interaction, config, db);
             } catch (e) {
                 console.error(`[#${ client.shard.ids }]  執行命令時發生錯誤：`);
                 console.error(e);
@@ -37,7 +36,7 @@ module.exports = {
             if (!command) return;
 
             try {
-                command.run(client, interaction, config, db);
+                command.run(client, interaction, client.config, client.db);
             } catch (e) {
                 console.error(`[#${ client.shard.ids }]  執行成員應用時發生錯誤：`);
                 console.error(e);
@@ -51,7 +50,7 @@ module.exports = {
             if (!command) return;
 
             try {
-                command.run(client, interaction, config, db);
+                command.run(client, interaction, client.config, client.db);
             } catch (e) {
                 console.error(`[#${ client.shard.ids }]  執行訊息應用時發生錯誤：`);
                 console.error(e);
@@ -74,7 +73,7 @@ module.exports = {
             }
 
             try {
-                modal.run(client, interaction, config, db);
+                modal.run(client, interaction, client.config, client. db);
             } catch (e) {
                 console.error(`[#${ client.shard.ids }]  執行模塊時發生錯誤：`);
                 console.error(e);
@@ -100,7 +99,7 @@ module.exports = {
             }
 
             try {
-                button.run(client, interaction, config, db);
+                button.run(client, interaction, client.config, client.db);
             } catch (e) {
                 console.error(`[#${ client.shard.ids }]  執行按鈕時發生錯誤：`);
                 console.error(e);
@@ -126,7 +125,7 @@ module.exports = {
             }
 
             try {
-                selectmenu.run(client, interaction, config, db);
+                selectmenu.run(client, interaction, client.config, client.db);
             } catch (e) {
                 console.error(`[#${ client.shard.ids }]  執行選單時發生錯誤：`);
                 console.error(e);
