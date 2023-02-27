@@ -7,7 +7,13 @@ token= "TOKEN_放_這_裡"
 clientID= "000000000000000000"
 clientSECRET= "00a00w000.00070000"
 
+# 資料庫儲存方式
+# quick.db, locateStorge, mongoose 這幾個方式
+database_use= "請從上方選擇"
+database_MongoDB= ""
 
+
+# OpenAI ChatGPT 的 API KEY，如果不想使用/chatgpt這個命令了話可以不理會
 openaiKEY= ""
 
 # pm2
