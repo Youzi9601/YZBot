@@ -228,6 +228,7 @@ module.exports = {
             everyoneMention: false,
         },
         openaiKEY: process.env.openaiKEY || '你的API密鑰',
+        TaiwanCWBAPIkey: process.env.TaiwanCWBAPIkey || '',
     },
 
 

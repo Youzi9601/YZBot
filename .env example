@@ -15,6 +15,8 @@ database_MongoDB= ""
 
 # OpenAI ChatGPT 的 API KEY，如果不想使用/chatgpt這個命令了話可以不理會
 openaiKEY= ""
+# 台灣地震推撥API系統
+TaiwanCWBAPIkey= ""
 
 # pm2
 PM2_PUBLIC_KEY= ""
