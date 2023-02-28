@@ -90,6 +90,6 @@ process
 
 // start the web (如果分片編號是0)
 if (client.shard.ids == 0
-    && config.web.noWeb == 'true') {
+    && config.web.noWeb != 'true') {
     require('./web')(client);
 }
