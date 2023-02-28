@@ -11,6 +11,8 @@ module.exports = {
         .toJSON(),
     type: ['Main', 'General'],
     disabled: false, // 記得改成false再來執行這側是
+    cooldown: 10000,
+
     /**
      *
      * @param {import('discord.js').Client} client
@@ -176,7 +178,6 @@ module.exports = {
             .addComponents(selectmenu);
 
         await interaction.reply({ embeds:[embed], components:[row] });
-
 
     },
 };

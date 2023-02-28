@@ -26,6 +26,7 @@ module.exports = async (client) => {
             process.exit(1);
         } else {
             const mongoose = require('mongoose');
+            mongoose.set('strictQuery', true);
             const mongoose_db = mongoose.connection;
             // 與資料庫連線發生錯誤時
             mongoose_db.on('err', err => {

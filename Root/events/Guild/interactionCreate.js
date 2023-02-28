@@ -18,10 +18,10 @@ module.exports = {
 
             try {
                 // 檢查命令相關許可
-                await require('./../../handlers/commandoptions/loadCommandOptions')(client, interaction, client.config, client.db, command)
-                    .then(_v => {
-                        command.run(client, interaction, client.config, client.db);
-                    });
+                await require('./../../handlers/commandoptions/loadCommandOptions')(client, interaction, client.config, client.db, command);
+
+                if (!interaction.replied)
+                    command.run(client, interaction, client.config, client.db);
                 // 執行命令
             } catch (e) {
                 console.error(`[#${ client.shard.ids }]  執行命令時發生錯誤：`);

@@ -8,7 +8,7 @@ module.exports = {
      * @param {import('discord.js').Client} client 客戶端
      * @param {String} tablename 你的檔案庫名稱
      * @param {String} name 資料名稱
-     * @param {*} value 資料內容
+     * @param {Object} value 資料內容
      */
     set: async (_client, tablename = 'json', name, value) => {
 
@@ -18,7 +18,7 @@ module.exports = {
      * @param {import('discord.js').Client} client 客戶端
      * @param {String} tablename 你的檔案庫名稱
      * @param {String} name 資料名稱
-     * @returns {*} JSON資料
+     * @returns {Object} 資料集
      */
     get: async (_client, tablename = 'json', name) => {
 
