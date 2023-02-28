@@ -55,6 +55,7 @@ module.exports = (client, config) => {
         category.push(v);
     });
     client.command_category = category;
+    console.log(`[#${ client.shard.ids }]  ` + '[v] 完成加載斜杠命令...'.yellow);
 
 
     console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載成員互動命令...'.yellow);
@@ -81,6 +82,8 @@ module.exports = (client, config) => {
             }
         }
     });
+    console.log(`[#${client.shard.ids}]  ` + '[v] 完成加載成員互動命令...'.yellow);
+
 
     console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載消息互動命令...'.yellow);
     // Message contextmenus commands handler:
@@ -106,6 +109,8 @@ module.exports = (client, config) => {
             }
         }
     });
+    console.log(`[#${client.shard.ids}]  ` + '[v] 完成加載消息互動命令...'.yellow);
+
 
     console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載按鈕命令...'.yellow);
     // Button commands handler:
@@ -125,6 +130,8 @@ module.exports = (client, config) => {
             }
         }
     });
+    console.log(`[#${client.shard.ids}]  ` + '[v] 完成加載按鈕命令...'.yellow);
+
 
     console.log(`[#${client.shard.ids}]  ` + '[!] 開始加載選單命令...'.yellow);
     // Button commands handler:
@@ -144,6 +151,8 @@ module.exports = (client, config) => {
             }
         }
     });
+    console.log(`[#${client.shard.ids}]  ` + '[v] 完成加載選單命令...'.yellow);
+
 
     // Registering all the application commands:
     if (!config.bot.clientID) {

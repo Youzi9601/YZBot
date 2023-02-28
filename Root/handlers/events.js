@@ -15,6 +15,8 @@ module.exports = (client) => {
 
             let pull = require(`../events/${dir}/${file}`);
             if (pull.name) {
+                if (pull.disabled)
+                    continue;
                 if (pull.once) {
                     client.once(pull.name, (...args) => pull.execute(client, ...args));
                 } else {
@@ -29,4 +31,5 @@ module.exports = (client) => {
 
         }
     });
+    console.log(`[#${client.shard.ids}]  ` + ">>> 事件處理程序處理完成".blue);
 };
