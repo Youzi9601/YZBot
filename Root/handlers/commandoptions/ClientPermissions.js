@@ -1,8 +1,9 @@
 const { EmbedBuilder } = require('discord.js');
+
 /**
  *
  * @param {import('discord.js').Client} client
- * @param {import('discord.js').Integration} interaction
+ * @param {import('discord.js').CommandInteraction} interaction
  * @param {import('./../../handlers/database/db_function')} db
  */
 module.exports = async function(client, interaction, config, db, command) {
@@ -10,8 +11,8 @@ module.exports = async function(client, interaction, config, db, command) {
     const missing = [];
     const language = client.language_data(interaction.locale, 'discord').Permissions;
 
-    interaction.clientPermissions.forEach(i => {
-        if (!interaction.guild.me.permissions.has(i)) missing.push(language[i]);
+    command.clientPermissions.forEach(i => {
+        if (!interaction.guild.members.me.permissions.has(i)) missing.push(language[i]);
     });
     if (missing.length == 0) return false;
     else {

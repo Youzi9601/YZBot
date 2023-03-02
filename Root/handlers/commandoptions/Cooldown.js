@@ -7,7 +7,7 @@ const { EmbedBuilder } = require('discord.js');
 /**
  *
  * @param {import('discord.js').Client} client
- * @param {import('discord.js').Integration} interaction
+ * @param {import('discord.js').CommandInteraction} interaction
  * @param {*} config
  * @param {import('./../../handlers/database/db_function')} db
  * @param {*} command

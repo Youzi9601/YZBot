@@ -54,7 +54,8 @@ module.exports = async (client) => {
     const RateLimit = require("express-rate-limit");
     const limiter = RateLimit.rateLimit({
         windowMs: 1 * 60 * 1000, // 1 minute
-        max: 5,
+        max: 50,
+        skipFailedRequests: true,
     });
     app.use(limiter);
     // 設定session
@@ -111,6 +112,9 @@ module.exports = async (client) => {
      */
     // #region 網頁
     // 首頁
+        .get("", (req, res) => {
+            res.redirect("./home");
+        })
         .get("/", (req, res) => {
             res.redirect("./home");
         })

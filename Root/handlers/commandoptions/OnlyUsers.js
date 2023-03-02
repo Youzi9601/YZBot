@@ -1,5 +1,11 @@
 const { EmbedBuilder } = require('discord.js');
 
+/**
+ *
+ * @param {import('discord.js').Client} client
+ * @param {import('discord.js').CommandInteraction} interaction
+ * @param {import('./../../handlers/database/db_function')} db
+ */
 module.exports = async function(client, interaction, config, db, command) {
     // bypass
     if (config.developers.some(id => interaction.member.user.id == id)) return false;
