@@ -27,7 +27,7 @@ const config = require("../Config");
  * @param {import('discord.js').Client} client 客戶端
  */
 module.exports = async (client) => {
-    const host = `${config.web.domain}${(config.web.show_port == "false")? "" : ":" + config.web.port}`;
+    const host = `${config.web.domain}${(config.web.show_port == "false") ? "" : ":" + config.web.port}`;
     const discordurl = {
         discordAuthLoginUrl: `https://discord.com/oauth2/authorize?client_id=${
             config.bot.clientID
