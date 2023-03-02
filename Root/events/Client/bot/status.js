@@ -151,12 +151,15 @@ module.exports = async (client) => {
                     type: `${status.type}` || undefined,
                     url: `${status.url}` || undefined,
             },
-    ],
-    // browser: "DISCORD IOS",
-    status: `${client.config?.botPresence.status}`,
-    browser
-    });*/
-        client.user.setStatus(`${client.config?.botPresence.status}`);
+        ],
+        // browser: "DISCORD IOS",
+        status: `${client.config?.botPresence.status}`,
+        browser
+        });
+        */
+
+        // client.user.setStatus(`${client.config?.botPresence.status}`);
+        /*
         client.user.setActivity(
             `${status.name}`,
             {
@@ -165,6 +168,8 @@ module.exports = async (client) => {
                 url: `${status.url || 'https://www.twitch.tv/Youzi9601'}`,
             },
         );
+        */
+        client.user.setPresence({ activities: [{ name: `/help ｜#${client.shard.ids} 區`, type: ActivityType.Playing }], status: 'online' });
 
         // 等待
         await wait(60000);
