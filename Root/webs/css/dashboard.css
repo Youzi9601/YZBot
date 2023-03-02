@@ -1,271 +1,272 @@
 body {
-  background-position: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url(./../assets/background.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+	background-position: center;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+		url(./../assets/background.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
 }
 .main {
-  animation: fadeIn 0.7s;
-  transition: opacity 1s;
-  background-position: center;
-  background-size: cover;
-  background-attachment: local;
-  color: white;
+	animation: fadeIn 0.7s;
+	transition: opacity 1s;
+	background-position: center;
+	background-size: cover;
+	background-attachment: local;
+	color: white;
 }
 .servers {
-  margin-bottom: 40px;
+	margin-bottom: 40px;
+	min-height: 90vh;
 }
 .server-list-text {
-  text-align: center;
-  font-size: 32px;
-  font-weight: bold;
+	text-align: center;
+	font-size: 32px;
+	font-weight: bold;
 }
 .footer {
-  clear: both;
+	clear: both;
 }
 .wrapper-usercard {
-  margin: 20px;
-  padding: 20px;
-  display: flex;
-  justify-content: flex-end;
+	margin: 20px;
+	padding: 20px;
+	display: flex;
+	justify-content: flex-end;
 }
 .usercard {
-  color: white;
-  border: 1px solid white;
-  border-radius: 10px;
-  width: 300px;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  padding-left: 20px;
+	color: white;
+	border: 1px solid white;
+	border-radius: 10px;
+	width: 300px;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	padding-left: 20px;
 }
 .usercard-image {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 .avatar {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
 }
 .usercard-names {
-  margin-left: 20px;
-  font-size: 20px;
-  font-weight: bold;
-  align-self: center;
+	margin-left: 20px;
+	font-size: 20px;
+	font-weight: bold;
+	align-self: center;
 }
 
 .guilds-list {
-  align-items: center;
-  margin: 5px;
+	align-items: center;
+	margin: 5px;
 }
 .guild-container {
-  width: 500px;
-  overflow: auto;
-  text-decoration: none;
-  color: white;
+	width: 500px;
+	overflow: auto;
+	text-decoration: none;
+	color: white;
 }
 .guild-card {
-  width: 300px;
-  height: 210px;
-  margin: 10px;
-  float: left;
-  background-image: none;
-  border: 1px solid white;
-  background-color: rgba(255, 255, 255, 0.192);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+	width: 300px;
+	height: 210px;
+	margin: 10px;
+	float: left;
+	background-image: none;
+	border: 1px solid white;
+	background-color: rgba(255, 255, 255, 0.192);
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 .guild-card :hover {
-  color: #afafafe3;
+	color: #afafafe3;
 }
 .guild-card img {
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
+	width: 80px;
+	height: 80px;
+	border-radius: 40px;
+	margin: 10px 0;
+	display: flex;
+	justify-content: center;
 }
 .guild-card .guild-container {
-  width: 100%;
-  text-align: left;
-  padding: 10px;
+	width: 100%;
+	text-align: left;
+	padding: 10px;
 }
 .guild-container .guild-name {
-  font-size: 16px;
-  margin: 5px 0;
+	font-size: 16px;
+	margin: 5px 0;
 }
 .guild-tags {
-  display: inline-block;
+	display: inline-block;
 }
 .guild-position,
 .guild-botincludes {
-  display: inline-block;
+	display: inline-block;
 }
 .guild-container .guild-position {
-  margin: 5px 0;
-  font-size: 14px;
-  min-width: 60px;
-  text-align: center;
-  color: rgb(250, 250, 250);
-  background-color: #7289da;
-  border-radius: 10px;
+	margin: 5px 0;
+	font-size: 14px;
+	min-width: 60px;
+	text-align: center;
+	color: rgb(250, 250, 250);
+	background-color: #7289da;
+	border-radius: 10px;
 }
 .guild-container .guild-botincludes {
-  margin: 5px 0;
-  font-size: 14px;
-  width: 60px;
-  text-align: center;
-  color: rgb(250, 250, 250);
-  border-radius: 10px;
+	margin: 5px 0;
+	font-size: 14px;
+	width: 60px;
+	text-align: center;
+	color: rgb(250, 250, 250);
+	border-radius: 10px;
 }
 
 .closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
+	margin-left: 15px;
+	color: white;
+	font-weight: bold;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
 }
 .closebtn:hover {
-  color: black;
+	color: black;
 }
 
 .guild-oauth-failed {
-  padding: 20px;
-  background-color: #f44336;
-  color: white;
-  margin-bottom: 15px;
-  position: sticky;
-  float: left;
-  top: 100px;
-  left: 0;
-  transition: opacity 0.6s;
+	padding: 20px;
+	background-color: #f44336;
+	color: white;
+	margin-bottom: 15px;
+	position: sticky;
+	float: left;
+	top: 100px;
+	left: 0;
+	transition: opacity 0.6s;
 }
 
 @keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
 }
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .loader-page {
-  height: 100vh;
-  width: 100vw;
-  font-family: Helvetica;
-  transition: opacity 1s;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+	height: 100vh;
+	width: 100vw;
+	font-family: Helvetica;
+	transition: opacity 1s;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .loader-page .loader {
-  height: 20px;
-  width: 250px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  color: #ffffff;
+	height: 20px;
+	width: 250px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	color: #ffffff;
 }
 .loader-page .loader--dot {
-  animation-name: loader;
-  animation-timing-function: ease-in-out;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  height: 20px;
-  width: 20px;
-  border-radius: 100%;
-  background-color: black;
-  position: absolute;
-  border: 2px solid white;
+	animation-name: loader;
+	animation-timing-function: ease-in-out;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	height: 20px;
+	width: 20px;
+	border-radius: 100%;
+	background-color: black;
+	position: absolute;
+	border: 2px solid white;
 }
 .loader-page .loader--dot:first-child {
-  background-color: #8cc759;
-  animation-delay: 0.5s;
+	background-color: #8cc759;
+	animation-delay: 0.5s;
 }
 .loader-page .loader--dot:nth-child(2) {
-  background-color: #8c6daf;
-  animation-delay: 0.4s;
+	background-color: #8c6daf;
+	animation-delay: 0.4s;
 }
 .loader-page .loader--dot:nth-child(3) {
-  background-color: #ef5d74;
-  animation-delay: 0.3s;
+	background-color: #ef5d74;
+	animation-delay: 0.3s;
 }
 .loader-page .loader--dot:nth-child(4) {
-  background-color: #f9a74b;
-  animation-delay: 0.2s;
+	background-color: #f9a74b;
+	animation-delay: 0.2s;
 }
 .loader-page .loader--dot:nth-child(5) {
-  background-color: #60beeb;
-  animation-delay: 0.1s;
+	background-color: #60beeb;
+	animation-delay: 0.1s;
 }
 .loader-page .loader--dot:nth-child(6) {
-  background-color: #fbef5a;
-  animation-delay: 0s;
+	background-color: #fbef5a;
+	animation-delay: 0s;
 }
 .loader-page .loader--text {
-  position: absolute;
-  top: 200%;
-  left: 0;
-  right: 0;
-  width: 4rem;
-  margin: auto;
+	position: absolute;
+	top: 200%;
+	left: 0;
+	right: 0;
+	width: 4rem;
+	margin: auto;
 }
 .loader-page .loader--text:after {
-  content: "讀取中";
-  font-weight: bold;
-  animation-name: loading-text;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
+	content: "讀取中";
+	font-weight: bold;
+	animation-name: loading-text;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
 }
 
 @keyframes loader {
-  15% {
-    transform: translateX(0);
-  }
-  45% {
-    transform: translateX(230px);
-  }
-  65% {
-    transform: translateX(230px);
-  }
-  95% {
-    transform: translateX(0);
-  }
+	15% {
+		transform: translateX(0);
+	}
+	45% {
+		transform: translateX(230px);
+	}
+	65% {
+		transform: translateX(230px);
+	}
+	95% {
+		transform: translateX(0);
+	}
 }
 @keyframes loading-text {
-  0% {
-    content: "讀取中";
-  }
-  25% {
-    content: "讀取中.";
-  }
-  50% {
-    content: "讀取中..";
-  }
-  75% {
-    content: "讀取中...";
-  }
+	0% {
+		content: "讀取中";
+	}
+	25% {
+		content: "讀取中.";
+	}
+	50% {
+		content: "讀取中..";
+	}
+	75% {
+		content: "讀取中...";
+	}
 }

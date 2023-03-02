@@ -1,64 +1,66 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Disocrd 機器人 | YZB 伺服器列表</title>
-    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+	<head>
+		<title>Disocrd 機器人 | YZB 伺服器列表</title>
+		<link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
 
-    <meta
-      name="description"
-      content="YZB 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。"
-    />
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="./../../css/bootstrap.min.css" rel="stylesheet" />
+		<meta
+			name="description"
+			content="YZB 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。"
+		/>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="./../../css/bootstrap.min.css" rel="stylesheet" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
-    />
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+		/>
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+		></script>
 
-    <script>
-      //      $(document).ready()
-      window.onload = () => {
-        function getCookie(cname) {
-          let name = cname + "=";
-          let ca = document.cookie.split(";");
-          for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == " ") {
-              c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-              return JSON.parse(c.substring(name.length, c.length));
-            }
-          }
-          return "";
-        }
+		<script>
+			//      $(document).ready()
+			window.onload = () => {
+				function getCookie(cname) {
+					let name = cname + "=";
+					let ca = document.cookie.split(";");
+					for (let i = 0; i < ca.length; i++) {
+						let c = ca[i];
+						while (c.charAt(0) == " ") {
+							c = c.substring(1);
+						}
+						if (c.indexOf(name) == 0) {
+							return JSON.parse(
+								c.substring(name.length, c.length)
+							);
+						}
+					}
+					return "";
+				}
 
-        // #region userdata
-        // let user = getCookie("userdata");
-        let user = JSON.parse(sessionStorage.getItem("userdata"));
+				// #region userdata
+				// let user = getCookie("userdata");
+				let user = JSON.parse(sessionStorage.getItem("userdata"));
 
-        const { username, discriminator, avatar, id } = user;
-        //set the welcome username string
-        document.getElementById(
-          "usernames"
-        ).innerText = ` ${username}#${discriminator}`;
+				const { username, discriminator, avatar, id } = user;
+				//set the welcome username string
+				document.getElementById(
+					"usernames"
+				).innerText = ` ${username}#${discriminator}`;
 
-        //set the avatar image by constructing a url to access discord's cdn
-        document.getElementById(
-          "avatar"
-        ).src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.jpg`;
-        /*
+				//set the avatar image by constructing a url to access discord's cdn
+				document.getElementById(
+					"avatar"
+				).src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.jpg`;
+				/*
 
               const fragment = new URLSearchParams(window.location.hash.slice(1));
               const [accessToken, tokenType] = [
@@ -91,51 +93,64 @@
                 })
                 .catch(console.error);
                 */
-        // #endregion userdata
+				// #endregion userdata
 
-        // #region guilddata
-        // Retrieve data from local storage
-        let guilds = JSON.parse(sessionStorage.getItem("userguilds"));
-        // Use retrieved data
-        // console.log(userGuilddata);
+				// #region guilddata
+				// Retrieve data from local storage
+				let guilds = JSON.parse(sessionStorage.getItem("userguilds"));
+				// Use retrieved data
+				// console.log(userGuilddata);
 
-        const container = document.getElementById("guilds-container");
-
-        for (let i = 0; i < guilds.length; i++) {
-          const guild = guilds[i];
-          guild.hasbot = guild.botincludes == "true" ? "已加入" : "未加入";
-          guild.hasbot_color =
-            guild.botincludes == "true" ? "#5cf35d" : "#f44b4b";
-          const guildContainer = document.createElement("div");
-          guildContainer.innerHTML = `
+				const container = document.getElementById("guilds-container");
+				console.log(guilds);
+				if ((guilds = [])) {
+					const guildContainer = document.createElement("div");
+					guildContainer.innerHTML = `
+          <p></p>
+          <h1 align= "center"> 啊喔... 沒有可以管理的伺服器！QAQ </h1>
+          <h3 align= "center"> "你有一個可以管理的伺服器卻沒有顯示在上面? 請重新登入網頁，即可刷新伺服器列表！" </h3>
+          <p></p>
+          `;
+					container.appendChild(guildContainer);
+				}
+				for (let i = 0; i < guilds.length; i++) {
+					const guild = guilds[i];
+					guild.hasbot =
+						guild.botincludes == "true" ? "已加入" : "未加入";
+					guild.hasbot_color =
+						guild.botincludes == "true" ? "#5cf35d" : "#f44b4b";
+					const guildContainer = document.createElement("div");
+					guildContainer.innerHTML = `
         <div class="guild-card-container">
           <a id="guild-url" onclick="
               if ('${guild.botincludes}' === 'true') {
                 window.location.href = '${"/dashboard/" + guild.id}';
               } else {
                 document.cookie = 'dashboard_guildid=${
-                  guild.id
-                }; expires=${new Date(Date.now() + 10 * 60 * 1000)}; path=/';
+					guild.id
+				}; expires=${new Date(Date.now() + 10 * 60 * 1000)}; path=/';
                 window.location.href = '${
-                  guild.url + "&disable_guild_select=true&guild_id=" + guild.id
-                }'
+					guild.url +
+					"&disable_guild_select=true&guild_id=" +
+					guild.id
+				}'
               }
             ">
           <div class="guild-card">
           <img src="${
-            guild.icon
-              ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.jpg`
-              : `https://via.placeholder.com/80x80/2C2F33/FFFFFF?text=${guild.name.slice(
-                  0,
-                  2
-                )}`
-          }" size="80" radius="40" alt="Logo of ${guild.name}">
+				guild.icon
+					? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.jpg`
+					: `https://via.placeholder.com/80x80/2C2F33/FFFFFF?text=${guild.name.slice(
+							0,
+							2
+					  )}`
+			}" size="80" radius="40" alt="Logo of ${guild.name}">
             <div class="guild-container">
               <div class="guild-name">${guild.name}</div>
               <div class="guild-tags">
                 <div class="guild-botincludes" style="background-color: ${
-                  guild.hasbot_color
-                };">${guild.hasbot}</div>
+					guild.hasbot_color
+				};">${guild.hasbot}</div>
                 <div class="guild-position">${guild.position}</div>
               </div>
             </div>
@@ -144,214 +159,256 @@
         </div>
   `;
 
-          container.appendChild(guildContainer);
-        }
+					container.appendChild(guildContainer);
+				}
 
-        // #endregion guilddata
-      };
-    </script>
-  </head>
-  <body>
-    <div class="main">
-      <!-- Navbar -->
-      <link rel="stylesheet" href="./../../css/dashboard.css" />
-      <div class="navbar navbar-expand-md bg-dark navbar-dark">
-        <link rel="stylesheet" href="./../../css/home.css" />
+				// #endregion guilddata
+			};
+		</script>
+	</head>
+	<body>
+		<div class="main">
+			<!-- Navbar -->
+			<link rel="stylesheet" href="./../../css/dashboard.css" />
+			<div class="navbar navbar-expand-md bg-dark navbar-dark">
+				<link rel="stylesheet" href="./../../css/home.css" />
 
-        <div class="container">
-          <a href="#" class="navbar-brand text-info">YZB 機器人網站</a>
+				<div class="container">
+					<a href="#" class="navbar-brand text-info"
+						>YZB 機器人網站</a
+					>
 
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainmenu"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+					<button
+						class="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#mainmenu"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-          <div class="collapse navbar-collapse" id="mainmenu">
-            <ul class="navbar-nav mx-auto">
-              <li class="nav-item">
-                <a href="#Features" class="nav-link">特色</a>
-              </li>
-              <li class="nav-item">
-                <a href="#Statics" class="nav-link">狀態</a>
-              </li>
-              <li class="nav-item"><a href="#FAQ" class="nav-link">FAQ</a></li>
-              <li class="nav-item">
-                <a href="/home/commands" class="nav-link">命令</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="linksdrop"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  >連結</a
-                >
-                <ul class="dropdown-menu bg-dark" aria-labelledby="linksdrop">
-                  <li>
-                    <a class="dropdown-item text-muted" href="/home/invite_bot"
-                      >邀請</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-muted" href="/home/github"
-                      >Github</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-muted" href="/home/discord"
-                      >支持服務器</a
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <li class="navbar-nav nav-item">
-              <a href="/dashboard/logout" class="btn btn-outline-info">登出</a>
-            </li>
-          </div>
-        </div>
-      </div>
+					<div class="collapse navbar-collapse" id="mainmenu">
+						<ul class="navbar-nav mx-auto">
+							<li class="nav-item">
+								<a href="#Features" class="nav-link">特色</a>
+							</li>
+							<li class="nav-item">
+								<a href="#Statics" class="nav-link">狀態</a>
+							</li>
+							<li class="nav-item">
+								<a href="#FAQ" class="nav-link">FAQ</a>
+							</li>
+							<li class="nav-item">
+								<a href="/home/commands" class="nav-link"
+									>命令</a
+								>
+							</li>
+							<li class="nav-item dropdown">
+								<a
+									class="nav-link dropdown-toggle"
+									href="#"
+									id="linksdrop"
+									role="button"
+									data-bs-toggle="dropdown"
+									aria-expanded="false"
+									>連結</a
+								>
+								<ul
+									class="dropdown-menu bg-dark"
+									aria-labelledby="linksdrop"
+								>
+									<li>
+										<a
+											class="dropdown-item text-muted"
+											href="/home/invite_bot"
+											>邀請</a
+										>
+									</li>
+									<li>
+										<a
+											class="dropdown-item text-muted"
+											href="/home/github"
+											>Github</a
+										>
+									</li>
+									<li>
+										<a
+											class="dropdown-item text-muted"
+											href="/home/discord"
+											>支持服務器</a
+										>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<li class="navbar-nav nav-item">
+							<a
+								href="/dashboard/logout"
+								class="btn btn-outline-info"
+								>登出</a
+							>
+						</li>
+					</div>
+				</div>
+			</div>
 
-      <div class="guild-oauth-failed">
-        錯誤：無法取得機器人所加入的伺服器(或許是關閉了授權?)
-        <span class="closebtn" onclick="alert_close()">&times;</span>
-      </div>
-      <script>
-        var close = document.getElementsByClassName("closebtn");
-        var i;
+			<div class="guild-oauth-failed">
+				錯誤：無法取得機器人所加入的伺服器(或許是關閉了授權?)
+				<span class="closebtn" onclick="alert_close()">&times;</span>
+			</div>
+			<script>
+				var close = document.getElementsByClassName("closebtn");
+				var i;
 
-        for (i = 0; i < close.length; i++) {
-          close[i].onclick = function () {
-            var div = this.parentElement;
-            div.style.opacity = "0";
-            setTimeout(function () {
-              div.style.display = "none";
-            }, 600);
-          };
-        }
-      </script>
+				for (i = 0; i < close.length; i++) {
+					close[i].onclick = function () {
+						var div = this.parentElement;
+						div.style.opacity = "0";
+						setTimeout(function () {
+							div.style.display = "none";
+						}, 600);
+					};
+				}
+			</script>
 
-      <!-- 內容 -->
-      <div id="servers">
-        <br />
-        <div class="wrapper-usercard">
-          <div class="usercard">
-            <div id="image" class="usercard-image">
-              <img id="avatar" src="#" class="avatar" />
-            </div>
-            <div id="usernames" class="usercard-names">成員名稱</div>
-          </div>
-        </div>
-        <!-- 列表 -->
-        <br />
-        <div class="server-list-text">伺服器列表</div>
-        <div class="guilds-list">
-          <ul id="guilds-container"></ul>
-        </div>
-        <br />
-      </div>
-      <script>
-        const loginErrorMsg = document.getElementById("guild-oauth-failed");
-        document.querySelector(".guild-oauth-failed").style.display = "none";
-        //先取得網址字串
-        var url = location.href;
-        //再來用去尋找網址列中是否有資料傳遞(QueryString)
-        if (url.indexOf("?") != -1) {
-          var err = "";
-          //在此直接將各自的參數資料切割放進ary中
-          var ary = url.split("?")[1].split("&");
-          //此時ary的內容為：
-          //ary[0] = 'err=true'
+			<!-- 內容 -->
+			<div id="servers">
+				<br />
+				<div class="wrapper-usercard">
+					<div class="usercard">
+						<div id="image" class="usercard-image">
+							<img id="avatar" src="#" class="avatar" />
+						</div>
+						<div id="usernames" class="usercard-names">
+							成員名稱
+						</div>
+					</div>
+				</div>
+				<!-- 列表 -->
+				<br />
+				<div class="server-list-text">伺服器列表</div>
+				<div class="guilds-list">
+					<ul id="guilds-container"></ul>
+				</div>
+				<br />
+			</div>
+			<script>
+				const loginErrorMsg =
+					document.getElementById("guild-oauth-failed");
+				document.querySelector(".guild-oauth-failed").style.display =
+					"none";
+				//先取得網址字串
+				var url = location.href;
+				//再來用去尋找網址列中是否有資料傳遞(QueryString)
+				if (url.indexOf("?") != -1) {
+					var err = "";
+					//在此直接將各自的參數資料切割放進ary中
+					var ary = url.split("?")[1].split("&");
+					//此時ary的內容為：
+					//ary[0] = 'err=true'
 
-          //下迴圈去搜尋每個資料參數
-          for (i = 0; i <= ary.length - 1; i++) {
-            //如果資料名稱為id的話那就把他取出來
-            if (ary[i].split("=")[0] == "err") err = ary[i].split("=")[1];
-          }
+					//下迴圈去搜尋每個資料參數
+					for (i = 0; i <= ary.length - 1; i++) {
+						//如果資料名稱為id的話那就把他取出來
+						if (ary[i].split("=")[0] == "err")
+							err = ary[i].split("=")[1];
+					}
 
-          if (err == "true") {
-            document.querySelector(".guild-oauth-failed").style.display =
-              "block";
-          }
-        }
-      </script>
+					if (err == "true") {
+						document.querySelector(
+							".guild-oauth-failed"
+						).style.display = "block";
+					}
+				}
+			</script>
 
-      <!-- footer -->
-      <div class="footer">
-        <div class="footer-clean bg-dark">
-          <footer>
-            <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-sm-4 col-md-3 item">
-                  <h3>關於</h3>
-                  <ul>
-                    <li><a href="/home/commands">命令</a></li>
-                    <li><a href="#">團隊</a></li>
-                    <li><a href="#">執照</a></li>
-                  </ul>
-                </div>
-                <div class="col-sm-4 col-md-3 item">
-                  <h3>連結</h3>
-                  <ul>
-                    <li><a href="/home/discord">支持服務器</a></li>
-                    <li><a href="/home/invite_bot">邀請機器人</a></li>
-                    <li><a href="/home/github">Github</a></li>
-                  </ul>
-                </div>
-                <div class="col-lg-3 item social">
-                  <a href="/home/discord"
-                    ><ion-icon name="logo-discord"></ion-icon
-                  ></a>
-                  <p class="copyright">YZB © 2023</p>
-                </div>
-              </div>
-            </div>
-            <div class="page-footer font-small text-light mt-5">
-              <div class="footer-copyright text-center">
-                由 <a href="https://github.com/Youzi9601/">Youzi9601</a>
-                製作 © 2023 版權
-              </div>
-            </div>
-          </footer>
-        </div>
-      </div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    </div>
+			<!-- footer -->
+			<div class="footer">
+				<div class="footer-clean bg-dark">
+					<footer>
+						<div class="container">
+							<div class="row justify-content-center">
+								<div class="col-sm-4 col-md-3 item">
+									<h3>關於</h3>
+									<ul>
+										<li>
+											<a href="/home/commands">命令</a>
+										</li>
+										<li><a href="#">團隊</a></li>
+										<li><a href="#">執照</a></li>
+									</ul>
+								</div>
+								<div class="col-sm-4 col-md-3 item">
+									<h3>連結</h3>
+									<ul>
+										<li>
+											<a href="/home/discord"
+												>支持服務器</a
+											>
+										</li>
+										<li>
+											<a href="/home/invite_bot"
+												>邀請機器人</a
+											>
+										</li>
+										<li>
+											<a href="/home/github">Github</a>
+										</li>
+									</ul>
+								</div>
+								<div class="col-lg-3 item social">
+									<a href="/home/discord"
+										><ion-icon
+											name="logo-discord"
+										></ion-icon
+									></a>
+									<p class="copyright">YZB © 2023</p>
+								</div>
+							</div>
+						</div>
+						<div class="page-footer font-small text-light mt-5">
+							<div class="footer-copyright text-center">
+								由
+								<a href="https://github.com/Youzi9601/"
+									>Youzi9601</a
+								>
+								製作 © 2023 版權
+							</div>
+						</div>
+					</footer>
+				</div>
+			</div>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		</div>
 
-    <div class="loader-page">
-      <div class="loader">
-        <div class="loader--dot"></div>
-        <div class="loader--dot"></div>
-        <div class="loader--dot"></div>
-        <div class="loader--dot"></div>
-        <div class="loader--dot"></div>
-        <div class="loader--dot"></div>
-        <div class="loader--text"></div>
-      </div>
-    </div>
-    <script>
-      let main = document.querySelector(".main");
-      let loader = document.querySelector(".loader-page");
-      document.body.style.overflow = "hidden";
-      loader.style.visibility = "none";
-      main.style.opacity = 0;
-      main.style.visibility = "hidden";
-      setTimeout(function () {
-        loader.style.opacity = 0;
-        main.style.opacity = 1;
-        main.style.visibility = "visible";
-        setTimeout(function () {
-          loader.style.visibility = "hidden";
-          loader.style.display = "none";
-          document.body.style.overflow = "auto";
-        }, 1000);
-      }, 3000);
-    </script>
-  </body>
+		<div class="loader-page">
+			<div class="loader">
+				<div class="loader--dot"></div>
+				<div class="loader--dot"></div>
+				<div class="loader--dot"></div>
+				<div class="loader--dot"></div>
+				<div class="loader--dot"></div>
+				<div class="loader--dot"></div>
+				<div class="loader--text"></div>
+			</div>
+		</div>
+		<script>
+			let main = document.querySelector(".main");
+			let loader = document.querySelector(".loader-page");
+			document.body.style.overflow = "hidden";
+			loader.style.visibility = "none";
+			main.style.opacity = 0;
+			main.style.visibility = "hidden";
+			setTimeout(function () {
+				loader.style.opacity = 0;
+				main.style.opacity = 1;
+				main.style.visibility = "visible";
+				setTimeout(function () {
+					loader.style.visibility = "hidden";
+					loader.style.display = "none";
+					document.body.style.overflow = "auto";
+				}, 1000);
+			}, 3000);
+		</script>
+	</body>
 </html>
