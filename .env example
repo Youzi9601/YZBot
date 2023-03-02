@@ -25,7 +25,8 @@ PM2_SECRET_KEY= ""
 # 網頁設定
 web_noweb= true
 web_domain= http://localhost
-web_port= 53134
+web_port= 80
+web_show_port= true
 web_secret= "yzb-is-what?"
 web_maxVisitorCount= 1000
 web_maxVisitorInMinute= 10

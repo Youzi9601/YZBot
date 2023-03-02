@@ -65,6 +65,8 @@ module.exports = {
         // 網站位置
         domain: process.env.web_domain || 'http://localhost',
         port: process.env.web_port || 80,
+        // 是否顯示Port？（於網址中）
+        show_port: process.env.web_show_port || true,
 
         // 網頁的加密&解密 (secret)
         secret: process.env.web_secret || 'owo',
