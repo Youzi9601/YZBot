@@ -19,8 +19,8 @@ module.exports = {
 
 
     /**
-    * 基本設定
-    */
+     * 基本設定
+     */
     update: {
         // 自動更新
         auto: process.env.update_auto || false,
@@ -57,8 +57,8 @@ module.exports = {
     },
 
     /**
-    * 網頁
-    */
+     * 網頁
+     */
     // 網頁
     web: {
         noWeb: process.env.web_noWeb || true,
@@ -163,7 +163,7 @@ module.exports = {
 
     /**
      * 機器人傳輸頻道設定
-    */
+     */
     guild: {
         // 伺服器邀請 (https://discord.gg/${邀請代碼})
         invite_code: process.env.invite_code || 'Vq3F8DUNzf',
@@ -189,8 +189,8 @@ module.exports = {
     },
 
     /**
-    * 機器人控制台設定
-    */
+     * 機器人控制台設定
+     */
     console: {
         // 是否報告 Discord Error 錯誤訊息
         error: process.env.console_console_error || true,
@@ -214,8 +214,8 @@ module.exports = {
     },
 
     /**
-        * 雜項
-        */
+     * 雜項
+     */
 
     // 調整時差
     // 在GMT-8區為"-8",在GMT+8為"8"
@@ -235,10 +235,10 @@ module.exports = {
 
 
     /**
-         *
-         * 開發(測試)版本
-         * // 這功能絕大部分都不能使用！
-         */
+     *
+     * 開發(測試)版本
+     * // 這功能絕大部分都不能使用！
+     */
     beta: {
         // RPC為Discord遊戲狀態顯示系統，目前為測試版
         no: '沒東西',
