@@ -92,7 +92,7 @@ module.exports = async (client) => {
             // 如果他的排隊號碼是第一個
             if (index == 0) {
                 uniqueVisitor.add(req.ip);
-                return res.redirect("/dashboard/login");
+                // return res.redirect("/dashboard/login");
             }
             // 非第一個且不在queue
             if (!req.query.queue) {
