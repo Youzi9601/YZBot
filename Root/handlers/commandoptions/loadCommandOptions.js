@@ -4,10 +4,11 @@
   * @param {import('discord.js').Interaction} interaction
   * @param {*} config
   * @param {import('./../../handlers/database/db_function')} db
+  * @param {'Normal(Slash)'||'Button'||'Selectmenu'||'Modal'||'Contextmenu_message'||'Contextmenu_user'||'Prefix'} type 類別 (預設 Normal )
   */
-module.exports = async function(client, interaction, config, db, command) {
+module.exports = async function(client, interaction, config, db, command, type = 'Normal') {
     if (await require('./OnlyRunOnGuilds')(client, interaction, config, db, command)) return;
-    else if (await require('./Cooldown')(client, interaction, config, db, command)) return;
+    else if (await require('./Cooldown')(client, interaction, config, db, command, type)) return;
 
     // owner
     else if (await require('./OwnerOnly')(client, interaction, config, db, command)) return;
@@ -26,4 +27,5 @@ module.exports = async function(client, interaction, config, db, command) {
     else if (await require('./OnlyGuilds')(client, interaction, config, db, command)) return;
     else if (await require('./OnlyUsers')(client, interaction, config, db, command)) return;
     // #endregion bypass
+    return true;
 };
