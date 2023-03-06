@@ -10,7 +10,7 @@ const client_db = new QuickDB().table("client");
 const config = require("../Config");
 
 /**
- * 網頁架構備忘錄
+ * @INFO 網頁架構備忘錄
  * 首頁
  * |- 介紹與幫助 home
  * |- 命令 commands
@@ -29,17 +29,20 @@ const config = require("../Config");
 module.exports = async (client) => {
     const host = `${config.web.domain}${(config.web.show_port == "false") ? "" : ":" + config.web.port}`;
     const discordurl = {
-        discordAuthLoginUrl: `https://discord.com/oauth2/authorize?client_id=${
+        // 登入伺服器列表
+        discordAuthLoginUrl: `https://discord.com/oauth2/authorize?prompt=none&client_id=${
             config.bot.clientID
         }&redirect_uri=${encodeURI(
             host,
         )}%2Fauth%2Fdiscord-auth&response_type=code&scope=identify%20guilds%20applications.commands.permissions.update%20email`,
-        discordbotinvite: `https://discord.com/api/oauth2/authorize?client_id=${
+        // 機器人邀請
+        discordbotinvite: `https://discord.com/api/oauth2/authorize?prompt=none&client_id=${
             config.bot.clientID
         }&permissions=${config.bot.permissionID}&redirect_uri=${encodeURI(
             host,
         )}%2Fauth%2Fguild-oauth&response_type=code&scope=identify%20bot%20applications.commands`,
     };
+    /** TODO: 需要處理重新刷新token的架構問題 */
 
     /**
    * @INFO 基本設定&取得資料
@@ -288,8 +291,11 @@ module.exports = async (client) => {
                     req.session.cookie.expires = new Date(Date.now() + 60 * 60 * 1000);
                     req.session.cookie.maxAge = 60 * 60 * 1000;
                     req.session.user = userdata.id;
-                    req.session.access_token = user_oauthData.access_token;
                     req.session.save();
+
+                    // 儲存 token 資料
+                    res.cookie('access_token', user_oauthData.access_token);
+                    res.cookie('refresh_token', user_oauthData.refresh_token);
 
                     userGuilddata = await userGuildsResult.body.json();
 

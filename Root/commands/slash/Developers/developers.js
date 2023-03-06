@@ -172,7 +172,8 @@ module.exports = {
                     interaction.reply({
                         content: '錯誤: ',
                         embeds: [
-                            new EmbedBuilder().setColor('RED')
+                            new EmbedBuilder()
+                                .setColor('Red')
                                 .setDescription(`\`\`\`${ e }\`\`\``),
                         ],
 

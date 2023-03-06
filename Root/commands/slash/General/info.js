@@ -45,6 +45,7 @@ module.exports = {
         } else return await interaction.reply({
             embeds: [
                 new EmbedBuilder()
+                    .setTitle('未知的命令')
                     .setDescription("啊喔... 你跑到了哪裡?")
                     .setColor('Red'),
             ],
