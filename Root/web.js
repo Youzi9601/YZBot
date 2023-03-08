@@ -393,7 +393,7 @@ module.exports = async (client) => {
                 return res.redirect(`/dashboard/${guildid}`);
                 // 轉網址
             } else {
-                return res.redirect("/dashboard?err=true");
+                return res.redirect("/dashboard/login?err=true");
             }
         })
         .post("/auth/login", async (req, res) => {
