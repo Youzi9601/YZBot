@@ -29,14 +29,14 @@ async function update() {
         await execPromise('git reset --hard')
             .catch(err => {
                 if (err) {
-                    console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
+                    console.error('\x1b[31m%s\x1b[0m', '[基本作業] 檢查更新：錯誤: ' + err);
                     return;
                 }
             });
         await execPromise('git pull')
             .catch(err => {
                 if (err) {
-                    console.error('\x1b[31m%s\x1b[0m', '[基本作業]錯誤: ' + err);
+                    console.error('\x1b[31m%s\x1b[0m', '[基本作業] 檢查更新：錯誤: ' + err);
                     return;
                 }
             });
@@ -73,6 +73,11 @@ async function run() {
     }
     // 執行機器人檔案
     require('./Root/shared');
+
+    // 執行檢查更新(24小時一次)
+    setInterval(async () => {
+        await update();
+    }, (24 * 60 * 60 * 1000));
 }
 
 
@@ -94,10 +99,10 @@ function execPromise(command) {
                 // 如果回傳紀錄不包含已更新
                 if (command == 'git pull') {
                     if (!stdout.includes('Already up to date.')) {
-                        console.log('\x1b[32m%s\x1b[0m', '[基本作業]更新成功！請重新啟動！');
+                        console.log('\x1b[32m%s\x1b[0m', '[基本作業] 檢查更新：更新成功！請重新啟動！');
                         process.exit(0);
                     } else {
-                        console.log('\x1b[32m%s\x1b[0m', '[基本作業]已經是最新的版本！');
+                        console.log('\x1b[32m%s\x1b[0m', '[基本作業] 檢查更新：已經是最新的版本！');
                     }
                 }
 
