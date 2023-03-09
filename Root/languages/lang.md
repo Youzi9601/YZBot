@@ -1,14 +1,16 @@
 # Discord 內建語言列表(與資料夾名稱做整合，照 A-Z 順序排序)
 
+> ⚠ (注意：都是使用 "-" 而不是 "\_" 來命名資料夾。)
+
 ```diff
 bg (Bulgarian)
 cs (Czech)
 da (Danish)
 de (German)
 el (Greek)
-en_GB (English, UK)
-en_US (English, US)
-es_ES (Spanish)
+en-GB (English, UK)
+en-US (English, US)
+es-ES (Spanish)
 fi (Finnish)
 fr (French)
 hi (Hindi)
@@ -21,14 +23,14 @@ hu (Hungarian)
 nl (Dutch)
 no (Norwegian)
 pl (Polish)
-pt_BR (Portuguese)
+pt-BR (Portuguese)
 ro (Romanian)
 ru (Russian)
-sv_SE (Swedish)
+sv-SE (Swedish)
 th (Thai)
 tr (Turkish)
 uk (Ukrainian)
 vi (Vietnamese)
-zh_CN (Chinese, China)
-+ zh_TW (Chinese, Taiwan) - 預設語言，柚子Youzi(製作者)內建
+zh-CN (Chinese, China)
++ zh-TW (Chinese, Taiwan) - 預設語言，柚子Youzi(製作者)內建
 ```
