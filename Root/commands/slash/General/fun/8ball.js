@@ -54,14 +54,14 @@ async function load(client, interaction, config, db) {
                 },
             )
             .setColor('Random');
-        interaction.reply(':x: 此指令交互失敗');
+        await interaction.reply(':x: 此指令交互失敗');
         await sleep(3000);
-        interaction.followUp({
+        await interaction.followUp({
             embeds: [msg],
             // ephemeral: true,
         });
 
-    } else interaction.reply(
+    } else await interaction.reply(
         {
             embeds: [msg],
             // ephemeral: true,

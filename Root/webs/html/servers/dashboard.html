@@ -32,7 +32,7 @@
 
 		<script>
 			//      $(document).ready()
-			window.onload = () => {
+			window.onload = async () => {
 				function getCookie(cname) {
 					let name = cname + "=";
 					let ca = document.cookie.split(";");
@@ -50,11 +50,26 @@
 					return "";
 				}
 
+				const post_options = {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json;charset=UTF-8",
+					},
+				};
 				// #region userdata
 				// let user = getCookie("userdata");
-				let user = JSON.parse(sessionStorage.getItem("userdata"));
+				let userdata;
+				await fetch("/data/discord/user", post_options)
+					.then((response) => response.json())
+					.then((data) => {
+						userdata = data.userdata;
+					})
+					.catch((error) => {
+						console.error(error);
+					});
+				// let user = JSON.parse(sessionStorage.getItem("userdata"));
 
-				const { username, discriminator, avatar, id } = user;
+				const { username, discriminator, avatar, id } = userdata;
 				//set the welcome username string
 				document.getElementById(
 					"usernames"
@@ -101,12 +116,22 @@
 
 				// #region guilddata
 				// Retrieve data from local storage
-				let guilds = JSON.parse(sessionStorage.getItem("userguilds"));
+				let guilds;
+
+				await fetch("/data/discord/guilds", post_options)
+					.then((response) => response.json())
+					.then((data) => {
+						guilds = data.userGuilddata;
+					})
+					.catch((error) => {
+						console.error(error);
+					});
+
 				// Use retrieved data
 				// console.log(userGuilddata);
 
 				const container = document.getElementById("guilds-container");
-				console.log(guilds);
+
 				if (guilds.length == 0) {
 					const guildContainer = document.createElement("div");
 					guildContainer.innerHTML = `

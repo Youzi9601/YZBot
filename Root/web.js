@@ -215,10 +215,14 @@ module.exports = async (client) => {
     // #endregion 網頁
     /**
    *  @INFO API 設定
+   *
    */
     // #region API
-    // discord auth 的認證用畫面
+    /**
+     * Auth
+     */
     app
+    // discord auth 的認證用畫面
         .get("/auth/discord-auth", async (req, res) => {
             // 等待加入，使用passport npm package
             // req.login()
@@ -226,10 +230,10 @@ module.exports = async (client) => {
             // console.log(req.body)
 
             let userdata = {};
-            let userGuilddata = [];
 
             if (code) {
                 try {
+                    // 第一次接受授權
                     const user_tokenResponseData = await request(
                         "https://discord.com/api/oauth2/token",
                         {
@@ -247,89 +251,21 @@ module.exports = async (client) => {
                             },
                         },
                     );
-
                     const user_oauthData = await user_tokenResponseData.body.json();
 
                     // 取得使用者資料
-                    const userResult = await request(
-                        "https://discord.com/api/users/@me",
-                        {
-                            headers: {
-                                authorization: `${user_oauthData.token_type} ${user_oauthData.access_token}`,
-                            },
-                        },
-                    );
-                    const userGuildsResult = await request(
-                        "https://discord.com/api/users/@me/guilds",
-                        {
-                            headers: {
-                                authorization: `${user_oauthData.token_type} ${user_oauthData.access_token}`,
-                            },
-                        },
-                    );
-                    // 取得機器人資料
-                    const clientguilds = await client.shard
-                        .fetchClientValues("guilds.cache")
-                        .then((guilds) => {
-                            return guilds;
-                        })
-                        .catch((e) => {
-                            console.error(
-                                `[#${client.shard.ids}]  網站擷取機器人所有伺服器時發生了錯誤：`,
-                            );
-                            console.error(e);
-                        });
-                    const guildIds = [].concat(
-                        ...clientguilds.map((guildArray) =>
-                            guildArray.map((guild) => ({ id: guild.id })),
-                        ),
-                    );
+                    userdata = await userDiscordinfo(undefined, user_oauthData.access_token);
 
                     // 處理資料
-
-                    userdata = await userResult.body.json();
-                    req.session.cookie.expires = new Date(Date.now() + 60 * 60 * 1000);
-                    req.session.cookie.maxAge = 60 * 60 * 1000;
+                    req.session.cookie.expires = new Date(Date.now() + 604800);
+                    req.session.cookie.maxAge = 604800;
                     req.session.user = userdata.id;
                     req.session.save();
 
                     // 儲存 token 資料
-                    res.cookie('access_token', user_oauthData.access_token);
-                    res.cookie('refresh_token', user_oauthData.refresh_token);
+                    res.cookie('access_token', user_oauthData.access_token, { expires: new Date(Date.now() + 604800) }); // 7天
+                    res.cookie('refresh_token', user_oauthData.refresh_token, { expires: new Date(Date.now() + 604800) }); // 7天
 
-                    userGuilddata = await userGuildsResult.body.json();
-
-                    // 處理資料(特殊標籤&要求權限)
-                    userGuilddata = userGuilddata
-                        .filter(
-                            (guild) =>
-                                guild.owner == true ||
-                hasPermission(guild.permissions, 8) ||
-                hasPermission(guild.permissions, 32),
-                        )
-                        .map((guild) => ({
-                            id: guild.id,
-                            name: guild.name,
-                            permissions: guild.permissions,
-                            icon: guild.icon,
-                            owner: guild.owner,
-                            position: guild.owner
-                                ? "所有者"
-                                : hasPermission(guild.permissions, 8)
-                                    ? "管理者"
-                                    : "管理員",
-                            botincludes: guildIds.some((g) => g.id === guild.id)
-                                ? "true"
-                                : "false",
-                            url: guildIds.some((g) => g.id === guild.id)
-                                ? undefined
-                                : discordurl.discordbotinvite,
-                        }));
-                    userGuilddata.sort(
-                        (a, b) =>
-                            (a.botincludes === "true" ? 0 : 1) -
-              (b.botincludes === "true" ? 0 : 1),
-                    );
                 } catch (error) {
                     // NOTE: 未經授權的令牌不會拋出錯誤
                     // tokenResponseData.statusCode will be 401
@@ -343,39 +279,10 @@ module.exports = async (client) => {
                 // console.log(userdata)
                 // console.log(userGuilddata)
                 // await setCookie('userdata', userdata, 2)
-                return res.send(`
-    <html>
-      <head>
-        <script>
-          // Save data to local storage
-          sessionStorage.setItem('userdata', JSON.stringify(${JSON.stringify(
-        userdata,
-    )}));
-          // let data = JSON.parse(sessionStorage.getItem('userdata'));
-          sessionStorage.setItem('userguilds', JSON.stringify(${JSON.stringify(
-        userGuilddata,
-    )}));
-          // let data = JSON.parse(sessionStorage.getItem('userguilds'));
-         
-          // console.log(data)
-          setTimeout(function() {
-        window.location.href = "/dashboard";
-      }, 100);
-          </script>
-      </head>
-      <body>
-        YZB 處理中...
-      </body>
-    </html>
-  `);
+                return res.redirect('/dashboard');
                 // 轉網址
             } else {
                 return res.redirect("/dashboard/login?err=true");
-            }
-
-            // 處離傳回用資料
-            function hasPermission(permissions, permissionFlag) {
-                return (permissions & permissionFlag) === permissionFlag;
             }
         })
     // discord 伺服器加入機器人
@@ -396,6 +303,7 @@ module.exports = async (client) => {
                 return res.redirect("/dashboard/login?err=true");
             }
         })
+    // 登入系統
         .post("/auth/login", async (req, res) => {
             // console.log(req.body)
             /*
@@ -405,7 +313,174 @@ module.exports = async (client) => {
         }
         */
         });
+    /**
+     * 資料接收
+     * webhook
+     */
+    app
+        // DST 推送
+        .post('/webhook/vote/dst', async (req, res) => {
+            return new Promise((_resolve) => {
+                if (config.webhook.authorization &&
+                    req.headers.authorization !== config.webhook.authorization)
+                    return res.status(403).json({ error: '沒有認證' });
+                else {
+                    res.status(200).send('成功！');
+                    vote(req.body, client);
+                }
+            });
 
+            /**
+             * @param {String} body
+             * @param {import('discord.js').Client} vote_client
+             */
+            function vote(body, vote_client) {
+                const type = body.type;
+                if (type == 'test') {
+                    log('info', `[測試]投票 > ${body.user.name + '#' + body.user.discriminator}`, true, vote_client, {
+                        content: '新的投票！',
+                        embeds: [
+                            {
+                                description: `<@${body.user.id}> 為 <@${body.id}> 測試了投票！`,
+                                color: 0x808080,
+                                footer: {
+                                    text: `${body.user.name + '#' + body.user.discriminator}`,
+                                    icon_url: `https://cdn.discordapp.com/avatars/${body.user.id}/${body.user.avatar}`,
+                                },
+                                thumbnail: {
+                                    url: `https://cdn.discordapp.com/avatars/${body.user.id}/${body.user.avatar}`,
+                                },
+                            },
+                        ],
+                    },
+                    config.webhook.channel);
+                } else if (type == 'upvote') {
+                    log('info', `有人投票了！> ${body.user.name + '#' + body.user.discriminator}`, true, vote_client, {
+                        content: '新的投票！',
+                        embeds: [
+                            {
+                                title: '感謝投票！',
+                                description: [
+                                    `<@${body.user.id}> 為 <@${body.id}> 投票了！`,
+                                    '我們非常感謝您支持我們!',
+                                    '',
+                                    `也請大家幫忙投票喔！ [[這裡]](https://discordservers.tw/bots/${body.id})`,
+                                ].join('\n'),
+                                color: 0x808080,
+                                footer: {
+                                    text: `${body.user.name + '#' + body.user.discriminator}`,
+                                    icon_url: `https://cdn.discordapp.com/avatars/${body.user.id}/${body.user.avatar}`,
+                                },
+                                thumbnail: {
+                                    url: `https://cdn.discordapp.com/avatars/${body.user.id}/${body.user.avatar}`,
+                                },
+                            },
+                        ],
+                    },
+                    config.webhook.channel);
+                }
+                /**
+                 * 輸出紀錄
+                 * @deprecated
+                 */
+                function log() {
+                    /**
+                     * 內容物待添加!
+                     */
+                    console.log('當前log系統並未使用！');
+                }
+
+            }
+
+        });
+
+    /**
+     * 後端執行
+     * data
+     */
+    app
+        // user
+        .post('/data/discord/user', async (req, res) => {
+            const refresh_token = req.cookies.refresh_token;
+
+            const data = await refresh_discordToken(client, refresh_token);
+            res.cookie('access_token', data.access_token);
+            res.cookie('refresh_token', data.refresh_token);
+            const userdata = await userDiscordinfo(undefined, data.access_token);
+            res.json({ userdata });
+        })
+        .post('/data/discord/guilds', async (req, res) => {
+            const refresh_token = req.cookies.refresh_token;
+
+            const data = await refresh_discordToken(client, refresh_token);
+            res.cookie('access_token', data.access_token);
+            res.cookie('refresh_token', data.refresh_token);
+            let userGuilddata = [];
+            userGuilddata = await userGuildsDiscordinfo(undefined, data.access_token);
+
+            // 取得機器人資料
+            const clientguilds = await client.shard
+                .fetchClientValues("guilds.cache")
+                .then((guilds) => {
+                    return guilds;
+                })
+                .catch((e) => {
+                    console.error(
+                        `[#${client.shard.ids}]  網站擷取機器人所有伺服器時發生了錯誤：`,
+                    );
+                    console.error(e);
+                });
+            const guildIds = [].concat(
+                ...clientguilds.map((guildArray) =>
+                    guildArray.map((guild) => ({ id: guild.id })),
+                ),
+            );
+
+            // 處理資料(特殊標籤&要求權限)
+            userGuilddata = userGuilddata
+                .filter(
+                    (guild) =>
+                        guild.owner == true ||
+                hasPermission(guild.permissions, 8) ||
+                hasPermission(guild.permissions, 32),
+                )
+                .map((guild) => ({
+                    id: guild.id,
+                    name: guild.name,
+                    permissions: guild.permissions,
+                    icon: guild.icon,
+                    owner: guild.owner,
+                    position: guild.owner
+                        ? "所有者"
+                        : hasPermission(guild.permissions, 8)
+                            ? "管理者"
+                            : "管理員",
+                    botincludes: guildIds.some((g) => g.id === guild.id)
+                        ? "true"
+                        : "false",
+                    url: guildIds.some((g) => g.id === guild.id)
+                        ? undefined
+                        : discordurl.discordbotinvite,
+                }));
+            userGuilddata.sort(
+                (a, b) =>
+                    (a.botincludes === "true" ? 0 : 1) -
+              (b.botincludes === "true" ? 0 : 1),
+            );
+            res.json({ userGuilddata });
+
+
+            // 處離傳回用資料
+            function hasPermission(permissions, permissionFlag) {
+                return (permissions & permissionFlag) === permissionFlag;
+            }
+        });
+
+    // #endregion API
+
+    /**
+     * 其他
+     */
     // 處理404 (最後放置)
     app.get("*", (req, res) => {
         return res
@@ -413,7 +488,7 @@ module.exports = async (client) => {
             .sendFile("webs/html/pages/404.html", { root: __dirname });
     });
 
-    // #endregion API
+
     // 監聽&上線
     app.listen(config.web.port, () => {
         console.log(`[#${client.shard.ids}]  網站監聽 ${host}`);
@@ -424,3 +499,63 @@ module.exports = async (client) => {
         console.log(`[#${client.shard.ids}]  ${host}/auth/guild-auth`);
     });
 };
+
+/**
+ * 重新生成 Discord 令牌
+ * @param {import('discord.js').Client} client
+ * @param {Promise<any>} refresh_token
+ * @returns {Promise<any>} 回傳授權資料
+ */
+async function refresh_discordToken(client, refresh_token) {
+    const newTokenResponseData = await request(
+        "https://discord.com/api/oauth2/token",
+        {
+            method: "POST",
+            body: new URLSearchParams({
+                client_id: client.config.bot.clientID,
+                client_secret: client.config.bot.clientSECRET,
+                grant_type: "refresh_token",
+                refresh_token: refresh_token,
+            }).toString(),
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        },
+    );
+    return await newTokenResponseData.body.json();
+}
+
+/**
+ * 取得成員資料
+ * @param {String} token_type
+ * @param {String} access_token
+ * @returns {Promise<any>} 使用者資料
+ */
+async function userDiscordinfo(token_type = 'Bearer', access_token) {
+    const userResult = await request(
+        "https://discord.com/api/users/@me",
+        {
+            headers: {
+                authorization: `${token_type} ${access_token}`,
+            },
+        },
+    );
+    return await userResult.body.json();
+}
+/**
+ * 取得成員伺服器資料
+ * @param {String} token_type
+ * @param {String} access_token
+ * @returns {Promise<any>} 使用者資料
+ */
+async function userGuildsDiscordinfo(token_type = 'Bearer', access_token) {
+    const guildsResult = await request(
+        "https://discord.com/api/users/@me/guilds",
+        {
+            headers: {
+                authorization: `${token_type} ${access_token}`,
+            },
+        },
+    );
+    return await guildsResult.body.json();
+}
