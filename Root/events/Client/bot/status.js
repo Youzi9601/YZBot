@@ -68,7 +68,7 @@ module.exports = async (client) => {
         };
 
         // 處理各個分片狀態資料
-        // console.log(client.ws.shards.forEach(s => { return s.ping }))
+        // client.console.log(client.ws.shards.forEach(s => { return s.ping }))
         let shards_msg = [];
         (await shardStatus_data.all()).forEach(s => {
             let status = `*** #${s.id} ➖未知`;
@@ -132,7 +132,7 @@ module.exports = async (client) => {
             subs = '--';
         }
         const status =
-            client.config?.botPresence.activities[Math.floor(Math.random() * client.config?.botPresence.activities.length)];
+            client.config?.bot.botPresence.activities[Math.floor(Math.random() * client.config?.bot.botPresence.activities.length)];
 
         // 處理狀態
         status.name =

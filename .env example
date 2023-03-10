@@ -1,56 +1,76 @@
+##
+ # 設定檔案
+ # *請先將 ".env example" 改為 ".env" 才能使環境變數生效！
+ # 這是一個設定檔案，配合 Config.js 的設定，這裡的設定優先級會高於Config.js的預設設定
+##
+
 # 設定檔案
-update_auto= false
-update_install_package= false
+update_auto= "false"
+update_install_package= "false"
 
 ## 基本機器人設定
-token= "TOKEN_放_這_裡"
-clientID= "000000000000000000"
-clientSECRET= "00a00w000.00070000"
+bot_token= "TOKEN_放_這_裡"
+bot_clientID= "000000000000000000"
+bot_clientSECRET= "00a00w000.00070000"
+bot_clientPermissionID= "543312702935"
+
+developers= "[]"
+prefix= "[]"
+
+# sharing 分片
+sharding_amount= "auto"
+
+# 網頁
+web_noWeb= false
+web_domain= http://localhost
+web_port= 80
+web_show_port= true
+web_secret= 
+web_maxVisitorCount= 3000
+web_maxVisitorInMinute= 10
+webhook_vote_dst_authorization=
+webhook_channel= 
+
 
 # 資料庫儲存方式
-# quick.db, locateStorge, mongoose 這幾個方式
-database_use= "請從上方選擇"
+# quick.db, locateStorge, mongoose 共這些方式可做儲存
+database_use= ""
 database_MongoDB= ""
 
+# 日誌清除
+logs_clear= 7
+# 日誌輸出
+console_console_error= true
+console_console_warn= true
+console_console_debug= false
+
+
+# 日誌刪除天數
+logs_clear= 3
+
+# Discord 邀請連結
+guild_invite_code= "Vq3F8DUNzf"
+## 傳輸頻道
+guild_serverid= 
+guild_Channels_All= 
+guild_Channels_ClientStatus= 
+guild_Channels_ClientOnChannel= 
+guild_Channels_reportChannel= 
+guild_Channels_commandRecChannel= 
+guild_Channels_serverRecChannel= 
+guild_Channels_inviteChannel= 
+
+# 雜項設定
+GMT= 8
 
 # OpenAI ChatGPT 的 API KEY，如果不想使用/chatgpt這個命令了話可以不理會
-openaiKEY= ""
+openai_use=
+openai_openaiKEY= ""
 # 台灣地震推撥API系統
-TaiwanCWBAPIkey= ""
+Earthquake_TaiwanCWBAPIkey= ""
 
+# 這東西暫時不會用上
 # pm2
 PM2_PUBLIC_KEY= ""
 PM2_SECRET_KEY= ""
 
-# 網頁設定
-web_noweb= true
-web_domain= http://localhost
-web_port= 80
-web_show_port= true
-web_secret= "yzb-is-what?"
-web_maxVisitorCount= 1000
-web_maxVisitorInMinute= 10
-
-# 機器人投票推送
-webhook_use= true
-webhook_port= 3000
-webhook_authorization= "yzb_weebhook"
-webhook_channel= ""
-
-# 雜項設定
-invite_code= "Vq3F8DUNzf"
-console_prefix= ""
-console_clear= 3
-
-## 傳輸頻道
-serverid= "000000000000000000"
-Channels_All= "000000000000000000"
-Channels_ClientStatus= "000000000000000000"
-Channels_ClientOnChannel= "000000000000000000"
-Channels_reportChannel= "000000000000000000"
-Channels_commandRecChannel= "000000000000000000"
-Channels_serverRecChannel= "000000000000000000"
-Channels_inviteChannel= "000000000000000000"
-
-# sharing 分片
-sharding_amount= "auto"

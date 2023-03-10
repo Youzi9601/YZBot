@@ -83,8 +83,8 @@ module.exports = {
                     isRun = true;
                     command.run(client, message, args, prefix, client.config, client.db);
                 } catch (error) {
-                    console.error(`[#${client.shard.ids}]  執行訊息命令時發生錯誤：`);
-                    console.error(error);
+                    client.console.error(`執行訊息命令時發生錯誤：`);
+                    client.console.error(error);
                 }
             }
         });

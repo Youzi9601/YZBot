@@ -168,7 +168,7 @@ module.exports = {
                         }
                     });
                 } catch (e) {
-                    console.log(e.stack ? e.stack : e);
+                    client.console.log(e.stack ? e.stack : e);
                     interaction.reply({
                         content: '錯誤: ',
                         embeds: [
@@ -251,8 +251,8 @@ module.exports = {
                 /** */
 
 
-                console.log('\n\n關機｜收到 關閉 信號，關閉機器人......');
-                console.log(
+                client.console.log('\n\n關機｜收到 關閉 信號，關閉機器人......');
+                client.console.log(
                     chalk.gray(
                         '───────────────────────────────機器人控制台───────────────────────────────\n',
                     ),
@@ -309,7 +309,7 @@ module.exports = {
                 try {
                     await message.edit({ embeds: [embed] });
                 } catch (error) {
-                    console.log(error);
+                    client.console.log(error);
                 }
 
                 client.user.setPresence({
@@ -397,9 +397,9 @@ module.exports = {
                     );
 
 
-                    console.info(
+                    client.console.info(
                         chalk.gray(
-                            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] ${ config.console_prefix }`,
+                            `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] `,
                         ) +
                         chalk.gray('└ ') +
                         `${ guild.name } | ${ guild.id } | 所有者 ${ guild.ownerId
@@ -514,8 +514,8 @@ module.exports = {
             /** */
 
 
-            console.log('\n\n關機｜收到 關閉 信號，關閉機器人......');
-            console.log(
+            client.console.log('\n\n關機｜收到 關閉 信號，關閉機器人......');
+            client.console.log(
                 chalk.gray(
                     '───────────────────────────────機器人控制台───────────────────────────────\n',
                 ),
@@ -572,7 +572,7 @@ module.exports = {
             try {
                 await message.edit({ embeds: [embed] });
             } catch (error) {
-                console.log(error);
+                client.console.log(error);
             }
 
             client.user.setPresence({

@@ -12,7 +12,7 @@ module.exports = {
      * @param {*} _c
      */
     async execute(client, e) {
-        console.warn(`[#${ client.shard.ids }]  ` + `[WARN] 發生了 Discord API 警告`.red);
-        console.warn(e);
+        client.console.warn(`[WARN] 發生了 Discord API 警告`.red);
+        client.console.warn(e);
     },
 };

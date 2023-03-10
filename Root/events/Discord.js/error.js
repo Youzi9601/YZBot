@@ -12,7 +12,7 @@ module.exports = {
      * @param {*} _c
      */
     async execute(client, e) {
-        console.error(`[#${ client.shard.ids }]  ` + `[ERROR] 發生了 Discord API 錯誤`.red);
-        console.error(e);
+        client.console.error(`[ERROR] 發生了 Discord API 錯誤`.red);
+        client.console.error(e);
     },
 };

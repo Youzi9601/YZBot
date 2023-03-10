@@ -51,7 +51,7 @@ module.exports = {
                         repliedUser: false,
                     },
                 });
-                console.log('終端機>  ' + error.message.replace(client.config.bot.token, '機器人Token'));
+                client.console.log('終端機>  ' + error.message.replace(client.config.bot.token, '機器人Token'));
             } else {
                 message.channel.send({
                     content: `\`\`\`js\n${response.replace(client.config.bot.token, '機器人Token')}\n\`\`\``,
@@ -60,7 +60,7 @@ module.exports = {
                         repliedUser: false,
                     },
                 });
-                console.log('終端機>  ' + response.replace(client.config.bot.token, '機器人Token'));
+                client.console.log('終端機>  ' + response.replace(client.config.bot.token, '機器人Token'));
             }
         });
     },

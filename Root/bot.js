@@ -1,10 +1,12 @@
 const { Client, Partials, Collection, GatewayIntentBits } = require('discord.js');
+const moment = require('moment');
+const fs = require('node:fs');
 const config = require('../Config');
 require("colors");
 
 const CI = process.env.CI;
 if (CI) {
-    console.log(`[#${client.shard.ids}]  [#${client.shard.ids}] ` + 'CI檢查完畢');
+    console.log(`[#${client.shard.ids}] ` + 'CI檢查完畢');
     process.exit(0);
 }
 
@@ -27,10 +29,10 @@ const client = new Client({
 });
 
 
-// Getting the bot token:
-const AuthenticationToken = process.env.token || config.bot.token;
+// 獲取機器人令牌：
+const AuthenticationToken = config.bot.token;
 if (!AuthenticationToken) {
-    console.warn(`` + "[CRASH] 需要 Discord 機器人的身份驗證令牌！使用 Envrionment Secrets 或 config.js。".red);
+    console.warn("[CRASH] 需要 Discord 機器人的身份驗證令牌！使用 環境變數 Envrionment Secrets (.env) 或 Config.js。".red);
     return process.exit();
 }
 
@@ -43,8 +45,37 @@ client.button_commands = new Collection();
 client.selectmenu_commands = new Collection();
 client.modals = new Collection();
 client.events = new Collection();
-
+// 設定
 client.config = config;
+// Console 日誌紀錄
+client.console = {
+    log: (input, _guildid) => {
+        const log_prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] [#${client.shard.ids}]  `;
+        console.log(log_prefix + input);
+
+    },
+    info: (input, _guildid) => {
+        const log_prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] [#${client.shard.ids}|Info]  `;
+        console.info(log_prefix + input);
+
+    },
+    warn: (input, _guildid) => {
+        const log_prefix = `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] [#${ client.shard.ids }|Warn]  `;
+        console.warn(log_prefix + input);
+
+    },
+    error: (input, _guildid) => {
+        const log_prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] [#${client.shard.ids}|Error]  `;
+        console.error(log_prefix + input);
+
+    },
+    debug: (input, _guildid) => {
+        const log_prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] [#${client.shard.ids}|Debug]  `;
+        console.debug(log_prefix + input);
+
+    },
+};
+
 // 語言設定
 client.language = new Collection();
 /**
@@ -67,20 +98,20 @@ module.exports = client;
 // Login to the bot:
 client.login(AuthenticationToken)
     .catch((err) => {
-        console.error(`[#${client.shard.ids}]  ` + "[CRASH] 連接到您的機器人時出了點問題...");
-        console.error(`[#${client.shard.ids}]  ` + "[CRASH] 來自 Discord API 的錯誤：" + err);
+        client.console.error("[CRASH] 連接到您的機器人時出了點問題...");
+        client.console.error("[CRASH] 來自 Discord API 的錯誤：" + err);
         return process.exit();
     });
 
 // Handle errors:
 process
     .on('unhandledRejection', async (err, promise) => {
-        console.error(`[#${client.shard.ids}]  ` + `[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
-        console.error(promise);
+        client.console.error(`[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
+        client.console.error(promise);
     })
     .on('uncaughtException', async (err, promise) => {
-        console.error(`[#${client.shard.ids}]  ` + `[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
-        console.error(promise);
+        client.console.error(`[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
+        client.console.error(promise);
     })
     .on('exit', async (code) => {
         //

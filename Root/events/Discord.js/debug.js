@@ -12,7 +12,7 @@ module.exports = {
      * @param {*} _c
      */
     async execute(client, e) {
-        console.debug(`[#${ client.shard.ids }]  ` + `[DEBUG] Discord API 檢查`.red);
-        console.debug(e);
+        client.console.debug(`[DEBUG] Discord API 檢查`.red);
+        client.console.debug(e);
     },
 };

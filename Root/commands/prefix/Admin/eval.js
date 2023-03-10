@@ -61,10 +61,10 @@ module.exports = {
                         repliedUser: false,
                     },
                 });
-                console.log('JS偵錯>  ' + code);
+                client.console.log('JS偵錯>  ' + code);
             }
         } catch (error) {
-            console.error(error);
+            client.console.error(error);
             message.channel.send({
                 content: `\`\`\`js\n${error}\n\`\`\``,
                 components: [row],

@@ -263,7 +263,7 @@ module.exports = {
                     });
                     let hasPerm = (has_permissions_translate.length != 0);
                     let hasMiss = (missing.length != 0);
-                    console.log(hasPerm + ' ' + hasMiss);
+                    client.console.log(hasPerm + ' ' + hasMiss);
                     embed = new EmbedBuilder()
                         .setTitle('成員資訊')
                         .setDescription('權限')

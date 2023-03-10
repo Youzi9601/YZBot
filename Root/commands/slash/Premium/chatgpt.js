@@ -36,7 +36,7 @@ module.exports = {
         const { Configuration, OpenAIApi } = require("openai");
 
         const configuration = new Configuration({
-            apiKey: client.config.plugins?.openaiKEY,
+            apiKey: client.config.plugins?.client.openai.openaiKEY,
         });
         const openai = new OpenAIApi(configuration);
 
@@ -47,7 +47,7 @@ module.exports = {
             n: 1,
             max_tokens: 100,
         });
-        console.log(completion.data);
+        client.console.log(completion.data);
 
         const answer = completion.data.choices[0].text.trim();
         interaction.reply(answer);

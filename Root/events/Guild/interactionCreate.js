@@ -24,8 +24,8 @@ module.exports = {
                     command.run(client, interaction, client.config, client.db);
                 // 執行命令
             } catch (e) {
-                console.error(`[#${ client.shard.ids }]  執行命令時發生錯誤：`);
-                console.error(e);
+                client.console.error(`執行命令時發生錯誤：`);
+                client.console.error(e);
                 await reply_Error(client, interaction, interaction.commandName);
 
             }
@@ -40,8 +40,8 @@ module.exports = {
             try {
                 command.run(client, interaction, client.config, client.db);
             } catch (e) {
-                console.error(`[#${ client.shard.ids }]  執行成員應用時發生錯誤：`);
-                console.error(e);
+                client.console.error(`執行成員應用時發生錯誤：`);
+                client.console.error(e);
                 await reply_Error(client, interaction, interaction.commandName);
 
             }
@@ -56,8 +56,8 @@ module.exports = {
             try {
                 command.run(client, interaction, client.config, client.db);
             } catch (e) {
-                console.error(`[#${ client.shard.ids }]  執行訊息應用時發生錯誤：`);
-                console.error(e);
+                client.console.error(`執行訊息應用時發生錯誤：`);
+                client.console.error(e);
                 await reply_Error(client, interaction, interaction.commandName);
 
             }
@@ -81,8 +81,8 @@ module.exports = {
             try {
                 modal.run(client, interaction, client.config, client. db);
             } catch (e) {
-                console.error(`[#${ client.shard.ids }]  執行模塊時發生錯誤：`);
-                console.error(e);
+                client.console.error(`執行模塊時發生錯誤：`);
+                client.console.error(e);
                 await reply_Error(client, interaction, interaction.customId);
 
             }
@@ -109,8 +109,8 @@ module.exports = {
             try {
                 button.run(client, interaction, client.config, client.db);
             } catch (e) {
-                console.error(`[#${ client.shard.ids }]  執行按鈕時發生錯誤：`);
-                console.error(e);
+                client.console.error(`執行按鈕時發生錯誤：`);
+                client.console.error(e);
                 await reply_Error(client, interaction, interaction.customId);
 
             }
@@ -137,8 +137,8 @@ module.exports = {
             try {
                 selectmenu.run(client, interaction, client.config, client.db);
             } catch (e) {
-                console.error(`[#${ client.shard.ids }]  執行選單時發生錯誤：`);
-                console.error(e);
+                client.console.error(`執行選單時發生錯誤：`);
+                client.console.error(e);
                 await reply_Error(client, interaction, interaction.customId);
 
             }

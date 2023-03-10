@@ -11,7 +11,7 @@ module.exports = {
      */
     async execute(client, _c) {
         client.user.setPresence({ activities: [{ name: `${client.user.username} 暫停服務`, type: ActivityType.Watching }], status: 'dnd' });
-        console.log(`[#${ client.shard.ids }]  ` + `[準備] ${ client.user.tag } 完成登入！`.brightGreen);
+        client.console.log(`[準備] ${ client.user.tag } 完成登入！`.brightGreen);
 
         // 機器人狀態張貼到伺服器上
         if (client.guilds.cache.get(client.config.guild.ServerID)) {

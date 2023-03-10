@@ -27,7 +27,7 @@ const config = require("../Config");
  * @param {import('discord.js').Client} client 客戶端
  */
 module.exports = async (client) => {
-    const host = `${config.web.domain}${(config.web.show_port == "false") ? "" : ":" + config.web.port}`;
+    const host = `${config.web.domain}${(`${config.web.show_port}` == "false") ? "" : ":" + Number(config.web.port)}`;
     const discordurl = {
         // 登入伺服器列表
         discordAuthLoginUrl: `https://discord.com/oauth2/authorize?prompt=none&client_id=${
@@ -227,7 +227,7 @@ module.exports = async (client) => {
             // 等待加入，使用passport npm package
             // req.login()
             const { code } = req.query;
-            // console.log(req.body)
+            // client.console.log(req.body)
 
             let userdata = {};
 
@@ -269,15 +269,15 @@ module.exports = async (client) => {
                 } catch (error) {
                     // NOTE: 未經授權的令牌不會拋出錯誤
                     // tokenResponseData.statusCode will be 401
-                    console.error(`[#${client.shard.ids}]  執行網站時發生錯誤：`);
-                    console.error(error);
+                    client.console.error(`執行網站時發生錯誤：`);
+                    client.console.error(error);
                     return res.redirect("/dashboard/login?err=true");
                 }
                 // 傳送資料並返回dashboard
                 // 儲存
                 // res.setHeader('userguilds', `userGuilddata=${encodeURIComponent(JSON.stringify(userGuilddata))};`);
-                // console.log(userdata)
-                // console.log(userGuilddata)
+                // client.console.log(userdata)
+                // client.console.log(userGuilddata)
                 // await setCookie('userdata', userdata, 2)
                 return res.redirect('/dashboard');
                 // 轉網址
@@ -288,14 +288,14 @@ module.exports = async (client) => {
     // discord 伺服器加入機器人
         .get("/auth/guild-oauth", async (req, res) => {
             const { code } = req.query;
-            // console.log(req.body)
+            // client.console.log(req.body)
             const guildid = req.query.guild_id;
             if (code) {
                 // 傳送資料並返回dashboard
                 // 儲存
                 // res.setHeader('userguilds', `userGuilddata=${encodeURIComponent(JSON.stringify(userGuilddata))};`);
-                // console.log(userdata)
-                // console.log(userGuilddata)
+                // client.console.log(userdata)
+                // client.console.log(userGuilddata)
                 // await setCookie('userdata', userdata, 2)
                 return res.redirect(`/dashboard/${guildid}`);
                 // 轉網址
@@ -305,7 +305,7 @@ module.exports = async (client) => {
         })
     // 登入系統
         .post("/auth/login", async (req, res) => {
-            // console.log(req.body)
+            // client.console.log(req.body)
             /*
         if (req.body) {
             const { userToken } = req.body;
@@ -321,8 +321,8 @@ module.exports = async (client) => {
         // DST 推送
         .post('/webhook/vote/dst', async (req, res) => {
             return new Promise((_resolve) => {
-                if (config.webhook.authorization &&
-                    req.headers.authorization !== config.webhook.authorization)
+                if (config.web.webhook.vote.dst.authorization &&
+                    req.headers.authorization !== config.web.webhook.vote.dst.authorization)
                     return res.status(403).json({ error: '沒有認證' });
                 else {
                     res.status(200).send('成功！');
@@ -353,7 +353,7 @@ module.exports = async (client) => {
                             },
                         ],
                     },
-                    config.webhook.channel);
+                    config.web.webhook.vote.channel);
                 } else if (type == 'upvote') {
                     log('info', `有人投票了！> ${body.user.name + '#' + body.user.discriminator}`, true, vote_client, {
                         content: '新的投票！',
@@ -377,7 +377,7 @@ module.exports = async (client) => {
                             },
                         ],
                     },
-                    config.webhook.channel);
+                    config.web.webhook.vote.channel);
                 }
                 /**
                  * 輸出紀錄
@@ -387,7 +387,7 @@ module.exports = async (client) => {
                     /**
                      * 內容物待添加!
                      */
-                    console.log('當前log系統並未使用！');
+                    client.console.log('當前log系統並未使用！');
                 }
 
             }
@@ -425,10 +425,10 @@ module.exports = async (client) => {
                     return guilds;
                 })
                 .catch((e) => {
-                    console.error(
-                        `[#${client.shard.ids}]  網站擷取機器人所有伺服器時發生了錯誤：`,
+                    client.console.error(
+                        `網站擷取機器人所有伺服器時發生了錯誤：`,
                     );
-                    console.error(e);
+                    client.console.error(e);
                 });
             const guildIds = [].concat(
                 ...clientguilds.map((guildArray) =>
@@ -491,12 +491,14 @@ module.exports = async (client) => {
 
     // 監聽&上線
     app.listen(config.web.port, () => {
-        console.log(`[#${client.shard.ids}]  網站監聽 ${host}`);
-        console.log(
-            `\n[#${client.shard.ids}]  請將以下連結放入 Discord Applications 的 OAuth2 Redirects 來讓網站允許取用資料：\n機器人以及登入的連結已在內部生成，不須再創建！`,
-        );
-        console.log(`[#${client.shard.ids}]  ${host}/auth/discord-auth`);
-        console.log(`[#${client.shard.ids}]  ${host}/auth/guild-auth`);
+        client.console.log(`網站監聽 ${host}`);
+        client.console.log(
+            [
+                `請將以下連結放入 Discord Applications 的 OAuth2 Redirects 來讓網站允許取用資料：`,
+                `機器人以及登入的連結已在內部生成，不須再創建！`,
+                `${ host }/auth/discord-auth`,
+                `${host}/auth/guild-auth`,
+            ].join('\n'));
     });
 };
 
