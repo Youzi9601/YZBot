@@ -104,14 +104,9 @@
 
 > v1.0.0 - 尚未發布
 
-#### 正式發布前
+### 測試版本
 
-> -   插件系統優化
-> -   資料庫支持(mongoose&本地儲存)
-> -   事件 分配調整
-> -   指令 指令本地化
-> -   `Web` 網站架設
-> -   `Readme.md` 檔案撰寫
+> v0.0.46 - [Change Log](https://github.com/Youzi9601/YZBot/blob/master/CHANGELOG.md)
 
 </details>
 
