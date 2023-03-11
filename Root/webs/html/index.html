@@ -1,330 +1,372 @@
 <!DOCTYPE html>
 <html lang="zh-tw">
-  <head>
-    <title>Disocrd 機器人 | YZB 首頁</title>
-    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+	<head>
+		<title>Disocrd 機器人 | YZB 首頁</title>
+		<link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
 
-    <meta
-      name="description"
-      content="YZB 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。"
-    />
+		<meta
+			name="description"
+			content="YZB 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。"
+		/>
 
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="./../css/home.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
-    />
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
-    <script>
-      window.onload = () => {
-        function getCookie(cname) {
-          let name = cname + "=";
-          let ca = document.cookie.split(";");
-          for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == " ") {
-              c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-              return JSON.parse(c.substring(name.length, c.length));
-            }
-          }
-          return "";
-        }
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<link href="./../css/home.css" rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+		/>
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+		></script>
+		<script>
+			window.onload = async () => {
+				function getCookie(cname) {
+					let name = cname + "=";
+					let ca = document.cookie.split(";");
+					for (let i = 0; i < ca.length; i++) {
+						let c = ca[i];
+						while (c.charAt(0) == " ") {
+							c = c.substring(1);
+						}
+						if (c.indexOf(name) == 0) {
+							return JSON.parse(
+								c.substring(name.length, c.length)
+							);
+						}
+					}
+					return "";
+				}
 
-        const clientcount = getCookie("clientcount");
-        document.getElementById(
-          "server_count"
-        ).innerText = `${clientcount.servers}`;
-        document.getElementById(
-          "user_count"
-        ).innerText = `${clientcount.users}`;
-        document.getElementById(
-          "channel_count"
-        ).innerText = `${clientcount.channels}`;
-      };
-    </script>
-    <link rel="shortcut icon" href="./../assets/" type="image/x-icon" />
-  </head>
+				const post_options = {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json;charset=UTF-8",
+					},
+				};
+				let clientdata;
+				await fetch("/data/discord/client", post_options)
+					.then((response) => response.json())
+					.then((data) => {
+						clientdata = data;
+					})
+					.catch((error) => {
+						console.error(error);
+					});
+				document.getElementById(
+					"server_count"
+				).innerText = `${clientdata.servers}`;
+				document.getElementById(
+					"user_count"
+				).innerText = `${clientdata.users}`;
+				document.getElementById(
+					"channel_count"
+				).innerText = `${clientdata.channels}`;
+			};
+		</script>
+		<link rel="shortcut icon" href="./../assets/" type="image/x-icon" />
+	</head>
 
-  <body>
-    <!-- Navbar -->
+	<body>
+		<!-- Navbar -->
 
-    <div class="navbar navbar-expand-md bg-dark navbar-dark">
-      <div class="container">
-        <a href="#" class="navbar-brand text-info">YZB 機器人網站</a>
+		<div class="navbar navbar-expand-md bg-dark navbar-dark">
+			<div class="container">
+				<a href="#" class="navbar-brand text-info">YZB 機器人網站</a>
 
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mainmenu"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#mainmenu"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-        <div class="collapse navbar-collapse" id="mainmenu">
-          <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-              <a href="#Features" class="nav-link">特色</a>
-            </li>
-            <li class="nav-item">
-              <a href="#Statics" class="nav-link">狀態</a>
-            </li>
-            <li class="nav-item"><a href="#FAQ" class="nav-link">FAQ</a></li>
-            <li class="nav-item">
-              <a href="/home/commands" class="nav-link">命令</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="linksdrop"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                >連結</a
-              >
-              <ul class="dropdown-menu bg-dark" aria-labelledby="linksdrop">
-                <li>
-                  <a class="dropdown-item text-muted" href="/home/invite_bot"
-                    >邀請</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item text-muted" href="/home/github"
-                    >Github</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item text-muted" href="/home/discord"
-                    >支持服務器</a
-                  >
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <li class="navbar-nav nav-item">
-            <a href="/dashboard/login" class="btn btn-outline-info">登入</a>
-          </li>
-        </div>
-      </div>
-    </div>
+				<div class="collapse navbar-collapse" id="mainmenu">
+					<ul class="navbar-nav mx-auto">
+						<li class="nav-item">
+							<a href="#Features" class="nav-link">特色</a>
+						</li>
+						<li class="nav-item">
+							<a href="#Statics" class="nav-link">狀態</a>
+						</li>
+						<li class="nav-item">
+							<a href="#FAQ" class="nav-link">FAQ</a>
+						</li>
+						<li class="nav-item">
+							<a href="/home/commands" class="nav-link">命令</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a
+								class="nav-link dropdown-toggle"
+								href="#"
+								id="linksdrop"
+								role="button"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+								>連結</a
+							>
+							<ul
+								class="dropdown-menu bg-dark"
+								aria-labelledby="linksdrop"
+							>
+								<li>
+									<a
+										class="dropdown-item text-muted"
+										href="/home/invite_bot"
+										>邀請</a
+									>
+								</li>
+								<li>
+									<a
+										class="dropdown-item text-muted"
+										href="/home/github"
+										>Github</a
+									>
+								</li>
+								<li>
+									<a
+										class="dropdown-item text-muted"
+										href="/home/discord"
+										>支持服務器</a
+									>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<li class="navbar-nav nav-item">
+						<a href="/dashboard/login" class="btn btn-outline-info"
+							>登入</a
+						>
+					</li>
+				</div>
+			</div>
+		</div>
 
-    <!-- Info -->
+		<!-- Info -->
 
-    <section class="bg-dark text-light text-center py-5">
-      <div class="container">
-        <div class="d-flex">
-          <div>
-            <h1><span class="text-info">YZB</span> Bot</h1>
-            <p>
-              YZB 是一個開源的集成機器人，可以協助您管理伺服器。
-              機器人程序和您需要的一切都在其中。
-            </p>
-            <a class="btn btn-info" href="/home/invite_bot">邀請機器人</a>
-            <a class="m-2 btn btn-light" href="/home/discord">支持服務器</a>
-          </div>
-          <img class="img-fluid w-50" src="./../assets/YZB.png" alt="" />
-        </div>
-      </div>
-    </section>
+		<section class="bg-dark text-light text-center py-5">
+			<div class="container">
+				<div class="d-flex">
+					<div>
+						<h1><span class="text-info">YZB</span> Bot</h1>
+						<p>
+							YZB 是一個開源的集成機器人，可以協助您管理伺服器。
+							機器人程序和您需要的一切都在其中。
+						</p>
+						<a class="btn btn-info" href="/home/invite_bot"
+							>邀請機器人</a
+						>
+						<a class="m-2 btn btn-light" href="/home/discord"
+							>支持服務器</a
+						>
+					</div>
+					<img
+						class="img-fluid w-50"
+						src="./../assets/YZB.png"
+						alt=""
+					/>
+				</div>
+			</div>
+		</section>
 
-    <!-- Features -->
+		<!-- Features -->
 
-    <section id="Features" class="py-5">
-      <div class="container">
-        <h2 class="text-center mb-4">特色</h2>
-        <div class="row text-center">
-          <div class="col-sm">
-            <div class="card bg-dark text-light mb-3">
-              <div class="h1 mt-3">
-                <i class="bi bi-clock-history"></i>
-              </div>
-              <div class="card-body text-center">
-                <h4 class="card-title text-info">使用方便</h4>
-                <p class="card-text">
-                  有著簡單明瞭的指令操作，以及選項按鈕，符合人性化設計的直覺式操作。
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm">
-            <div class="card bg-dark text-light mb-3">
-              <div class="h1 mt-3">
-                <i class="bi bi-capslock-fill"></i>
-              </div>
-              <div class="card-body text-center">
-                <h4 class="card-title text-info">24/7 在線</h4>
-                <p class="card-text">
-                  這個機器人隨時在線，不必擔心突然離線蒸發。
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm">
-            <div class="card bg-dark text-light mb-3">
-              <div class="h1 mt-3">
-                <i class="bi bi-folder2-open"></i>
-              </div>
-              <div class="card-body text-center">
-                <h4 class="card-title text-info">開源的</h4>
-                <p class="card-text">
-                  這是一個開源的機器人，詳情都可以在Github上找到！
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+		<section id="Features" class="py-5">
+			<div class="container">
+				<h2 class="text-center mb-4">特色</h2>
+				<div class="row text-center">
+					<div class="col-sm">
+						<div class="card bg-dark text-light mb-3">
+							<div class="h1 mt-3">
+								<i class="bi bi-clock-history"></i>
+							</div>
+							<div class="card-body text-center">
+								<h4 class="card-title text-info">使用方便</h4>
+								<p class="card-text">
+									有著簡單明瞭的指令操作，以及選項按鈕，符合人性化設計的直覺式操作。
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm">
+						<div class="card bg-dark text-light mb-3">
+							<div class="h1 mt-3">
+								<i class="bi bi-capslock-fill"></i>
+							</div>
+							<div class="card-body text-center">
+								<h4 class="card-title text-info">24/7 在線</h4>
+								<p class="card-text">
+									這個機器人隨時在線，不必擔心突然離線蒸發。
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm">
+						<div class="card bg-dark text-light mb-3">
+							<div class="h1 mt-3">
+								<i class="bi bi-folder2-open"></i>
+							</div>
+							<div class="card-body text-center">
+								<h4 class="card-title text-info">開源的</h4>
+								<p class="card-text">
+									這是一個開源的機器人，詳情都可以在Github上找到！
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <!-- Statics -->
+		<!-- Statics -->
 
-    <section id="Statics" class="py-5 bg-dark text-light">
-      <div class="container">
-        <div class="py-2 text-center">
-          <h2>狀態</h2>
-        </div>
-        <div
-          class="row align-items-center justify-content-center text-center -5"
-        >
-          <div class="col">
-            <img
-              src="./../assets/statics.svg"
-              alt=""
-              class="img-fluid d-none d-md-block"
-            />
-          </div>
-          <div class="col-sm p-5 h1">
-            <i class="bi bi-hdd-stack text-primary"></i>
-            <h6></h6>
-            <h3 id="server_count">?</h3>
-            <h5>伺服器</h5>
-          </div>
-          <div class="col-sm p-5 h1">
-            <i class="bi bi bi-people-fill text-primary"></i>
-            <h6></h6>
-            <h3 id="user_count">?</h3>
-            <h5>使用者</h5>
-          </div>
-          <div class="col-sm p-5 h1">
-            <i class="bi bi bi-hash text-primary"></i>
-            <h6></h6>
-            <h3 id="channel_count">?</h3>
-            <h5>頻道</h5>
-          </div>
-        </div>
-      </div>
-    </section>
+		<section id="Statics" class="py-5 bg-dark text-light">
+			<div class="container">
+				<div class="py-2 text-center">
+					<h2>狀態</h2>
+				</div>
+				<div
+					class="row align-items-center justify-content-center text-center -5"
+				>
+					<div class="col">
+						<img
+							src="./../assets/statics.svg"
+							alt=""
+							class="img-fluid d-none d-md-block"
+						/>
+					</div>
+					<div class="col-sm p-5 h1">
+						<i class="bi bi-hdd-stack text-primary"></i>
+						<h6></h6>
+						<h3 id="server_count">?</h3>
+						<h5>伺服器</h5>
+					</div>
+					<div class="col-sm p-5 h1">
+						<i class="bi bi bi-people-fill text-primary"></i>
+						<h6></h6>
+						<h3 id="user_count">?</h3>
+						<h5>使用者</h5>
+					</div>
+					<div class="col-sm p-5 h1">
+						<i class="bi bi bi-hash text-primary"></i>
+						<h6></h6>
+						<h3 id="channel_count">?</h3>
+						<h5>頻道</h5>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <!-- FAQ -->
+		<!-- FAQ -->
 
-    <section id="FAQ" class="py-5">
-      <div class="container">
-        <h2 class="text-center mb-3">經常問的問題</h2>
-        <div class="accordion accordion-flush" id="your-faq">
-          <div class="accordion-item">
-            <h5 class="accordion-header" id="qusetion-1">
-              <button
-                class="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#answer-1"
-              >
-                需要收費嗎?
-              </button>
-            </h5>
-            <div
-              class="accordion-collapse collapse p-3"
-              id="answer-1"
-              data-bs-parent="#your-faq"
-            >
-              不用，大多的功能都是免費的！
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h5 class="accordion-header" id="qusetion-2">
-              <button
-                class="accordion-button collapsed"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#answer-2"
-              >
-                只有你一個人製作的嗎?
-              </button>
-            </h5>
-            <div
-              class="accordion-collapse collapse p-3"
-              id="answer-2"
-              data-bs-parent="#your-faq"
-            >
-              對，只有我個人獨立製作 (TAT ) ，自我探索一些網站與Discord
-              Bot的撰寫技巧。
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+		<section id="FAQ" class="py-5">
+			<div class="container">
+				<h2 class="text-center mb-3">經常問的問題</h2>
+				<div class="accordion accordion-flush" id="your-faq">
+					<div class="accordion-item">
+						<h5 class="accordion-header" id="qusetion-1">
+							<button
+								class="accordion-button collapsed"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#answer-1"
+							>
+								需要收費嗎?
+							</button>
+						</h5>
+						<div
+							class="accordion-collapse collapse p-3"
+							id="answer-1"
+							data-bs-parent="#your-faq"
+						>
+							不用，大多的功能都是免費的！
+						</div>
+					</div>
+					<div class="accordion-item">
+						<h5 class="accordion-header" id="qusetion-2">
+							<button
+								class="accordion-button collapsed"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#answer-2"
+							>
+								只有你一個人製作的嗎?
+							</button>
+						</h5>
+						<div
+							class="accordion-collapse collapse p-3"
+							id="answer-2"
+							data-bs-parent="#your-faq"
+						>
+							對，只有我個人獨立製作 (TAT )
+							，自我探索一些網站與Discord Bot的撰寫技巧。
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-    <!-- footer -->
+		<!-- footer -->
 
-    <div class="footer-clean bg-dark">
-      <footer>
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-sm-4 col-md-3 item">
-              <h3>快速訪問</h3>
-              <ul>
-                <li><a href="#Features">特色</a></li>
-                <li><a href="#Statics">狀態</a></li>
-                <li><a href="#FAQ">問題</a></li>
-              </ul>
-            </div>
-            <div class="col-sm-4 col-md-3 item">
-              <h3>關於</h3>
-              <ul>
-                <li><a href="/home/commands">命令</a></li>
-                <li><a href="#">團隊</a></li>
-                <li><a href="#">執照</a></li>
-              </ul>
-            </div>
-            <div class="col-sm-4 col-md-3 item">
-              <h3>連結</h3>
-              <ul>
-                <li><a href="/home/discord">支持服務器</a></li>
-                <li><a href="/home/invite_bot">邀請機器人</a></li>
-                <li><a href="/home/github">Github</a></li>
-              </ul>
-            </div>
-            <div class="col-lg-3 item social">
-              <a href="/home/discord"
-                ><ion-icon name="logo-discord"></ion-icon
-              ></a>
-              <p class="copyright">YZB © 2023</p>
-            </div>
-          </div>
-        </div>
-        <div class="page-footer font-small text-light mt-5">
-          <div class="footer-copyright text-center">
-            由 <a href="https://github.com/Youzi9601/">Youzi9601</a>
-            製作 © 2023 版權
-          </div>
-        </div>
-      </footer>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  </body>
+		<div class="footer-clean bg-dark">
+			<footer>
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-sm-4 col-md-3 item">
+							<h3>快速訪問</h3>
+							<ul>
+								<li><a href="#Features">特色</a></li>
+								<li><a href="#Statics">狀態</a></li>
+								<li><a href="#FAQ">問題</a></li>
+							</ul>
+						</div>
+						<div class="col-sm-4 col-md-3 item">
+							<h3>關於</h3>
+							<ul>
+								<li><a href="/home/commands">命令</a></li>
+								<li><a href="#">團隊</a></li>
+								<li><a href="#">執照</a></li>
+							</ul>
+						</div>
+						<div class="col-sm-4 col-md-3 item">
+							<h3>連結</h3>
+							<ul>
+								<li><a href="/home/discord">支持服務器</a></li>
+								<li>
+									<a href="/home/invite_bot">邀請機器人</a>
+								</li>
+								<li><a href="/home/github">Github</a></li>
+							</ul>
+						</div>
+						<div class="col-lg-3 item social">
+							<a href="/home/discord"
+								><ion-icon name="logo-discord"></ion-icon
+							></a>
+							<p class="copyright">YZB © 2023</p>
+						</div>
+					</div>
+				</div>
+				<div class="page-footer font-small text-light mt-5">
+					<div class="footer-copyright text-center">
+						由 <a href="https://github.com/Youzi9601/">Youzi9601</a>
+						製作 © 2023 版權
+					</div>
+				</div>
+			</footer>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</body>
 </html>

@@ -1,0 +1,18 @@
+.embed_generator {
+	float: right;
+	position: relative;
+	bottom: 0;
+	right: 0;
+	min-height: 100px;
+	height: auto;
+	width: auto;
+}
+.embed_generator iframe {
+	height: calc(100px - 10%);
+	width: calc(700px - 10%);
+	right: calc(20px - 10%);
+	float: right;
+	position: relative;
+	bottom: 0;
+	right: 0;
+}

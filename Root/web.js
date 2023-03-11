@@ -122,28 +122,7 @@ module.exports = async (client) => {
             res.redirect("./home");
         })
         .get("/home", async (req, res) => {
-            const servers = await client_db.get("servers");
-            const users = await client_db.get("users");
-            const channels = await client_db.get("channels");
-            await setCookie(
-                "clientcount",
-                {
-                    servers: servers,
-                    users: users,
-                    channels: channels,
-                },
-                1,
-            );
             res.sendFile("webs/html/index.html", { root: __dirname });
-
-            async function setCookie(cname, cvalue, exdays) {
-                res.cookie(cname, JSON.stringify(cvalue), {
-                    expires: new Date(Date.now() + exdays * 24 * 60 * 60 * 1000),
-                    path: "/",
-                    encode: String,
-                    maxAge: exdays * 60 * 60 * 24,
-                });
-            }
         })
     // 首頁的快速導覽
         .get("/home/github", (req, res) => {
@@ -198,18 +177,86 @@ module.exports = async (client) => {
             }
             res.sendFile("webs/html/servers/dashboard.html", { root: __dirname });
         })
-        .get("/dashboard/" + ":GuildID", (req, res) => {
+        .get("/dashboard/" + ":GuildID", async (req, res) => {
             if (!req.session.user) {
                 return res.redirect("/dashboard/login");
             }
-            // TODO: 需要將dashboard的session內存入Discord oauth token，並於機器人執行中添加一個資料庫存放 token (雖然無效，但是那是隨機的)，用來避免駭客駭入Web後台。
-            const guildID = req.params.GuildID;
-            res.send(`這是${guildID}伺服器的控制面板。目前還在架設中...`);
-            // res.sendFile('webs/html/servers/0-guild.html', { root: __dirname });
+            // TODO: 將guilds列表檢查是否有該guild
+            const guildID = req.params.GuildID ;
+            // res.send(`這是${guildID}伺服器的控制面板。目前還在架設中...`);
+            // 檢查是否有該伺服器
+            const refresh_token = req.cookies.refresh_token;
+            const data = await refresh_discordToken(client, refresh_token);
+            res.cookie('access_token', data.access_token);
+            res.cookie('refresh_token', data.refresh_token);
+            let userGuilddata = [];
+            userGuilddata = await userGuildsDiscordinfo(undefined, data.access_token);
+
+            // 取得機器人資料
+            const clientguilds = await client.shard
+                .fetchClientValues("guilds.cache")
+                .then((guilds) => {
+                    return guilds;
+                })
+                .catch((e) => {
+                    client.console.error(
+                        `網站擷取機器人所有伺服器時發生了錯誤：`,
+                    );
+                    client.console.error(e);
+                });
+            const guildIds = [].concat(
+                ...clientguilds.map((guildArray) =>
+                    guildArray.map((guild) => ({ id: guild.id })),
+                ),
+            );
+
+            // 處理資料(特殊標籤&要求權限)
+            userGuilddata = userGuilddata
+                .filter(
+                    (guild) =>
+                        guild.owner == true ||
+                hasPermission(guild.permissions, 8) ||
+                hasPermission(guild.permissions, 32),
+                )
+                .map((guild) => ({
+                    id: guild.id,
+                    name: guild.name,
+                    permissions: guild.permissions,
+                    icon: guild.icon,
+                    owner: guild.owner,
+                    position: guild.owner
+                        ? "所有者"
+                        : hasPermission(guild.permissions, 8)
+                            ? "管理者"
+                            : "管理員",
+                    botincludes: guildIds.some((g) => g.id === guild.id)
+                        ? "true"
+                        : "false",
+                    url: guildIds.some((g) => g.id === guild.id)
+                        ? undefined
+                        : discordurl.discordbotinvite,
+                }));
+            userGuilddata.sort(
+                (a, b) =>
+                    (a.botincludes === "true" ? 0 : 1) -
+              (b.botincludes === "true" ? 0 : 1),
+            );
+
+            if (!userGuilddata.some(g => `${ g.id }` == guildID)) {
+                return res.redirect(`/dashboard?err=not_found_id_is_${guildID}`);
+            }
+
+            // 處離傳回用資料
+            res.sendFile('webs/html/servers/0-guild.html', { root: __dirname });
+
+
+            function hasPermission(permissions, permissionFlag) {
+                return (permissions & permissionFlag) === permissionFlag;
+            }
         })
     // 管理員後台
         .get("/dashboard/admin", (req, res) => {
-            res.send("這是ADMIN的管理後台...");
+            res.send("這是ADMIN的管理後台... 但是目前沒用owo|||");
             // res.sendFile('webs/html/servers.html', { root: __dirname });
         });
     // #endregion 網頁
@@ -273,12 +320,6 @@ module.exports = async (client) => {
                     client.console.error(error);
                     return res.redirect("/dashboard/login?err=true");
                 }
-                // 傳送資料並返回dashboard
-                // 儲存
-                // res.setHeader('userguilds', `userGuilddata=${encodeURIComponent(JSON.stringify(userGuilddata))};`);
-                // client.console.log(userdata)
-                // client.console.log(userGuilddata)
-                // await setCookie('userdata', userdata, 2)
                 return res.redirect('/dashboard');
                 // 轉網址
             } else {
@@ -399,6 +440,25 @@ module.exports = async (client) => {
      * data
      */
     app
+        // client base data
+        .post('/data/discord/client', async (req, res) => {
+            const servers = await client_db.get("servers");
+            const users = await client_db.get("users");
+            const channels = await client_db.get("channels");
+            res.json(
+                {
+                    bot: {
+                        id: client.user.id,
+                        name: client.user.username,
+                        discriminator: client.user.discriminator,
+                        avatar: client.user.avatar,
+                    },
+                    servers: servers,
+                    users: users,
+                    channels: channels,
+                },
+            );
+        })
         // user
         .post('/data/discord/user', async (req, res) => {
             const refresh_token = req.cookies.refresh_token;
@@ -409,6 +469,7 @@ module.exports = async (client) => {
             const userdata = await userDiscordinfo(undefined, data.access_token);
             res.json({ userdata });
         })
+        // guilds
         .post('/data/discord/guilds', async (req, res) => {
             const refresh_token = req.cookies.refresh_token;
 
@@ -478,6 +539,13 @@ module.exports = async (client) => {
 
     // #endregion API
 
+    /**
+     * 內嵌(插件)網頁
+     */
+    app
+        .get('/plugins/discord/embedbuilder', async (req, res) => {
+            res.sendFile("webs/html/generator/embed_generator/index.html", { root: __dirname });
+        });
     /**
      * 其他
      */
