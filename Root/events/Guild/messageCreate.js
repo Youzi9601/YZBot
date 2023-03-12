@@ -2,7 +2,14 @@ const { EmbedBuilder, PermissionsBitField, ChannelType, ButtonBuilder, ActionRow
 
 module.exports = {
     name: Events.MessageCreate,
+    /**
+     *
+     * @param {import('discord.js').Client} client
+     * @param {import('discord.js').Message} message
+     * @returns
+     */
     async execute(client, message) {
+        client.console.log(`\n|    ${message.guild.name} (${message.guild.id}) \n|    #${message.channel.name} (${message.channel.id}) \n|    ${message.author.username}#${message.author.discriminator} (${message.author.id}) > ${message.content} ${message.embeds.length > 0 ? '\n' + JSON.stringify(message.embeds, undefined, 2) : ''}`);
 
         if (message.author.bot) return;
 
