@@ -32,11 +32,11 @@
 	</head>
 	<body>
 		<div class="main">
+			<link rel="stylesheet" href="./../../css/guild.home.css" />
 			<!-- Navbar -->
 			<link rel="stylesheet" href="./../../css/dashboard.css" />
 			<div class="navbar navbar-expand-md bg-dark navbar-dark">
 				<link rel="stylesheet" href="./../../css/home.css" />
-				<link rel="stylesheet" href="./../../css/guild.home.css" />
 
 				<div class="container">
 					<a href="#" class="navbar-brand text-info"
@@ -168,11 +168,79 @@
 					</div>
 				</div>
 				<!-- 內容 -->
-				<div class="embed_generator">
-					<iframe
-						src="/plugins/discord/embedbuilder"
-						frameborder="0"
-					></iframe>
+				<div class="container">
+					<div class="title" id="normal">
+						<h3>基本設定</h3>
+					</div>
+					<hr />
+					<div class="title" id="joinmsg">
+						<h4>加入訊息</h4>
+
+						<div class="embed_generator">
+							<iframe
+								id="embedbuilder"
+								src="/plugins/discord/embedbuilder"
+								frameborder="0"
+							></iframe>
+							<button onclick="toggleFullScreen()">
+								全螢幕顯示
+							</button>
+							<script>
+								function toggleFullScreen() {
+									var iframe =
+										document.getElementById("embedbuilder");
+
+									if (iframe.requestFullscreen) {
+										iframe.requestFullscreen();
+									} else if (iframe.mozRequestFullScreen) {
+										/* Firefox */
+										iframe.mozRequestFullScreen();
+									} else if (iframe.webkitRequestFullscreen) {
+										/* Chrome, Safari & Opera */
+										iframe.webkitRequestFullscreen();
+									} else if (iframe.msRequestFullscreen) {
+										/* IE/Edge */
+										iframe.msRequestFullscreen();
+									}
+								}
+							</script>
+							<script>
+								// 獲取iframe元素的參考
+								var iframe =
+									document.getElementById("embedbuilder");
+
+								// 創建一個MutationObserver實例
+								var observer = new MutationObserver(function (
+									mutations
+								) {
+									// 當內容變化時，重新調整iframe大小
+									resizeIframe();
+								});
+
+								// 開始監聽iframe內容的變化
+								observer.observe(iframe.contentDocument, {
+									childList: true,
+									subtree: true,
+								});
+
+								// 等待iframe內容加載完成後，初始調整iframe大小
+								iframe.onload = function () {
+									resizeIframe();
+								};
+
+								function resizeIframe() {
+									// 獲取iframe元素的參考
+									var iframe =
+										document.getElementById("embedbuilder");
+
+									// 設置iframe的高度為內容的高度
+									iframe.style.height =
+										iframe.contentWindow.document.body
+											.scrollHeight + "px";
+								}
+							</script>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- footer -->

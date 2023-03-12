@@ -116,44 +116,44 @@ module.exports = async (client) => {
     // #region 網頁
     // 首頁
         .get("", (req, res) => {
-            res.redirect("./home");
+            return res.redirect("./home");
         })
         .get("/", (req, res) => {
-            res.redirect("./home");
+            return res.redirect("./home");
         })
         .get("/home", async (req, res) => {
-            res.sendFile("webs/html/index.html", { root: __dirname });
+            return res.sendFile("webs/html/index.html", { root: __dirname });
         })
     // 首頁的快速導覽
         .get("/home/github", (req, res) => {
-            res.redirect(config.web.links.github);
+            return res.redirect(config.web.links.github);
         })
         .get("/home/discord", (req, res) => {
-            res.redirect(config.web.links.discord);
+            return res.redirect(config.web.links.discord);
         })
         .get("/home/invite_bot", (req, res) => {
-            res.redirect(config.web.links.discordbotinvite);
+            return res.redirect(config.web.links.discordbotinvite);
         })
     // 指令頁面
         .get("/home/commands", (req, res) => {
-            res.sendFile("webs/html/pages/commands.html", { root: __dirname });
+            return res.sendFile("webs/html/pages/commands.html", { root: __dirname });
         })
     // 隱私政策
         .get("/home/privacy-policy", (req, res) => {
-            res.sendFile("webs/html/pages/privacy-policy.html", { root: __dirname });
+            return res.sendFile("webs/html/pages/privacy-policy.html", { root: __dirname });
         })
     // 服務條款
         .get("/home/terms", (req, res) => {
-            res.sendFile("webs/html/pages/terms-of-service.html", {
+            return res.sendFile("webs/html/pages/terms-of-service.html", {
                 root: __dirname,
             });
         })
     // 控制台 - 登入頁面
         .get("/dashboard/login", (req, res) => {
-            res.sendFile("webs/html/login.html", { root: __dirname });
+            return res.sendFile("webs/html/login.html", { root: __dirname });
         })
         .get("/dashboard/login/discord", (req, res) => {
-            res.redirect(discordurl.discordAuthLoginUrl);
+            return res.redirect(discordurl.discordAuthLoginUrl);
         })
         .get("/dashboard/logout", (req, res) => {
             res.clearCookie();
@@ -161,7 +161,7 @@ module.exports = async (client) => {
             req.session.cookie.maxAge = 1000;
             req.session.user = null;
             req.session.save();
-            res.redirect("/home");
+            return res.redirect("/home");
         })
         .get("/dashboard/queue", (req, res) => {
             // 執行排隊
@@ -172,17 +172,19 @@ module.exports = async (client) => {
 
     // 設定 - 控制台
         .get("/dashboard", (req, res) => {
+            res.cookie('redirect', '/dashboard');
             if (!req.session.user) {
                 return res.redirect("/dashboard/login");
             }
-            res.sendFile("webs/html/servers/dashboard.html", { root: __dirname });
+            return res.sendFile("webs/html/servers/dashboard.html", { root: __dirname });
         })
         .get("/dashboard/" + ":GuildID", async (req, res) => {
+            // TODO: 將guilds列表檢查是否有該guild
+            const guildID = req.params.GuildID ;
+            res.cookie('redirect', '/dashboard/' + guildID);
             if (!req.session.user) {
                 return res.redirect("/dashboard/login");
             }
-            // TODO: 將guilds列表檢查是否有該guild
-            const guildID = req.params.GuildID ;
             // res.send(`這是${guildID}伺服器的控制面板。目前還在架設中...`);
             // 檢查是否有該伺服器
             const refresh_token = req.cookies.refresh_token;
@@ -247,7 +249,7 @@ module.exports = async (client) => {
             }
 
             // 處離傳回用資料
-            res.sendFile('webs/html/servers/0-guild.html', { root: __dirname });
+            return res.sendFile('webs/html/servers/0-guild.html', { root: __dirname });
 
 
             function hasPermission(permissions, permissionFlag) {
@@ -256,7 +258,7 @@ module.exports = async (client) => {
         })
     // 管理員後台
         .get("/dashboard/admin", (req, res) => {
-            res.send("這是ADMIN的管理後台... 但是目前沒用owo|||");
+            return res.send("這是ADMIN的管理後台... 但是目前沒用owo|||");
             // res.sendFile('webs/html/servers.html', { root: __dirname });
         });
     // #endregion 網頁
@@ -319,6 +321,9 @@ module.exports = async (client) => {
                     client.console.error(`執行網站時發生錯誤：`);
                     client.console.error(error);
                     return res.redirect("/dashboard/login?err=true");
+                }
+                if (req.cookies.redirect) {
+                    return res.redirect(req.cookies.redirect);
                 }
                 return res.redirect('/dashboard');
                 // 轉網址
