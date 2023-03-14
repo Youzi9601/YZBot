@@ -207,7 +207,7 @@ async function load(client, interaction, config, db) {
                 });
                 let hasPerm = (has_permissions_translate.length != 0);
                 let hasMiss = (missing.length != 0);
-                client.client.console.log(hasPerm + ' ' + hasMiss);
+                // client.console('Log', hasPerm + ' ' + hasMiss);
                 embed = new EmbedBuilder()
                     .setTitle('成員資訊')
                     .setDescription('權限')

@@ -8,7 +8,7 @@ const colors = require("colors");
  * @returns "?"
  */
 module.exports = (client, config) => {
-    client.console.log(">>> 模態處理程序：".blue);
+    client.console('Log', ">>> 模態處理程序：".blue);
 
     const modals = fs.readdirSync(`./Root/commands/modals/`).filter(file => file.endsWith('.js'));
 
@@ -19,9 +19,9 @@ module.exports = (client, config) => {
         if (pull.disabled) continue;
         if (pull.id) {
             client.modals.set(pull.id, pull);
-            client.console.log(`[處理 - MODALS] 加載了一個文件: ${file} (#${client.modals.size})`.brightGreen);
+            client.console('Log', `[處理 - MODALS] 加載了一個文件: ${file} (#${client.modals.size})`.brightGreen);
         } else {
-            client.console.log(`[處理 - MODALS] 無法加載文件 ${file}。缺少模式 ID。`.red);
+            client.console('Log', `[處理 - MODALS] 無法加載文件 ${file}。缺少模式 ID。`.red);
             continue;
         }
     }

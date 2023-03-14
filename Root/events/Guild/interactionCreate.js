@@ -24,8 +24,8 @@ module.exports = {
                     command.run(client, interaction, client.config, client.db);
                 // 執行命令
             } catch (e) {
-                client.console.error(`執行命令時發生錯誤：`);
-                client.console.error(e);
+                client.console('Error', `執行命令時發生錯誤：`);
+                client.console('Error', undefined, undefined, undefined, e);
                 await reply_Error(client, interaction, interaction.commandName);
 
             }
@@ -40,8 +40,8 @@ module.exports = {
             try {
                 command.run(client, interaction, client.config, client.db);
             } catch (e) {
-                client.console.error(`執行成員應用時發生錯誤：`);
-                client.console.error(e);
+                client.console('Error', `執行成員應用時發生錯誤：`);
+                client.console('Error', undefined, undefined, undefined, e);
                 await reply_Error(client, interaction, interaction.commandName);
 
             }
@@ -56,8 +56,8 @@ module.exports = {
             try {
                 command.run(client, interaction, client.config, client.db);
             } catch (e) {
-                client.console.error(`執行訊息應用時發生錯誤：`);
-                client.console.error(e);
+                client.console('Error', `執行訊息應用時發生錯誤：`);
+                client.console('Error', undefined, undefined, undefined, e);
                 await reply_Error(client, interaction, interaction.commandName);
 
             }
@@ -81,8 +81,8 @@ module.exports = {
             try {
                 modal.run(client, interaction, client.config, client. db);
             } catch (e) {
-                client.console.error(`執行模塊時發生錯誤：`);
-                client.console.error(e);
+                client.console('Error', `執行模塊時發生錯誤：`);
+                client.console('Error', undefined, undefined, undefined, e);
                 await reply_Error(client, interaction, interaction.customId);
 
             }
@@ -109,8 +109,8 @@ module.exports = {
             try {
                 button.run(client, interaction, client.config, client.db);
             } catch (e) {
-                client.console.error(`執行按鈕時發生錯誤：`);
-                client.console.error(e);
+                client.console('Error', `執行按鈕時發生錯誤：`);
+                client.console('Error', undefined, undefined, undefined, e);
                 await reply_Error(client, interaction, interaction.customId);
 
             }
@@ -137,8 +137,8 @@ module.exports = {
             try {
                 selectmenu.run(client, interaction, client.config, client.db);
             } catch (e) {
-                client.console.error(`執行選單時發生錯誤：`);
-                client.console.error(e);
+                client.console('Error', `執行選單時發生錯誤：`);
+                client.console('Error', undefined, undefined, undefined, e);
                 await reply_Error(client, interaction, interaction.customId);
 
             }
@@ -153,7 +153,7 @@ module.exports = {
  * @param {import('discord.js').CommandInteraction} interaction
  * @param {String} commandName 命令名稱
  */
-async function reply_Error(client, interaction, commandName = '未知') {
+async function reply_Error(client, interaction, commandName = '無法得知此命令') {
     const embed = new EmbedBuilder()
         .setTitle('❌ 發生了錯誤')
         .setDescription(`這個命令 \`(${ commandName })\`發生了一些錯誤，無法正常運作。\n如果還是出現這個錯誤，請回報給機器人所有者！\n造成您的不便請見諒！`)

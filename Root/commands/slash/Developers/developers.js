@@ -160,7 +160,7 @@ module.exports = {
                     });
                     // Event
                     client.on('interactionCreate', (i) => {
-                        if (!i.isSelectMenu()) return;
+                        if (!i.isStringSelectMenu()) return;
                         if (i.customId === 'SERVERPAGES' && i.applicationId == client.user.id) {
                             i.update({
                                 embeds: pages[Number(i.values[0])],
@@ -168,7 +168,7 @@ module.exports = {
                         }
                     });
                 } catch (e) {
-                    client.console.log(e.stack ? e.stack : e);
+                    client.console('Log', undefined, undefined, undefined, e.stack ? e.stack : e);
                     interaction.reply({
                         content: '錯誤: ',
                         embeds: [
@@ -251,8 +251,8 @@ module.exports = {
                 /** */
 
 
-                client.console.log('\n\n關機｜收到 關閉 信號，關閉機器人......');
-                client.console.log(
+                client.console('Log', '\n\n關機｜收到 關閉 信號，關閉機器人......');
+                client.console('Log',
                     chalk.gray(
                         '───────────────────────────────機器人控制台───────────────────────────────\n',
                     ),
@@ -309,7 +309,7 @@ module.exports = {
                 try {
                     await message.edit({ embeds: [embed] });
                 } catch (error) {
-                    client.console.log(error);
+                    client.console('Error', undefined, undefined, undefined, error);
                 }
 
                 client.user.setPresence({
@@ -397,7 +397,7 @@ module.exports = {
                     );
 
 
-                    client.console.info(
+                    client.console('Info',
                         chalk.gray(
                             `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] `,
                         ) +
@@ -514,8 +514,8 @@ module.exports = {
             /** */
 
 
-            client.console.log('\n\n關機｜收到 關閉 信號，關閉機器人......');
-            client.console.log(
+            client.console('Log', '\n\n關機｜收到 關閉 信號，關閉機器人......');
+            client.console('Log',
                 chalk.gray(
                     '───────────────────────────────機器人控制台───────────────────────────────\n',
                 ),
@@ -572,7 +572,7 @@ module.exports = {
             try {
                 await message.edit({ embeds: [embed] });
             } catch (error) {
-                client.console.log(error);
+                client.console('Error', undefined, undefined, undefined, error);
             }
 
             client.user.setPresence({

@@ -68,7 +68,7 @@ module.exports = async (client) => {
         };
 
         // 處理各個分片狀態資料
-        // client.console.log(client.ws.shards.forEach(s => { return s.ping }))
+        // client.console('Log',client.ws.shards.forEach(s => { return s.ping }))
         let shards_msg = [];
         (await shardStatus_data.all()).forEach(s => {
             let status = `*** #${s.id} ➖未知`;

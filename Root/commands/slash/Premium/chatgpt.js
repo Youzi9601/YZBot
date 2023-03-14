@@ -47,7 +47,7 @@ module.exports = {
             n: 1,
             max_tokens: 100,
         });
-        client.console.log(completion.data);
+        client.console('Log', undefined, undefined, undefined, completion.data);
 
         const answer = completion.data.choices[0].text.trim();
         interaction.reply(answer);

@@ -48,33 +48,7 @@ client.events = new Collection();
 // 設定
 client.config = config;
 // Console 日誌紀錄
-client.console = {
-    log: (input, _guildid) => {
-        const log_prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] [#${client.shard.ids}]  `;
-        console.log(log_prefix + input);
-
-    },
-    info: (input, _guildid) => {
-        const log_prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] [#${client.shard.ids}|Info]  `;
-        console.info(log_prefix + input);
-
-    },
-    warn: (input, _guildid) => {
-        const log_prefix = `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] [#${ client.shard.ids }|Warn]  `;
-        console.warn(log_prefix + input);
-
-    },
-    error: (input, _guildid) => {
-        const log_prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] [#${client.shard.ids}|Error]  `;
-        console.error(log_prefix + input);
-
-    },
-    debug: (input, _guildid) => {
-        const log_prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] [#${client.shard.ids}|Debug]  `;
-        console.debug(log_prefix + input);
-
-    },
-};
+client.console = require('./handlers/log');
 
 // 語言設定
 client.language = new Collection();
@@ -98,20 +72,20 @@ module.exports = client;
 // Login to the bot:
 client.login(AuthenticationToken)
     .catch((err) => {
-        client.console.error("[CRASH] 連接到您的機器人時出了點問題...");
-        client.console.error("[CRASH] 來自 Discord API 的錯誤：" + err);
+        client.console('Error', "[CRASH] 連接到您的機器人時出了點問題...");
+        client.console('Error', "[CRASH] 來自 Discord API 的錯誤：" + err);
         return process.exit();
     });
 
 // Handle errors:
 process
     .on('unhandledRejection', async (err, promise) => {
-        client.console.error(`[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
-        client.console.error(promise);
+        client.console('Error', `[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
+        client.console('Error', undefined, undefined, undefined, promise);
     })
     .on('uncaughtException', async (err, promise) => {
-        client.console.error(`[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
-        client.console.error(promise);
+        client.console('Error', `[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
+        client.console('Error', undefined, undefined, undefined, promise);
     })
     .on('exit', async (code) => {
         //

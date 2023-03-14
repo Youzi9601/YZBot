@@ -8,7 +8,7 @@ const colors = require("colors");
  * @returns "?"
  */
 module.exports = (client, config) => {
-    client.console.log(">>> 前綴處理程序：".blue);
+    client.console('Log', ">>> 前綴處理程序：".blue);
 
     fs.readdirSync('./Root/commands/prefix/').forEach(dir => {
         const commands = fs.readdirSync(`./Root/commands/prefix/${dir}`).filter(file => file.endsWith('.js'));
@@ -19,9 +19,9 @@ module.exports = (client, config) => {
             if (pull.disabled) continue;
             if (pull.config.name) {
                 client.prefix_commands.set(pull.config.name, pull);
-                client.console.log(`[處理 - PREFIX] 加載了一個文件： ${pull.config.name} (#${client.prefix_commands.size})`.brightGreen);
+                client.console('Log', `[處理 - PREFIX] 加載了一個文件： ${pull.config.name} (#${client.prefix_commands.size})`.brightGreen);
             } else {
-                client.console.log(`[處理 - PREFIX] 無法加載文件 ${file}，缺少模塊名稱值。`.red);
+                client.console('Log', `[處理 - PREFIX] 無法加載文件 ${file}，缺少模塊名稱值。`.red);
                 continue;
             }
 

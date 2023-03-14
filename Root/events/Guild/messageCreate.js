@@ -9,7 +9,7 @@ module.exports = {
      * @returns
      */
     async execute(client, message) {
-        client.console.log(`\n|    ${message.guild.name} (${message.guild.id}) \n|    #${message.channel.name} (${message.channel.id}) \n|    ${message.author.username}#${message.author.discriminator} (${message.author.id}) > ${message.content} ${message.embeds.length > 0 ? '\n' + JSON.stringify(message.embeds, undefined, 2) : ''}`);
+
 
         if (message.author.bot) return;
 
@@ -90,8 +90,8 @@ module.exports = {
                     isRun = true;
                     command.run(client, message, args, prefix, client.config, client.db);
                 } catch (error) {
-                    client.console.error(`執行訊息命令時發生錯誤：`);
-                    client.console.error(error);
+                    client.console('Error', `執行訊息命令時發生錯誤：`);
+                    client.console('Error', undefined, undefined, undefined, error);
                 }
             }
         });

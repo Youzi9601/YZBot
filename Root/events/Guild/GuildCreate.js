@@ -9,6 +9,6 @@ module.exports = {
      * @returns
      */
     async execute(client, guild) {
-        client.console.log(`+伺服器 > ${guild.name} (${guild.id})`);
+        client.console('Log', `+伺服器 > ${guild.name} (${guild.id})`);
     },
 };

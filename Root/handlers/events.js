@@ -7,7 +7,7 @@ const colors = require("colors");
  * @returns "?"
  */
 module.exports = (client) => {
-    client.console.log(">>> 事件處理程序：".blue);
+    client.console('Log', ">>> 事件處理程序：".blue);
 
     fs.readdirSync('./Root/events/').forEach(dir => {
         const commands = fs.readdirSync(`./Root/events/${dir}`).filter(file => file.endsWith('.js'));
@@ -23,13 +23,13 @@ module.exports = (client) => {
                     client.on(pull.name, (...args) => pull.execute(client, ...args));
                 }
                 client.events.set(pull.name, pull);
-                client.console.log(`[處理 - EVENTS] 加載了一個文件： ${pull.name} (#${client.events.size})`.brightGreen);
+                client.console('Log', `[處理 - EVENTS] 加載了一個文件： ${pull.name} (#${client.events.size})`.brightGreen);
             } else {
-                client.console.log(`[處理 - EVENTS] 無法加載文件 ${file}。缺少別名或是執行內容。`.red);
+                client.console('Log', `[處理 - EVENTS] 無法加載文件 ${file}。缺少別名或是執行內容。`.red);
                 continue;
             }
 
         }
     });
-    client.console.log(">>> 事件處理程序處理完成".blue);
+    client.console('Log', ">>> 事件處理程序處理完成".blue);
 };
