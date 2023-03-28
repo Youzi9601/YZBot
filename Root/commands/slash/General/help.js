@@ -23,9 +23,9 @@ module.exports = {
      */
     run: async (client, interaction, config, db) => {
         const category_language = client.language_data(interaction.locale, 'command').category;
+        const translations = client.language_data(interaction.locale, 'commands/slash/General/help');
 
         // let client_commands = interaction.client.application.commands.cache
-
         // const contextmenu_user_commands = client.contextmenu_user_commands
         // const contextmenu_message_commands = client.contextmenu_message_commands
         // const prefix_commands = client.prefix_commands
@@ -129,16 +129,16 @@ module.exports = {
 
         // 處理嵌入
         const embed = new EmbedBuilder()
-            .setTitle('命令列表');
+            .setTitle(translations["embed_title"]);
         // 處理選單
         const selectmenu = new StringSelectMenuBuilder()
             .setCustomId('help_menu')
-            .setPlaceholder('請選擇命令類別');
+            .setPlaceholder(translations["selectmenu_placeholder"]);
         category.forEach(t => {
             selectmenu.addOptions(
                 {
                     label: category_language[t],
-                    description: `${category_language[t]}類別的命令`,
+                    description: `${translations["selectmenu_option_description"]}`.replace('{{type}}', category_language[t]),
                     value: t,
                 },
             );
@@ -170,7 +170,7 @@ module.exports = {
             }
             helpMessage += '\n';
         }
-        embed.setDescription(`以下是命令列表：\n<> 必填 | [] 可選\n\n${helpMessage}`);
+        embed.setDescription(`${translations["embed_description"]}\n\n${helpMessage}`);
 
 
         // 處理交互列

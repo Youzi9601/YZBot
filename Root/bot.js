@@ -59,7 +59,7 @@ client.language = new Collection();
  * @returns langs
  */
 client.language_data = (locale, file) => {
-    return client.language.get(locale + '/' + file) || client.language.get('zh-TW' + '/' + file);
+    return client.language.get(locale + ':' + file) || client.language.get('zh-TW' + ':' + file);
 };
 
 

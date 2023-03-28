@@ -1,0 +1,6 @@
+{
+    "embed_title": "命令列表",
+    "embed_description": "以下是命令列表：\n<> 必填 | [] 可選",
+    "selectmenu_placeholder": "請選擇命令類別",
+    "selectmenu_option_description": "{{type}}類別的命令"
+}

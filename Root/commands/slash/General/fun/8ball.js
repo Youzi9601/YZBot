@@ -18,21 +18,23 @@ module.exports = { load };
      */
 async function load(client, interaction, config, db) {
     const data = client.language_data(interaction.locale, 'command-response');
+    const translations = client.language_data(interaction.locale, 'commands/slash/General/fun/8ball');
+
     const items = data['8ball'];
     const random = items[Math.floor(Math.random() * items.length)];
     let msg = new EmbedBuilder()
         .setAuthor({
             iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-            name: client.user.username + '之神奇的8號球',
+            name: translations["embed_author_name"].replace('{{botname}}', client.user.username),
         })
         .addFields(
             {
-                name: '回應',
+                name: translations["embed_response"],
                 value: `${random}`,
             },
             {
-                name: '原問題',
-                value: `||${interaction.options.getString('question') || '無'}||`,
+                name: translations["embed_question"],
+                value: `||${interaction.options.getString('question') || client.language_data(interaction.locale, 'placeholder')["null"]}||`,
             },
         )
         .setColor('Random');
@@ -41,20 +43,20 @@ async function load(client, interaction, config, db) {
         msg = new EmbedBuilder()
             .setAuthor({
                 iconURL: `${client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL}`,
-                name: client.user.username + '之神奇的8號球',
+                name: translations["embed_author_name"].replace('{{botname}}', client.user.username),
             })
             .addFields(
                 {
-                    name: '回應',
-                    value: '剛才的是騙你的！(awa',
+                    name:  translations["embed_response"],
+                    value: translations["error_1_troll"],
                 },
                 {
-                    name: '原問題',
-                    value: `||${interaction.options.getString('question') || '無'}||`,
+                    name: translations["embed_question"],
+                    value: `||${interaction.options.getString('question') || client.language_data(interaction.locale, 'placeholder')["null"]}||`,
                 },
             )
             .setColor('Random');
-        await interaction.reply(':x: 此指令交互失敗');
+        await interaction.reply(translations["error_1_replyerror"]);
         await sleep(3000);
         await interaction.followUp({
             embeds: [msg],

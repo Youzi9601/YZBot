@@ -1,22 +1,32 @@
 const fs = require("fs");
+const glob = require("glob");
 
 /**
  *
  * @param {import('discord.js').Client} client
  * @param {*} config
  */
-module.exports = (client, config) => {
+module.exports = async (client, config) => {
     client.console('Log', ">>> 語言檔案處理程序：".blue);
 
     // 語言
-    fs.readdirSync('./Root/languages/').forEach((dir) => {
+    fs.readdirSync('./Root/languages/').forEach(async (dir) => {
         if (dir.endsWith('.md')) return;
+        const jsonfiles = await glob(`Root/languages/${dir}/**/*.json`, { ignore: 'ignore/**' });
+        // console.log(jsonfiles);
         // 檔案路徑
-        const langfiles = fs.readdirSync(`./Root/languages/${ dir }`).filter((file) => file.endsWith('.json'));
-        for (let file of langfiles) {
-            let pull = require(`../languages/${dir}/${file}`);
-            client.language.set(dir + '/' + file.replace('.json', ''), pull);
-            client.console('Log', `讀取語言檔案: ${dir + '/' + file.replace('.json', '')}`.brightGreen);
+        for (let file of jsonfiles) {
+            const filename = file
+                .replaceAll('\\', '/')
+                .replace('.json', '')
+                .replace(`Root/languages/${ dir }/`, '');
+            // console.log(filename);
+            let pull = require(__dirname + `/../../${file}`);
+            client.language.set(
+                `${dir}:${filename}`,
+                pull,
+            );
+            client.console('Log', `讀取語言檔案: ${filename}`.brightGreen);
         }
     });
 
