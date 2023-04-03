@@ -58,7 +58,7 @@
     "glob": "^9.3.2",
     "html-entities": "^2.3.3",
     "humanize-duration": "^3.28.0",
-    "mathjs": "^11.6.0",
+    "mathjs": "^11.8.0",
     "moment": "^2.29.4",
     "mongoose": "^7.0.1",
     "ms": "^2.1.3",
