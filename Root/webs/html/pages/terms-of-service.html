@@ -1,217 +1,251 @@
 <!DOCTYPE html>
 <html lang="zh-tw">
-  <head>
-    <title>Disocrd 機器人 | YZB 服務條款</title>
-    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+	<head>
+		<title>Disocrd 機器人 | YZB 服務條款</title>
+		<link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
 
-    <meta
-      name="description"
-      content="YZB 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。"
-    />
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="./../../css/license.css" rel="stylesheet" />
-    <link href="./../../css/home.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
-    />
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
-    <link rel="shortcut icon" href="./../../assets/" type="image/x-icon" />
-  </head>
+		<meta
+			name="description"
+			content="YZB 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。"
+		/>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<link href="./../../css/license.css" rel="stylesheet" />
+		<link href="./../../css/home.css" rel="stylesheet" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+		/>
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+		></script>
+		<link rel="shortcut icon" href="./../../assets/" type="image/x-icon" />
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
 
-  <body>
-    <div class="main">
-      <!-- Navbar -->
+	<body>
+		<div class="main">
+			<!-- Navbar -->
 
-      <div class="navbar navbar-expand-md bg-dark navbar-dark">
-        <div class="container">
-          <a href="/home" class="navbar-brand text-info">YZB 機器人網站</a>
+			<div class="navbar navbar-expand-md bg-dark navbar-dark">
+				<div class="container">
+					<a href="/home" class="navbar-brand text-info"
+						>YZB 機器人網站</a
+					>
 
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainmenu"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+					<button
+						class="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#mainmenu"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-          <div class="collapse navbar-collapse" id="mainmenu">
-            <ul class="navbar-nav mx-auto">
-              <li class="nav-item">
-                <a href="/home#Features" class="nav-link">特色</a>
-              </li>
-              <li class="nav-item">
-                <a href="/home#Statics" class="nav-link">狀態</a>
-              </li>
-              <li class="nav-item">
-                <a href="/home#FAQ" class="nav-link">FAQ</a>
-              </li>
-              <li class="nav-item">
-                <a href="/home/commands" class="nav-link">命令</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="linksdrop"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  >連結</a
-                >
-                <ul class="dropdown-menu bg-dark" aria-labelledby="linksdrop">
-                  <li>
-                    <a class="dropdown-item text-muted" href="/home/invite_bot"
-                      >邀請</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-muted" href="/home/github"
-                      >Github</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-muted" href="/home/discord"
-                      >支持服務器</a
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <li class="navbar-nav nav-item">
-              <a href="/dashboard/login" class="btn btn-outline-info">登入</a>
-            </li>
-          </div>
-        </div>
-      </div>
+					<div class="collapse navbar-collapse" id="mainmenu">
+						<ul class="navbar-nav mx-auto">
+							<li class="nav-item">
+								<a href="/home#Features" class="nav-link"
+									>特色</a
+								>
+							</li>
+							<li class="nav-item">
+								<a href="/home#Statics" class="nav-link"
+									>狀態</a
+								>
+							</li>
+							<li class="nav-item">
+								<a href="/home#FAQ" class="nav-link">FAQ</a>
+							</li>
+							<li class="nav-item">
+								<a href="/home/commands" class="nav-link"
+									>命令</a
+								>
+							</li>
+							<li class="nav-item dropdown">
+								<a
+									class="nav-link dropdown-toggle"
+									href="#"
+									id="linksdrop"
+									role="button"
+									data-bs-toggle="dropdown"
+									aria-expanded="false"
+									>連結</a
+								>
+								<ul
+									class="dropdown-menu bg-dark"
+									aria-labelledby="linksdrop"
+								>
+									<li>
+										<a
+											class="dropdown-item text-muted"
+											href="/home/invite_bot"
+											>邀請</a
+										>
+									</li>
+									<li>
+										<a
+											class="dropdown-item text-muted"
+											href="/home/github"
+											>Github</a
+										>
+									</li>
+									<li>
+										<a
+											class="dropdown-item text-muted"
+											href="/home/discord"
+											>支持服務器</a
+										>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<li class="navbar-nav nav-item">
+							<a
+								href="/dashboard/login"
+								class="btn btn-outline-info"
+								>登入</a
+							>
+						</li>
+					</div>
+				</div>
+			</div>
 
-      <!-- Info -->
+			<!-- Info -->
 
-      <section class="text-light py-5">
-        <div class="container">
-          <div class="index">
-            <br />
-            <div class="section">
-              <h1>服務條款</h1>
-              <br />
-              <p>
-                歡迎使用 YZB
-                ，使用本服務前，請仔細閱讀並理解本服務條款。通過使用本服務，您同意遵守本服務條款的所有規定和條件。如果您不同意本服務條款的任何規定或條件，請勿使用本服務。本團隊保留隨時修改本服務條款的權利，並有權在任何時候終止本服務。如有任何疑問，請與我們聯繫。
-              </p>
-            </div>
-            <br />
-            <div class="section">
-              <h2>1. 定義</h2>
-              <p>
-                Discord機器人：指由本團隊所開發的 YZB
-                及提供的Discord管理工具，用於管理伺服器與利用控制台(網站)設定伺服器。
-              </p>
-            </div>
-            <br />
-            <div class="section">
-              <h2>2. 免責聲明</h2>
-              <p>
-                本團隊對於使用Discord機器人所造成的任何損失、損害或其他任何直接、間接、特殊、懲罰性的損害，均不負責任。使用者須自行承擔風險，並確保已了解與同意本服務條款。
-              </p>
-            </div>
-            <br />
-            <div class="section">
-              <h2>3. 服務提供</h2>
-              <p>
-                本團隊將盡力提供Discord機器人服務，但不保證服務不會中斷、不會出現錯誤或者沒有缺陷。本團隊保留隨時更改、暫停或終止Discord機器人服務的權利。
-              </p>
-            </div>
-            <br />
-            <div class="section">
-              <h2>4. 使用規範</h2>
-              <p>
-                使用者不得利用Discord機器人進行任何非法或有害的活動，包括但不限於：
-              </p>
-              <ul>
-                <li>傳播色情、暴力或任何不適當的內容</li>
-                <li>干涉他人隱私權</li>
-                <li>破壞、駭客或入侵任何電腦系統</li>
-                <li>其他違反法律法規或違反本服務條款的行為。</li>
-              </ul>
-              <p>
-                如果本團隊發現使用者違反了本服務條款，本團隊有權隨時終止服務或撤銷使用者的帳戶。
-              </p>
-            </div>
-            <br />
-            <div class="section">
-              <h2>5. 知識產權</h2>
-              <p>
-                您的個人資料可能會被轉移到您所在地區以外的地區，以滿足我們的商業需求，如儲存，處理和分析數據。
-                在這種情況下，我們會確保適當的保護措施，以確保您的個人資料的安全。
-              </p>
-              <p>
-                Discord機器人和相關的控制台(網站)的所有知識產權，包括但不限於軟件、技術、程式代碼、界面設計、文字、圖片、音頻、視頻、圖表、圖標、版權、商標等均屬於本團隊或其內部所有人的知識產權。使用者不得擅自使用、複製、傳播、公開、修改、拆解或分發本團隊的任何知識產權。本團隊保留所有對違反上述規定者的法律追究責任的權利。
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+			<section class="text-light py-5">
+				<div class="container">
+					<div class="index">
+						<br />
+						<div class="section">
+							<h1>服務條款</h1>
+							<br />
+							<p>
+								歡迎使用 YZB
+								，使用本服務前，請仔細閱讀並理解本服務條款。通過使用本服務，您同意遵守本服務條款的所有規定和條件。如果您不同意本服務條款的任何規定或條件，請勿使用本服務。本團隊保留隨時修改本服務條款的權利，並有權在任何時候終止本服務。如有任何疑問，請與我們聯繫。
+							</p>
+						</div>
+						<br />
+						<div class="section">
+							<h2>1. 定義</h2>
+							<p>
+								Discord機器人：指由本團隊所開發的 YZB
+								及提供的Discord管理工具，用於管理伺服器與利用控制台(網站)設定伺服器。
+							</p>
+						</div>
+						<br />
+						<div class="section">
+							<h2>2. 免責聲明</h2>
+							<p>
+								本團隊對於使用Discord機器人所造成的任何損失、損害或其他任何直接、間接、特殊、懲罰性的損害，均不負責任。使用者須自行承擔風險，並確保已了解與同意本服務條款。
+							</p>
+						</div>
+						<br />
+						<div class="section">
+							<h2>3. 服務提供</h2>
+							<p>
+								本團隊將盡力提供Discord機器人服務，但不保證服務不會中斷、不會出現錯誤或者沒有缺陷。本團隊保留隨時更改、暫停或終止Discord機器人服務的權利。
+							</p>
+						</div>
+						<br />
+						<div class="section">
+							<h2>4. 使用規範</h2>
+							<p>
+								使用者不得利用Discord機器人進行任何非法或有害的活動，包括但不限於：
+							</p>
+							<ul>
+								<li>傳播色情、暴力或任何不適當的內容</li>
+								<li>干涉他人隱私權</li>
+								<li>破壞、駭客或入侵任何電腦系統</li>
+								<li>
+									其他違反法律法規或違反本服務條款的行為。
+								</li>
+							</ul>
+							<p>
+								如果本團隊發現使用者違反了本服務條款，本團隊有權隨時終止服務或撤銷使用者的帳戶。
+							</p>
+						</div>
+						<br />
+						<div class="section">
+							<h2>5. 知識產權</h2>
+							<p>
+								您的個人資料可能會被轉移到您所在地區以外的地區，以滿足我們的商業需求，如儲存，處理和分析數據。
+								在這種情況下，我們會確保適當的保護措施，以確保您的個人資料的安全。
+							</p>
+							<p>
+								Discord機器人和相關的控制台(網站)的所有知識產權，包括但不限於軟件、技術、程式代碼、界面設計、文字、圖片、音頻、視頻、圖表、圖標、版權、商標等均屬於本團隊或其內部所有人的知識產權。使用者不得擅自使用、複製、傳播、公開、修改、拆解或分發本團隊的任何知識產權。本團隊保留所有對違反上述規定者的法律追究責任的權利。
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
 
-      <!-- footer -->
+			<!-- footer -->
 
-      <div class="footer-clean bg-dark">
-        <footer>
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-sm-4 col-md-3 item">
-                <h3>快速訪問</h3>
-                <ul>
-                  <li><a href="/home#Features">特色</a></li>
-                  <li><a href="/home#Statics">狀態</a></li>
-                  <li><a href="/home#FAQ">問題</a></li>
-                </ul>
-              </div>
-              <div class="col-sm-4 col-md-3 item">
-                <h3>關於</h3>
-                <ul>
-                  <li><a href="/home/commands">命令</a></li>
-                  <li><a href="#">團隊</a></li>
-                  <li><a href="#">執照</a></li>
-                </ul>
-              </div>
-              <div class="col-sm-4 col-md-3 item">
-                <h3>連結</h3>
-                <ul>
-                  <li><a href="/home/discord">支持服務器</a></li>
-                  <li><a href="/home/invite_bot">邀請機器人</a></li>
-                  <li><a href="/home/github">Github</a></li>
-                </ul>
-              </div>
-              <div class="col-lg-3 item social">
-                <a href="/home/discord"
-                  ><ion-icon name="logo-discord"></ion-icon
-                ></a>
-                <p class="copyright">YZB © 2023</p>
-              </div>
-            </div>
-          </div>
-          <div class="page-footer font-small text-light mt-5">
-            <div class="footer-copyright text-center">
-              由 <a href="https://github.com/Youzi9601/">Youzi9601</a>
-              製作 © 2023 版權
-            </div>
-          </div>
-        </footer>
-      </div>
-
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    </div>
-  </body>
+			<div class="footer-clean bg-dark">
+				<footer>
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-sm-4 col-md-3 item">
+								<h3>快速訪問</h3>
+								<ul>
+									<li><a href="/home#Features">特色</a></li>
+									<li><a href="/home#Statics">狀態</a></li>
+									<li><a href="/home#FAQ">問題</a></li>
+								</ul>
+							</div>
+							<div class="col-sm-4 col-md-3 item">
+								<h3>關於</h3>
+								<ul>
+									<li><a href="/home/commands">命令</a></li>
+									<li><a href="#">團隊</a></li>
+									<li><a href="#">執照</a></li>
+								</ul>
+							</div>
+							<div class="col-sm-4 col-md-3 item">
+								<h3>連結</h3>
+								<ul>
+									<li>
+										<a href="/home/discord">支持服務器</a>
+									</li>
+									<li>
+										<a href="/home/invite_bot"
+											>邀請機器人</a
+										>
+									</li>
+									<li><a href="/home/github">Github</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-3 item social">
+								<a href="/home/discord"
+									><ion-icon name="logo-discord"></ion-icon
+								></a>
+								<p class="copyright">YZB © 2023</p>
+							</div>
+						</div>
+					</div>
+					<div class="page-footer font-small text-light mt-5">
+						<div class="footer-copyright text-center">
+							由
+							<a href="https://github.com/Youzi9601/"
+								>Youzi9601</a
+							>
+							製作 © 2023 版權
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</body>
 </html>

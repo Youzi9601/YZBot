@@ -1,199 +1,236 @@
 <!DOCTYPE html>
 <html lang="zh-tw">
-  <head>
-    <title>Disocrd 機器人 | YZB 超出運轉</title>
-    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+	<head>
+		<title>Disocrd 機器人 | YZB 超出運轉</title>
+		<link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
 
-    <meta
-      name="description"
-      content="YZB 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。"
-    />
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="./../../css/home.css" rel="stylesheet" />
-    <link href="./../../css/overloaded.css" rel="stylesheet" />
+		<meta
+			name="description"
+			content="YZB 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。"
+		/>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<link href="./../../css/home.css" rel="stylesheet" />
+		<link href="./../../css/overloaded.css" rel="stylesheet" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
-    />
-    <script
-      type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
-    <link rel="shortcut icon" href="./../../assets/" type="image/x-icon" />
-  </head>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+		/>
+		<script
+			type="module"
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+		></script>
+		<script
+			nomodule
+			src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+		></script>
+		<link rel="shortcut icon" href="./../../assets/" type="image/x-icon" />
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	</head>
 
-  <body>
-    <div class="main">
-      <!-- Navbar -->
+	<body>
+		<div class="main">
+			<!-- Navbar -->
 
-      <div class="navbar navbar-expand-md bg-dark navbar-dark">
-        <div class="container">
-          <a href="/home" class="navbar-brand text-info">YZB 機器人網站</a>
+			<div class="navbar navbar-expand-md bg-dark navbar-dark">
+				<div class="container">
+					<a href="/home" class="navbar-brand text-info"
+						>YZB 機器人網站</a
+					>
 
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainmenu"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+					<button
+						class="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#mainmenu"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
 
-          <div class="collapse navbar-collapse" id="mainmenu">
-            <ul class="navbar-nav mx-auto">
-              <li class="nav-item">
-                <a href="/home#Features" class="nav-link">特色</a>
-              </li>
-              <li class="nav-item">
-                <a href="/home#Statics" class="nav-link">狀態</a>
-              </li>
-              <li class="nav-item">
-                <a href="/home#FAQ" class="nav-link">FAQ</a>
-              </li>
-              <li class="nav-item">
-                <a href="/home/commands" class="nav-link">命令</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="linksdrop"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  >連結</a
-                >
-                <ul class="dropdown-menu bg-dark" aria-labelledby="linksdrop">
-                  <li>
-                    <a class="dropdown-item text-muted" href="/home/invite_bot"
-                      >邀請</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-muted" href="/home/github"
-                      >Github</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item text-muted" href="/home/discord"
-                      >支持服務器</a
-                    >
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <li class="navbar-nav nav-item">
-              <a href="/dashboard/login" class="btn btn-outline-info">登入</a>
-            </li>
-          </div>
-        </div>
-      </div>
+					<div class="collapse navbar-collapse" id="mainmenu">
+						<ul class="navbar-nav mx-auto">
+							<li class="nav-item">
+								<a href="/home#Features" class="nav-link"
+									>特色</a
+								>
+							</li>
+							<li class="nav-item">
+								<a href="/home#Statics" class="nav-link"
+									>狀態</a
+								>
+							</li>
+							<li class="nav-item">
+								<a href="/home#FAQ" class="nav-link">FAQ</a>
+							</li>
+							<li class="nav-item">
+								<a href="/home/commands" class="nav-link"
+									>命令</a
+								>
+							</li>
+							<li class="nav-item dropdown">
+								<a
+									class="nav-link dropdown-toggle"
+									href="#"
+									id="linksdrop"
+									role="button"
+									data-bs-toggle="dropdown"
+									aria-expanded="false"
+									>連結</a
+								>
+								<ul
+									class="dropdown-menu bg-dark"
+									aria-labelledby="linksdrop"
+								>
+									<li>
+										<a
+											class="dropdown-item text-muted"
+											href="/home/invite_bot"
+											>邀請</a
+										>
+									</li>
+									<li>
+										<a
+											class="dropdown-item text-muted"
+											href="/home/github"
+											>Github</a
+										>
+									</li>
+									<li>
+										<a
+											class="dropdown-item text-muted"
+											href="/home/discord"
+											>支持服務器</a
+										>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<li class="navbar-nav nav-item">
+							<a
+								href="/dashboard/login"
+								class="btn btn-outline-info"
+								>登入</a
+							>
+						</li>
+					</div>
+				</div>
+			</div>
 
-      <!-- Info -->
+			<!-- Info -->
 
-      <section class="bg-light text-dark text-center py-5">
-        <div class="container">
-          <div class="d-flex">
-            <div class="load-gif">
-              <div class="hourglass"></div>
-            </div>
-            <div>
-              <h1><span class="text-info">Overload</span> 過多的流量</h1>
-              <hr />
-              <h1><p>網站目前有太多使用者使用...</p></h1>
-              <div id="queue">
-                <h1><p>是被攻擊?還是太受歡迎?</p></h1>
-              </div>
-              <h3>等待中...</h3>
-              <script>
-                //先取得網址字串
-                var url = location.href;
-                //再來用去尋找網址列中是否有資料傳遞(QueryString)
-                if (url.indexOf("?") != -1) {
-                  var queue = "";
-                  //在此直接將各自的參數資料切割放進ary中
-                  var ary = url.split("?")[1].split("&");
-                  //此時ary的內容為：
-                  //ary[0] = 'err=true'
+			<section class="bg-light text-dark text-center py-5">
+				<div class="container">
+					<div class="d-flex">
+						<div class="load-gif">
+							<div class="hourglass"></div>
+						</div>
+						<div>
+							<h1>
+								<span class="text-info">Overload</span>
+								過多的流量
+							</h1>
+							<hr />
+							<h1><p>網站目前有太多使用者使用...</p></h1>
+							<div id="queue">
+								<h1><p>是被攻擊?還是太受歡迎?</p></h1>
+							</div>
+							<h3>等待中...</h3>
+							<script>
+								//先取得網址字串
+								var url = location.href;
+								//再來用去尋找網址列中是否有資料傳遞(QueryString)
+								if (url.indexOf("?") != -1) {
+									var queue = "";
+									//在此直接將各自的參數資料切割放進ary中
+									var ary = url.split("?")[1].split("&");
+									//此時ary的內容為：
+									//ary[0] = 'err=true'
 
-                  //下迴圈去搜尋每個資料參數
-                  for (i = 0; i <= ary.length - 1; i++) {
-                    //如果資料名稱為id的話那就把他取出來
-                    if (ary[i].split("=")[0] == "queue")
-                      queue = ary[i].split("=")[1];
-                  }
-                  document.getElementById(
-                    "queue"
-                  ).innerHTML = `<h1><p>當前列隊： ${queue}</p><h1>`;
-                }
-                setTimeout(function () {
-                  window.location.href = "/dashboard/queue";
-                }, 60000);
-              </script>
-              <a class="m-2 btn btn-dark" href="/home">回到首頁</a>
-            </div>
-            <!-- <img class="img-fluid w-50" src="./../assets/YZB.png" alt="" /> -->
-          </div>
-        </div>
-      </section>
+									//下迴圈去搜尋每個資料參數
+									for (i = 0; i <= ary.length - 1; i++) {
+										//如果資料名稱為id的話那就把他取出來
+										if (ary[i].split("=")[0] == "queue")
+											queue = ary[i].split("=")[1];
+									}
+									document.getElementById(
+										"queue"
+									).innerHTML = `<h1><p>當前列隊： ${queue}</p><h1>`;
+								}
+								setTimeout(function () {
+									window.location.href = "/dashboard/queue";
+								}, 60000);
+							</script>
+							<a class="m-2 btn btn-dark" href="/home"
+								>回到首頁</a
+							>
+						</div>
+						<!-- <img class="img-fluid w-50" src="./../assets/YZB.png" alt="" /> -->
+					</div>
+				</div>
+			</section>
 
-      <!-- footer -->
+			<!-- footer -->
 
-      <div class="footer-clean bg-dark">
-        <footer>
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-sm-4 col-md-3 item">
-                <h3>快速訪問</h3>
-                <ul>
-                  <li><a href="/home#Features">特色</a></li>
-                  <li><a href="/home#Statics">狀態</a></li>
-                  <li><a href="/home#FAQ">問題</a></li>
-                </ul>
-              </div>
-              <div class="col-sm-4 col-md-3 item">
-                <h3>關於</h3>
-                <ul>
-                  <li><a href="/home/commands">命令</a></li>
-                  <li><a href="#">團隊</a></li>
-                  <li><a href="#">執照</a></li>
-                </ul>
-              </div>
-              <div class="col-sm-4 col-md-3 item">
-                <h3>連結</h3>
-                <ul>
-                  <li><a href="/home/discord">支持服務器</a></li>
-                  <li><a href="/home/invite_bot">邀請機器人</a></li>
-                  <li><a href="/home/github">Github</a></li>
-                </ul>
-              </div>
-              <div class="col-lg-3 item social">
-                <a href="/home/discord"
-                  ><ion-icon name="logo-discord"></ion-icon
-                ></a>
-                <p class="copyright">YZB © 2023</p>
-              </div>
-            </div>
-          </div>
-          <div class="page-footer font-small text-light mt-5">
-            <div class="footer-copyright text-center">
-              由 <a href="https://github.com/Youzi9601/">Youzi9601</a>
-              製作 © 2023 版權
-            </div>
-          </div>
-        </footer>
-      </div>
-
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    </div>
-  </body>
+			<div class="footer-clean bg-dark">
+				<footer>
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-sm-4 col-md-3 item">
+								<h3>快速訪問</h3>
+								<ul>
+									<li><a href="/home#Features">特色</a></li>
+									<li><a href="/home#Statics">狀態</a></li>
+									<li><a href="/home#FAQ">問題</a></li>
+								</ul>
+							</div>
+							<div class="col-sm-4 col-md-3 item">
+								<h3>關於</h3>
+								<ul>
+									<li><a href="/home/commands">命令</a></li>
+									<li><a href="#">團隊</a></li>
+									<li><a href="#">執照</a></li>
+								</ul>
+							</div>
+							<div class="col-sm-4 col-md-3 item">
+								<h3>連結</h3>
+								<ul>
+									<li>
+										<a href="/home/discord">支持服務器</a>
+									</li>
+									<li>
+										<a href="/home/invite_bot"
+											>邀請機器人</a
+										>
+									</li>
+									<li><a href="/home/github">Github</a></li>
+								</ul>
+							</div>
+							<div class="col-lg-3 item social">
+								<a href="/home/discord"
+									><ion-icon name="logo-discord"></ion-icon
+								></a>
+								<p class="copyright">YZB © 2023</p>
+							</div>
+						</div>
+					</div>
+					<div class="page-footer font-small text-light mt-5">
+						<div class="footer-copyright text-center">
+							由
+							<a href="https://github.com/Youzi9601/"
+								>Youzi9601</a
+							>
+							製作 © 2023 版權
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</body>
 </html>
