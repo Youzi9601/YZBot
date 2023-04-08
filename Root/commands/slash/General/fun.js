@@ -28,6 +28,17 @@ module.exports = {
                 )
                 .addSubcommand(c =>
                     c
+                        .setName('gay')
+                        .setDescription('誰在搞gay?')
+                        .addUserOption(u =>
+                            u
+                                .setName('member')
+                                .setDescription('指定對象')
+                                .setRequired(false),
+                        ),
+                )
+                .addSubcommand(c =>
+                    c
                         .setName('color')
                         .setDescription('[尚未完成]給予一些隨機的顏色！'),
                 ),
@@ -54,6 +65,8 @@ module.exports = {
         if (subcommandGroup == 'random') {
             if (subcommand == '8ball') {
                 await require('./fun/8ball').load(client, interaction, config, db);
+            } else if (subcommand == 'gay') {
+                await require('./fun/gay').load(client, interaction, config, db);
             } else
                 return await interaction.reply({
                     embeds: [

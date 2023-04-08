@@ -47,6 +47,8 @@ module.exports = {
             if (!command) return;
 
             if (command) {
+
+                /*
                 const row = new ActionRowBuilder()
                     .addComponents(
                         new ButtonBuilder()
@@ -54,8 +56,12 @@ module.exports = {
                             .setLabel('刪除回應')
                             .setStyle(ButtonStyle.Danger),
                     );
+                */
+
                 if (command.permissions) {
                     if (!message.member.permissions.has(PermissionsBitField.resolve(command.permissions || []))) {
+                        return;
+                        /*
                         return await message.reply({
                             embeds: [
                                 new EmbedBuilder()
@@ -65,13 +71,15 @@ module.exports = {
                             components: [row],
 
                         });
+                        */
                     }
                 }
 
                 if (command.owner, command.owner == true) {
                     if (client.config?.developers) {
                         if (!client.config.developers.some(ID => message.member.id.includes(ID))) {
-
+                            return;
+                            /*
                             return await message.reply({
                                 embeds: [
                                     new EmbedBuilder()
@@ -81,6 +89,7 @@ module.exports = {
                                 ],
                                 components: [row],
                             });
+                            */
                         }
                     }
                 }

@@ -67,14 +67,11 @@ module.exports = (client, config) => {
             let pull = require(`../commands/contextmenus/user/${dir}/${file}`);
 
             if (pull.disabled) continue;
-            if (pull.name, pull.type == 2) {
-                client.contextmenu_user_commands.set(pull.name, pull);
-                client.console('Log', `[處理 - 成員互動命令] 加載了一個文件： ${pull.name} (#${client.contextmenu_user_commands.size})`.brightGreen);
+            if (pull.data.name) {
+                client.contextmenu_user_commands.set(pull.data.name, pull);
+                client.console('Log', `[處理 - 成員互動命令] 加載了一個文件： ${pull.data.name} (#${client.contextmenu_user_commands.size})`.brightGreen);
 
-                commands.push({
-                    name: pull.name,
-                    type: pull.type || 2,
-                });
+                commands.push(pull.data);
 
             } else {
                 client.console('Log', `[處理 - 成員互動命令] 無法加載文件 ${file}，缺少的成員命令名稱值或類型不是 2。`.red);
@@ -85,7 +82,7 @@ module.exports = (client, config) => {
     client.console('Log', '[v] 完成加載成員互動命令...'.yellow);
 
 
-    client.console('Log', '[!] 開始加載消息互動命令...'.yellow);
+    client.console('Log', '[!] 開始加載訊息互動命令...'.yellow);
     // Message contextmenus commands handler:
     fs.readdirSync('./Root/commands/contextmenus/message/').forEach((dir) => {
         const MessageCommands = fs.readdirSync(`./Root/commands/contextmenus/message/${dir}`).filter((file) => file.endsWith('.js'));
@@ -94,14 +91,11 @@ module.exports = (client, config) => {
             let pull = require(`../commands/contextmenus/message/${dir}/${file}`);
 
             if (pull.disabled) continue;
-            if (pull.name, pull.type == 3) {
-                client.contextmenu_message_commands.set(pull.name, pull);
-                client.console('Log', `[處理 - 訊息互動命令] 加載了一個文件：${pull.name} (#${client.contextmenu_message_commands.size})`.brightGreen);
+            if (pull.data.name) {
+                client.contextmenu_message_commands.set(pull.data.name, pull);
+                client.console('Log', `[處理 - 訊息互動命令] 加載了一個文件：${pull.data.name} (#${client.contextmenu_message_commands.size})`.brightGreen);
 
-                commands.push({
-                    name: pull.name,
-                    type: pull.type || 3,
-                });
+                commands.push(pull.data);
 
             } else {
                 client.console('Log', `[處理 - 訊息互動命令] 無法加載文件 ${file}，缺少的訊息命令名稱值或類型不是 3。`.red);

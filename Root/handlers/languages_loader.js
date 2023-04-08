@@ -13,6 +13,7 @@ module.exports = async (client, config) => {
     fs.readdirSync('./Root/languages/').forEach(async (dir) => {
         if (dir.endsWith('.md')) return;
         const jsonfiles = await glob(`Root/languages/${dir}/**/*.json`, { ignore: 'ignore/**' });
+        client.console('Log', `讀取語言檔案: ${dir} (${jsonfiles.length})`.brightGreen);
         // console.log(jsonfiles);
         // 檔案路徑
         for (let file of jsonfiles) {
@@ -26,7 +27,7 @@ module.exports = async (client, config) => {
                 `${dir}:${filename}`,
                 pull,
             );
-            client.console('Log', `讀取語言檔案: ${filename}`.brightGreen);
+            // client.console('Log', `讀取語言檔案: ${filename}`.brightGreen);
         }
     });
 

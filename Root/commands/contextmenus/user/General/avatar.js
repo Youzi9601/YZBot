@@ -1,8 +1,10 @@
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = {
-    name: "取得頭像",
-    type: 2,
+    data: new ContextMenuCommandBuilder()
+        .setName('取得頭像')
+        .setType(ApplicationCommandType.User)
+        .toJSON(),
     disabled: true,
     /**
      *

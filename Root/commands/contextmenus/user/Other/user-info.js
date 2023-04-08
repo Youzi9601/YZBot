@@ -1,8 +1,10 @@
-const { EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, PermissionsBitField, time, ComponentType } = require('discord.js');
+const { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, PermissionsBitField, time, ComponentType } = require('discord.js');
 
 module.exports = {
-    name: "成員資訊",
-    type: 2,
+    data: new ContextMenuCommandBuilder()
+        .setName('成員資訊')
+        .setType(ApplicationCommandType.User)
+        .toJSON(),
     /**
      *
      * @param {import("discord.js").Client} client

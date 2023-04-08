@@ -1,8 +1,10 @@
-const { EmbedBuilder } = require('discord.js');
+const { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder } = require('discord.js');
 
 module.exports = {
-    name: "取得json值",
-    type: 3,
+    data: new ContextMenuCommandBuilder()
+        .setName('get json')
+        .setType(ApplicationCommandType.Message)
+        .toJSON(),
     disabled: true,
     /**
      *

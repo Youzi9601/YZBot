@@ -1,10 +1,12 @@
-const { EmbedBuilder, PermissionsBitField } = require('discord.js');
+const { ContextMenuCommandBuilder, ApplicationCommandType, EmbedBuilder, PermissionsBitField } = require('discord.js');
 const moment = require('moment');
 
 
 module.exports = {
-    name: "?",
-    type: 3,
+    data: new ContextMenuCommandBuilder()
+        .setName('none')
+        .setType(ApplicationCommandType.Message)
+        .toJSON(),
     disabled: true,
     /**
      *
