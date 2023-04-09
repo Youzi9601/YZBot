@@ -46,7 +46,8 @@ module.exports = {
         .toJSON(),
     type: ["Fun"],
     disabled: false, // 是否不使用此檔案
-    clientPermissions: [], // 機器人需要這些權限
+    OnlyRunOnGuilds: true,
+    clientPermissions: ['SendMessages'], // 機器人需要這些權限
     userPermissions: [], // 使用者需要這些權限
 
     /**
@@ -58,7 +59,7 @@ module.exports = {
    * @returns
    */
     run: async (client, interaction, config, db) => {
-    // 執行的內容
+        // 執行的內容
         const subcommandGroup = interaction.options.getSubcommandGroup();
         const subcommand = interaction.options.getSubcommand();
 

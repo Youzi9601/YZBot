@@ -34,10 +34,20 @@ manager.on('shardCreate', shard => {
     shard.on("death", async (process) => {
         await uptime.set(`${shard.id}`, 'death');
 
-        console.error("分片 #" + shard.id + " 意外關閉！ PID：" + process.pid + "; 退出代碼：" + process.exitCode + ".");
+        console.error("分片 #" + shard.id + " 關閉！ PID：" + process.pid + "; 退出代碼：" + process.exitCode + ".");
 
         if (process.exitCode === null) {
             console.warn("警告: 分片 #" + shard.id + " 以 null 錯誤代碼退出。這可能是缺少可用系統內存的結果。確保分配了足夠的內存以繼續。");
+
+        } else if (process.exitCode === 0) {
+            console.info("執行關閉 分片 #" + shard.id + " 以 0 代碼退出。將關閉整個機器人&分片系統！");
+            manager.shards.forEach(s => {
+                s.eval('process.exit(0)');
+                s.kill();
+                uptime.set(s.id, 'death');
+            });
+            exit(0);
+
         }
     });
     shard.on('reconnecting', async (event) => {
@@ -113,4 +123,8 @@ process
             uptime.set(s.id, 'death');
         });
     });
+
+function exit(code) {
+    process.exit(code);
+}
 //

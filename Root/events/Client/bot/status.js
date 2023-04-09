@@ -18,8 +18,9 @@ module.exports = async (client) => {
     await wait(5000);
     const channel = client.channels.cache.get(client.config.guild.Channels.ClientStatus);
     const message = await channel.send('機器人已經啟動！');
-
-    const timer_msg = `啟動時間： ${time(client.readyAt, 'R')}`;
+    module.exports.message = message;
+    const timer_msg = `啟動時間： ${ time(client.readyAt, 'R') }`;
+    module.exports.timer_msg = timer_msg;
     for (let i = 0; client.readyTimestamp; i++) {
         const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
             conjunction: ' ',

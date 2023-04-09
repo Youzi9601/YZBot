@@ -86,9 +86,9 @@ module.exports = {
     // 機器人開發者們的ID，有允許使用 開發者 指令，並且可以跳過大多伺服器的命令執行限制(如冷卻)
     // 例: ["856918496893599805","862347263690539009","849809683085525032"]
     developers:
-        (JSON.parse(process.env.developers || "[]") != []) ?
+        ((`${JSON.parse(process.env.developers || "[]")}` != "") ?
             JSON.parse(process.env.developers || "[]") :
-            undefined ||
+            undefined) ||
         [
             '856918496893599805',
         ],
@@ -97,9 +97,9 @@ module.exports = {
     // 例: ["前綴1","前綴2"]
     // 使用方式: "!ping"、">ping"
     prefix:
-        (JSON.parse(process.env.prefix || "[]") != []) ?
+        ((`${JSON.parse(process.env.prefix || "[]")}` != "") ?
             JSON.parse(process.env.prefix || "[]") :
-            undefined ||
+            undefined) ||
         [
             '>',
             '/',

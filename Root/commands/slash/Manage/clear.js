@@ -10,6 +10,7 @@ module.exports = {
         .setDMPermission(false)
         .toJSON(),
     type: ['Manage'],
+    OnlyRunOnGuilds: true,
     cooldown: 3000,
     disabled: true,
     /**
@@ -22,18 +23,9 @@ module.exports = {
      */
     run: async (client, interaction, config, db) => {
         await interaction.deferReply({ ephemeral: true });
-        const ping = new EmbedBuilder()
-            .setColor('Random')
-            .setTimestamp()
-            .setTitle('🏓| Pong! 機器人狀態')
-            .setDescription([
-                `🏠| Websocket 延遲: ${client.ws.ping}ms`,
-                `🤖| #${client.shard.ids}區 機器人延遲: ${Math.abs(Date.now() - interaction.createdTimestamp)}ms`,
-                '',
-            ].join('\n'),
-            );
+
         return await interaction.editReply({
-            embeds: [ping],
+            content:'owo? 這沒做完喔',
             ephemeral: true,
         });
     },
