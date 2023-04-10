@@ -151,12 +151,12 @@ module.exports = {
         let helpMessage = '';
         for (const [commandName, commandData] of Object.entries(data)) {
             helpMessage += `${commandName} | ${commandData.description}\n`;
-            if (commandData.options.length > 0 && commandData.options.length < 50) {
+            if (commandData.options.length > 0 && commandData.options.length < 8) {
                 helpMessage += `> └ ${commandData.options.join(', ')}\n`;
             }
             for (const [subCommandName, subCommandData] of Object.entries(commandData.subcommands)) {
                 helpMessage += `> ├ ${subCommandName} | ${subCommandData.description}\n`;
-                if (subCommandData.options.length > 0 && subCommandData.options.length < 50) {
+                if (subCommandData.options.length > 0 && subCommandData.options.length < 8) {
                     helpMessage += `> │ └ ${subCommandData.options.join(', ')}\n`;
                 }
             }
@@ -164,7 +164,7 @@ module.exports = {
                 helpMessage += `> ├ ${ subCommandGroupName } | ${ subCommandGroupData.description }\n`;
                 for (const [subCommandName, subCommandData] of Object.entries(subCommandGroupData.subcommands)) {
                     helpMessage += `> │ ├ ${subCommandName} | ${subCommandData.description}\n`;
-                    if (subCommandData.options.length > 0 && subCommandData.options.length < 50) {
+                    if (subCommandData.options.length > 0 && subCommandData.options.length < 8) {
                         helpMessage += `> │ │ └ ${subCommandData.options.join(', ')}\n`;
                     }
                 }

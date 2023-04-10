@@ -36,12 +36,14 @@ module.exports = {
                                 .setDescription('指定對象')
                                 .setRequired(false),
                         ),
-                )
+                ),
+            /*
                 .addSubcommand(c =>
                     c
                         .setName('color')
                         .setDescription('[尚未完成]給予一些隨機的顏色！'),
                 ),
+            */
         )
         .toJSON(),
     type: ["Fun"],

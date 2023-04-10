@@ -30,6 +30,20 @@ module.exports = {
 
             }
         }
+        // Slash Autocomplete:
+        if (interaction.isAutocomplete()) {
+            const command = client.slash_commands.get(interaction.commandName);
+            if (!command) return;
+
+            try {
+                await command.autocomplete(client, interaction, client.config, client.db);
+
+            } catch (e) {
+                client.console('Error', `執行命令時發生錯誤：`);
+                client.console('Error', undefined, undefined, undefined, e);
+
+            }
+        }
 
         // Users:
         if (interaction.isUserContextMenuCommand()) {
