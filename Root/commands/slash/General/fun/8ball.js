@@ -34,7 +34,7 @@ async function load(client, interaction, config, db) {
             },
             {
                 name: translations["embed_question"],
-                value: `||${interaction.options.getString('question') || client.language_data(interaction.locale, 'placeholder')["null"]}||`,
+                value: `||${interaction.options.getString('question') || client.language_data(interaction.locale, 'placeholder#null')}||`,
             },
         )
         .setColor('Random');
@@ -52,7 +52,7 @@ async function load(client, interaction, config, db) {
                 },
                 {
                     name: translations["embed_question"],
-                    value: `||${interaction.options.getString('question') || client.language_data(interaction.locale, 'placeholder')["null"]}||`,
+                    value: `||${interaction.options.getString('question') || client.language_data(interaction.locale, 'placeholder#null')}||`,
                 },
             )
             .setColor('Random');

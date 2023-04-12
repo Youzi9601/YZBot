@@ -60,10 +60,13 @@ client.language = new Collection();
  */
 client.language_data = (locale, file) => {
     // 取得檔案位置與所需資料
-    const [filePath, propName] = file.split('-', 1);
+    const [filePath, propName] = file.split('#', 1);
     // 取得該資料&預設資料
     const locale_data = client.language.get(locale + ':' + filePath) || undefined;
     const tw_data = client.language.get('zh-TW' + ':' + filePath) || undefined;
+    
+    if (!propName) return locale_data || tw_data;
+
     // 搜尋資料
     const locale_data_propValue = propName.split('.').reduce((o, i) => o ? o[i] : undefined, locale_data);
     const tw_data_propValue = propName.split('.').reduce((o, i) => o ? o[i] : undefined, tw_data);

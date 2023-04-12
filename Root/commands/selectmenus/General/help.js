@@ -22,7 +22,7 @@ module.exports = {
         // const contextmenu_message_commands = client.contextmenu_message_commands
         // const prefix_commands = client.prefix_commands
 
-        const category_language = client.language_data(interaction.locale, 'command').category;
+        const category_language = client.language_data(interaction.locale, 'command#category');
 
         // let client_commands = interaction.client.application.commands.cache
 

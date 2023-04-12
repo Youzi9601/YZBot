@@ -9,7 +9,7 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = async function(client, interaction, config, db, command) {
     if (!command.clientPermissions) return false;
     const missing = [];
-    const language = client.language_data(interaction.locale, 'discord').Permissions;
+    const language = client.language_data(interaction.locale, 'discord#Permissions');
 
     command.clientPermissions.forEach(i => {
         if (!interaction.guild.members.me.permissions.has(i)) missing.push(language[i]);

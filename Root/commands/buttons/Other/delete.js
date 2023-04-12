@@ -13,7 +13,7 @@ module.exports = {
      */
     run: async (client, interaction, config, db) => {
 
-        const items = client.language_data(interaction.locale, 'command-response').delete;
+        const items = client.language_data(interaction.locale, 'command-response#delete');
         const msg = items[Math.floor(Math.random() * items.length)];
         await interaction.message.edit({
             content: interaction.message.content + `\n${ msg }`,

@@ -244,7 +244,7 @@ module.exports = {
 
             } else if (type == 'permissions') {
 
-                const language = client.language_data(interaction.locale, 'discord').Permissions;
+                const language = client.language_data(interaction.locale, 'discord#Permissions');
                 // 有的 member.permissions.toArray
                 const has_permissions = collector_member.permissions.toArray();
                 const has_permissions_translate = [];

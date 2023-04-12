@@ -17,7 +17,7 @@ module.exports = {
      * @returns
      */
     run: async (client, interaction, config, db) => {
-        const category_language = client.language_data(interaction.locale, 'command').category;
+        const category_language = client.language_data(interaction.locale, 'command#category');
         const translations = client.language_data(interaction.locale, 'commands/slash/General/help');
 
         // let client_commands = interaction.client.application.commands.cache
