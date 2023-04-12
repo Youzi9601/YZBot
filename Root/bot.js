@@ -64,7 +64,7 @@ client.language_data = (locale, file) => {
     // 取得該資料&預設資料
     const locale_data = client.language.get(locale + ':' + filePath) || undefined;
     const tw_data = client.language.get('zh-TW' + ':' + filePath) || undefined;
-    
+
     if (!propName) return locale_data || tw_data;
 
     // 搜尋資料
