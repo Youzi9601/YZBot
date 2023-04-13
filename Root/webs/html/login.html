@@ -1,339 +1,382 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Disocrd 機器人 | YZB 登入</title>
-    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+	<head>
+		<title>Disocrd 機器人 | Yuza 登入</title>
+		<link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
 
-    <meta
-      name="description"
-      content="YZB 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。"
-    />
+		<meta
+			name="description"
+			content="Yuza 是一個 Discord 機器人，提供了多種功能和管理集成。從音樂播放到違規管理工具，它擁有您管理 Discord 社區所需的所有功能。使用這個機器人，您可以輕鬆管理伺服器並增加使用者體驗的樂趣。"
+		/>
 
-    <link rel="stylesheet" href="./../css/login-style.css" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+		<link rel="stylesheet" href="./../css/login-style.css" />
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons"
+			rel="stylesheet"
+		/>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="use-cookie-alert">
+				<span class="closebtn" onclick="alert_close()">&times;</span>
+				登入後代表你同意使用 Cookie 以及其相關使用政策。
+			</div>
+			<script>
+				var close = document.getElementsByClassName("closebtn");
+				var i;
 
-  </head>
-  <body>
-    <div class="main">
-      <div class="use-cookie-alert">
-        <span class="closebtn" onclick="alert_close()">&times;</span>
-        登入後代表你同意使用 Cookie 以及其相關使用政策。
-      </div>
-      <script>
-        var close = document.getElementsByClassName("closebtn");
-        var i;
+				for (i = 0; i < close.length; i++) {
+					close[i].onclick = function () {
+						var div = this.parentElement;
+						div.style.opacity = "0";
+						setTimeout(function () {
+							div.style.display = "none";
+						}, 600);
+					};
+				}
+			</script>
+			<div class="form-box">
+				<img src="./../assets/Yuza.png" class="avatar" />
+				<div class="button-box">
+					<div id="btn"></div>
+					<button type="button" class="toggle-btn" onclick="login()">
+						登入
+					</button>
+					<button
+						type="button"
+						class="toggle-btn"
+						onclick="register()"
+					>
+						註冊
+					</button>
+				</div>
+				<div id="login" class="input-group" action="">
+					<div class="login-error-msg">
+						<span
+							class="closebtn"
+							onclick="this.parentElement.style.display='none';"
+							>&times;</span
+						>
+						無效的 用戶名 或 密碼
+					</div>
+					<script>
+						const loginErrorMsg =
+							document.getElementById("login-error-msg");
+						document.querySelector(
+							".login-error-msg"
+						).style.display = "none";
+						//先取得網址字串
+						var url = location.href;
+						//再來用去尋找網址列中是否有資料傳遞(QueryString)
+						if (url.indexOf("?") != -1) {
+							var err = "";
+							//在此直接將各自的參數資料切割放進ary中
+							var ary = url.split("?")[1].split("&");
+							//此時ary的內容為：
+							//ary[0] = 'err=true'
 
-        for (i = 0; i < close.length; i++) {
-          close[i].onclick = function () {
-            var div = this.parentElement;
-            div.style.opacity = "0";
-            setTimeout(function () {
-              div.style.display = "none";
-            }, 600);
-          };
-        }
-      </script>
-      <div class="form-box">
-        <img src="./../assets/YZB.png" class="avatar" />
-        <div class="button-box">
-          <div id="btn"></div>
-          <button type="button" class="toggle-btn" onclick="login()">
-            登入
-          </button>
-          <button type="button" class="toggle-btn" onclick="register()">
-            註冊
-          </button>
-        </div>
-        <div id="login" class="input-group" action="">
-          <div class="login-error-msg">
-            <span
-              class="closebtn"
-              onclick="this.parentElement.style.display='none';"
-              >&times;</span
-            >
-            無效的 用戶名 或 密碼
-          </div>
-          <script>
-            const loginErrorMsg = document.getElementById("login-error-msg");
-            document.querySelector(".login-error-msg").style.display = "none";
-            //先取得網址字串
-            var url = location.href;
-            //再來用去尋找網址列中是否有資料傳遞(QueryString)
-            if (url.indexOf("?") != -1) {
-              var err = "";
-              //在此直接將各自的參數資料切割放進ary中
-              var ary = url.split("?")[1].split("&");
-              //此時ary的內容為：
-              //ary[0] = 'err=true'
+							//下迴圈去搜尋每個資料參數
+							for (i = 0; i <= ary.length - 1; i++) {
+								//如果資料名稱為id的話那就把他取出來
+								if (ary[i].split("=")[0] == "err")
+									err = ary[i].split("=")[1];
+							}
 
-              //下迴圈去搜尋每個資料參數
-              for (i = 0; i <= ary.length - 1; i++) {
-                //如果資料名稱為id的話那就把他取出來
-                if (ary[i].split("=")[0] == "err") err = ary[i].split("=")[1];
-              }
+							if (err == "true") {
+								document.querySelector(
+									".login-error-msg"
+								).style.display = "block";
+							}
+						}
+					</script>
+					<!-- Discord 登入，請輸入到以下網址 -->
+					<a class="discord-btn" href="/dashboard/login/discord"
+						><img
+							src="./../assets/discord.png"
+							width="20"
+							heigh="20"
+							alt="Discord icon"
+							align="center"
+						/>
+						用 Discord 登入
+					</a>
+					<script>
+						function generateRandomString() {
+							let randomString = "";
+							const randomNumber = Math.floor(Math.random() * 10);
 
-              if (err == "true") {
-                document.querySelector(".login-error-msg").style.display =
-                  "block";
-              }
-            }
-          </script>
-          <!-- Discord 登入，請輸入到以下網址 -->
-          <a class="discord-btn" href="/dashboard/login/discord"
-            ><img
-              src="./../assets/discord.png"
-              width="20"
-              heigh="20"
-              alt="Discord icon"
-              align="center"
-            />
-            用 Discord 登入
-          </a>
-          <script>
-            function generateRandomString() {
-              let randomString = "";
-              const randomNumber = Math.floor(Math.random() * 10);
+							for (let i = 0; i < 20 + randomNumber; i++) {
+								randomString += String.fromCharCode(
+									33 + Math.floor(Math.random() * 94)
+								);
+							}
 
-              for (let i = 0; i < 20 + randomNumber; i++) {
-                randomString += String.fromCharCode(
-                  33 + Math.floor(Math.random() * 94)
-                );
-              }
+							return randomString;
+						}
 
-              return randomString;
-            }
+						// 讀取資料
+						window.onload = () => {
+							const fragment = new URLSearchParams(
+								window.location.hash.slice(1)
+							);
+							const [accessToken, tokenType, state] = [
+								fragment.get("access_token"),
+								fragment.get("token_type"),
+								fragment.get("state"),
+							];
 
-            // 讀取資料
-            window.onload = () => {
-              const fragment = new URLSearchParams(
-                window.location.hash.slice(1)
-              );
-              const [accessToken, tokenType, state] = [
-                fragment.get("access_token"),
-                fragment.get("token_type"),
-                fragment.get("state"),
-              ];
+							if (!accessToken) {
+								const randomString = generateRandomString();
+								localStorage.setItem(
+									"oauth-state",
+									randomString
+								);
 
-              if (!accessToken) {
-                const randomString = generateRandomString();
-                localStorage.setItem("oauth-state", randomString);
+								document.getElementById(
+									"login"
+								).href += `&state=${encodeURIComponent(
+									btoa(randomString)
+								)}`;
+								return (document.getElementById(
+									"login"
+								).style.display = "block");
+							}
 
-                document.getElementById(
-                  "login"
-                ).href += `&state=${encodeURIComponent(btoa(randomString))}`;
-                return (document.getElementById("login").style.display =
-                  "block");
-              }
+							if (
+								localStorage.getItem("oauth-state") !==
+								atob(decodeURIComponent(state))
+							) {
+								return console.log("您可能被點擊劫持了！");
+							}
 
-              if (
-                localStorage.getItem("oauth-state") !==
-                atob(decodeURIComponent(state))
-              ) {
-                return console.log("您可能被點擊劫持了！");
-              }
+							fetch("https://discord.com/api/users/@me", {
+								headers: {
+									authorization: `${tokenType} ${accessToken}`,
+								},
+							})
+								.then((result) => result.json())
+								.then((response) => {
+									const { username, discriminator } =
+										response;
+									document.getElementById(
+										"info"
+									).innerText += ` ${username}#${discriminator}`;
+								})
+								.catch(console.error);
+						};
+					</script>
+					<!-- 或者 -->
+					<h3 class="login_or">
+						<hr />
+					</h3>
+					<!-- 非DC登入 -->
+					<div class="login-box">
+						<div class="inputBox">
+							<input
+								id="login_username"
+								type="text"
+								class="input-field"
+								required
+							/>
+							<i>使用者名稱</i>
+							<div class="login userimg"></div>
+						</div>
+						<div class="inputBox">
+							<input
+								id="login_password"
+								type="password"
+								class="input-field"
+								required
+							/>
+							<i>密碼</i>
+							<div class="login passwordimg"></div>
+							<div class="login show-password"></div>
+							<script>
+								let login_pswrd =
+									document.querySelector("#login_password");
+								let login_show = document.querySelector(
+									".login.show-password"
+								);
+								login_show.onclick = function () {
+									if (login_pswrd.type === "password") {
+										login_pswrd.setAttribute(
+											"type",
+											"text"
+										);
+										login_show.classList.add("hide");
+									} else {
+										login_pswrd.setAttribute(
+											"type",
+											"password"
+										);
+										login_show.classList.remove("hide");
+									}
+								};
+							</script>
+						</div>
+						<input type="checkbox" class="check-box" /><span
+							class="check-box-text"
+							>記住我?</span
+						>
+						<button
+							id="login_submit"
+							type="submit"
+							class="submit-btn"
+						>
+							登入
+						</button>
+					</div>
+				</div>
+				<div id="register" class="input-group" action="">
+					<!-- TODO: 密碼強度偵測 -->
+					<div class="register-box">
+						<div class="inputBox">
+							<input
+								id="register_username"
+								type="email"
+								class="input-field"
+								required
+								disabled
+							/>
+							<div class="register userimg"></div>
+							<i>Email 帳號</i>
+						</div>
+						<div class="inputBox">
+							<input
+								id="register_password"
+								type="password"
+								class="input-field"
+								required
+								disabled
+							/>
+							<i>密碼</i>
+							<div class="register passwordimg"></div>
+							<div class="register show-password"></div>
+							<script>
+								let register_pswrd =
+									document.querySelector(
+										"#register_password"
+									);
+								let register_show = document.querySelector(
+									".register.show-password"
+								);
+								register_show.onclick = function () {
+									if (register_pswrd.type === "password") {
+										register_pswrd.setAttribute(
+											"type",
+											"text"
+										);
+										register_show.classList.add("hide");
+									} else {
+										register_pswrd.setAttribute(
+											"type",
+											"password"
+										);
+										register_show.classList.remove("hide");
+									}
+								};
+							</script>
+						</div>
+						<input
+							type="checkbox"
+							class="check-box"
+							required
+							disabled
+						/>
+						<span class="check-box-text">
+							我同意此<a href="/home/terms">服務政策</a>與<a
+								href="/home/privacy-policy"
+								>隱私條款</a
+							>
+						</span>
+						<button
+							id="register_submit"
+							type="submit"
+							class="submit-btn"
+							disabled
+						>
+							註冊 (現在不開放)
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			// 這是登入&註冊的動畫
+			var x = document.getElementById("login");
+			var y = document.getElementById("register");
+			var z = document.getElementById("btn");
+			function register() {
+				x.style.left = "-400px";
+				y.style.left = "50px";
+				z.style.left = "110px";
+			}
+			function login() {
+				x.style.left = "50px";
+				y.style.left = "450px";
+				z.style.left = "0";
+			}
 
-              fetch("https://discord.com/api/users/@me", {
-                headers: {
-                  authorization: `${tokenType} ${accessToken}`,
-                },
-              })
-                .then((result) => result.json())
-                .then((response) => {
-                  const { username, discriminator } = response;
-                  document.getElementById(
-                    "info"
-                  ).innerText += ` ${username}#${discriminator}`;
-                })
-                .catch(console.error);
-            };
-          </script>
-          <!-- 或者 -->
-          <h3 class="login_or">
-            <hr />
-          </h3>
-          <!-- 非DC登入 -->
-          <div class="login-box">
-            <div class="inputBox">
-              <input
-                id="login_username"
-                type="text"
-                class="input-field"
-                required
-              />
-              <i>使用者名稱</i>
-              <div class="login userimg"></div>
-            </div>
-            <div class="inputBox">
-              <input
-                id="login_password"
-                type="password"
-                class="input-field"
-                required
-              />
-              <i>密碼</i>
-              <div class="login passwordimg"></div>
-              <div class="login show-password"></div>
-              <script>
-                let login_pswrd = document.querySelector("#login_password");
-                let login_show = document.querySelector(".login.show-password");
-                login_show.onclick = function () {
-                  if (login_pswrd.type === "password") {
-                    login_pswrd.setAttribute("type", "text");
-                    login_show.classList.add("hide");
-                  } else {
-                    login_pswrd.setAttribute("type", "password");
-                    login_show.classList.remove("hide");
-                  }
-                };
-              </script>
-            </div>
-            <input type="checkbox" class="check-box" /><span
-              class="check-box-text"
-              >記住我?</span
-            >
-            <button id="login_submit" type="submit" class="submit-btn">
-              登入
-            </button>
-          </div>
-        </div>
-        <div id="register" class="input-group" action="">
-          <!-- TODO: 密碼強度偵測 -->
-          <div class="register-box">
-            <div class="inputBox">
-              <input
-                id="register_username"
-                type="email"
-                class="input-field"
-                required
-                disabled
-              />
-              <div class="register userimg"></div>
-              <i>Email 帳號</i>
-            </div>
-            <div class="inputBox">
-              <input
-                id="register_password"
-                type="password"
-                class="input-field"
-                required
-                disabled
-              />
-              <i>密碼</i>
-              <div class="register passwordimg"></div>
-              <div class="register show-password"></div>
-              <script>
-                let register_pswrd =
-                  document.querySelector("#register_password");
-                let register_show = document.querySelector(
-                  ".register.show-password"
-                );
-                register_show.onclick = function () {
-                  if (register_pswrd.type === "password") {
-                    register_pswrd.setAttribute("type", "text");
-                    register_show.classList.add("hide");
-                  } else {
-                    register_pswrd.setAttribute("type", "password");
-                    register_show.classList.remove("hide");
-                  }
-                };
-              </script>
-            </div>
-            <input type="checkbox" class="check-box" required disabled />
-            <span class="check-box-text">
-              我同意此<a href="/home/terms">服務政策</a>與<a
-                href="/home/privacy-policy"
-                >隱私條款</a
-              >
-            </span>
-            <button
-              id="register_submit"
-              type="submit"
-              class="submit-btn"
-              disabled
-            >
-              註冊 (現在不開放)
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script>
-      // 這是登入&註冊的動畫
-      var x = document.getElementById("login");
-      var y = document.getElementById("register");
-      var z = document.getElementById("btn");
-      function register() {
-        x.style.left = "-400px";
-        y.style.left = "50px";
-        z.style.left = "110px";
-      }
-      function login() {
-        x.style.left = "50px";
-        y.style.left = "450px";
-        z.style.left = "0";
-      }
-
-      // 取得資料
-      async function postData(url = "", data = {}) {
-        console.log(url, data);
-        // 預設的選項被標記為 *
-        const response = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-        let res_data = await response.json();
-        return res_data;
-      }
-      // #region 登入
-      // 登入的動作
-      let login_form = document.getElementById("login_submit");
-      // 進行按鈕監聽
-      login_form.addEventListener("click", async () => {
-        let username = document.getElementById("login_username").value;
-        let password = document.getElementById("login_password").value;
-        console.log("登入帳號密碼：", username, password);
-        let resp = await postData("/auth/login", {
-          user: username,
-          password: password,
-          isregister: false,
-        });
-        if (resp.success == true) {
-        } else {
-          alert("錯誤：" + resp.errormsg);
-        }
-      });
-      // #endregion 登入
-      // #region 註冊
-      let register_form = document.getElementById("register_submit");
-      // 進行按鈕監聽
-      register_form.addEventListener("click", async () => {
-        let username = document.getElementById("register_username").value;
-        let password = document.getElementById("register_password").value;
-        console.log("註冊帳號密碼：", username, password);
-        let resp = await postData("/auth/register", {
-          user: username,
-          password: password,
-          isregister: true,
-        });
-        if (resp.success == true) {
-          await alert("成功註冊！現在可以登入了！");
-          window.location.href = "/dashboard/login";
-        } else {
-          alert("錯誤：" + resp.errormsg);
-        }
-      });
-      // #endregion 註冊
-    </script>
-  </body>
-  <body>
-    <noscript>你需要使用Js才可啟用此html</noscript>
-    <div id="root"></div>
-  </body>
+			// 取得資料
+			async function postData(url = "", data = {}) {
+				console.log(url, data);
+				// 預設的選項被標記為 *
+				const response = await fetch(url, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(data),
+				});
+				let res_data = await response.json();
+				return res_data;
+			}
+			// #region 登入
+			// 登入的動作
+			let login_form = document.getElementById("login_submit");
+			// 進行按鈕監聽
+			login_form.addEventListener("click", async () => {
+				let username = document.getElementById("login_username").value;
+				let password = document.getElementById("login_password").value;
+				console.log("登入帳號密碼：", username, password);
+				let resp = await postData("/auth/login", {
+					user: username,
+					password: password,
+					isregister: false,
+				});
+				if (resp.success == true) {
+				} else {
+					alert("錯誤：" + resp.errormsg);
+				}
+			});
+			// #endregion 登入
+			// #region 註冊
+			let register_form = document.getElementById("register_submit");
+			// 進行按鈕監聽
+			register_form.addEventListener("click", async () => {
+				let username =
+					document.getElementById("register_username").value;
+				let password =
+					document.getElementById("register_password").value;
+				console.log("註冊帳號密碼：", username, password);
+				let resp = await postData("/auth/register", {
+					user: username,
+					password: password,
+					isregister: true,
+				});
+				if (resp.success == true) {
+					await alert("成功註冊！現在可以登入了！");
+					window.location.href = "/dashboard/login";
+				} else {
+					alert("錯誤：" + resp.errormsg);
+				}
+			});
+			// #endregion 註冊
+		</script>
+	</body>
+	<body>
+		<noscript>你需要使用Js才可啟用此html</noscript>
+		<div id="root"></div>
+	</body>
 </html>

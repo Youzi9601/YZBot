@@ -70,11 +70,11 @@ body:
           - **Node**: 16.5.0
           - **npm**: 7.6.3
           - **PM2**: 1.0.2
-          - **YZB**: v0.0.1
+          - **Yuza**: v1.0.0
       value: |
         - Node:
         - npm:
-        - YZB:
+        - Yuza:
       render: Markdown
     validations:
       required: true

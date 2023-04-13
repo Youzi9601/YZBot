@@ -1,7 +1,7 @@
 <p align="center">
- <img width="100px" src="https://media.discordapp.net/attachments/941663439879802893/947385760183627786/YZB-5.png" align="center" alt="YZB" />
+ <img width="100px" src="https://media.discordapp.net/attachments/941663439879802893/947385760183627786/Yuza-5.png" align="center" alt="Yuza" />
  
- <h2 align="center">[=|  YZB  |=]</h2>
+ <h2 align="center">[=|  Yuza  |=]</h2>
 
  <p align="center" class="desp"> 一個簡單、有趣、實用的Discord機器人 </p>
 
