@@ -4,6 +4,9 @@ node_modules/
 .vscode/
 .git/
 logs/*.log
+Root/webs/public
+Root/webs/routes
+Root/webs/views
 ##忽略檔案：
 *.zip
 json.sqlite
