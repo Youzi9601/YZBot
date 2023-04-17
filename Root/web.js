@@ -48,10 +48,11 @@ module.exports = async (client) => {
    * @INFO 基本設定&取得資料
    */
     const app = express();
+    app.set('view engine', 'ejs');
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser());
-    app.use("/", express.static(__dirname + "/webs/"));
+    app.use("/public", express.static(__dirname + "/webs/public/"));
 
     // 設定速率限制
     const RateLimit = require("express-rate-limit");
