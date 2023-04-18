@@ -1,6 +1,7 @@
 const { PermissionsBitField, Routes, REST, User } = require('discord.js');
 const fs = require("fs");
 const colors = require("colors");
+const { glob } = require('glob');
 
 /**
  *
@@ -8,7 +9,7 @@ const colors = require("colors");
  * @param {import("./../../Config")} config
  * @returns "?"
  */
-module.exports = (client, config) => {
+module.exports = async (client, config) => {
     client.console('Log', ">>> 應用程序命令處理程序：".blue);
 
     let commands = [];
@@ -19,37 +20,35 @@ module.exports = (client, config) => {
     const type = new Set();
     type.add('Main'); // help的主要目錄
     // 讀取檔案
-    fs.readdirSync('./Root/commands/slash/').forEach((dir) => {
-        const SlashCommands = fs.readdirSync(`./Root/commands/slash/${ dir }`).filter((file) => file.endsWith('.js'));
-        // 處理命令檔案
-        for (let file of SlashCommands) {
-            let pull = require(`../commands/slash/${ dir }/${ file }`);
+    const SlashCommands = await glob(`Root/commands/slash/**/*.js`, { ignore:[ '**/*.func.js', '**/*-func/**'] });
+    // 處理命令檔案
+    for (let file of SlashCommands) {
+        let pull = require(__dirname + `/../../${file.replaceAll('\\', '/')}`);
 
-            if (pull.disabled)
-                continue;
+        if (pull.disabled)
+            continue;
 
-            // 添加類別
-            pull.type.forEach(v => {
-                type.add(v);
-            });
+        // 添加類別
+        pull.type.forEach(v => {
+            type.add(v);
+        });
 
-            if (pull.data, pull.data.name, pull.data.description) {
-                // 如果不符合命名規則的匹配
-                if (!RegExp(/^[a-z]{1,32}$/g).test(pull.data.name))
-                    return client.console('Log', `[處理 - 斜線命令] 無法加載文件 ${ file }，需要與命名規則匹配！。`.red);
+        if (pull.data, pull.data.name, pull.data.description) {
+            // 如果不符合命名規則的匹配
+            if (!RegExp(/^[a-z]{1,32}$/g).test(pull.data.name))
+                return client.console('Log', `[處理 - 斜線命令] 無法加載文件 ${ file }，需要與命名規則匹配！。`.red);
 
-                // 執行註冊
-                client.slash_commands.set(pull.data.name, pull);
-                client.console('Log', `[處理 - 斜線命令] 加載了一個文件: ${ pull.data.name } (#${ client.slash_commands.size })`.brightGreen);
+            // 執行註冊
+            client.slash_commands.set(pull.data.name, pull);
+            client.console('Log', `[處理 - 斜線命令] 加載了一個文件: ${ pull.data.name } (#${ client.slash_commands.size })`.brightGreen);
 
-                commands.push(pull.data);
+            commands.push(pull.data);
 
-            } else {
-                client.console('Log', `[處理 - 斜線命令] 無法加載文件 ${ file }，缺少斜線命令名稱值或描述。`.red);
-                continue;
-            }
+        } else {
+            client.console('Log', `[處理 - 斜線命令] 無法加載文件 ${ file }，缺少斜線命令名稱值或描述。`.red);
+            continue;
         }
-    });
+    }
     let category = [];
     type.forEach(v => {
         category.push(v);
@@ -60,91 +59,87 @@ module.exports = (client, config) => {
 
     client.console('Log', '[!] 開始加載成員互動命令...'.yellow);
     // User contextmenus commands handler:
-    fs.readdirSync('./Root/commands/contextmenus/user/').forEach((dir) => {
-        const UserCommands = fs.readdirSync(`./Root/commands/contextmenus/user/${dir}`).filter((file) => file.endsWith('.js'));
+    const UserCommands = await glob(`Root/commands/contextmenus/user/**/*.js`, { ignore:[ '**/*.func.js', '**/*-func/**'] });
 
-        for (let file of UserCommands) {
-            let pull = require(`../commands/contextmenus/user/${dir}/${file}`);
+    for (let file of UserCommands) {
+        let pull = require(__dirname + `/../../${file.replaceAll('\\', '/')}`);
 
-            if (pull.disabled) continue;
-            if (pull.data.name) {
-                client.contextmenu_user_commands.set(pull.data.name, pull);
-                client.console('Log', `[處理 - 成員互動命令] 加載了一個文件： ${pull.data.name} (#${client.contextmenu_user_commands.size})`.brightGreen);
+        if (pull.disabled) continue;
+        if (pull.data.name) {
+            client.contextmenu_user_commands.set(pull.data.name, pull);
+            client.console('Log', `[處理 - 成員互動命令] 加載了一個文件： ${pull.data.name} (#${client.contextmenu_user_commands.size})`.brightGreen);
 
-                commands.push(pull.data);
+            commands.push(pull.data);
 
-            } else {
-                client.console('Log', `[處理 - 成員互動命令] 無法加載文件 ${file}，缺少的成員命令名稱值或類型不是 2。`.red);
-                continue;
-            }
+        } else {
+            client.console('Log', `[處理 - 成員互動命令] 無法加載文件 ${file}，缺少的成員命令名稱值或類型不是 2。`.red);
+            continue;
         }
-    });
+    }
+
     client.console('Log', '[v] 完成加載成員互動命令...'.yellow);
 
 
     client.console('Log', '[!] 開始加載訊息互動命令...'.yellow);
     // Message contextmenus commands handler:
-    fs.readdirSync('./Root/commands/contextmenus/message/').forEach((dir) => {
-        const MessageCommands = fs.readdirSync(`./Root/commands/contextmenus/message/${dir}`).filter((file) => file.endsWith('.js'));
+    const MessageCommands = await glob(`Root/commands/contextmenus/message/**/*.js`, { ignore:[ '**/*.func.js', '**/*-func/**'] });
 
-        for (let file of MessageCommands) {
-            let pull = require(`../commands/contextmenus/message/${dir}/${file}`);
+    for (let file of MessageCommands) {
+        let pull = require(__dirname + `/../../${file.replaceAll('\\', '/')}`);
 
-            if (pull.disabled) continue;
-            if (pull.data.name) {
-                client.contextmenu_message_commands.set(pull.data.name, pull);
-                client.console('Log', `[處理 - 訊息互動命令] 加載了一個文件：${pull.data.name} (#${client.contextmenu_message_commands.size})`.brightGreen);
+        if (pull.disabled) continue;
+        if (pull.data.name) {
+            client.contextmenu_message_commands.set(pull.data.name, pull);
+            client.console('Log', `[處理 - 訊息互動命令] 加載了一個文件：${pull.data.name} (#${client.contextmenu_message_commands.size})`.brightGreen);
 
-                commands.push(pull.data);
+            commands.push(pull.data);
 
-            } else {
-                client.console('Log', `[處理 - 訊息互動命令] 無法加載文件 ${file}，缺少的訊息命令名稱值或類型不是 3。`.red);
-                continue;
-            }
+        } else {
+            client.console('Log', `[處理 - 訊息互動命令] 無法加載文件 ${file}，缺少的訊息命令名稱值或類型不是 3。`.red);
+            continue;
         }
-    });
+    }
+
     client.console('Log', '[v] 完成加載消息互動命令...'.yellow);
 
 
     client.console('Log', '[!] 開始加載按鈕命令...'.yellow);
     // Button commands handler:
-    fs.readdirSync('./Root/commands/buttons').forEach((dir) => {
-        const ButtonCommands = fs.readdirSync(`./Root/commands/buttons/${dir}`).filter((file) => file.endsWith('.js'));
+    const ButtonCommands = await glob(`Root/commands/buttons/**/*.js`, { ignore:[ '**/*.func.js', '**/*-func/**'] });
 
-        for (let file of ButtonCommands) {
-            let pull = require(`../commands/buttons/${dir}/${file}`);
+    for (let file of ButtonCommands) {
+        let pull = require(__dirname + `/../../${file.replaceAll('\\', '/')}`);
 
-            if (pull.disabled) continue;
-            if (pull.name) {
-                client.button_commands.set(pull.name, pull);
-                client.console('Log', `[處理 - 按鈕命令] 加載了一個文件：${pull.name} (#${client.button_commands.size})`.brightGreen);
-            } else {
-                client.console('Log', `[處理 - 按鈕命令] 無法加載文件 ${file}，缺少了按鈕命令名稱值。`.red);
-                continue;
-            }
+        if (pull.disabled) continue;
+        if (pull.name) {
+            client.button_commands.set(pull.name, pull);
+            client.console('Log', `[處理 - 按鈕命令] 加載了一個文件：${pull.name} (#${client.button_commands.size})`.brightGreen);
+        } else {
+            client.console('Log', `[處理 - 按鈕命令] 無法加載文件 ${file}，缺少了按鈕命令名稱值。`.red);
+            continue;
         }
-    });
+    }
+
     client.console('Log', '[v] 完成加載按鈕命令...'.yellow);
 
 
     client.console('Log', '[!] 開始加載選單命令...'.yellow);
     // Button commands handler:
-    fs.readdirSync('./Root/commands/selectmenus').forEach((dir) => {
-        const SelectMenuCommands = fs.readdirSync(`./Root/commands/selectmenus/${dir}`).filter((file) => file.endsWith('.js'));
+    const SelectMenuCommands = await glob(`Root/commands/selectmenus/**/*.js`, { ignore:[ '**/*.func.js', '**/*-func/**'] });
 
-        for (let file of SelectMenuCommands) {
-            let pull = require(`../commands/selectmenus/${dir}/${file}`);
+    for (let file of SelectMenuCommands) {
+        let pull = require(__dirname + `/../../${file.replaceAll('\\', '/')}`);
 
-            if (pull.disabled) continue;
-            if (pull.name) {
-                client.selectmenu_commands.set(pull.name, pull);
-                client.console('Log', `[處理 - 選單命令] 加載了一個文件：${pull.name} (#${client.selectmenu_commands.size})`.brightGreen);
-            } else {
-                client.console('Log', `[處理 - 選單命令] 無法加載文件 ${file}，缺少了選單命令名稱值。`.red);
-                continue;
-            }
+        if (pull.disabled) continue;
+        if (pull.name) {
+            client.selectmenu_commands.set(pull.name, pull);
+            client.console('Log', `[處理 - 選單命令] 加載了一個文件：${pull.name} (#${client.selectmenu_commands.size})`.brightGreen);
+        } else {
+            client.console('Log', `[處理 - 選單命令] 無法加載文件 ${file}，缺少了選單命令名稱值。`.red);
+            continue;
         }
-    });
+    }
+
     client.console('Log', '[v] 完成加載選單命令...'.yellow);
 
 

@@ -67,9 +67,9 @@ module.exports = {
 
         if (subcommandGroup == 'random') {
             if (subcommand == '8ball') {
-                await require('./fun/8ball').load(client, interaction, config, db);
+                await require('./fun-func/8ball').load(client, interaction, config, db);
             } else if (subcommand == 'gay') {
-                await require('./fun/gay').load(client, interaction, config, db);
+                await require('./fun-func/gay').load(client, interaction, config, db);
             } else
                 return await interaction.reply({
                     embeds: [
@@ -81,7 +81,7 @@ module.exports = {
                     ephemeral: true,
                 });
         } else if (subcommandGroup == '?') {
-            await require('./fun/?').load(client, interaction, config, db);
+            await require('./fun-func/?').load(client, interaction, config, db);
         } else
             return await interaction.reply({
                 embeds: [

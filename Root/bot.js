@@ -60,7 +60,8 @@ client.language = new Collection();
  */
 client.language_data = (locale, file) => {
     // 取得檔案位置與所需資料
-    const [filePath, propName] = file.split('#');
+    const [filePath, ...propNameArr] = file.split('#');
+    const propName = propNameArr.length > 1 ? propNameArr.join('#') : propNameArr[0];
     // 取得該資料&預設資料
     const locale_data = client.language.get(locale + ':' + filePath) || undefined;
     const tw_data = client.language.get('zh-TW' + ':' + filePath) || undefined;
