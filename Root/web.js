@@ -25,6 +25,7 @@ const config = require("../Config");
 /**
  * 網頁
  * @param {import('discord.js').Client} client 客戶端
+ * @deprecated 暫時廢除，因為網頁結構待調整。
  */
 module.exports = async (client) => {
     const host = `${config.web.domain}${(`${config.web.show_port}` == "false") ? "" : ":" + Number(config.web.port)}`;
