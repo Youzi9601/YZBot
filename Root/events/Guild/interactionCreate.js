@@ -16,6 +16,7 @@ module.exports = {
             const command = client.slash_commands.get(interaction.commandName);
             if (!command) return;
 
+            client.console('Log', `${interaction.user.tag} 於 ${interaction.guild.name} (${interaction.guild.id}) #${interaction.channel.name} (${interaction.channel.id}) 運行命令：${interaction}`);
             try {
                 // 檢查命令相關許可
                 if (
@@ -51,6 +52,7 @@ module.exports = {
 
             if (!command) return;
 
+            client.console('Log', `${interaction.user.tag} 於 ${interaction.guild.name} (${interaction.guild.id}) #${interaction.channel.name} (${interaction.channel.id}) 對著 ${interaction.targetUser.tag} 使用成員交互：${interaction.commandName}`);
             try {
                 command.run(client, interaction, client.config, client.db);
             } catch (e) {
@@ -67,6 +69,7 @@ module.exports = {
 
             if (!command) return;
 
+            client.console('Log', `${interaction.user.tag} 於 ${interaction.guild.name} (${interaction.guild.id}) #${interaction.channel.name} (${interaction.channel.id}) 對著 訊息(${interaction.targetMessage.id}): ${interaction.targetMessage.content} 使用訊息交互：${interaction.commandName}`);
             try {
                 command.run(client, interaction, client.config, client.db);
             } catch (e) {
@@ -120,6 +123,7 @@ module.exports = {
                 });
             }
 
+            client.console('Log', `${interaction.user.tag} 於 ${interaction.guild.name} (${interaction.guild.id}) #${interaction.channel.name} (${interaction.channel.id}) 使用按鈕：${interaction.customId}`);
             try {
                 button.run(client, interaction, client.config, client.db);
             } catch (e) {
@@ -148,6 +152,7 @@ module.exports = {
                 });
             }
 
+            client.console('Log', `${interaction.user.tag} 於 ${interaction.guild.name} (${interaction.guild.id}) #${interaction.channel.name} (${interaction.channel.id}) 使用選單：${interaction.customId} 選擇：${interaction.values.join(', ')}`);
             try {
                 selectmenu.run(client, interaction, client.config, client.db);
             } catch (e) {
