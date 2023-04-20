@@ -1,5 +1,4 @@
 require("colors");
-const fs = require("fs");
 const { glob } = require("glob");
 
 
@@ -12,10 +11,10 @@ module.exports = async (client) => {
     client.console('Log', ">>> 事件處理程序：".blue);
 
     const events = await glob(`Root/events/**/*.js`, { ignore: ['**/*.func.js', '**/*-func/**'] });
-    console.log(events);
+
     for (let file of events) {
 
-        let pull = require(`${__dirname}/../${file}`.replaceAll('\\', '/'));
+        let pull = require(`${__dirname}/../../${file}`.replaceAll('\\', '/'));
 
         if (pull.name) {
             if (pull.disabled)
