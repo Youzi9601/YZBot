@@ -365,6 +365,7 @@ function msg_builder(client, interaction) {
     const embed_author_icon = interaction.options.getString('author_icon') || undefined;
     const embed_author_url = interaction.options.getString('author_url') || undefined;
     if (embed_author_name || embed_author_url || embed_author_icon) {
+        embed.data.author = {};
         if (embed_author_name) {
             embed.data.author.name = embed_author_name;
         }
@@ -378,11 +379,13 @@ function msg_builder(client, interaction) {
     // thumbnail
     const embed_thumbnail = interaction.options.getString('thumbnail') || undefined;
     if (embed_thumbnail) {
+        embed.data.thumbnail = {};
         embed.data.thumbnail.url = embed_thumbnail;
     }
     // image
     const embed_image = interaction.options.getString('image') || undefined;
     if (embed_image) {
+        embed.data.image = {};
         embed.data.image.url = embed_image;
     }
     // footer
@@ -390,6 +393,7 @@ function msg_builder(client, interaction) {
     const embed_footer_text = interaction.options.getString('footer_text') || undefined;
     const embed_footer_icon = interaction.options.getString('footer_icon') || undefined;
     if (embed_footer_icon || embed_footer_text) {
+        embed.data.footer = {};
         if (embed_footer_text) {
             embed.data.footer.text = embed_footer_text;
         }
