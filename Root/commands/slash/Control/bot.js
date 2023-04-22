@@ -115,7 +115,10 @@ module.exports = {
         const subcommandGroup = interaction.options.getSubcommandGroup();
         const subcommand = interaction.options.getSubcommand();
         let msg;
+
         let channel = interaction.channel;
+        let thread_channel;
+
         // 判斷是否會需要用到結構產生器
         if (
             subcommand == 'send'
@@ -127,14 +130,19 @@ module.exports = {
                 interaction.options.getString('channel_id'),
             ) || interaction.channel;
         }
+        // 判斷是否為特定的頻道
+        if (channel.isThread()) {
+            thread_channel = channel;
+            channel = interaction.guild.channels.cache.get(channel.parent.id);
+        }
 
 
         if (subcommandGroup == 'webhook') {
             // 尋找 Webhook 於該頻道
-            const webhooks = await channel.fetchWebhooks();
+            let webhooks = await channel.fetchWebhooks();
             let webhook = webhooks.find(wh => wh.token);
             if (!webhook) {
-                webhook = await interaction.channel.createWebhook({
+                webhook = await channel.createWebhook({
                     name:`${ client.user.username + ' - Webhook系統' }`.replace(/discord/g, 'DC'),
                     avatar:
                             client.user.displayAvatarURL()
@@ -147,12 +155,24 @@ module.exports = {
                 const username = interaction.options.getString('name') || client.user.username;
                 const avatar = interaction.options.getString('avatar') || client.user.avatarURL({ dynamic: true }) || client.user.defaultAvatarURL;
                 try {
-                    await webhook.send({
-                        username: username,
-                        avatarURL: avatar,
-                        content: msg.content,
-                        embeds: msg.embeds,
-                    });
+                    if (thread_channel?.id == undefined) {
+                        await webhook.send({
+                            username: username,
+                            avatarURL: avatar,
+                            content: msg.content,
+                            embeds: msg.embeds,
+                        });
+
+                    } else {
+                        await webhook.send({
+                            username: username,
+                            avatarURL: avatar,
+                            content: msg.content,
+                            embeds: msg.embeds,
+                            threadId: thread_channel.id,
+                        });
+
+                    }
                 } catch (error) {
                     return await interaction.editReply(`:x: 發生了錯誤：\`\`\`js\n${ error }\`\`\``);
                 }
@@ -161,10 +181,18 @@ module.exports = {
             } else if (subcommand == 'edit') {
                 const message_id = interaction.options.getString('message_id');
                 try {
-                    await webhook.editMessage(message_id, {
-                        content: msg.content,
-                        embeds: msg.embeds,
-                    });
+                    if (thread_channel?.id == undefined) {
+                        await webhook.editMessage(message_id, {
+                            content: msg.content,
+                            embeds: msg.embeds,
+                        });
+                    } else {
+                        await webhook.editMessage(message_id, {
+                            content: msg.content,
+                            embeds: msg.embeds,
+                            threadId: thread_channel.id,
+                        });
+                    }
                 } catch (error) {
                     return await interaction.editReply(`:x: 發生了錯誤：\`\`\`js\n${ error }\`\`\``);
                 }
@@ -175,12 +203,22 @@ module.exports = {
                 const username = user.nickname || user.user.username;
                 const avatar = user.displayAvatarURL({ dynamic: true }) || user.user.defaultAvatarURL;
                 try {
-                    await webhook.send({
-                        username: username,
-                        avatarURL: avatar,
-                        content: msg.content,
-                        embeds: msg.embeds,
-                    });
+                    if (thread_channel?.id == undefined) {
+                        await webhook.send({
+                            username: username,
+                            avatarURL: avatar,
+                            content: msg.content,
+                            embeds: msg.embeds,
+                        });
+                    } else {
+                        await webhook.send({
+                            username: username,
+                            avatarURL: avatar,
+                            content: msg.content,
+                            embeds: msg.embeds,
+                            threadId: thread_channel.id,
+                        });
+                    }
                 } catch (error) {
                     return await interaction.editReply(`:x: 發生了錯誤：\`\`\`js\n${ error }\`\`\``);
                 }
@@ -189,10 +227,11 @@ module.exports = {
 
         } else if (subcommandGroup == 'chat') {
             //
+            const send_channel = thread_channel || channel;
             if (subcommand == 'send') {
                 const reply_id = interaction.options.getString('reply_id');
                 if (reply_id)
-                    channel.messages.fetch({ around: reply_id, limit: 1 })
+                    send_channel.messages.fetch({ around: reply_id, limit: 1 })
                         .then(message => {
                             const fetchedMsg = message.first();
                             fetchedMsg.reply(msg);
@@ -207,7 +246,7 @@ module.exports = {
 
                 else
                     try {
-                        await channel.send(msg);
+                        await send_channel.send(msg);
                     } catch (error) {
                         console.error(error);
                         await interaction.editReply({ content: `啊喔...發生了錯誤：無法發送訊息...\n\`\`\`js\n${ error }\`\`\`` });
@@ -218,7 +257,7 @@ module.exports = {
                 });
 
             } else if (subcommand == 'edit') {
-                channel.messages.fetch({ around: interaction.options.getString('message_id'), limit: 1 })
+                send_channel.messages.fetch({ around: interaction.options.getString('message_id'), limit: 1 })
                     .then(message => {
                         const fetchedMsg = message.first();
                         fetchedMsg.edit(msg);
