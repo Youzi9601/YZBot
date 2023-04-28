@@ -35,9 +35,9 @@ module.exports = async (client, config) => {
 
         if (pull.data, pull.data.name, pull.data.description) {
             // 如果不符合命名規則的匹配
-            if (!RegExp(/^[a-z]{1,32}$/g).test(pull.data.name)){
-                 client.console('Log', `[處理 - 斜線命令] 無法加載文件 ${ file }，需要與命名規則匹配！。`.red);
-                 continue;
+            if (!RegExp(/^[a-z]{1,32}$/g).test(pull.data.name)) {
+                client.console('Log', `[處理 - 斜線命令] 無法加載文件 ${ file }，需要與命名規則匹配！。`.red);
+                continue;
             }
             // 執行註冊
             client.slash_commands.set(pull.data.name, pull);
