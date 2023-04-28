@@ -5,7 +5,7 @@ module.exports = {
         .setName('機器人幫助列表')
         .setType(ApplicationCommandType.Message)
         .toJSON(),
-    disabled: false, // 記得改成false再來執行這側是
+    disabled: false, // 記得改成false再來執行這程式
     cooldown: 10000,
 
     /**
