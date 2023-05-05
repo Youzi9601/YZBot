@@ -3,7 +3,7 @@ const { ActivityType, time } = require('discord.js');
 const humanizeDuration = require('humanize-duration');
 const axios = require('axios');
 const os = require('os');
-const {setTimeout: wait} = require('node:timers/promises');
+const { setTimeout: wait } = require('node:timers/promises');
 const { QuickDB } = require('quick.db');
 const shardStatus_data = new QuickDB().table('uptime');
 
@@ -21,10 +21,10 @@ module.exports = async (client) => {
     module.exports.message = message;
     const timer_msg = `啟動時間： ${ time(client.readyAt, 'R') }`;
     module.exports.timer_msg = timer_msg;
-    console.log(0)
-    
-    setInterval(async ()=>{
-        console.log(1)
+    console.log(0);
+
+    setInterval(async () => {
+        console.log(1);
         const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
             conjunction: ' ',
             language: 'zh_TW',
@@ -175,6 +175,6 @@ module.exports = async (client) => {
         */
         client.user.setPresence({ activities: [{ name: `/help ｜#${client.shard.ids} 區`, type: ActivityType.Playing }], status: 'online' });
 
-    },60000);
+    }, 60000);
 
 };
