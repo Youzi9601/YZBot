@@ -8,7 +8,7 @@ Root/webs/public
 Root/webs/routes
 Root/webs/views
 ##忽略檔案：
-package-lock.json
+#package-lock.json
 *.zip
 json.sqlite
 .env
