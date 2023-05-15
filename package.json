@@ -54,7 +54,7 @@
     "express-session": "^1.17.3",
     "fs": "^0.0.1-security",
     "fs-extra": "^11.1.1",
-    "glob": "^10.2.2",
+    "glob": "^10.2.4",
     "html-entities": "^2.3.3",
     "humanize-duration": "^3.28.0",
     "mathjs": "^11.8.0",
