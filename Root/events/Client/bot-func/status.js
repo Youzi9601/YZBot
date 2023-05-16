@@ -21,10 +21,10 @@ module.exports = async (client) => {
     module.exports.message = message;
     const timer_msg = `啟動時間： ${ time(client.readyAt, 'R') }`;
     module.exports.timer_msg = timer_msg;
-    console.log(0);
+    // console.log(0);
 
     setInterval(async () => {
-        console.log(1);
+        // console.log(1);
         const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
             conjunction: ' ',
             language: 'zh_TW',
