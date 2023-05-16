@@ -303,7 +303,7 @@ module.exports = {
                 { name: "Fuchsia", value: "0xeb459e" },
                 { name: "Gold", value: "0xf1c40f" },
                 { name: "Orange", value: "0xe67e22" },
-                { name: "Red", value: "0xed4245" },
+                { name: 0xf24e43, value: "0xed4245" },
                 { name: "Grey", value: "0x95a5a6" },
                 { name: "Navy", value: "0x34495e" },
                 { name: "DarkAqua", value: "0x11806a" },
@@ -322,6 +322,10 @@ module.exports = {
                 { name: "Greyple", value: "0x99aab5" },
                 { name: "DarkButNotBlack", value: "0x2c2f33" },
                 { name: "NotQuiteBlack", value: "0x23272a" },
+                { name: "Red-Discord", value: "0xf24e43" },
+                { name: "Green-Discord", value: "0x41f097" },
+                { name: "Yellow-Discord", value: "0xf6c42f" },
+                { name: "Blue-Discord", value: "0x0098d9" },
                 { name: "Random", value: "Random" },
             ];
         }

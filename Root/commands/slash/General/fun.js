@@ -67,16 +67,21 @@ module.exports = {
 
         if (subcommandGroup == 'random') {
             if (subcommand == '8ball') {
-                await require('./fun-func/8ball').load(client, interaction, config, db);
+                await require('./fun-func/random/8ballm/8ball').load(client, interaction, config, db);
             } else if (subcommand == 'gay') {
-                await require('./fun-func/gay').load(client, interaction, config, db);
+                await require('./fun-func/random/gaydom/gay').load(client, interaction, config, db);
             } else
                 return await interaction.reply({
                     embeds: [
                         new EmbedBuilder()
                             .setTitle('未知的命令')
                             .setDescription("啊喔... 你跑到了哪裡?")
-                            .setColor('Red'),
+                            .setColor(0xf24e43)
+                            .setFooter({
+                                text: client.user.username,
+                                iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                            })
+                            .setTimestamp(),
                     ],
                     ephemeral: true,
                 });
@@ -88,7 +93,12 @@ module.exports = {
                     new EmbedBuilder()
                         .setTitle('未知的命令')
                         .setDescription("啊喔... 你跑到了哪裡?")
-                        .setColor('Red'),
+                        .setColor(0xf24e43)
+                        .setFooter({
+                            text: client.user.username,
+                            iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                        })
+                        .setTimestamp(),
                 ],
                 ephemeral: true,
             });

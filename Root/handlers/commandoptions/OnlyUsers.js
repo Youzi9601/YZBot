@@ -24,7 +24,11 @@ module.exports = async function(client, interaction, config, db, command) {
                     name: interaction.member.user.tag,
                     iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
                 })
-                .setColor('#FF0000')
+                .setColor(0xf24e43)
+                .setFooter({
+                    text: client.user.username,
+                    iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                })
                 .setTimestamp()
                 .setDescription(`此命令只能由這些人運行。\n• ${onlyUsers.join('\n• ')}`)],
             allowedMentions: {

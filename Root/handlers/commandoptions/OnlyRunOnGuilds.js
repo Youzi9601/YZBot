@@ -15,10 +15,14 @@ module.exports = async function(client, interaction, config, db, command) {
         interaction.reply({
             embeds: [
                 new EmbedBuilder()
-                    .setColor('#FF0000')
+                    .setColor(0xf24e43)
                     .setTitle('無法使用')
-                    .setDescription('命令無法於非伺服器中做使用！')
-                    .setFooter({ text: '[ / ] 斜線命令' }),
+                    .setDescription('此 \`[ / ]斜線命令\` 無法於非伺服器之頻道中做使用！')
+                    .setFooter({
+                        text: client.user.username,
+                        iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                    })
+                    .setTimestamp(),
             ],
             ephemeral: true,
         });

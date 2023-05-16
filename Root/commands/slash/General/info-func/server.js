@@ -55,15 +55,12 @@ async function load(client, interaction, config, db) {
         .setAuthor({
             name: `${interaction.guild.name}`,
         })
-        .setFooter({ text: `ID: ${interaction.guild.id}` })
-        .setColor('Random')
-        .setTimestamp()
+        .setColor(0x0098d9)
         .setFooter({
-            text: `${interaction.member.user.username}#${interaction.member.user.discriminator}`,
-            iconURL: `${interaction.member.user.displayAvatarURL({
-                dynamic: true,
-            })}`,
-        });
+            text: client.user.username,
+            iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+        })
+        .setTimestamp();
 
     if (interaction.guild.iconURL()) {
         serverinfo.data.image = { url: `${interaction.guild.iconURL({ dynamic: true })}` };
@@ -92,18 +89,16 @@ async function load(client, interaction, config, db) {
         const type = collector_interaction.values[0];
         const collect_serverinfo = new EmbedBuilder()
             .setTitle('伺服器資訊')
+            .setDescription('請選擇一個類別！')
             .setAuthor({
-                name: `${collector_interaction.guild.name}`,
+                name: `${interaction.guild.name}`,
             })
-            .setFooter({ text: `ID: ${collector_interaction.guild.id}` })
-            .setColor('Random')
-            .setTimestamp()
+            .setColor(0x0098d9)
             .setFooter({
-                text: `${collector_interaction.member.user.username}#${collector_interaction.member.user.discriminator}`,
-                iconURL: `${collector_interaction.member.user.displayAvatarURL({
-                    dynamic: true,
-                })}`,
-            });
+                text: client.user.username,
+                iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+            })
+            .setTimestamp();
         const guild = collector_interaction.guild;
 
         if (type == 'normal') {

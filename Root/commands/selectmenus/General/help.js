@@ -128,7 +128,13 @@ module.exports = {
 
         // 處理嵌入
         const embed = new EmbedBuilder()
-            .setTitle(category_language[value] + ' - 命令列表');
+            .setTitle(category_language[value] + ' - 命令列表')
+            .setFooter({
+                text: client.user.username,
+                iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+            })
+            .setTimestamp()
+            .setColor(0x0098d9);
 
 
         // 處理文字

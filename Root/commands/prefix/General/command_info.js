@@ -16,7 +16,7 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                         .setDescription("Please provide a command name.")
-                        .setColor("Red"),
+                        .setColor(0xf24e43),
                 ],
             });
         }
@@ -28,7 +28,7 @@ module.exports = {
                 embeds: [
                     new EmbedBuilder()
                         .setDescription("Sorry, but that command doesn't exists.")
-                        .setColor("Red"),
+                        .setColor(0xf24e43),
                 ],
             });
         }

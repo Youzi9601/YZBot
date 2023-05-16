@@ -89,7 +89,12 @@ module.exports = {
                     embeds: [
                         new EmbedBuilder()
                             .setDescription('出了點問題……模態處理程序中可能未定義模態 ID。')
-                            .setColor('Red'),
+                            .setColor(0xf24e43)
+                            .setFooter({
+                                text: client.user.username,
+                                iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                            })
+                            .setTimestamp(),
                     ],
                     ephemeral: true,
                 });
@@ -117,7 +122,12 @@ module.exports = {
                     embeds: [
                         new EmbedBuilder()
                             .setDescription('出了點問題……按鈕處理程序中可能未定義的 ID。')
-                            .setColor('Red'),
+                            .setColor(0xf24e43)
+                            .setFooter({
+                                text: client.user.username,
+                                iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                            })
+                            .setTimestamp(),
                     ],
                     ephemeral: true,
                 });
@@ -146,7 +156,12 @@ module.exports = {
                     embeds: [
                         new EmbedBuilder()
                             .setDescription('出了點問題……選單處理程序中可能未定義的 ID。')
-                            .setColor('Red'),
+                            .setColor(0xf24e43)
+                            .setFooter({
+                                text: client.user.username,
+                                iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                            })
+                            .setTimestamp(),
                     ],
                     ephemeral: true,
                 });
@@ -180,12 +195,12 @@ async function reply_Error(client, interaction, commandName = '無法得知此�
             name: interaction.user.tag,
             iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.user.defaultAvatarURL,
         })
-        .setColor('#FF0000')
-        .setTimestamp()
+        .setColor(0xf24e43)
         .setFooter({
-            text: client.user.tag,
-            iconURL: client.user.displayAvatarURL({ dynamic: true }) || client.user.defaultAvatarURL,
-        });
+            text: client.user.username,
+            iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+        })
+        .setTimestamp();
     if (interaction.replied) {
         await interaction.editReply({ embeds:[embed], ephemeral:true, allowedMentions: { repliedUser: false } });
     } else {

@@ -140,7 +140,12 @@ module.exports = {
                         let j = i + 1;
                         const info = current.map((g) => `**${ j++ }.** \n\`\`\`${ String(g.name) } ( ${ g.id } )\n>  ${ g.memberCount }人(${ g.member }真人/${ g.bot }機器人)\`\`\` `).join('\n');
                         const embed = new EmbedBuilder()
-                            .setColor('Random')
+                            .setFooter({
+                                text: client.user.username,
+                                iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                            })
+                            .setTimestamp()
+                            .setColor(0x0098d9)
                             .setDescription(`${ info }`);
                         if (i < 10) {
                             embed.setTitle(`📑 **伺服器列表**`);
@@ -192,8 +197,13 @@ module.exports = {
                         content: '錯誤: ',
                         embeds: [
                             new EmbedBuilder()
-                                .setColor('Red')
-                                .setDescription(`\`\`\`${ e }\`\`\``),
+                                .setColor(0xf24e43)
+                                .setDescription(`\`\`\`${ e }\`\`\``)
+                                .setFooter({
+                                    text: client.user.username,
+                                    iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                                })
+                                .setTimestamp(),
                         ],
 
                     });
@@ -254,7 +264,7 @@ module.exports = {
                 const text = (await interaction.options.getString('text')).replace(/\\n/g, '\n');
                 const embed = new EmbedBuilder()
                     .setTitle(title)
-                    .setColor('Aqua')
+                    .setColor(0x0098d9)
                     .setDescription(text)
                     .setAuthor({
                         name: interaction.user.tag,

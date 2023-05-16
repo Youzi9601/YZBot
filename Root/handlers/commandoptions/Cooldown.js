@@ -63,8 +63,12 @@ module.exports = async function(client, interaction, config, db, command) {
                         name: interaction.member.user.tag,
                         iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
                     })
+                    .setFooter({
+                        text: client.user.username,
+                        iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                    })
                     .setTimestamp()
-                    .setColor('#FF0000')
+                    .setColor(0xf24e43)
                     .setDescription(
                         `你目前處於冷卻狀態，請等待\`${human_time}\`！\n直到 <t:${Math.floor(
                             Math.floor(oldTime + cooldown) / 1000,

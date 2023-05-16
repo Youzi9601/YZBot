@@ -34,7 +34,12 @@ module.exports = {
                     new EmbedBuilder()
                         .setTitle("缺少參數")
                         .setDescription("請提供一個參數！")
-                        .setColor('Red'),
+                        .setColor(0xf24e43)
+                        .setFooter({
+                            text: client.user.username,
+                            iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                        })
+                        .setTimestamp(),
                 ],
                 components: [row],
             });

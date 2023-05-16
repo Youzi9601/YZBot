@@ -56,7 +56,13 @@ module.exports = {
                             {
                                 dynamic: true,
                             },
-                        )),
+                        ))
+                        .setFooter({
+                            text: client.user.username,
+                            iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                        })
+                        .setTimestamp()
+                        .setColor(0x0098d9),
                 ],
                 components: [row],
                 ephemeral: true,

@@ -66,7 +66,7 @@ module.exports = {
                             embeds: [
                                 new EmbedBuilder()
                                     .setDescription(`🚫抱歉，您無權使用此命令。`)
-                                    .setColor("Red"),
+                                    .setColor(0xf24e43),
                             ],
                             components: [row],
 
@@ -85,7 +85,7 @@ module.exports = {
                                     new EmbedBuilder()
                                         .setDescription(`🚫 抱歉，只有開發者可以使用此命令！`)
                                     // 允許的用戶:\n**${allowedUsers.join(", ")}**
-                                        .setColor("Red"),
+                                        .setColor(0xf24e43),
                                 ],
                                 components: [row],
                             });

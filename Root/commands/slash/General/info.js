@@ -49,7 +49,12 @@ module.exports = {
                 new EmbedBuilder()
                     .setTitle('未知的命令')
                     .setDescription("啊喔... 你跑到了哪裡?")
-                    .setColor('Red'),
+                    .setFooter({
+                        text: client.user.username,
+                        iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                    })
+                    .setTimestamp()
+                    .setColor(0xf24e43),
             ],
             ephemeral: true,
         });

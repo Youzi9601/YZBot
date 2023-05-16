@@ -27,6 +27,26 @@ slash - Slash Command
 func - function
 ```
 
+#### 命令回應(Embed)的格式
+
+顏色代碼 (Hex Code)
+
+-   失敗/錯誤 0xf24e43
+-   成功 0x41f097
+-   警告 0xf6c42f
+-   標準 0x0098d9
+
+```js
+const { EmbedBuilder } = require("discord.js");
+const embed = new EmbedBuilder()
+	.setFooter({
+		text: client.user.username,
+		iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+	})
+	.setTimestamp()
+	.setColor("顏色");
+```
+
 #### 命令檔案的格式
 
 斜線命令

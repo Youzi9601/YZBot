@@ -25,7 +25,11 @@ module.exports = async function(client, interaction, config, db, command) {
                         name: interaction.member.user.tag,
                         iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
                     })
-                    .setColor('#FF0000')
+                    .setColor(0xf24e43)
+                    .setFooter({
+                        text: client.user.username,
+                        iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                    })
                     .setTimestamp()
                     .setDescription(`我需要這些權限中的任何一項才能執行此命令。\n• ${perm.join('\n• ')}`)],
                 allowedMentions: {

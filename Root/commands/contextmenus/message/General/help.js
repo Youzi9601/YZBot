@@ -124,7 +124,13 @@ module.exports = {
 
         // 處理嵌入
         const embed = new EmbedBuilder()
-            .setTitle(translations["embed_title"]);
+            .setTitle(translations["embed_title"])
+            .setFooter({
+                text: client.user.username,
+                iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+            })
+            .setTimestamp()
+            .setColor(0x0098d9);
         // 處理選單
         const selectmenu = new StringSelectMenuBuilder()
             .setCustomId('help_menu')

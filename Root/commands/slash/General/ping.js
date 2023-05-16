@@ -22,12 +22,17 @@ module.exports = {
     run: async (client, interaction, config, db) => {
         await interaction.deferReply({ ephemeral: true });
         const ping = new EmbedBuilder()
-            .setColor('Random')
+            .setFooter({
+                text: client.user.username,
+                iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+            })
+            .setColor(0x0098d9)
             .setTimestamp()
             .setTitle('🏓| Pong! 機器人狀態')
             .setDescription([
                 `🏠| Websocket 延遲: ${client.ws.ping}ms`,
-                `🤖| #${client.shard.ids}區 機器人延遲: ${Math.abs(Date.now() - interaction.createdTimestamp)}ms`,
+                `🤖| 機器人延遲: ${ Math.abs(Date.now() - interaction.createdTimestamp) }ms`,
+                `#${ client.shard.ids }區 `,
                 '',
             ].join('\n'),
             );
