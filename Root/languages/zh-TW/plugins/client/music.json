@@ -1,0 +1,13 @@
+{
+    "events": {
+        "playerError": {
+            "title": "❌ 發生非預期性錯誤",
+            "description": "請麻煩將此錯誤回報給機器人開發團隊。"
+        },
+        "playerStart": {
+            "title": "播放歌曲",
+            "description": ""
+        }
+    },
+    "commands": {}
+}
