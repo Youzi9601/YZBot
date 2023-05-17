@@ -18,8 +18,8 @@ module.exports = {
                 .addSubcommand(c =>
                     c
                         .setName('8ball')
-                        .setNameLocalizations({ "zh-TW":"八號球(神奇海螺)" })
-                        .setDescription('神奇的8號球，或許可以回復你一些很奇怪的問題(誤')
+                        .setNameLocalizations({ "zh-TW":"神奇海螺" })
+                        .setDescription('神奇海螺(神奇的8號球)，或許可以回復你一些很奇怪的問題(誤')
                         .addStringOption(s =>
                             s
                                 .setName('question')
