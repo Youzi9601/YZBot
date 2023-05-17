@@ -1,6 +1,4 @@
 const { Client, Partials, Collection, GatewayIntentBits } = require('discord.js');
-const moment = require('moment');
-const fs = require('node:fs');
 const config = require('../Config');
 require("colors");
 
@@ -18,6 +16,7 @@ const client = new Client({
         GatewayIntentBits.GuildMessageReactions,
         GatewayIntentBits.DirectMessages,
         GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildVoiceStates,
     ],
     partials: [
         Partials.Channel,
@@ -78,7 +77,7 @@ client.language_data = (locale, file) => {
 
 module.exports = client;
 
-["prefix", "application_commands", "modals", "events", "database", "languages_loader"].forEach((file) => {
+["prefix", "application_commands", "modals", "events", "database", "languages_loader", "plugins_loader-client"].forEach((file) => {
     require(`./handlers/${file}`)(client, config);
 });
 

@@ -66,6 +66,7 @@
     "openai": "^3.2.1",
     "passport": "^0.6.0",
     "passport-discord": "^0.1.4",
+    "play-dl": "^1.9.6",
     "quick.db": "^9.1.6",
     "string-progressbar": "^1.0.4"
   },

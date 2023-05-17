@@ -10,7 +10,7 @@ module.exports =
      */
     (
         type = 'Log',
-        input,
+        input = undefined,
         client = require('./../bot'),
         _guildid = undefined,
         promise = undefined,
