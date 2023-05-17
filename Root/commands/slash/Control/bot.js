@@ -303,7 +303,7 @@ module.exports = {
                 { name: "Fuchsia", value: "0xeb459e" },
                 { name: "Gold", value: "0xf1c40f" },
                 { name: "Orange", value: "0xe67e22" },
-                { name: 0xf24e43, value: "0xed4245" },
+                { name: "Red", value: "0xed4245" },
                 { name: "Grey", value: "0x95a5a6" },
                 { name: "Navy", value: "0x34495e" },
                 { name: "DarkAqua", value: "0x11806a" },
