@@ -1,7 +1,7 @@
 /**
  * @deprecated 尚未完工
  */
-const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time, ButtonBuilder } = require('discord.js');
+const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time, ButtonBuilder, ButtonStyle } = require('discord.js');
 const sleep = async (ms) => {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -20,45 +20,89 @@ module.exports = { load };
      * @returns
      */
 async function load(client, interaction, config, db) {
-    const translations = client.language_data(interaction.locale, 'commands/slash/General/fun/reaction');
-    translations["embed_author_name"].replace('{{botname}}', client.user.username);
+    const translations = client.language_data(interaction.locale, 'commands/slash/General/fun#game.reaction');
+    // translations["embed_author_name"].replace('{{botname}}', client.user.username);
 
     const embed = new EmbedBuilder()
+        .setTitle(translations["embed_title_start"])
+        .setDescription(translations["embed_description_start"])
         .setFooter({ text: client.user.username, iconURL:client.user.displayAvatarURL() || client.user.defaultAvatarURL })
         .setColor(0x41f097);
-    await interaction.reply({ embeds:[embed] });
+    const row = new ActionRowBuilder()
+        .addComponents(
+            new ButtonBuilder()
+                .setCustomId('reaction_button')
+                .setLabel(translations["button_start"])
+                .setStyle(ButtonStyle.Danger)
+                .setDisabled(true),
+        );
+    const message = await interaction.reply({ embeds:[embed], components:[row], fetchReply: true });
 
-    const delay = Math.floor(Math.random() * 5) + 1;
+    // 延遲
+    const delay = Math.floor(Math.random() * 5) + 2;
 
-    setTimeout(() => {
-        const filter = (button) => button.clicker.user.id === interaction.author.id;
+    setTimeout(async () => {
+        /**
+         *
+         * @param {import("discord.js").ButtonInteraction} button
+         * @returns
+         */
+        const filter = (button) => button.user.id === interaction.user.id;
         const collector = interaction.channel.createMessageComponentCollector({
             filter,
             time: 10000, // 偵測時間
         });
 
-        interaction.channel.send('現在開始測試反應時間！', {
+        await message.edit({
+            embeds:[embed.setDescription(translations["embed_description_test"])],
             components: [
                 new ActionRowBuilder()
                     .addComponents(
                         new ButtonBuilder()
                             .setCustomId('reaction_button')
-                            .setLabel('點擊這裡！')
-                            .setStyle('PRIMARY'),
+                            .setLabel(translations["button_test"])
+                            .setStyle(ButtonStyle.Success)
+                            .setDisabled(false),
                     ),
             ],
         });
 
-        collector.on('collect', (button) => {
+        collector.on('collect', async (button) => {
             if (button.customId === 'reaction_button') {
-                const reactionTime = button.clickedAt - interaction.createdTimestamp;
-                interaction.channel.send(`你的反應時間為 ${reactionTime} 毫秒！`);
+                const reactionTime = button.createdTimestamp - interaction.createdTimestamp - delay * 1000;
+                await button.reply({ content: translations["respond_collect"].replace('{{time}}', reactionTime) });
+                await message.edit({
+                    embeds:[embed.setDescription(translations["embed_description_test"])],
+                    components: [
+                        new ActionRowBuilder()
+                            .addComponents(
+                                new ButtonBuilder()
+                                    .setCustomId('reaction_button')
+                                    .setLabel(translations["button_test"])
+                                    .setStyle(ButtonStyle.Primary)
+                                    .setDisabled(true),
+                            ),
+                    ],
+                });
             }
         });
 
-        collector.on('end', (collected) => {
+        collector.on('end', async (collected) => {
             if (collected.size === 0) {
-                interaction.channel.send('時間已過，你沒有點擊按鈕！');
+                await interaction.followUp({ content: translations["respond_end"] });
+                await message.edit({
+                    embeds:[embed.setDescription(translations["embed_description_test"])],
+                    components: [
+                        new ActionRowBuilder()
+                            .addComponents(
+                                new ButtonBuilder()
+                                    .setCustomId('reaction_button')
+                                    .setLabel(translations["button_test"])
+                                    .setStyle(ButtonStyle.Primary)
+                                    .setDisabled(true),
+                            ),
+                    ],
+                });
             }
         });
     }, delay * 1000);

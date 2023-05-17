@@ -13,10 +13,12 @@ module.exports = {
         .addSubcommandGroup(sub =>
             sub
                 .setName('random')
-                .setDescription('隨機回覆')
+                .setNameLocalizations({ "zh-TW":"隨機" })
+                .setDescription('亂數回覆')
                 .addSubcommand(c =>
                     c
                         .setName('8ball')
+                        .setNameLocalizations({ "zh-TW":"八號球(神奇海螺)" })
                         .setDescription('神奇的8號球，或許可以回復你一些很奇怪的問題(誤')
                         .addStringOption(s =>
                             s
@@ -45,6 +47,18 @@ module.exports = {
                 ),
             */
         )
+        .addSubcommandGroup(sub =>
+            sub
+                .setName('game')
+                .setNameLocalizations({ "zh-TW":"遊戲" })
+                .setDescription('小遊戲')
+                .addSubcommand(c =>
+                    c
+                        .setName('reaction')
+                        .setNameLocalizations({ "zh-TW":"反應力測試" })
+                        .setDescription('測試反應力！'),
+                ),
+        )
         .toJSON(),
     type: ["Fun"],
     disabled: false, // 是否不使用此檔案
@@ -67,9 +81,9 @@ module.exports = {
 
         if (subcommandGroup == 'random') {
             if (subcommand == '8ball') {
-                await require('./fun-func/random/8ballm/8ball').load(client, interaction, config, db);
+                await require('./fun-func/random/8ball').load(client, interaction, config, db);
             } else if (subcommand == 'gay') {
-                await require('./fun-func/random/gaydom/gay').load(client, interaction, config, db);
+                await require('./fun-func/random/gay').load(client, interaction, config, db);
             } else
                 return await interaction.reply({
                     embeds: [
@@ -85,6 +99,26 @@ module.exports = {
                     ],
                     ephemeral: true,
                 });
+
+        } else if (subcommandGroup == 'game') {
+            if (subcommand == 'reaction') {
+                await require('./fun-func/game/reaction').load(client, interaction, config, db);
+            } else
+                return await interaction.reply({
+                    embeds: [
+                        new EmbedBuilder()
+                            .setTitle('未知的命令')
+                            .setDescription("啊喔... 你跑到了哪裡?")
+                            .setColor(0xf24e43)
+                            .setFooter({
+                                text: client.user.username,
+                                iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                            })
+                            .setTimestamp(),
+                    ],
+                    ephemeral: true,
+                });
+
         } else if (subcommandGroup == '?') {
             await require('./fun-func/?').load(client, interaction, config, db);
         } else

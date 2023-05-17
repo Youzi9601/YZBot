@@ -19,7 +19,7 @@ module.exports = { load };
      */
 async function load(client, interaction, config, db) {
     const member = interaction.options.getMember('member') || interaction.member;
-    const translations = client.language_data(interaction.locale, 'commands/slash/General/fun/gay');
+    const translations = client.language_data(interaction.locale, 'commands/slash/General/fun#random.gay');
 
     let msg = new EmbedBuilder()
         .setAuthor({

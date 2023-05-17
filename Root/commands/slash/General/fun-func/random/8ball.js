@@ -18,7 +18,7 @@ module.exports = { load };
      */
 async function load(client, interaction, config, db) {
     const data = client.language_data(interaction.locale, 'command-response');
-    const translations = client.language_data(interaction.locale, 'commands/slash/General/fun/8ball');
+    const translations = client.language_data(interaction.locale, 'commands/slash/General/fun#random.8ball');
 
     const items = data['8ball'];
     const random = items[Math.floor(Math.random() * items.length)];

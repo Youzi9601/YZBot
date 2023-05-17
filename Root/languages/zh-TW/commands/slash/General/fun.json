@@ -1,0 +1,25 @@
+{
+    "random": {
+        "8ball": {
+            "embed_author_name": "{{botname}}之神奇的8號球",
+            "embed_response": "回應",
+            "embed_question": "原問題",
+            "error_1_replyerror": ":x: 此指令交互失敗",
+            "error_1_troll": "剛才的是騙你的！(awa"
+        },
+        "gay": {
+            "embed_response": "{{member}}有{{persent}}的機率是Gay。"
+        }
+    },
+    "game": {
+        "reaction": {
+            "embed_title_start": "反應力測試",
+            "embed_description_start": "當下方按鈕變為綠色時，按下去！",
+            "button_start": "看好了！",
+            "embed_description_test": "點下去！",
+            "button_test": "點我點我！",
+            "respond_collect": "你的反應時間為 {{time}} 毫秒！",
+            "respond_end": "時間已超時，遊戲結束！"
+        }
+    }
+}
