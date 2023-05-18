@@ -1,6 +1,10 @@
 const { glob } = require("glob");
 const { Player } = require('discord-player');
-require('ffmpeg-static');
+
+const ffmpeg = require('@ffmpeg-installer/ffmpeg');
+process.env.FFMPEG_PATH = ffmpeg.path;
+process.env.DP_NO_FFMPEG_WARN = true; // Mute ffmpeg warning
+
 const {
     SpotifyExtractor,
     AppleMusicExtractor,

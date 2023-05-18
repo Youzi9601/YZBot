@@ -30,7 +30,7 @@ module.exports = {
     type: ['Music'],
     cooldown: 5000,
     OnlyRunOnGuilds: true,
-    disabled: true, // 記得改成false再來執行這側是
+    disabled: true, // 記得改成false再來執行
     /**
      *
      * @param {import('discord.js').Client} client
