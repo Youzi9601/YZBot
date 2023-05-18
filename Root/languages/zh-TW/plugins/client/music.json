@@ -2,11 +2,11 @@
     "events": {
         "audioTrackAdd": {
             "title": "添加歌曲",
-            "description": "已添加"
+            "description": "已添加歌曲"
         },
         "audioTracksAdd": {
             "title": "添加歌曲列表",
-            "description": "已添加"
+            "description": "已添加列表"
         },
         "disconnect": {
             "title": "斷開連線",
@@ -23,7 +23,8 @@
         "playerError": {
             "title": "❌ 發生非預期性錯誤",
             "description": "請麻煩將此錯誤回報給機器人開發團隊。"
-        },"playerSkip": {
+        },
+        "playerSkip": {
             "title": "跳過曲目",
             "description": "跳過此首歌曲！"
         },

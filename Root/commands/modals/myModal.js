@@ -3,7 +3,7 @@ const { EmbedBuilder } = require("discord.js");
 /**
  *
  * @param {import("discord.js").Client} client
- * @param {import("discord.js").CommandInteraction} interaction
+ * @param {import("discord.js").ChatInputCommandInteraction} interaction
  * @param {import("../../../Config")} config
  * @param {import("quick.db").QuickDB} db
  * @returns "?"

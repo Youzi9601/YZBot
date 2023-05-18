@@ -102,7 +102,7 @@ module.exports = {
     /**
      *
      * @param {import('discord.js').Client} client
-     * @param {import('discord.js').CommandInteraction} interaction
+     * @param {import('discord.js').ChatInputCommandInteraction} interaction
      * @param {*} container
      */
     run: async (client, interaction, config, db) => {

@@ -18,7 +18,7 @@ module.exports = {
     /**
      *
      * @param {import('discord.js').Client} client
-     * @param {import('discord.js').CommandInteraction} interaction
+     * @param {import('discord.js').ChatInputCommandInteraction} interaction
      * @param {*} config
      * @param {*} db
      * @returns

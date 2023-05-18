@@ -14,8 +14,8 @@ module.exports = {
 
         client.console('Error', `[ERROR] 發生了 discord-player 錯誤：${error.message}`.red);
         client.console('Error', undefined, undefined, undefined, error);
-        await queue.channel.sendTyping();
-        await queue.channel.send({
+        await queue.metadata.sendTyping();
+        await queue.metadata.send({
             embeds: [
                 new EmbedBuilder()
                     .setTitle(translations["title"])

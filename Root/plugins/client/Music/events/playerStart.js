@@ -20,7 +20,7 @@ module.exports = {
         const status = `音量: \`${ queue.node.volume }%\` | 重複模式: \`${repeat}\` | 過濾器: \`${ queue.filters.join(', ') || '關閉' }\``;
         const translations = client.language_data(queue.channel.rtcRegion, 'plugins/client/music#events.playerStart');
 
-        await queue.channel.sendTyping();
+        await queue.metadata.sendTyping();
 
         const rows = [
             new ActionRowBuilder()
@@ -86,7 +86,7 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setAuthor({ name: `${translations["title"]}`, iconURL: 'https://raw.githubusercontent.com/Youzi9601/YZBot/v13/Root/assets/music.gif' })
-            .setDescription(`[\`${ track.title }\`](${ track.source })  — ${ track.author }`)
+            .setDescription(`${translations["description"]} [\`${ track.title }\`](${ track.source })  — ${ track.author }`)
             .addFields(
                 {
                     name: '**觀看數:**',
@@ -118,7 +118,7 @@ module.exports = {
             .setColor(0xf24e43);
 
 
-        await queue.channel.send({
+        await queue.metadata.send({
             embeds: [embed],
             components: rows,
         });

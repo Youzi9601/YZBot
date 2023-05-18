@@ -1,5 +1,6 @@
 const { glob } = require("glob");
 const { Player } = require('discord-player');
+require('ffmpeg-static');
 const {
     SpotifyExtractor,
     AppleMusicExtractor,
@@ -16,7 +17,6 @@ const {
  */
 module.exports = async (client) => {
     const player = new Player(client);
-
     await player.extractors.register(AppleMusicExtractor, {});
     await player.extractors.register(AttachmentExtractor, {});
     await player.extractors.register(SpotifyExtractor, {});

@@ -184,7 +184,7 @@ module.exports = {
 /**
  *
  * @param {import('discord.js').Client} client
- * @param {import('discord.js').CommandInteraction} interaction
+ * @param {import('discord.js').ChatInputCommandInteraction} interaction
  * @param {String} commandName 命令名稱
  */
 async function reply_Error(client, interaction, commandName = '無法得知此命令') {

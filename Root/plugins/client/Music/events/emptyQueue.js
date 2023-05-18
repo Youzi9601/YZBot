@@ -11,8 +11,8 @@ module.exports = {
     async execute(client, queue) {
         const translations = client.language_data(queue.channel.rtcRegion, 'plugins/client/music#events.emptyQueue');
 
-        await queue.channel.sendTyping();
-        await queue.channel.send({
+        await queue.metadata.sendTyping();
+        await queue.metadata.send({
             embeds: [
                 new EmbedBuilder()
                     .setTitle(translations["title"])
