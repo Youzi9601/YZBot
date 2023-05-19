@@ -46,6 +46,8 @@ module.exports = {
         if (subcommandGroup == undefined) {
             if (subcommand == "play") {
                 await require("./music-func/play").load(client, interaction, config, db);
+            } else if (subcommand == "skip") {
+                await require("./music-func/skip").load(client, interaction, config, db);
             } else if (subcommand == "pause") {
                 await require("./music-func/pause").load(client, interaction, config, db);
             }
@@ -70,9 +72,9 @@ module.exports = {
             const results = await player.search(query);
 
             return interaction.respond(
-                results.tracks.slice(0, 5).map((t) => ({
-                    name: `${t.title} (${t.author} - ${t.source})`,
-                    value: t.url,
+                results.tracks.slice(0, 25).map((t) => ({
+                    name: `${t.title.split("").length >= 50 ? `${t.title.slice(0, 50)}...` : t.title} (${t.author.split("").length >= 25 ? `${t.author.slice(0, 25)}...` : t.author} - ${t.source})`,
+                    value: `${t.url.split("").length >= 99 ? t.title.slice(0, 99) : t.url}`,
                 })),
             );
         }

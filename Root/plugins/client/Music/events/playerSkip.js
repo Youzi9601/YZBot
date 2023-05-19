@@ -14,20 +14,20 @@ module.exports = {
 
         const translations = client.language_data(queue.channel.rtcRegion, 'plugins/client/music#events.playerSkip');
 
-        await queue.metadata.sendTyping();
+        await queue.metadata.channel.sendTyping();
 
         const embed = new EmbedBuilder()
             .setAuthor({ name: `${translations["title"]}`, iconURL: 'https://raw.githubusercontent.com/Youzi9601/YZBot/v13/Root/assets/music.gif' })
-            .setDescription(`${track.requestedBy} ${translations["description"]}`)
+            .setDescription(`${translations["description"]}`)
             .setFooter({
                 text: client.user.username,
                 iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
             })
             .setTimestamp()
-            .setColor(0xf24e43);
+            .setColor(0x0098d9);
 
 
-        await queue.metadata.send({
+        await queue.metadata.channel.send({
             embeds: [embed],
         });
     },

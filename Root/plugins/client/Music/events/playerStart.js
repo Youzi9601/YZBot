@@ -11,16 +11,19 @@ module.exports = {
      * @param {import('discord-player').Track} track
      */
     async execute(client, queue, track) {
+        if (queue.repeatMode === QueueRepeatMode.TRACK) return; // 重複相同歌曲不須重新發送此事件
+        console.debug(queue);
+        console.debug(track);
 
         const repeat = queue.repeatMode === QueueRepeatMode.AUTOPLAY ? '自動' :
             (queue.repeatMode === QueueRepeatMode.QUEUE ? '列隊' :
                 (queue.repeatMode === QueueRepeatMode.TRACK ? '這首歌' :
                     (queue.repeatMode === QueueRepeatMode.OFF ? '關閉' :
                         '未知')));
-        const status = `音量: \`${ queue.node.volume }%\` | 重複模式: \`${repeat}\` | 過濾器: \`${ queue.filters.join(', ') || '關閉' }\``;
+        const status = `音量: \`${ queue.node.volume }%\` | 重複模式: \`${repeat}\``; // queue.filters.join(', ')
         const translations = client.language_data(queue.channel.rtcRegion, 'plugins/client/music#events.playerStart');
 
-        await queue.metadata.sendTyping();
+        await queue.metadata.channel.sendTyping();
 
         const rows = [
             new ActionRowBuilder()
@@ -47,7 +50,7 @@ module.exports = {
                                 (queue.repeatMode === QueueRepeatMode.QUEUE ? ButtonStyle.Secondary :
                                     (queue.repeatMode === QueueRepeatMode.TRACK ? ButtonStyle.Primary :
                                         (queue.repeatMode === QueueRepeatMode.OFF ? ButtonStyle.Danger :
-                                            '未知'))),
+                                            ButtonStyle.Secondary))),
                         ),
                     new ButtonBuilder()
                         .setCustomId('music-stop')
@@ -74,7 +77,7 @@ module.exports = {
                     new ButtonBuilder()
                         .setCustomId('music-volume_default')
                         .setLabel('100%')
-                        .setStyle('PRIMARY'),
+                        .setStyle(ButtonStyle.Primary),
                     new ButtonBuilder()
                         .setCustomId('music-volume_down')
                         .setLabel('🔉 -10%')
@@ -86,27 +89,29 @@ module.exports = {
 
         const embed = new EmbedBuilder()
             .setAuthor({ name: `${translations["title"]}`, iconURL: 'https://raw.githubusercontent.com/Youzi9601/YZBot/v13/Root/assets/music.gif' })
-            .setDescription(`${translations["description"]} [\`${ track.title }\`](${ track.source })  — ${ track.author }`)
+            .setDescription(`${translations["description"]} [\`${ track.title }\`](${ track.url })  — ${ track.author }`)
             .addFields(
+                /*
                 {
                     name: '**觀看數:**',
-                    value: track.views.toString(),
+                    value: `${track.views}`,
                     inline: true,
                 },
                 {
                     name: '**長度:**',
-                    value: track.duration.toString(),
+                    value: `${track.duration}`,
                     inline: true,
                 },
                 {
                     name: '**播放者**',
-                    value: track.requestedBy.toString(),
+                    value: `${track.requestedBy || "未知"}`,
                     inline: true,
                 },
+                */
                 {
                     name: '**狀態**',
-                    value: status,
-                    inline: true,
+                    value: `${status}`,
+                    inline: false,
                 },
             )
             .setThumbnail(track.thumbnail)
@@ -115,12 +120,12 @@ module.exports = {
                 iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
             })
             .setTimestamp()
-            .setColor(0xf24e43);
+            .setColor(0x41f097);
 
-
-        await queue.metadata.send({
+        await queue.metadata.channel.send({
             embeds: [embed],
             components: rows,
         });
     },
 };
+

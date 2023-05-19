@@ -13,6 +13,7 @@ const {
     VimeoExtractor,
     ReverbnationExtractor,
     AttachmentExtractor,
+    // YouTubeExtractor,
 } = require('@discord-player/extractor');
 
 /**
@@ -21,20 +22,23 @@ const {
  */
 module.exports = async (client) => {
     const player = new Player(client);
+
+
+    await player.extractors.register(SpotifyExtractor, {});
     await player.extractors.register(AppleMusicExtractor, {});
     await player.extractors.register(AttachmentExtractor, {});
-    await player.extractors.register(SpotifyExtractor, {});
     await player.extractors.register(SoundCloudExtractor, {});
     await player.extractors.register(VimeoExtractor, {});
     await player.extractors.register(lyricsExtractor, {});
     await player.extractors.register(ReverbnationExtractor, {});
 
+
     // 註冊事件
-    const events = await glob(`Music/events/**/*.js`, { ignore: ['**/*.func.js', '**/*-func/**'] });
+    const events = await glob(`**/Music/events/**/*.js`, { ignore: ['**/*.func.js', '**/*-func/**'] });
 
     for (let file of events) {
 
-        let pull = require(`${__dirname}/../${file}`.replaceAll('\\', '/'));
+        let pull = require(`${__dirname}/../../../../${file}`.replaceAll('\\', '/'));
 
         if (pull.name) {
             if (pull.disabled)

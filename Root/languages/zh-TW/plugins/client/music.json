@@ -2,11 +2,13 @@
     "events": {
         "audioTrackAdd": {
             "title": "添加歌曲",
-            "description": "已添加歌曲"
+            "description": "已添加歌曲",
+            "null": "成員"
         },
         "audioTracksAdd": {
             "title": "添加歌曲列表",
-            "description": "已添加列表"
+            "description": "已添加歌曲列表",
+            "null": "成員"
         },
         "disconnect": {
             "title": "斷開連線",
@@ -14,11 +16,11 @@
         },
         "emptyChannel": {
             "title": "無人收聽",
-            "description": "因為沒有任何人在頻道中超過5分鐘，所以離開。"
+            "description": "當前無其他成員超過 5分鐘 ，音樂已暫停"
         },
         "emptyQueue": {
             "title": "撥放完畢",
-            "description": "當前列表全部播放完畢，掰掰～"
+            "description": "當前列表全部播放完畢"
         },
         "playerError": {
             "title": "❌ 發生非預期性錯誤",
