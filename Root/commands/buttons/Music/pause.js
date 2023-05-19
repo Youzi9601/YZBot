@@ -2,7 +2,7 @@ const { useMasterPlayer } = require('discord-player');
 const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
-    name: "music-skip",
+    name: "music-pause",
     // disabled: true,
     /**
      *

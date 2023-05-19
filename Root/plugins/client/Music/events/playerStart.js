@@ -68,6 +68,7 @@ module.exports = {
                         .setLabel('⏩ 下一首')
                         .setStyle(ButtonStyle.Secondary),
                 ),
+            /*
             new ActionRowBuilder()
                 .addComponents(
                     new ButtonBuilder()
@@ -83,6 +84,7 @@ module.exports = {
                         .setLabel('🔉 -10%')
                         .setStyle(ButtonStyle.Secondary),
                 ),
+            */
 
         ];
 
