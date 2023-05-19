@@ -20,7 +20,7 @@ module.exports = {
             embeds: [
                 new EmbedBuilder()
                     .setTitle("無法繼續")
-                    .setDescription(`沒有進行中的曲目`)
+                    .setDescription(`沒有播放中的曲目`)
                     .setFooter({
                         text: client.user.username,
                         iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
