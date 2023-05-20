@@ -16,7 +16,7 @@ module.exports = {
         await interaction.deferReply();
 
         const queue = player.nodes.get(interaction.guildId);
-        if (!queue || !queue.node.isPlaying()) return interaction.followUp({
+        if (!queue || !queue.node.isPlaying()) return await interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                     .setTitle("無法設定重複模式")
@@ -34,7 +34,7 @@ module.exports = {
         case QueueRepeatMode.TRACK: {
             queue.setRepeatMode(QueueRepeatMode.TRACK);
 
-            return interaction.followUp({
+            return await interaction.followUp({
                 content: '重複模式**啟用**｜當前**`歌曲`**將無限重複🔁',
             });
         }
@@ -42,7 +42,7 @@ module.exports = {
         case QueueRepeatMode.QUEUE: {
             queue.setRepeatMode(QueueRepeatMode.QUEUE);
 
-            return interaction.followUp({
+            return await interaction.followUp({
                 content: '重複模式**啟用**｜整個**`列表`**將無限重複🔁',
             });
         }
@@ -50,7 +50,7 @@ module.exports = {
         case QueueRepeatMode.OFF, 3: {
             queue.setRepeatMode(QueueRepeatMode.OFF);
 
-            return interaction.followUp({
+            return await interaction.followUp({
                 content: '重複模式**禁用**',
             });
         }

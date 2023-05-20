@@ -16,7 +16,7 @@ module.exports = {
         await interaction.deferReply({ ephemeral:true });
 
         const queue = player.nodes.get(interaction.guildId);
-        if (!queue || !queue.node.isPlaying()) return interaction.followUp({
+        if (!queue || !queue.node.isPlaying()) return await interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                     .setTitle("無法跳過")
@@ -32,7 +32,7 @@ module.exports = {
 
         const success = queue.node.skip();
 
-        return interaction.followUp({
+        return await interaction.followUp({
             content: success ?
                 `✅ 已跳過此首歌曲` :
                 `❌ ${interaction.member}，發生了預料之外的錯誤。再試一次?`,

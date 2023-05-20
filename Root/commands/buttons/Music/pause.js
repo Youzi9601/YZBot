@@ -16,7 +16,7 @@ module.exports = {
         await interaction.deferReply({ ephemeral:true });
 
         const queue = player.nodes.get(interaction.guildId);
-        if (!queue || !queue.node.isPlaying()) return interaction.followUp({
+        if (!queue || !queue.node.isPlaying()) return await interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                     .setTitle("無法暫停")
@@ -31,7 +31,7 @@ module.exports = {
         });
 
         const paused = await queue.node.pause();
-        return interaction.followUp({
+        return await interaction.followUp({
             content: paused ?
                 '⏸ 暫停音樂' :
                 `❌ ${interaction.member} 出錯了...再試一次？ `,

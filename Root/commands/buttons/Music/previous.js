@@ -17,7 +17,7 @@ module.exports = {
 
         const queue = player.nodes.get(interaction.guildId);
         if (!queue) return client.error.DEFAULT_ERROR(interaction);
-        if (!queue.history.previousTrack) return interaction.followUp({
+        if (!queue.history.previousTrack) return await interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                     .setTitle("無法回到前一首")
@@ -32,7 +32,7 @@ module.exports = {
         });
 
         await queue.history.back();
-        interaction.followUp({
+        await interaction.followUp({
             content:`✅ 播放**上一首**曲目`,
         });
     },

@@ -16,7 +16,7 @@ module.exports = {
         await interaction.deferReply();
 
         const queue = player.nodes.get(interaction.guildId);
-        if (!queue || !queue.node.isPlaying()) return interaction.followUp({
+        if (!queue || !queue.node.isPlaying()) return await interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                     .setTitle("無法設定自動播放")
@@ -33,7 +33,7 @@ module.exports = {
         const action = (queue.repeatMode === QueueRepeatMode.AUTOPLAY) ? QueueRepeatMode.OFF : QueueRepeatMode.AUTOPLAY;
         queue.setRepeatMode(action);
 
-        return interaction.followUp({
+        return await interaction.followUp({
             content: `自動播放 ${action === QueueRepeatMode.OFF ? "禁用" : "啟用"}! ✅`,
         });
     },

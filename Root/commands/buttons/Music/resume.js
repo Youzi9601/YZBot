@@ -16,7 +16,7 @@ module.exports = {
         await interaction.deferReply({ ephemeral:true });
 
         const queue = player.nodes.get(interaction.guildId);
-        if (!queue) return interaction.followUp({
+        if (!queue) return await interaction.followUp({
             embeds: [
                 new EmbedBuilder()
                     .setTitle("無法繼續")
@@ -31,7 +31,7 @@ module.exports = {
         });
 
         const resumed = await queue.node.resume();
-        return interaction.followUp({
+        return await interaction.followUp({
             content: resumed ?
                 '▶️播放器已恢復！' :
                 `❌${interaction.member} 出錯了...再試一次？`,
