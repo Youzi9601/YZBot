@@ -12,8 +12,8 @@ module.exports = {
      */
     async execute(client, queue, track) {
         if (queue.repeatMode === QueueRepeatMode.TRACK) return; // 重複相同歌曲不須重新發送此事件
-        console.debug(queue);
-        console.debug(track);
+        // console.debug(queue);
+        // console.debug(track);
 
         const repeat = queue.repeatMode === QueueRepeatMode.AUTOPLAY ? '自動' :
             (queue.repeatMode === QueueRepeatMode.QUEUE ? '列隊' :
