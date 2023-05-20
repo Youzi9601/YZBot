@@ -39,7 +39,9 @@ async function load(client, interaction, config, db) {
             },
         });
 
-        if (!track.queue.node.isPlaying()) await track.queue.node.play();
+        if (!track.queue) {
+            if (!track.queue.node.isPlaying()) await track.queue.node.play();
+        }
         return await interaction.editReply(`**${track.title}** 已完成添加！`);
     } catch (e) {
 
