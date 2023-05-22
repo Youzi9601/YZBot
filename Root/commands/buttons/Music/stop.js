@@ -16,7 +16,19 @@ module.exports = {
         await interaction.deferReply();
 
         const queue = player.nodes.get(interaction.guildId);
-        if (!queue || !queue.node.isPlaying()) return client.error.DEFAULT_ERROR(interaction);
+        if (!queue || !queue.node.isPlaying()) return await interaction.followUp({
+            embeds: [
+                new EmbedBuilder()
+                    .setTitle("無法停止")
+                    .setDescription(`沒有進行中的曲目`)
+                    .setFooter({
+                        text: client.user.username,
+                        iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                    })
+                    .setTimestamp()
+                    .setColor(0xf24e43),
+            ],
+        });
 
         await queue.delete();
 
