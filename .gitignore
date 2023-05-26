@@ -13,7 +13,7 @@ Root/webs/views
 json.sqlite
 .env
 eula.txt
-test.js
+test*.js
 json.sqlite.code.js
 ##忽略的設定檔：
 Storage/**/*.json
