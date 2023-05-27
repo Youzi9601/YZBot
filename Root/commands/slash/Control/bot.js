@@ -103,7 +103,7 @@ module.exports = {
     cooldown: 5000,
     /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../../bot').client} client
      * @param {import('discord.js').ChatInputCommandInteraction} interaction
      * @param {*} config
      * @param {*} db
@@ -174,7 +174,7 @@ module.exports = {
 
                     }
                 } catch (error) {
-                    return await interaction.editReply(`:x: 發生了錯誤：\`\`\`js\n${ error }\`\`\``);
+                    return await interaction.followUp(`:x: 發生了錯誤：\`\`\`js\n${ error }\`\`\``);
                 }
                 await interaction.editReply('成功發送！');
 
@@ -194,7 +194,7 @@ module.exports = {
                         });
                     }
                 } catch (error) {
-                    return await interaction.editReply(`:x: 發生了錯誤：\`\`\`js\n${ error }\`\`\``);
+                    return await interaction.followUp(`:x: 發生了錯誤：\`\`\`js\n${ error }\`\`\``);
                 }
                 await interaction.editReply('成功編輯！');
 
@@ -220,7 +220,7 @@ module.exports = {
                         });
                     }
                 } catch (error) {
-                    return await interaction.editReply(`:x: 發生了錯誤：\`\`\`js\n${ error }\`\`\``);
+                    return await interaction.followUp(`:x: 發生了錯誤：\`\`\`js\n${ error }\`\`\``);
                 }
                 await interaction.editReply('成功發送！');
             }
@@ -240,7 +240,7 @@ module.exports = {
                             });
                         }).catch((error) => {
                             console.error(error);
-                            interaction.editReply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${ reply_id } 的訊息 ...` });
+                            interaction.followUp({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${ reply_id } 的訊息 ...` });
                             return;
                         });
 
@@ -249,7 +249,7 @@ module.exports = {
                         await send_channel.send(msg);
                     } catch (error) {
                         console.error(error);
-                        await interaction.editReply({ content: `啊喔...發生了錯誤：無法發送訊息...\n\`\`\`js\n${ error }\`\`\`` });
+                        await interaction.followUp({ content: `啊喔...發生了錯誤：無法發送訊息...\n\`\`\`js\n${ error }\`\`\`` });
                         return;
                     }
                 await interaction.editReply({
@@ -269,12 +269,12 @@ module.exports = {
                         });
                     }).catch((error) => {
                         console.error(error);
-                        interaction.editReply({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${ interaction.options.getString('message_id') } 的訊息 ...` });
+                        interaction.followUp({ content: `啊喔...發生了錯誤：找不到訊息ID為 ${ interaction.options.getString('message_id') } 的訊息 ...` });
                         return;
                     });
             }
 
-        } else return await interaction.editReply({
+        } else return await interaction.followUp({
             content:'❌ 尚未完成的命令',
             ephemeral: true,
         });
@@ -330,7 +330,7 @@ module.exports = {
             ];
         }
 
-        let filtered = choices.filter(c => c.name.startsWith(focusedOption.value));
+        let filtered = choices.filter(c => c.name.toLowerCase().startsWith(focusedOption.value.toLowerCase()));
         if (filtered.length > 25) {
             filtered = filtered.slice(0, 24).concat([{ name: "還有更多...", value: "more" }]);
         }
@@ -343,7 +343,7 @@ module.exports = {
 
 /**
  *
- * @param {import('discord.js').Client} client
+ * @param {import('./../../../bot').client} client
  * @param {import('discord.js').ChatInputCommandInteraction} interaction
  * @returns {Object}
  */

@@ -5,7 +5,7 @@ module.exports = {
     disabled: false,
     /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../../../bot').client} client
      * @param {import('discord-player').GuildQueue} queue
      */
     async execute(client, queue) {

@@ -33,7 +33,7 @@ module.exports = {
     disabled: false, // 記得改成false再來執行
     /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../../bot').client} client
      * @param {import('discord.js').ChatInputCommandInteraction} interaction
      * @param {*} config
      * @param {*} db
@@ -56,7 +56,7 @@ module.exports = {
     },
     /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../../bot').client} client
      * @param {import('discord.js').AutocompleteInteraction} interaction
      * @param {*} config
      * @param {*} db

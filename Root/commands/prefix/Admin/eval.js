@@ -10,7 +10,7 @@ module.exports = {
     owner: true,
     /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../../bot').client} client
      * @param {import('discord.js').Message} message
      * @param {*} args
      * @param {*} prefix
@@ -69,7 +69,7 @@ module.exports = {
                 client.console('Log', 'JS偵錯>  ' + code);
             }
         } catch (error) {
-            client.console('Error', undefined, undefined, undefined, error);
+            client.console('Error', { promise: error });
             message.channel.send({
                 content: `\`\`\`js\n${error}\n\`\`\``,
                 components: [row],

@@ -3,7 +3,7 @@ const colors = require("colors");
 
 /**
  *
- * @param {import("discord.js").Client} client
+ * @param {import('./../bot').client} client
  * @param {import("./../../Config")} config
  * @returns "?"
  */

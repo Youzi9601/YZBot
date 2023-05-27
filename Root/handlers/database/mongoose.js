@@ -24,7 +24,7 @@ function getModel(tablename, name) {
 module.exports = {
     /**
      * 設定資料
-     * @param {import('discord.js').Client} client 客戶端
+     * @param {import('./../../bot').client} client 客戶端
      * @param {String} tablename 你的檔案庫名稱
      * @param {String} name 資料名稱
      * @param {Object} value JSON資料內容
@@ -36,7 +36,7 @@ module.exports = {
     },
     /**
      * 取得資料
-     * @param {import('discord.js').Client} client 客戶端
+     * @param {import('./../../bot').client} client 客戶端
      * @param {String} tablename 你的檔案庫名稱
      * @param {String} name 資料名稱
      * @returns {Object} JSON資料

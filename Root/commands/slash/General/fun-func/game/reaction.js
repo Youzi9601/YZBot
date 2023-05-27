@@ -13,7 +13,7 @@ const sleep = async (ms) => {
 module.exports = { load };
 /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../../../../bot').client} client
      * @param {import('discord.js').ChatInputCommandInteraction} interaction
      * @param {*} config
      * @param {*} db

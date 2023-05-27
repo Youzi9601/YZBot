@@ -4,7 +4,7 @@ const { glob } = require("glob");
 
 /**
  *
- * @param {import("discord.js").Client} client
+ * @param {import('./../bot').client} client
  * @returns "?"
  */
 module.exports = async (client) => {

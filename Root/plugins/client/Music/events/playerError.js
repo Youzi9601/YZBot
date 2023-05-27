@@ -5,7 +5,7 @@ module.exports = {
     disabled: false,
     /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../../../bot').client} client
      * @param {import('discord-player').GuildQueue} queue
      * @param {import('discord-player').PlayerError} error
      */
@@ -13,7 +13,7 @@ module.exports = {
         const translations = client.language_data(queue.channel.rtcRegion, 'plugins/client/music#events.playerError');
 
         client.console('Error', `[ERROR] 發生了 discord-player 錯誤：${error.message}`.red);
-        client.console('Error', undefined, undefined, undefined, error);
+        client.console('Error', { promise: error });
         await queue.metadata.channel.sendTyping();
         await queue.metadata.channel.send({
             embeds: [

@@ -7,7 +7,7 @@ module.exports = {
         .toJSON(),
     /**
      *
-     * @param {import("discord.js").Client} client
+     * @param {import('./../../../../bot').client} client
      * @param {import("discord.js").ChatInputCommandInteraction} interaction
      * @param {import("./../../Config")} config
      * @param {import("quick.db").QuickDB} db
@@ -37,7 +37,7 @@ module.exports = {
                         if (userInput.permissions.has(PermissionsBitField.Administrator)) result = "管理者";
                         if (userInput.id === interaction.guild.ownerId) result = "所有者";
 
-                    } catch (e) {
+                    } catch (error) {
                         result = "成員";
                     }
 

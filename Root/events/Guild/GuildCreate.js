@@ -4,7 +4,7 @@ module.exports = {
     name: Events.GuildCreate,
     /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../bot').client} client
      * @param {import('discord.js').Guild} guild
      * @returns
      */

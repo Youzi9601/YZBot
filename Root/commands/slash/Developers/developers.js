@@ -101,7 +101,7 @@ module.exports = {
 
     /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../../bot').client} client
      * @param {import('discord.js').ChatInputCommandInteraction} interaction
      * @param {*} container
      */
@@ -188,17 +188,17 @@ module.exports = {
                         if (i.customId === 'SERVERPAGES' && i.applicationId == client.user.id) {
                             i.update({
                                 embeds: pages[Number(i.values[0])],
-                            }).catch(e => { });
+                            });
                         }
                     });
-                } catch (e) {
-                    client.console('Log', undefined, undefined, undefined, e.stack ? e.stack : e);
+                } catch (error) {
+                    client.console('Log', { promise: error.stack ? error.stack : error });
                     interaction.reply({
                         content: '錯誤: ',
                         embeds: [
                             new EmbedBuilder()
                                 .setColor(0xf24e43)
-                                .setDescription(`\`\`\`${ e }\`\`\``)
+                                .setDescription(`\`\`\`${ error }\`\`\``)
                                 .setFooter({
                                     text: client.user.username,
                                     iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
@@ -395,7 +395,7 @@ module.exports = {
                 try {
                     await message.edit({ embeds: [embed] });
                 } catch (error) {
-                    client.console('Error', undefined, undefined, undefined, error);
+                    client.console('Error', { promise: error });
                 }
 
 

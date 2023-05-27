@@ -9,7 +9,7 @@ const shardStatus_data = new QuickDB().table('uptime');
 
 /**
  *
- * @param {import('discord.js').Client} client
+ * @param {import('./../../../bot').client} client
  */
 module.exports = async (client) => {
     // 待添加自動刷新內容的功能

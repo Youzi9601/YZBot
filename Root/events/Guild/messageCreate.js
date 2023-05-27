@@ -4,7 +4,7 @@ module.exports = {
     name: Events.MessageCreate,
     /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../bot').client} client
      * @param {import('discord.js').Message} message
      * @returns
      */
@@ -100,7 +100,7 @@ module.exports = {
                     command.run(client, message, args, prefix, client.config, client.db);
                 } catch (error) {
                     client.console('Error', `執行訊息命令時發生錯誤：`);
-                    client.console('Error', undefined, undefined, undefined, error);
+                    client.console('Error', { promise: error });
                 }
             }
         });

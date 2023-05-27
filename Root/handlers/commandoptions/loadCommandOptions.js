@@ -1,6 +1,6 @@
 /**
   * 讀取命令條件
-  * @param {import('discord.js').Client} client
+  * @param {import('./../../bot').client} client
   * @param {import('discord.js').Interaction} interaction
   * @param {*} config
   * @param {import('./../../handlers/database/db_function')} db

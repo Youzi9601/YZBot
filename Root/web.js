@@ -200,9 +200,9 @@ module.exports = async (client) => {
                 .then((guilds) => {
                     return guilds;
                 })
-                .catch((e) => {
+                .catch((error) => {
                     client.console('Error', `網站擷取機器人所有伺服器時發生了錯誤：`);
-                    client.console('Error', undefined, undefined, undefined, e);
+                    client.console('Error', { promise: error });
                 });
             const guildIds = [].concat(
                 ...clientguilds.map((guildArray) =>
@@ -317,7 +317,7 @@ module.exports = async (client) => {
                     // NOTE: 未經授權的令牌不會拋出錯誤
                     // tokenResponseData.statusCode will be 401
                     client.console('Error', `執行網站時發生錯誤：`);
-                    client.console('Error', undefined, undefined, undefined, error);
+                    client.console('Error', { promise: error });
                     return res.redirect("/dashboard/login?err=true");
                 }
                 if (req.cookies.redirect) {
@@ -481,11 +481,11 @@ module.exports = async (client) => {
                 .then((guilds) => {
                     return guilds;
                 })
-                .catch((e) => {
+                .catch((error) => {
                     client.console('Error',
                         `網站擷取機器人所有伺服器時發生了錯誤：`,
                     );
-                    client.console('Error', undefined, undefined, undefined, e);
+                    client.console('Error', { promise: error });
                 });
             const guildIds = [].concat(
                 ...clientguilds.map((guildArray) =>

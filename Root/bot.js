@@ -54,10 +54,10 @@ client.language = new Collection();
 /**
  * 語言檔案設定與取得
  * @param {'zh_TW'} locale 語言
- * @param {} file 檔案
- * @returns langs
+ * @param {String} file 資料位置，如：`檔案位置#data資料`
+ * @returns {String & Array & Object} 翻譯結果(或是資料集)
  */
-client.language_data = (locale, file) => {
+const tran = (locale, file) => {
     // 取得檔案位置與所需資料
     const [filePath, ...propNameArr] = file.split('#');
     const propName = propNameArr.length > 1 ? propNameArr.join('#') : propNameArr[0];
@@ -73,15 +73,38 @@ client.language_data = (locale, file) => {
 
     return locale_data_propValue || tw_data_propValue;
 };
+client.language_data = (locale, file) => tran(locale, file);
 
 
-module.exports = client;
+/**
+ * Client 定義
+ * @returns {import('discord.js').Client & {
+ * language_data: tran,
+ * console: import('./handlers/log'),
+ * config: import('./../Config'),
+ * prefix_commands: Collection,
+ * slash_commands: Collection,
+ * contextmenu_user_commands: Collection,
+ * contextmenu_message_commands: Collection,
+ * button_commands: Collection,
+ * selectmenu_commands: Collection,
+ * modals: Collection,
+ * events: Collection
+ * }}
+ */
+const bot = () => {
+    return client;
+};
+// module.exports.client = client; // 此行代碼因為無法定義完整的Client故註解
+module.exports.client = bot();
 
+
+// Hendlers
 ["prefix", "application_commands", "modals", "events", "database", "languages_loader", "plugins_loader-client"].forEach((file) => {
     require(`./handlers/${file}`)(client, config);
 });
 
-// Login to the bot:
+// 登錄機器人
 client.login(AuthenticationToken)
     .catch((err) => {
         client.console('Error', "[CRASH] 連接到您的機器人時出了點問題...");
@@ -89,15 +112,15 @@ client.login(AuthenticationToken)
         return process.exit();
     });
 
-// Handle errors:
+// 處理錯誤：
 process
     .on('unhandledRejection', async (err, promise) => {
         client.console('Error', `[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
-        client.console('Error', undefined, undefined, undefined, promise);
+        client.console('Error', { promise });
     })
     .on('uncaughtException', async (err, promise) => {
         client.console('Error', `[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
-        client.console('Error', undefined, undefined, undefined, promise);
+        client.console('Error', { promise });
     })
     .on('exit', async (code) => {
         //
@@ -105,7 +128,7 @@ process
     });
 
 
-// start the web (如果分片編號是0)
+// 啟動網絡 (如果分片編號是0)
 if (client.shard.ids == 0
     && config.web.noWeb != 'true') {
     require('./web')(client);

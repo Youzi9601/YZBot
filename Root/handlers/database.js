@@ -3,7 +3,7 @@ require('colors');
 
 /**
  *
- * @param {import("discord.js").Client} client
+ * @param {import('./../bot').client} client
  * @returns "?"
  */
 module.exports = async (client) => {
@@ -41,7 +41,7 @@ module.exports = async (client) => {
                 })
                 .catch(e => {
                     client.console('Error', `[DATABASE] Mongoose 資料庫無法使用！將關閉機器人！`.red);
-                    client.console('Error', undefined, undefined, undefined, e);
+                    client.console('Error', { promise: error });
                     process.exit(1);
                 });
         // superDjs.connectMongoDB(mongo, true, superDjs.colourText('[DATABASE] 連接到 MongoDB！', 'green'));

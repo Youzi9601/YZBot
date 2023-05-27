@@ -6,7 +6,7 @@ module.exports = {
     disabled: false,
     /**
      *
-     * @param {import("discord.js").Client} client
+     * @param {import('./../../../bot').client} client
      * @param {import("discord.js").StringSelectMenuInteraction} interaction
      * @param {import("./../../Config")} config
      * @param {import("quick.db").QuickDB} db

@@ -8,7 +8,7 @@ module.exports = {
     disabled: config.console.warn || true,
     /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../bot').client} client
      * @param {*} _c
      */
     async execute(client, e) {

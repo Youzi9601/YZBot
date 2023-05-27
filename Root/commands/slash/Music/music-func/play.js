@@ -2,7 +2,7 @@ const { useMasterPlayer } = require('discord-player');
 module.exports = { load };
 /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../../../bot').client} client
      * @param {import('discord.js').ChatInputCommandInteraction} interaction
      * @param {*} config
      * @param {*} db
@@ -43,8 +43,8 @@ async function load(client, interaction, config, db) {
             if (!track.queue.node.isPlaying()) await track.queue.node.play();
         }
         return await interaction.editReply(`**${track.title}** 已完成添加！`);
-    } catch (e) {
+    } catch (error) {
 
-        return await interaction.editReply(`出了點問題：${e}`);
+        return await interaction.followUp(`出了點問題：${e}`);
     }
 }

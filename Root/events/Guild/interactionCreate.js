@@ -5,7 +5,7 @@ module.exports = {
     name: Events.InteractionCreate,
     /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../bot').client} client
      * @param {import('discord.js').Interaction} interaction
      * @returns
      */
@@ -22,12 +22,12 @@ module.exports = {
                 if (
                     await require('./../../handlers/commandoptions/loadCommandOptions')(client, interaction, client.config, client.db, command, 'Normal')
                 )
-                    command.run(client, interaction, client.config, client.db);
+                    await command.run(client, interaction, client.config, client.db);
                 // 執行命令
-            } catch (e) {
+            } catch (error) {
                 client.console('Error', `執行命令時發生錯誤：`);
-                client.console('Error', undefined, undefined, undefined, e);
-                await reply_Error(client, interaction, interaction.commandName);
+                client.console('Error', { promise: error });
+                await reply_Error(client, interaction, interaction.commandName, error);
 
             }
         }
@@ -39,9 +39,9 @@ module.exports = {
             try {
                 await command.autocomplete(client, interaction, client.config, client.db);
 
-            } catch (e) {
+            } catch (error) {
                 client.console('Error', `執行命令時發生錯誤：`);
-                client.console('Error', undefined, undefined, undefined, e);
+                client.console('Error', { promise: error });
 
             }
         }
@@ -54,11 +54,11 @@ module.exports = {
 
             client.console('Log', `${interaction.user.tag} 於 ${interaction.guild.name} (${interaction.guild.id}) #${interaction.channel.name} (${interaction.channel.id}) 對著 ${interaction.targetUser.tag} 使用成員交互：${interaction.commandName}`);
             try {
-                command.run(client, interaction, client.config, client.db);
-            } catch (e) {
+                await command.run(client, interaction, client.config, client.db);
+            } catch (error) {
                 client.console('Error', `執行成員應用時發生錯誤：`);
-                client.console('Error', undefined, undefined, undefined, e);
-                await reply_Error(client, interaction, interaction.commandName);
+                client.console('Error', { promise: error });
+                await reply_Error(client, interaction, interaction.commandName, error);
 
             }
         }
@@ -71,11 +71,11 @@ module.exports = {
 
             client.console('Log', `${interaction.user.tag} 於 ${interaction.guild.name} (${interaction.guild.id}) #${interaction.channel.name} (${interaction.channel.id}) 對著 訊息(${interaction.targetMessage.id}): ${interaction.targetMessage.content} 使用訊息交互：${interaction.commandName}`);
             try {
-                command.run(client, interaction, client.config, client.db);
-            } catch (e) {
+                await command.run(client, interaction, client.config, client.db);
+            } catch (error) {
                 client.console('Error', `執行訊息應用時發生錯誤：`);
-                client.console('Error', undefined, undefined, undefined, e);
-                await reply_Error(client, interaction, interaction.commandName);
+                client.console('Error', { promise: error });
+                await reply_Error(client, interaction, interaction.commandName, error);
 
             }
         }
@@ -101,11 +101,11 @@ module.exports = {
             }
 
             try {
-                modal.run(client, interaction, client.config, client. db);
-            } catch (e) {
+                await modal.run(client, interaction, client.config, client. db);
+            } catch (error) {
                 client.console('Error', `執行模塊時發生錯誤：`);
-                client.console('Error', undefined, undefined, undefined, e);
-                await reply_Error(client, interaction, interaction.customId);
+                client.console('Error', { promise: error });
+                await reply_Error(client, interaction, interaction.customId, error);
 
             }
         }
@@ -135,11 +135,11 @@ module.exports = {
 
             client.console('Log', `${interaction.user.tag} 於 ${interaction.guild.name} (${interaction.guild.id}) #${interaction.channel.name} (${interaction.channel.id}) 使用按鈕：${interaction.customId}`);
             try {
-                button.run(client, interaction, client.config, client.db);
-            } catch (e) {
+                await button.run(client, interaction, client.config, client.db);
+            } catch (error) {
                 client.console('Error', `執行按鈕時發生錯誤：`);
-                client.console('Error', undefined, undefined, undefined, e);
-                await reply_Error(client, interaction, interaction.customId);
+                client.console('Error', { promise: error });
+                await reply_Error(client, interaction, interaction.customId, error);
 
             }
         }
@@ -169,11 +169,11 @@ module.exports = {
 
             client.console('Log', `${interaction.user.tag} 於 ${interaction.guild.name} (${interaction.guild.id}) #${interaction.channel.name} (${interaction.channel.id}) 使用選單：${interaction.customId} 選擇：${interaction.values.join(', ')}`);
             try {
-                selectmenu.run(client, interaction, client.config, client.db);
-            } catch (e) {
+                await selectmenu.run(client, interaction, client.config, client.db);
+            } catch (error) {
                 client.console('Error', `執行選單時發生錯誤：`);
-                client.console('Error', undefined, undefined, undefined, e);
-                await reply_Error(client, interaction, interaction.customId);
+                client.console('Error', { promise: error });
+                await reply_Error(client, interaction, interaction.customId, error);
 
             }
         }
@@ -183,14 +183,14 @@ module.exports = {
 
 /**
  *
- * @param {import('discord.js').Client} client
+ * @param {import('./../../bot').client} client
  * @param {import('discord.js').ChatInputCommandInteraction} interaction
  * @param {String} commandName 命令名稱
  */
-async function reply_Error(client, interaction, commandName = '無法得知此命令') {
+async function reply_Error(client, interaction, commandName = '無法得知此命令', error) {
     const embed = new EmbedBuilder()
         .setTitle('❌ 發生了錯誤')
-        .setDescription(`這個命令 \`(${ commandName })\`發生了一些錯誤，無法正常運作。\n如果還是出現這個錯誤，請回報給機器人所有者！\n造成您的不便請見諒！`)
+        .setDescription(`這個命令 \`(${ commandName })\` 發生了一些錯誤，無法正常運作。\n如果還是出現這個錯誤，請回報給機器人所有者！\n造成您的不便請見諒！ \n\n錯誤內容：\`\`\`${error.message}\n\`\`\``)
         .setAuthor({
             name: interaction.user.tag,
             iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.user.defaultAvatarURL,
@@ -201,8 +201,9 @@ async function reply_Error(client, interaction, commandName = '無法得知此�
             iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
         })
         .setTimestamp();
-    if (interaction.replied) {
-        await interaction.editReply({ embeds:[embed], ephemeral:true, allowedMentions: { repliedUser: false } });
+
+    if (interaction.isRepliable()) {
+        await interaction.followUp({ embeds:[embed], ephemeral:true, allowedMentions: { repliedUser: false } });
     } else {
         await interaction.reply({ embeds:[embed], ephemeral:true, allowedMentions: { repliedUser: false } });
     }

@@ -10,7 +10,7 @@ module.exports = {
     owner: true,
     /**
      *
-     * @param {import('discord.js').Client} client
+     * @param {import('./../../../bot').client} client
      * @param {import('discord.js').Message} message
      * @param {*} args
      * @param {*} prefix

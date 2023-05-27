@@ -116,7 +116,7 @@ const urlOptions = ({ remove, set }) => {
     
     try {
         history.replaceState(null, null, url.href.replace(/(?<!data=[^=]+|=)=(&|$)/g, x => x === '=' ? '' : '&'));
-    } catch (e) {
+    } catch (error) {
         // 'SecurityError' when trying to change the url of a different origin
         // e.g. when trying to change the url of the parent window from an iframe
         console.info(e);
@@ -1139,7 +1139,7 @@ addEventListener('DOMContentLoaded', () => {
                 document.body.classList.add('emptyEmbed');
 
             afterBuilding()
-        } catch (e) {
+        } catch (error) {
             console.error(e);
             error(e);
         }
@@ -1171,7 +1171,7 @@ addEventListener('DOMContentLoaded', () => {
 
             buildEmbed();
 
-        } catch (e) {
+        } catch (error) {
             if (editor.getValue()) return;
             document.body.classList.add('emptyEmbed');
             embedContent.innerHTML = '';

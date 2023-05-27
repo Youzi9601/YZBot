@@ -4,7 +4,7 @@ const { glob } = require("glob");
 
 /**
  *
- * @param {import("discord.js").Client} client
+ * @param {import('./../bot').client} client
  * @returns "?"
  */
 module.exports = async (client) => {
@@ -20,7 +20,7 @@ module.exports = async (client) => {
 
         } catch (error) {
             client.console('Log', `[處理 - PLUGINS] 無法加載文件 ${ file }。`.red);
-            client.console('Error', undefined, undefined, undefined, error);
+            client.console('Error', { promise: error });
             continue;
         }
     }
