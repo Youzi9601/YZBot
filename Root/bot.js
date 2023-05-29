@@ -71,7 +71,7 @@ const tran = (locale, file) => {
     const locale_data_propValue = propName.split('.').reduce((o, i) => o ? o[i] : undefined, locale_data);
     const tw_data_propValue = propName.split('.').reduce((o, i) => o ? o[i] : undefined, tw_data);
 
-    return locale_data_propValue || tw_data_propValue;
+    return locale_data_propValue || tw_data_propValue || `<translate:${file}:null>`;
 };
 client.language_data = (locale, file) => tran(locale, file);
 
