@@ -1,6 +1,3 @@
-/**
- * @deprecated 尚未完工
- */
 const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time, ButtonBuilder, ButtonStyle } = require('discord.js');
 const sleep = async (ms) => {
     return new Promise((resolve) => {
@@ -26,7 +23,7 @@ async function load(client, interaction, config, db) {
     const embed = new EmbedBuilder()
         .setTitle(translations["embed_title_start"])
         .setDescription(translations["embed_description_start"])
-        .setFooter({ text: client.user.username, iconURL:client.user.displayAvatarURL() || client.user.defaultAvatarURL })
+        .setFooter({ text: client.user.username, iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL })
         .setColor(0x41f097);
     const row = new ActionRowBuilder()
         .addComponents(
@@ -36,7 +33,7 @@ async function load(client, interaction, config, db) {
                 .setStyle(ButtonStyle.Danger)
                 .setDisabled(true),
         );
-    const message = await interaction.reply({ embeds:[embed], components:[row], fetchReply: true });
+    const message = await interaction.reply({ embeds: [embed], components: [row], fetchReply: true });
 
     // 延遲
     const delay = Math.floor(Math.random() * 5) + 2;
@@ -54,7 +51,7 @@ async function load(client, interaction, config, db) {
         });
 
         await message.edit({
-            embeds:[embed.setDescription(translations["embed_description_test"])],
+            embeds: [embed.setDescription(translations["embed_description_test"])],
             components: [
                 new ActionRowBuilder()
                     .addComponents(
@@ -72,7 +69,7 @@ async function load(client, interaction, config, db) {
                 const reactionTime = button.createdTimestamp - interaction.createdTimestamp - delay * 1000;
                 await button.reply({ content: translations["respond_collect"].replace('{{time}}', reactionTime) });
                 await message.edit({
-                    embeds:[embed.setDescription(translations["embed_description_test"])],
+                    embeds: [embed.setDescription(translations["embed_description_test"])],
                     components: [
                         new ActionRowBuilder()
                             .addComponents(
@@ -91,7 +88,7 @@ async function load(client, interaction, config, db) {
             if (collected.size === 0) {
                 await interaction.followUp({ content: translations["respond_end"] });
                 await message.edit({
-                    embeds:[embed.setDescription(translations["embed_description_test"])],
+                    embeds: [embed.setDescription(translations["embed_description_test"])],
                     components: [
                         new ActionRowBuilder()
                             .addComponents(

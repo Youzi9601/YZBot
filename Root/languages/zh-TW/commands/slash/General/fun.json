@@ -20,6 +20,22 @@
             "button_test": "點我點我！",
             "respond_collect": "你的反應時間為 {{time}} 毫秒！",
             "respond_end": "時間已超時，遊戲結束！"
+        },
+        "tic-tac-toe": {
+            "embed_title_error_isBot": "無效的遊戲對手",
+            "embed_description_error_isBot": "此成員為機器人！無法與它玩遊戲！",
+            "content_waitForOtherMember": "請等待該成員同意開始遊戲...",
+            "embed_title_vs_beforeGame": "等待準備...",
+            "embed_description_vs_beforeGame": "請兩位玩家同意後遊戲將會開始...",
+            "embed_description_vs_timedout": "雙方對戰因無人回應準備而無法開始。",
+            "content_now": "當前回合：",
+            "content_success": "成功放置",
+            "content_notYourRound": "當前不是你的回合",
+            "content_moveNotValid": "該位子已經被占領了",
+            "content_gameEnd_tie": "遊戲結束：平手",
+            "content_gameEnd_p1_win": "遊戲結束： :x: 贏了",
+            "content_gameEnd_p2_win": "遊戲結束： :o: 贏了",
+            "embed_title_ai_beforeGame": "請選擇遊戲難度"
         }
     }
 }

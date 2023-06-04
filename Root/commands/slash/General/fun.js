@@ -13,12 +13,12 @@ module.exports = {
         .addSubcommandGroup(sub =>
             sub
                 .setName('random')
-                .setNameLocalizations({ "zh-TW":"隨機" })
+                .setNameLocalizations({ "zh-TW": "隨機" })
                 .setDescription('亂數回覆')
                 .addSubcommand(c =>
                     c
                         .setName('8ball')
-                        .setNameLocalizations({ "zh-TW":"神奇海螺" })
+                        .setNameLocalizations({ "zh-TW": "神奇海螺" })
                         .setDescription('神奇海螺(神奇的8號球)，或許可以回復你一些很奇怪的問題(誤')
                         .addStringOption(s =>
                             s
@@ -50,13 +50,26 @@ module.exports = {
         .addSubcommandGroup(sub =>
             sub
                 .setName('game')
-                .setNameLocalizations({ "zh-TW":"遊戲" })
+                .setNameLocalizations({ "zh-TW": "遊戲" })
                 .setDescription('小遊戲')
                 .addSubcommand(c =>
                     c
                         .setName('reaction')
-                        .setNameLocalizations({ "zh-TW":"反應力測試" })
+                        .setNameLocalizations({ "zh-TW": "反應力測試" })
                         .setDescription('測試反應力！'),
+                )
+                .addSubcommand(c =>
+                    c
+                        .setName('tic-tac-toe')
+                        .setNameLocalizations({ "zh-TW": "井字棋" })
+                        .setDescription('與其他成員/AI進行對戰')
+                        .addUserOption(u =>
+                            u
+                                .setName('member')
+                                .setDescription('想一同對戰的成員(選擇此機器人將進行AI對戰)')
+                                .setRequired(true)
+                        )
+                    ,
                 ),
         )
         .toJSON(),
@@ -103,6 +116,8 @@ module.exports = {
         } else if (subcommandGroup == 'game') {
             if (subcommand == 'reaction') {
                 await require('./fun-func/game/reaction').load(client, interaction, config, db);
+            } else if (subcommand == 'tic-tac-toe') {
+                await require('./fun-func/game/tic-tac-toe').load(client, interaction, config, db);
             } else
                 return await interaction.reply({
                     embeds: [
