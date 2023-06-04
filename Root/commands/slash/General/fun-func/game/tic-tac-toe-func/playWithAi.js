@@ -8,7 +8,7 @@ const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, 
 module.exports = async (client, interaction) => {
     const translations = client.language_data(interaction.locale, 'commands/slash/General/fun#game.tic-tac-toe');
     return await interaction.reply({
-        content: '發生了錯誤：因為昨日(06/24)的Discord炸了，所以 柚子Youzi 就沒寫AI的部分了XD'
+        content: '發生了錯誤：因為昨日(06/24)的Discord炸了，所以 柚子Youzi 就沒寫AI的部分了XD',
     });
     /*
     // 處理對戰對手

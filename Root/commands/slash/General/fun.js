@@ -67,7 +67,7 @@ module.exports = {
                             u
                                 .setName('member')
                                 .setDescription('想一同對戰的成員(選擇此機器人將進行AI對戰)')
-                                .setRequired(true)
+                                .setRequired(true),
                         )
                     ,
                 ),
