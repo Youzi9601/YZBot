@@ -51,15 +51,16 @@ module.exports = async (client, interaction) => {
         filter: async (button) => {
             await button.deferUpdate();
             return (button.user.id === player1.user.id &&
-                button.customId === customids.p1)},
+                button.customId === customids.p1);
+        },
         time: 30 * 1000, // 偵測時間
     });
     const collector_beforeStart_p2 = interaction.channel.createMessageComponentCollector({
         filter: async (button) => {
             await button.deferUpdate();
             return (button.user.id === player2.user.id &&
-                button.customId === customids.p2)
-            },
+                button.customId === customids.p2);
+        },
         time: 30 * 1000, // 偵測時間
     });
 
@@ -161,7 +162,7 @@ module.exports = async (client, interaction) => {
 
     });
 
-    setTimeout(async ()=>{
+    setTimeout(async () => {
         if (unreadys.p1 || unreadys.p2) {
             await interaction.editReply({
                 embeds: [
@@ -180,6 +181,6 @@ module.exports = async (client, interaction) => {
                 ],
             });
         }
-    }, 30 * 1000)
+    }, 30 * 1000);
 
 };
