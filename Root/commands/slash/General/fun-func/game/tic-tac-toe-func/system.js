@@ -277,15 +277,15 @@ module.exports = async (mode, client, message, player) => {
         });
 
         collector_inGame.on('collect', async (button) => {
-            await button.deferReply();
             if (
                 !(
                     (currentPlayer == PLAYER_X && button.user.id == player.p1.id) ||
                     (currentPlayer == PLAYER_O && button.user.id == player.p2.id)
                 )
             )
-                return await button.followUp({ content: translations["content_notYourRound"], ephemeral: true });
+                return await button.reply({ content: translations["content_notYourRound"], ephemeral: true });
 
+            await button.deferReply();
 
             const input = button.customId.replace(customids, '');
             const [row, col] = input.split('_');
