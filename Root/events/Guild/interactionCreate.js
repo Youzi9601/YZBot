@@ -190,7 +190,7 @@ module.exports = {
 async function reply_Error(client, interaction, commandName = '無法得知此命令', error) {
     const embed = new EmbedBuilder()
         .setTitle('❌ 發生了錯誤')
-        .setDescription(`這個命令 \`(${ commandName })\` 發生了一些錯誤，無法正常運作。\n如果還是出現這個錯誤，請回報給機器人所有者！\n造成您的不便請見諒！ \n\n錯誤內容：\`\`\`${error.message?? error}\n\`\`\``)
+        .setDescription(`這個命令 \`(${ commandName })\` 發生了一些錯誤，無法正常運作。\n如果還是出現這個錯誤，請回報給機器人所有者！\n造成您的不便請見諒！ \n\n錯誤內容：\`\`\`${error.message ?? error}\n\`\`\``)
         .setAuthor({
             name: interaction.user.tag,
             iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.user.defaultAvatarURL,
