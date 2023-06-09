@@ -69,7 +69,7 @@ module.exports = async (client, interaction) => {
         // console.log("OWO 觸發了");
         // 檢查收集資訊
         if (button.customId === customids.p1 && button.user.id === player1.user.id) {
-           
+
 
             await button.editReply({
                 embeds: [
@@ -132,7 +132,7 @@ module.exports = async (client, interaction) => {
                 ],
             });
         }
-    })
+    });
     // setTimeout(async ()=>{
 
     // }, 30 * 1000)

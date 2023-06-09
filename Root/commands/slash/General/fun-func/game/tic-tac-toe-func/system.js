@@ -270,9 +270,8 @@ module.exports = async (mode, client, message, player) => {
                         button.user.id === player.p2.user.id) &&
                     button.customId.includes(customids)
                 ) {
-                    return true
-                }
-                else return false
+                    return true;
+                } else return false;
             },
             time: 5 * 60 * 1000, // 偵測時間 5 分鐘
         });
@@ -302,8 +301,8 @@ module.exports = async (mode, client, message, player) => {
             } else {
                 return await button.followUp({ content: translations["content_moveNotValid"], ephemeral: true });
             }
-            const success = await button.followUp({content:translations["content_success"]});
-            await success.delete()
+            const success = await button.followUp({ content:translations["content_success"] });
+            await success.delete();
 
             await printBoard();
 
