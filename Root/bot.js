@@ -115,12 +115,12 @@ client.login(AuthenticationToken)
 // 處理錯誤：
 process
     .on('unhandledRejection', async (err, promise) => {
-        client.console('Error', `[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
-        client.console('Error', { promise });
+        client.console('Error', `[ANTI-CRASH] unhandledRejection 未處理的拒絕： ${ err }`.red);
+        client.console('Error', { promise:  err });
     })
     .on('uncaughtException', async (err, promise) => {
-        client.console('Error', `[ANTI-CRASH] 未處理的拒絕： ${ err }`.red);
-        client.console('Error', { promise });
+        client.console('Error', `[ANTI-CRASH] uncaughtException 未處理的拒絕： ${ err }`.red);
+        client.console('Error', { promise:  err });
     })
     .on('exit', async (code) => {
         //

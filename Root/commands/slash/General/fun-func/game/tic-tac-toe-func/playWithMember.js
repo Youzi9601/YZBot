@@ -8,15 +8,17 @@ const { userMention, ComponentType, EmbedBuilder, ActionRowBuilder, StringSelect
 module.exports = async (client, interaction) => {
     const translations = client.language_data(interaction.locale, 'commands/slash/General/fun#game.tic-tac-toe');
 
+    const message = await interaction.fetchReply();
+
     const player1 = interaction.member;
     const player2 = interaction.options.getMember('member');
     const customids = {
-        p1: `tic-tac-toe-1p_Ready-${ interaction.createdTimestamp }`,
-        p2: `tic-tac-toe-2p_Ready-${ interaction.createdTimestamp }`,
+        p1: `tic-tac-toe-1p_Ready-${interaction.createdTimestamp}`,
+        p2: `tic-tac-toe-2p_Ready-${interaction.createdTimestamp}`,
     };
 
     await interaction.editReply({
-        content: `${ userMention(player2.id) }\n${ translations["content_waitForOtherMember"] }`,
+        content: `${userMention(player2.id)}\n${translations["content_waitForOtherMember"]}`,
         embeds: [
             new EmbedBuilder()
                 .setTitle(translations["embed_title_vs_beforeGame"])
@@ -30,12 +32,12 @@ module.exports = async (client, interaction) => {
                     new ButtonBuilder()
                         .setCustomId(customids.p1)
                         .setEmoji('❌')
-                        .setLabel(`${ player1.user.username }`)
+                        .setLabel(`${player1.user.username}`)
                         .setStyle(ButtonStyle.Primary),
                     new ButtonBuilder()
                         .setCustomId(customids.p2)
                         .setEmoji('⭕')
-                        .setLabel(`${ player2.user.username }`)
+                        .setLabel(`${player2.user.username}`)
                         .setStyle(ButtonStyle.Primary),
                 ),
         ],
@@ -47,33 +49,32 @@ module.exports = async (client, interaction) => {
     };
 
     // 創建蒐集等待兩位玩家都完成準備
-    const collector_beforeStart_p1 = interaction.channel.createMessageComponentCollector({
+    const collector_beforeStart = message.createMessageComponentCollector({
+        componentType: ComponentType.Button,
         filter: async (button) => {
-            await button.deferUpdate();
-            return (button.user.id === player1.user.id &&
-                button.customId === customids.p1);
-        },
-        time: 30 * 1000, // 偵測時間
-    });
-    const collector_beforeStart_p2 = interaction.channel.createMessageComponentCollector({
-        filter: async (button) => {
-            await button.deferUpdate();
-            return (button.user.id === player2.user.id &&
-                button.customId === customids.p2);
+
+            if ((button.user.id === player1.user.id &&
+                button.customId === customids.p1) ||
+                (button.user.id === player2.user.id &&
+                    button.customId === customids.p2)) {
+                await button.deferUpdate();
+                return true;
+            } else return false;
         },
         time: 30 * 1000, // 偵測時間
     });
 
 
-    collector_beforeStart_p1.on('collect', async (button) => {
+    collector_beforeStart.on('collect', async (button) => {
         // console.log("OWO 觸發了");
         // 檢查收集資訊
         if (button.customId === customids.p1 && button.user.id === player1.user.id) {
-            unreadys.p1 = false;
-            await interaction.editReply({
+           
+
+            await button.editReply({
                 embeds: [
                     EmbedBuilder.from((await interaction.fetchReply()).embeds[0])
-                        .setDescription(translations["embed_description_vs_timedout"])],
+                        .setDescription(translations["embed_description_vs_beforeGame"])],
                 components: [
                     new ActionRowBuilder()
                         .addComponents(
@@ -84,62 +85,12 @@ module.exports = async (client, interaction) => {
                         ),
                 ],
             });
-            await button.fetchReply();
-            await button.deleteReply();
-        } else if (button.customId === customids.p2 && button.user.id === player2.user.id) {
-            unreadys.p2 = false;
-            await interaction.editReply({
-                embeds: [
-                    EmbedBuilder.from((await interaction.fetchReply()).embeds[0])
-                        .setDescription(translations["embed_description_vs_timedout"])],
-                components: [
-                    new ActionRowBuilder()
-                        .addComponents(
-                            ButtonBuilder.from((await interaction.fetchReply()).components[0].components[0]),
-                            ButtonBuilder.from((await interaction.fetchReply()).components[0].components[1])
-                                .setStyle(ButtonStyle.Success)
-                                .setDisabled(true),
-                        ),
-                ],
-            });
-            await button.fetchReply();
-            await button.deleteReply();
-        }
-
-        // 檢查兩位是否都到就開始
-        if (!unreadys.p1 && !unreadys.p2) {
-            collector_beforeStart_p1.stop('雙方皆完成準備');
-            require('./system')('vs', client, interaction, { p1: player1, p2: player2 });
-        }
-
-    });
-    collector_beforeStart_p2.on('collect', async (button) => {
-        // console.log("OWO 觸發了");
-        // 檢查收集資訊
-        if (button.customId === customids.p1 && button.user.id === player1.user.id) {
             unreadys.p1 = false;
-            await interaction.editReply({
-                embeds: [
-                    EmbedBuilder.from((await interaction.fetchReply()).embeds[0])
-                        .setDescription(translations["embed_description_vs_timedout"])],
-                components: [
-                    new ActionRowBuilder()
-                        .addComponents(
-                            ButtonBuilder.from((await interaction.fetchReply()).components[0].components[0])
-                                .setStyle(ButtonStyle.Success)
-                                .setDisabled(true),
-                            ButtonBuilder.from((await interaction.fetchReply()).components[0].components[1]),
-                        ),
-                ],
-            });
-            await button.fetchReply();
-            await button.deleteReply();
         } else if (button.customId === customids.p2 && button.user.id === player2.user.id) {
-            unreadys.p2 = false;
-            await interaction.editReply({
+            await button.editReply({
                 embeds: [
                     EmbedBuilder.from((await interaction.fetchReply()).embeds[0])
-                        .setDescription(translations["embed_description_vs_timedout"])],
+                        .setDescription(translations["embed_description_vs_beforeGame"])],
                 components: [
                     new ActionRowBuilder()
                         .addComponents(
@@ -150,21 +101,21 @@ module.exports = async (client, interaction) => {
                         ),
                 ],
             });
-            await button.fetchReply();
-            await button.deleteReply();
+            unreadys.p2 = false;
         }
+
 
         // 檢查兩位是否都到就開始
         if (!unreadys.p1 && !unreadys.p2) {
-            collector_beforeStart_p1.stop('雙方皆完成準備');
-            require('./system')('vs', client, interaction, { p1: player1, p2: player2 });
+            collector_beforeStart.stop('雙方皆完成準備');
+            require('./system')('vs', client, message, { p1: player1, p2: player2 });
         }
 
     });
 
-    setTimeout(async () => {
+    collector_beforeStart.on('end', async (_c) => {
         if (unreadys.p1 || unreadys.p2) {
-            await interaction.editReply({
+            await message.edit({
                 embeds: [
                     EmbedBuilder.from((await interaction.fetchReply()).embeds[0])
                         .setDescription(translations["embed_description_vs_timedout"])],
@@ -181,6 +132,9 @@ module.exports = async (client, interaction) => {
                 ],
             });
         }
-    }, 30 * 1000);
+    })
+    // setTimeout(async ()=>{
+
+    // }, 30 * 1000)
 
 };

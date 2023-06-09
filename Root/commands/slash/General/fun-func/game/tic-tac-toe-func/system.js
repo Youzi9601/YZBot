@@ -1,14 +1,14 @@
-const { userMention, ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time, ButtonBuilder, ButtonStyle, User } = require('discord.js');
+const { userMention, ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time, ButtonBuilder, ButtonStyle, User, ButtonInteraction } = require('discord.js');
 
 /**
  * 運行井字棋
  * @param {'vs'|'ai:easy'|'ai:hard'|'ai:extreme'} mode 模式
  * @param {import('discord.js').Client} client 機器人
- * @param {import('discord.js').ChatInputCommandInteraction} interaction 斜線命令
+ * @param {import('discord.js').Message} message 訊息
  * @param {{p1: import('discord.js').GuildMember, p2: import('discord.js').GuildMember}} player 玩家資料
  */
-module.exports = async (mode, client, interaction, player) => {
-    const translations = client.language_data(interaction.locale, 'commands/slash/General/fun#game.tic-tac-toe');
+module.exports = async (mode, client, message, player) => {
+    const translations = client.language_data(message.locale, 'commands/slash/General/fun#game.tic-tac-toe');
 
 
     const EMPTY = '-';
@@ -35,29 +35,33 @@ module.exports = async (mode, client, interaction, player) => {
         for (let i = 0; i < 3; i++) {
             const row = new ActionRowBuilder();
             for (let j = 0; j < 3; j++) {
-                const button = new ButtonBuilder().setCustomId(`tic-tac-toe-Game-${ interaction.createdTimestamp }-${ i }_${ j }`);
+                const button = new ButtonBuilder().setCustomId(`ttt-${message.createdTimestamp}-${i}_${j}`);
                 if (board[i][j] == EMPTY)
                     button
-                        .setLabel(EMPTY);
+                        .setLabel(EMPTY)
+                        .setStyle(ButtonStyle.Secondary);
                 else if (board[i][j] == PLAYER_O)
                     button
                         .setLabel(PLAYER_O)
-                        .setDisabled(true);
+                        .setDisabled(true)
+                        .setStyle(ButtonStyle.Success);
                 else if (board[i][j] == PLAYER_X)
                     button
-                        .setLabel(PLAYER_O)
-                        .setDisabled(true);
+                        .setLabel(PLAYER_X)
+                        .setDisabled(true)
+                        .setStyle(ButtonStyle.Danger);
+
                 row.addComponents(button);
             }
             rows.push(row);
         }
 
-        await interaction.editReply({
+        await message.edit({
             content: [
-                `:x: ${ userMention(player.p1.id) } vs :o: ${ userMention(player.p2.id) }`,
-                `${ translations["content_now"] } ${ currentPlayer == PLAYER_X ? userMention(player.p1.id) : userMention(player.p2.id) }`,
+                `:x: ${userMention(player.p1.id)} vs :o: ${userMention(player.p2.id)}`,
+                `${translations["content_now"]} ${currentPlayer == PLAYER_X ? userMention(player.p1.id) : userMention(player.p2.id)}`,
             ].join('\n'),
-            components: [rows],
+            components: rows,
         });
     }
 
@@ -257,23 +261,31 @@ module.exports = async (mode, client, interaction, player) => {
         // 重製棋盤
         initializeBoard();
         await printBoard();
-        const customids = `tic-tac-toe-Game-${ interaction.createdTimestamp }-`;
+        const customids = `ttt-${message.createdTimestamp}-`;
         // 創建蒐集等待兩位玩家都完成準備
-        const collector_inGame = interaction.channel.createMessageComponentCollector({
-            filter: (button) =>
-                (button.user.id === player.p1.user.id ||
-                    button.user.id === player.p2.user.id) &&
-                button.customId.includes(customids),
+        const collector_inGame = message.channel.createMessageComponentCollector({
+            filter: async (button) => {
+                if (
+                    (button.user.id === player.p1.user.id ||
+                        button.user.id === player.p2.user.id) &&
+                    button.customId.includes(customids)
+                ) {
+                    return true
+                }
+                else return false
+            },
             time: 5 * 60 * 1000, // 偵測時間 5 分鐘
         });
+
         collector_inGame.on('collect', async (button) => {
+            await button.deferReply();
             if (
                 !(
                     (currentPlayer == PLAYER_X && button.user.id == player.p1.id) ||
                     (currentPlayer == PLAYER_O && button.user.id == player.p2.id)
                 )
             )
-                return await button.reply(translations["content_notYourRound"]);
+                return await button.followUp({ content: translations["content_notYourRound"], ephemeral: true });
 
 
             const input = button.customId.replace(customids, '');
@@ -288,9 +300,10 @@ module.exports = async (mode, client, interaction, player) => {
                     if (mode != 'vs') makeAIMove(mode);
                 }
             } else {
-                return await button.reply(translations["content_moveNotValid"]);
+                return await button.followUp({ content: translations["content_moveNotValid"], ephemeral: true });
             }
-            await button.reply(translations["content_success"]);
+            const success = await button.followUp({content:translations["content_success"]});
+            await success.delete()
 
             await printBoard();
 
@@ -307,19 +320,45 @@ module.exports = async (mode, client, interaction, player) => {
                     // console.log('You lost!');
                 }
                 collector_inGame.stop("遊戲結束");
-                await interaction.editReply({
+
+                const rows = [];
+                for (let i = 0; i < 3; i++) {
+                    const row = new ActionRowBuilder();
+                    for (let j = 0; j < 3; j++) {
+                        const button = new ButtonBuilder().setCustomId(`ttt-${message.createdTimestamp}-${i}_${j}`);
+                        if (board[i][j] == EMPTY)
+                            button
+                                .setLabel(EMPTY)
+                                .setStyle(ButtonStyle.Secondary)
+                                .setDisabled(true);
+                        else if (board[i][j] == PLAYER_O)
+                            button
+                                .setLabel(PLAYER_O)
+                                .setDisabled(true)
+                                .setStyle(ButtonStyle.Success);
+                        else if (board[i][j] == PLAYER_X)
+                            button
+                                .setLabel(PLAYER_X)
+                                .setDisabled(true)
+                                .setStyle(ButtonStyle.Danger);
+
+                        row.addComponents(button);
+                    }
+                    rows.push(row);
+                }
+
+                await message.edit({
                     content: [
-                        `:x: ${ userMention(player.p1.id) } vs :o: ${ userMention(player.p2.id) }`,
-                        `${ wins }`,
+                        `:x: ${userMention(player.p1.id)} vs :o: ${userMention(player.p2.id)}`,
+                        `${wins}`,
                     ].join('\n'),
-                    components: [
-                        ActionRowBuilder.from((await interaction.fetchReply()).components),
-                    ],
+                    components: rows,
                 });
+                return;
             }
 
         });
     }
 
-    await playGame(mode);
+    return await playGame(mode);
 };
