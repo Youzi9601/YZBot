@@ -41,10 +41,10 @@ module.exports = async (client) => {
                 })
                 .catch(e => {
                     client.console('Error', `[DATABASE] Mongoose 資料庫無法使用！將關閉機器人！`.red);
-                    client.console('Error', { promise: error });
+                    client.console('Error', { promise: e });
                     process.exit(1);
                 });
-        // superDjs.connectMongoDB(mongo, true, superDjs.colourText('[DATABASE] 連接到 MongoDB！', 'green'));
+            // superDjs.connectMongoDB(mongo, true, superDjs.colourText('[DATABASE] 連接到 MongoDB！', 'green'));
         }
         break;
 
@@ -64,7 +64,7 @@ module.exports = async (client) => {
         break;
     }
 
-    client.db = require(`./database/${db_type}.js`);
+    client.db = require(`./database/${ db_type }.js`);
 };
 
 /**

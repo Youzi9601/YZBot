@@ -45,6 +45,6 @@ async function load(client, interaction, config, db) {
         return await interaction.editReply(`**${track.title}** 已完成添加！`);
     } catch (error) {
 
-        return await interaction.followUp(`出了點問題：${e}`);
+        return await interaction.followUp(`出了點問題：${error}`);
     }
 }

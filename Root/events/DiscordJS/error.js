@@ -13,6 +13,6 @@ module.exports = {
      */
     async execute(client, e) {
         client.console('Error', `[ERROR] 發生了 Discord API 錯誤`.red);
-        client.console('Error', { promise: error });
+        client.console('Error', { promise: e });
     },
 };
