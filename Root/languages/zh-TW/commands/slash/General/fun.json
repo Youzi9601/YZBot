@@ -39,6 +39,8 @@
             "content_gameEnd_tie": "遊戲結束：平手",
             "content_gameEnd_p1_win": "遊戲結束： :x: 贏了",
             "content_gameEnd_p2_win": "遊戲結束： :o: 贏了",
+            "mode":"模式",
+            "vs": "真人對戰",
             "ai:easy": "易(隨機下棋)",
             "ai:easy_description": "隨便亂下 (ouo",
             "ai:hard": "中",

@@ -61,6 +61,7 @@ module.exports = async (mode, client, message, player) => {
             content: [
                 `:x: ${ userMention(player.p1.id) } vs :o: ${ userMention(player.p2.id) }`,
                 `${ translations["content_now"] } ${ currentPlayer == PLAYER_X ? userMention(player.p1.id) : userMention(player.p2.id) }`,
+                `${ translations["mode"] }${ translations[mode] }`,
             ].join('\n'),
             embeds: [],
             components: rows,
