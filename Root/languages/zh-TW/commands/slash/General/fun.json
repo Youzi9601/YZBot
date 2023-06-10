@@ -25,9 +25,13 @@
             "embed_title_error_isBot": "無效的遊戲對手",
             "embed_description_error_isBot": "此成員為機器人！無法與它玩遊戲！",
             "content_waitForOtherMember": "請等待該成員同意開始遊戲...",
+            "content_choseAI": "請選擇AI難度",
             "embed_title_vs_beforeGame": "等待準備...",
+            "embed_title_ai_beforeGame": "請選擇遊戲難度",
             "embed_description_vs_beforeGame": "請兩位玩家同意後遊戲將會開始...",
+            "embed_description_ai_beforeGame": "選擇難度後遊戲將會開始...",
             "embed_description_vs_timedout": "雙方對戰因無人回應準備而無法開始。",
+            "embed_description_ai_timedout": "與電腦對戰因為沒有選擇難度而無法開始。",
             "content_now": "當前回合：",
             "content_success": "成功放置",
             "content_notYourRound": "當前不是你的回合",
@@ -35,7 +39,12 @@
             "content_gameEnd_tie": "遊戲結束：平手",
             "content_gameEnd_p1_win": "遊戲結束： :x: 贏了",
             "content_gameEnd_p2_win": "遊戲結束： :o: 贏了",
-            "embed_title_ai_beforeGame": "請選擇遊戲難度"
+            "ai:easy": "易(隨機下棋)",
+            "ai:easy_description": "隨便亂下 (ouo",
+            "ai:hard": "中",
+            "ai:hard_description": "機器人會思考該如何下",
+            "ai:extreme": "超困難",
+            "ai:extreme_description": "機器人會深度的思考，基本上是和局結束"
         }
     }
 }

@@ -12,8 +12,8 @@ module.exports = async (mode, client, message, player) => {
 
 
     const EMPTY = '-';
-    const PLAYER_X = ':X:';
-    const PLAYER_O = ':O:';
+    const PLAYER_X = '❌';
+    const PLAYER_O = '⭕';
 
     let currentPlayer;
     let board;
@@ -35,7 +35,7 @@ module.exports = async (mode, client, message, player) => {
         for (let i = 0; i < 3; i++) {
             const row = new ActionRowBuilder();
             for (let j = 0; j < 3; j++) {
-                const button = new ButtonBuilder().setCustomId(`ttt-${message.createdTimestamp}-${i}_${j}`);
+                const button = new ButtonBuilder().setCustomId(`ttt-${ message.createdTimestamp }-${ i }_${ j }`);
                 if (board[i][j] == EMPTY)
                     button
                         .setLabel(EMPTY)
@@ -58,10 +58,10 @@ module.exports = async (mode, client, message, player) => {
 
         await message.edit({
             content: [
-                `:x: ${userMention(player.p1.id)} vs :o: ${userMention(player.p2.id)}`,
-                `${translations["content_now"]} ${currentPlayer == PLAYER_X ? userMention(player.p1.id) : userMention(player.p2.id)}`,
+                `:x: ${ userMention(player.p1.id) } vs :o: ${ userMention(player.p2.id) }`,
+                `${ translations["content_now"] } ${ currentPlayer == PLAYER_X ? userMention(player.p1.id) : userMention(player.p2.id) }`,
             ].join('\n'),
-            embeds:[],
+            embeds: [],
             components: rows,
         });
     }
@@ -82,27 +82,27 @@ module.exports = async (mode, client, message, player) => {
     }
 
     // 檢查是否結束
-    function isGameOver() {
+    function isGameOver(temp_board = board) {
         // 檢查行
         for (let i = 0; i < 3; i++) {
-            if (board[i][0] !== EMPTY && board[i][0] === board[i][1] && board[i][0] === board[i][2]) {
+            if (temp_board[i][0] !== EMPTY && temp_board[i][0] === temp_board[i][1] && temp_board[i][0] === temp_board[i][2]) {
                 return true;
             }
         }
 
         // 檢查列
         for (let j = 0; j < 3; j++) {
-            if (board[0][j] !== EMPTY && board[0][j] === board[1][j] && board[0][j] === board[2][j]) {
+            if (temp_board[0][j] !== EMPTY && temp_board[0][j] === temp_board[1][j] && temp_board[0][j] === temp_board[2][j]) {
                 return true;
             }
         }
 
         // 檢查對角線
-        if (board[0][0] !== EMPTY && board[0][0] === board[1][1] && board[0][0] === board[2][2]) {
+        if (temp_board[0][0] !== EMPTY && temp_board[0][0] === temp_board[1][1] && temp_board[0][0] === temp_board[2][2]) {
             return true;
         }
 
-        if (board[0][2] !== EMPTY && board[0][2] === board[1][1] && board[0][2] === board[2][0]) {
+        if (temp_board[0][2] !== EMPTY && temp_board[0][2] === temp_board[1][1] && temp_board[0][2] === temp_board[2][0]) {
             return true;
         }
 
@@ -110,7 +110,7 @@ module.exports = async (mode, client, message, player) => {
         let isFull = true;
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                if (board[i][j] === EMPTY) {
+                if (temp_board[i][j] === EMPTY) {
                     isFull = false;
                     break;
                 }
@@ -124,7 +124,7 @@ module.exports = async (mode, client, message, player) => {
             full = true;
             return true;
         }
-
+        full = false;
         return false;
     }
 
@@ -161,7 +161,7 @@ module.exports = async (mode, client, message, player) => {
 
         for (const [row, col] of moves) {
             board[row][col] = currentPlayer;
-            const score = minimax(0, false);
+            const score = minimax(board, 0, false);
             board[row][col] = EMPTY;
 
             if (score === 10) {
@@ -178,28 +178,93 @@ module.exports = async (mode, client, message, player) => {
     }
     // AI 困難難度選擇
     function makeExtremeAIMove() {
-        let bestScore = Infinity;
+        let bestScore = -Infinity;
         let bestMove;
 
         const moves = getAvailableMoves();
 
         for (const [row, col] of moves) {
             board[row][col] = currentPlayer;
-            const score = minimax(0, false);
+            const score = minimax(board, 0, false);
             board[row][col] = EMPTY;
 
-            if (score < bestScore) {
+            const opponentPlayer = currentPlayer === PLAYER_X ? PLAYER_O : PLAYER_X;
+            if (willWin(opponentPlayer, row, col)) {
+                return [row, col];
+            }
+            if (score > bestScore) {
                 bestScore = score;
                 bestMove = [row, col];
             }
         }
 
-        const [row, col] = bestMove;
-        makeMove(row, col);
+        return bestMove;
     }
+
+    function willWin(temp_player, row, col) {
+        // Check rows
+        if (
+            (board[row][0] === temp_player &&
+                board[row][1] === temp_player &&
+                board[row][2] === EMPTY) ||
+            (board[row][0] === temp_player &&
+                board[row][1] === EMPTY &&
+                board[row][2] === temp_player) ||
+            (board[row][0] === EMPTY &&
+                board[row][1] === temp_player &&
+                board[row][2] === temp_player)
+        ) {
+            return true;
+        }
+
+        // Check columns
+        if (
+            (board[0][col] === temp_player &&
+                board[1][col] === temp_player &&
+                board[2][col] === EMPTY) ||
+            (board[0][col] === temp_player &&
+                board[1][col] === EMPTY &&
+                board[2][col] === temp_player) ||
+            (board[0][col] === EMPTY &&
+                board[1][col] === temp_player &&
+                board[2][col] === temp_player)
+        ) {
+            return true;
+        }
+
+        // Check diagonals
+        if (
+            (row === col &&
+                ((board[0][0] === temp_player &&
+                    board[1][1] === temp_player &&
+                    board[2][2] === EMPTY) ||
+                    (board[0][0] === temp_player &&
+                        board[1][1] === EMPTY &&
+                        board[2][2] === temp_player) ||
+                    (board[0][0] === EMPTY &&
+                        board[1][1] === temp_player &&
+                        board[2][2] === temp_player))) ||
+            (row + col === 2 &&
+                ((board[0][2] === temp_player &&
+                    board[1][1] === temp_player &&
+                    board[2][0] === EMPTY) ||
+                    (board[0][2] === temp_player &&
+                        board[1][1] === EMPTY &&
+                        board[2][0] === temp_player) ||
+                    (board[0][2] === EMPTY &&
+                        board[1][1] === temp_player &&
+                        board[2][0] === temp_player)))
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
     // 下棋計算法
-    function minimax(depth, isMaximizingPlayer) {
-        if (isGameOver()) {
+    function minimax(temp_board, depth, isMaximizingPlayer) {
+        if (isGameOver(temp_board)) {
+            // return evaluate(temp_board);
             if (currentPlayer === PLAYER_X) {
                 return depth - 10;
             } else {
@@ -213,9 +278,9 @@ module.exports = async (mode, client, message, player) => {
             const moves = getAvailableMoves();
 
             for (const [row, col] of moves) {
-                board[row][col] = currentPlayer;
-                const score = minimax(depth + 1, false);
-                board[row][col] = EMPTY;
+                temp_board[row][col] = currentPlayer;
+                const score = minimax(temp_board, depth + 1, false);
+                temp_board[row][col] = EMPTY;
 
                 bestScore = Math.max(score, bestScore);
             }
@@ -227,9 +292,10 @@ module.exports = async (mode, client, message, player) => {
             const moves = getAvailableMoves();
 
             for (const [row, col] of moves) {
-                board[row][col] = (currentPlayer === PLAYER_X) ? PLAYER_O : PLAYER_X;
-                const score = minimax(depth + 1, true);
-                board[row][col] = EMPTY;
+                const opponent = (currentPlayer === PLAYER_X) ? PLAYER_O : PLAYER_X;
+                temp_board[row][col] = opponent;
+                const score = minimax(temp_board, depth + 1, true);
+                temp_board[row][col] = EMPTY;
 
                 bestScore = Math.min(score, bestScore);
             }
@@ -246,7 +312,7 @@ module.exports = async (mode, client, message, player) => {
         } else if (difficulty === 'ai:hard') {
             makeMove(...getBestMove());
         } else if (difficulty === 'ai:extreme') {
-            makeExtremeAIMove();
+            makeMove(...makeExtremeAIMove());
         }
 
         if (!isGameOver()) {
@@ -262,7 +328,7 @@ module.exports = async (mode, client, message, player) => {
         // 重製棋盤
         initializeBoard();
         await printBoard();
-        const customids = `ttt-${message.createdTimestamp}-`;
+        const customids = `ttt-${ message.createdTimestamp }-`;
         // 創建蒐集等待兩位玩家都完成準備
         const collector_inGame = message.channel.createMessageComponentCollector({
             filter: async (button) => {
@@ -302,7 +368,7 @@ module.exports = async (mode, client, message, player) => {
             } else {
                 return await button.followUp({ content: translations["content_moveNotValid"], ephemeral: true });
             }
-            const success = await button.followUp({ content:translations["content_success"] });
+            const success = await button.followUp({ content: translations["content_success"] });
             await success.delete();
 
             await printBoard();
@@ -323,34 +389,34 @@ module.exports = async (mode, client, message, player) => {
 
                 const rows = [];
                 for (let i = 0; i < 3; i++) {
-                    const row = new ActionRowBuilder();
+                    const row_ac = new ActionRowBuilder();
                     for (let j = 0; j < 3; j++) {
-                        const button = new ButtonBuilder().setCustomId(`ttt-${message.createdTimestamp}-${i}_${j}`);
+                        const button_ac = new ButtonBuilder().setCustomId(`ttt-${ message.createdTimestamp }-${ i }_${ j }`);
                         if (board[i][j] == EMPTY)
-                            button
+                            button_ac
                                 .setLabel(EMPTY)
                                 .setStyle(ButtonStyle.Secondary)
                                 .setDisabled(true);
                         else if (board[i][j] == PLAYER_O)
-                            button
+                            button_ac
                                 .setLabel(PLAYER_O)
                                 .setDisabled(true)
                                 .setStyle(ButtonStyle.Success);
                         else if (board[i][j] == PLAYER_X)
-                            button
+                            button_ac
                                 .setLabel(PLAYER_X)
                                 .setDisabled(true)
                                 .setStyle(ButtonStyle.Danger);
 
-                        row.addComponents(button);
+                        row_ac.addComponents(button_ac);
                     }
-                    rows.push(row);
+                    rows.push(row_ac);
                 }
 
                 await message.edit({
                     content: [
-                        `:x: ${userMention(player.p1.id)} vs :o: ${userMention(player.p2.id)}`,
-                        `${wins}`,
+                        `:x: ${ userMention(player.p1.id) } vs :o: ${ userMention(player.p2.id) }`,
+                        `${ wins }`,
                     ].join('\n'),
                     components: rows,
                 });
