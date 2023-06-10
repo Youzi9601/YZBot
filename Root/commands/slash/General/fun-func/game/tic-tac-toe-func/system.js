@@ -167,7 +167,9 @@ module.exports = async (mode, client, message, player) => {
             if (score === 10) {
                 return [row, col];
             }
-
+            if (board[1][1] == EMPTY) {
+                return [1, 1];
+            }
             if (score > bestScore) {
                 bestScore = score;
                 bestMove = [row, col];
@@ -191,6 +193,9 @@ module.exports = async (mode, client, message, player) => {
             const opponentPlayer = currentPlayer === PLAYER_X ? PLAYER_O : PLAYER_X;
             if (willWin(opponentPlayer, row, col)) {
                 return [row, col];
+            }
+            if (board[1][1] == EMPTY) {
+                return [1, 1];
             }
             if (score > bestScore) {
                 bestScore = score;
