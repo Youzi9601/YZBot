@@ -18,6 +18,7 @@ module.exports = async (mode, client, message, player) => {
     let currentPlayer;
     let board;
     let full;
+    let round = 0;
 
 
     function initializeBoard() {
@@ -154,7 +155,7 @@ module.exports = async (mode, client, message, player) => {
     }
     // AI 普通選擇
     function getBestMove() {
-        let bestScore = -Infinity;
+        let bestScore = -1000;
         let bestMove;
 
         const moves = getAvailableMoves();
@@ -180,7 +181,7 @@ module.exports = async (mode, client, message, player) => {
     }
     // AI 困難難度選擇
     function makeExtremeAIMove() {
-        let bestScore = -Infinity;
+        let bestScore = -1000;
         let bestMove;
 
         const moves = getAvailableMoves();
@@ -196,6 +197,22 @@ module.exports = async (mode, client, message, player) => {
             }
             if (board[1][1] == EMPTY) {
                 return [1, 1];
+
+                // 防大三角
+            } else if (round == 2 && ((board[0][0] == PLAYER_X && board[2][2] == PLAYER_X) || (board[2][0] == PLAYER_X && board[0][2] == PLAYER_X))) {
+                console.log(moves.some(v => v[0] == 0 && v[1] == 1));
+                if (moves.some(v => v[0] == 0 && v[1] == 1))
+                    return [0, 1];
+                // 防缺角
+            } else if (round == 2) {
+                if ((board[1][0] == PLAYER_X && board[0][1] == PLAYER_X) && moves.some(v => v[0] == 0 && v[1] == 0))
+                    return [0, 0];
+                if ((board[0][1] == PLAYER_X && board[1][2] == PLAYER_X) && moves.some(v => v[0] == 0 && v[1] == 2))
+                    return [0, 2];
+                if ((board[1][2] == PLAYER_X && board[2][1] == PLAYER_X) && moves.some(v => v[0] == 2 && v[1] == 2))
+                    return [2, 2];
+                if ((board[2][1] == PLAYER_X && board[1][0] == PLAYER_X) && moves.some(v => v[0] == 2 && v[1] == 0))
+                    return [2, 0];
             }
             if (score > bestScore) {
                 bestScore = score;
@@ -270,7 +287,9 @@ module.exports = async (mode, client, message, player) => {
     function minimax(temp_board, depth, isMaximizingPlayer) {
         if (isGameOver(temp_board)) {
             // return evaluate(temp_board);
-            if (currentPlayer === PLAYER_X) {
+            if (full) {
+                return 0;
+            } else if (currentPlayer === PLAYER_X) {
                 return depth - 10;
             } else {
                 return 10 - depth;
@@ -278,7 +297,7 @@ module.exports = async (mode, client, message, player) => {
         }
 
         if (isMaximizingPlayer) {
-            let bestScore = -Infinity;
+            let bestScore = -1000;
 
             const moves = getAvailableMoves();
 
@@ -292,7 +311,7 @@ module.exports = async (mode, client, message, player) => {
 
             return bestScore;
         } else {
-            let bestScore = Infinity;
+            let bestScore = 1000;
 
             const moves = getAvailableMoves();
 
@@ -369,6 +388,7 @@ module.exports = async (mode, client, message, player) => {
                 if (!isGameOver()) {
                     switchPlayer();
                     if (mode != 'vs') makeAIMove(mode);
+                    round++;
                 }
             } else {
                 return await button.followUp({ content: translations["content_moveNotValid"], ephemeral: true });
@@ -427,6 +447,7 @@ module.exports = async (mode, client, message, player) => {
                 });
                 return;
             }
+            round++;
 
         });
     }
