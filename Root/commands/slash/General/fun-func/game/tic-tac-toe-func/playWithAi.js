@@ -43,6 +43,18 @@ module.exports = async (client, interaction) => {
                                 .setLabel(translations["ai:extreme"])
                                 .setValue('ai:extreme')
                                 .setDescription(translations["ai:extreme_description"]),
+                            new StringSelectMenuOptionBuilder()
+                                .setLabel(translations["ai:easy-change"])
+                                .setValue('ai:easy-change')
+                                .setDescription(translations["ai:easy_description"]),
+                            new StringSelectMenuOptionBuilder()
+                                .setLabel(translations["ai:hard-change"])
+                                .setValue('ai:hard-change')
+                                .setDescription(translations["ai:hard_description"]),
+                            new StringSelectMenuOptionBuilder()
+                                .setLabel(translations["ai:extreme-change"])
+                                .setValue('ai:extreme-change')
+                                .setDescription(translations["ai:extreme_description"]),
                         ),
                 ),
         ],

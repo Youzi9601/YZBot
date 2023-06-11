@@ -2,7 +2,7 @@ const { userMention, ComponentType, EmbedBuilder, ActionRowBuilder, StringSelect
 
 /**
  * 運行井字棋
- * @param {'vs'|'ai:easy'|'ai:hard'|'ai:extreme'} mode 模式
+ * @param {'vs'|'ai:easy'|'ai:hard'|'ai:extreme'|'vs-change'|'ai:easy-change'|'ai:hard-change'|'ai:extreme-change'} mode 模式
  * @param {import('discord.js').Client} client 機器人
  * @param {import('discord.js').Message} message 訊息
  * @param {{p1: import('discord.js').GuildMember, p2: import('discord.js').GuildMember}} player 玩家資料
@@ -10,7 +10,7 @@ const { userMention, ComponentType, EmbedBuilder, ActionRowBuilder, StringSelect
 module.exports = async (mode, client, message, player) => {
     const translations = client.language_data(message.locale, 'commands/slash/General/fun#game.tic-tac-toe');
 
-
+    const change_str = '-change';
     const EMPTY = '-';
     const PLAYER_X = '❌';
     const PLAYER_O = '⭕';
@@ -61,7 +61,7 @@ module.exports = async (mode, client, message, player) => {
             content: [
                 `:x: ${ userMention(player.p1.id) } vs :o: ${ userMention(player.p2.id) }`,
                 `${ translations["content_now"] } ${ currentPlayer == PLAYER_X ? userMention(player.p1.id) : userMention(player.p2.id) }`,
-                `${ translations["mode"] }${ translations[mode] }`,
+                `${ translations["mode"] }${ translations[mode.replace(change_str, '')] }`,
             ].join('\n'),
             embeds: [],
             components: rows,
@@ -200,22 +200,22 @@ module.exports = async (mode, client, message, player) => {
                 return [1, 1];
 
                 // 防大三角
-            } else if (round == 2 && ((board[0][0] == PLAYER_X && board[2][2] == PLAYER_X) || (board[2][0] == PLAYER_X && board[0][2] == PLAYER_X))) {
+            } else if (round == 2 && ((board[0][0] == opponentPlayer && board[2][2] == opponentPlayer) || (board[2][0] == opponentPlayer && board[0][2] == opponentPlayer))) {
                 // console.log(moves.some(v => v[0] == 0 && v[1] == 1));
                 if (moves.some(v => v[0] == 0 && v[1] == 1))
                     return [0, 1];
                 // 防缺角
             } else if (round == 2) {
-                if ((board[1][0] == PLAYER_X && board[0][1] == PLAYER_X) && moves.some(v => v[0] == 0 && v[1] == 0))
+                if ((board[1][0] == opponentPlayer && board[0][1] == opponentPlayer) && moves.some(v => v[0] == 0 && v[1] == 0))
                     return [0, 0];
-                if ((board[0][1] == PLAYER_X && board[1][2] == PLAYER_X) && moves.some(v => v[0] == 0 && v[1] == 2))
+                if ((board[0][1] == opponentPlayer && board[1][2] == opponentPlayer) && moves.some(v => v[0] == 0 && v[1] == 2))
                     return [0, 2];
-                if ((board[1][2] == PLAYER_X && board[2][1] == PLAYER_X) && moves.some(v => v[0] == 2 && v[1] == 2))
+                if ((board[1][2] == opponentPlayer && board[2][1] == opponentPlayer) && moves.some(v => v[0] == 2 && v[1] == 2))
                     return [2, 2];
-                if ((board[2][1] == PLAYER_X && board[1][0] == PLAYER_X) && moves.some(v => v[0] == 2 && v[1] == 0))
+                if ((board[2][1] == opponentPlayer && board[1][0] == opponentPlayer) && moves.some(v => v[0] == 2 && v[1] == 0))
                     return [2, 0];
-                if (board[1][1] == PLAYER_X) {
-                    if (board[2][2] == PLAYER_X)
+                if (board[1][1] == opponentPlayer) {
+                    if (board[2][2] == opponentPlayer)
                         return [0, 2];
                 }
             }
@@ -353,9 +353,16 @@ module.exports = async (mode, client, message, player) => {
 
     // 整個遊戲程式
     async function playGame() {
-
         // 重製棋盤
         initializeBoard();
+
+        // 由 O 纖手
+        if (mode.includes('-change')) {
+            switchPlayer();
+            if (mode.replace(change_str, '') != 'vs') makeAIMove(mode.replace(change_str, ''));
+            round++;
+        }
+
         await printBoard();
         const customids = `ttt-${ message.createdTimestamp }-`;
         // 創建蒐集等待兩位玩家都完成準備
@@ -392,7 +399,7 @@ module.exports = async (mode, client, message, player) => {
                 makeMove(rowIndex, colIndex);
                 if (!isGameOver()) {
                     switchPlayer();
-                    if (mode != 'vs') makeAIMove(mode);
+                    if (mode.replace(change_str, '') != 'vs') makeAIMove(mode.replace(change_str, ''));
                     round++;
                 }
             } else {
@@ -446,7 +453,7 @@ module.exports = async (mode, client, message, player) => {
                 await message.edit({
                     content: [
                         `:x: ${ userMention(player.p1.id) } vs :o: ${ userMention(player.p2.id) }`,
-                        `${ translations["mode"] }${ translations[mode] }`,
+                        `${ translations["mode"] }${ translations[mode.replace(change_str, '')] }`,
                         `${ wins }`,
                     ].join('\n'),
                     components: rows,

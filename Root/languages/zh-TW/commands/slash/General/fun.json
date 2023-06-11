@@ -39,13 +39,16 @@
             "content_gameEnd_tie": "遊戲結束：平手",
             "content_gameEnd_p1_win": "遊戲結束： :x: 贏了",
             "content_gameEnd_p2_win": "遊戲結束： :o: 贏了",
-            "mode":"模式",
+            "mode": "模式",
             "vs": "真人對戰",
             "ai:easy": "易(隨機下棋)",
+            "ai:easy-change": "易(隨機下棋)，電腦先手",
             "ai:easy_description": "隨便亂下 (ouo",
             "ai:hard": "中",
+            "ai:hard-change": "中，電腦先手",
             "ai:hard_description": "機器人會思考該如何贏，從不考慮對手要贏了",
             "ai:extreme": "難",
+            "ai:extreme-change": "難，電腦先手",
             "ai:extreme_description": "機器人會深度的思考...(?)"
         }
     }
