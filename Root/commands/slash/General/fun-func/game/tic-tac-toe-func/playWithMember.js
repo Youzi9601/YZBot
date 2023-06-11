@@ -17,6 +17,8 @@ module.exports = async (client, interaction) => {
         p2: `tic-tac-toe-2p_Ready-${ interaction.createdTimestamp }`,
     };
 
+    const users_id = [player1.id];
+    if (player1.id != player2.id) users_id.push(player2.id)
     await interaction.editReply({
         content: `${ userMention(player2.id) }\n${ translations["content_waitForOtherMember"] }`,
         embeds: [
@@ -41,7 +43,7 @@ module.exports = async (client, interaction) => {
                         .setStyle(ButtonStyle.Primary),
                 ),
         ],
-        allowedMentions: { users: [player1.id, player2.id] },
+        allowedMentions: { users: users_id },
     });
 
     const unreadys = {
@@ -85,7 +87,7 @@ module.exports = async (client, interaction) => {
                             ButtonBuilder.from((await interaction.fetchReply()).components[0].components[1]),
                         ),
                 ],
-                allowedMentions: { users: [player1.id, player2.id] },
+                allowedMentions: { users: users_id },
             });
             unreadys.p1 = false;
         } else if (button.customId === customids.p2 && button.user.id === player2.user.id) {
@@ -102,7 +104,7 @@ module.exports = async (client, interaction) => {
                                 .setDisabled(true),
                         ),
                 ],
-                allowedMentions: { users: [player1.id, player2.id] },
+                allowedMentions: { users: users_id },
             });
             unreadys.p2 = false;
         }
