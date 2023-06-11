@@ -34,7 +34,7 @@ module.exports = {
         // Slash Autocomplete:
         if (interaction.isAutocomplete()) {
             const command = client.slash_commands.get(interaction.commandName);
-            if (!command || command?.autocomplete) {
+            if (!command || !command?.autocomplete) {
                 if (interaction.responded) return;
                 return await interaction.respond([{ name: `錯誤：查無此回應命令\`${ interaction.commandName }\`之結果`, value: 'error' }]);
             }
@@ -52,7 +52,7 @@ module.exports = {
             const command = client.contextmenu_user_commands.get(interaction.commandName);
 
             if (!command) {
-                if (interaction.replied) return;
+                if (interaction.replied || interaction.deferred || !interaction.isRepliable()) return;
                 return await interaction.reply({
                     embeds: [
                         new EmbedBuilder()
@@ -84,7 +84,7 @@ module.exports = {
             const command = client.contextmenu_message_commands.get(interaction.commandName);
 
             if (!command) {
-                if (interaction.replied) return;
+                if (interaction.replied || interaction.deferred || !interaction.isRepliable()) return;
                 return await interaction.reply({
                     embeds: [
                         new EmbedBuilder()
@@ -116,7 +116,7 @@ module.exports = {
             const modal = client.modals.get(interaction.customId);
 
             if (!modal) {
-                if (interaction.replied) return;
+                if (interaction.replied || interaction.deferred || !interaction.isRepliable()) return;
                 return await interaction.reply({
                     embeds: [
                         new EmbedBuilder()
@@ -148,8 +148,8 @@ module.exports = {
 
             if (!button) {
                 // 等待並檢查是否有其他內建按鈕執行過了
-                await wait(1000);
-                if (interaction.replied) return;
+                await wait(2500);
+                if (interaction.replied || interaction.deferred || !interaction.isRepliable()) return;
                 return await interaction.reply({
                     embeds: [
                         new EmbedBuilder()
@@ -182,8 +182,8 @@ module.exports = {
 
             if (!selectmenu) {
                 // 等待並檢查是否有其他內建按鈕執行過了
-                await wait(1000);
-                if (interaction.replied) return;
+                await wait(2500);
+                if (interaction.replied || interaction.deferred || !interaction.isRepliable()) return;
                 return await interaction.reply({
                     embeds: [
                         new EmbedBuilder()
@@ -234,7 +234,7 @@ async function reply_Error(client, interaction, commandName = '無法得知此�
         })
         .setTimestamp();
     if (interaction.isRepliable())
-        if (interaction.replied) {
+        if (interaction.replied || interaction.deferred) {
             await interaction.followUp({ embeds: [embed], ephemeral: true, allowedMentions: { repliedUser: false } });
         } else {
             await interaction.reply({ embeds: [embed], ephemeral: true, allowedMentions: { repliedUser: false } });
