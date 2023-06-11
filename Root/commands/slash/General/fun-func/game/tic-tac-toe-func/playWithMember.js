@@ -13,12 +13,12 @@ module.exports = async (client, interaction) => {
     const player1 = interaction.member;
     const player2 = interaction.options.getMember('member');
     const customids = {
-        p1: `tic-tac-toe-1p_Ready-${interaction.createdTimestamp}`,
-        p2: `tic-tac-toe-2p_Ready-${interaction.createdTimestamp}`,
+        p1: `tic-tac-toe-1p_Ready-${ interaction.createdTimestamp }`,
+        p2: `tic-tac-toe-2p_Ready-${ interaction.createdTimestamp }`,
     };
 
     await interaction.editReply({
-        content: `${userMention(player2.id)}\n${translations["content_waitForOtherMember"]}`,
+        content: `${ userMention(player2.id) }\n${ translations["content_waitForOtherMember"] }`,
         embeds: [
             new EmbedBuilder()
                 .setTitle(translations["embed_title_vs_beforeGame"])
@@ -32,15 +32,16 @@ module.exports = async (client, interaction) => {
                     new ButtonBuilder()
                         .setCustomId(customids.p1)
                         .setEmoji('❌')
-                        .setLabel(`${player1.user.username}`)
+                        .setLabel(`${ player1.user.username }`)
                         .setStyle(ButtonStyle.Primary),
                     new ButtonBuilder()
                         .setCustomId(customids.p2)
                         .setEmoji('⭕')
-                        .setLabel(`${player2.user.username}`)
+                        .setLabel(`${ player2.user.username }`)
                         .setStyle(ButtonStyle.Primary),
                 ),
         ],
+        allowedMentions: { users: [player1.id, player2.id] },
     });
 
     const unreadys = {
@@ -84,6 +85,7 @@ module.exports = async (client, interaction) => {
                             ButtonBuilder.from((await interaction.fetchReply()).components[0].components[1]),
                         ),
                 ],
+                allowedMentions: { users: [player1.id, player2.id] },
             });
             unreadys.p1 = false;
         } else if (button.customId === customids.p2 && button.user.id === player2.user.id) {
@@ -100,6 +102,7 @@ module.exports = async (client, interaction) => {
                                 .setDisabled(true),
                         ),
                 ],
+                allowedMentions: { users: [player1.id, player2.id] },
             });
             unreadys.p2 = false;
         }
