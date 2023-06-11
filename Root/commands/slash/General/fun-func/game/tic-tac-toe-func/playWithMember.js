@@ -18,7 +18,7 @@ module.exports = async (client, interaction) => {
     };
 
     const users_id = [player1.id];
-    if (player1.id != player2.id) users_id.push(player2.id)
+    if (player1.id != player2.id) users_id.push(player2.id);
     await interaction.editReply({
         content: `${ userMention(player2.id) }\n${ translations["content_waitForOtherMember"] }`,
         embeds: [
