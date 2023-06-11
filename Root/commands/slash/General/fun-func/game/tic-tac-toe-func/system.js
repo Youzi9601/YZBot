@@ -201,7 +201,7 @@ module.exports = async (mode, client, message, player) => {
 
                 // 防大三角
             } else if (round == 2 && ((board[0][0] == PLAYER_X && board[2][2] == PLAYER_X) || (board[2][0] == PLAYER_X && board[0][2] == PLAYER_X))) {
-                console.log(moves.some(v => v[0] == 0 && v[1] == 1));
+                // console.log(moves.some(v => v[0] == 0 && v[1] == 1));
                 if (moves.some(v => v[0] == 0 && v[1] == 1))
                     return [0, 1];
                 // 防缺角
