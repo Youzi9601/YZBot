@@ -218,28 +218,35 @@ module.exports = async (mode, client, message, player) => {
 
         const moves = getAvailableMoves();
 
+        // 檢查自己獲勝
         for (const [row, col] of moves) {
             if (willWin(PLAYER_O, row, col)) return [row, col];
         }
-        for (const [row, col] of moves) {
+        // 檢查其他下棋
+        for (const [row, col] of moves.reverse()) {
             board[row][col] = currentPlayer;
             const score = minimax(board, 0, false);
             board[row][col] = EMPTY;
 
             const opponentPlayer = currentPlayer === PLAYER_X ? PLAYER_O : PLAYER_X;
+            // 阻擋對手獲勝
             if (willWin(opponentPlayer, row, col)) {
                 return [row, col];
             }
+            // 檢查中間是否沒被佔用
             if (board[1][1] == EMPTY) {
                 return [1, 1];
 
                 // 防大三角
             } else if (
                 round == 2 &&
+                // 1 9
         ((board[0][0] == opponentPlayer && board[2][2] == opponentPlayer) ||
-          (board[2][0] == opponentPlayer && board[0][2] == opponentPlayer))
+        // 3 7
+        (board[2][0] == opponentPlayer && board[0][2] == opponentPlayer))
             ) {
                 // console.log(moves.some(v => v[0] == 0 && v[1] == 1));
+                // 2
                 if (moves.some(v => v[0] == 0 && v[1] == 1)) return [0, 1];
                 // 防缺角
             } else if (round == 2) {
@@ -267,9 +274,16 @@ module.exports = async (mode, client, message, player) => {
           moves.some(v => v[0] == 2 && v[1] == 0)
                 )
                     return [2, 0];
+
                 if (board[1][1] == opponentPlayer) {
                     if (board[2][2] == opponentPlayer) return [0, 2];
                 }
+                if (
+                    board[0][0] == opponentPlayer &&
+          board[2][1] == opponentPlayer &&
+          moves.some(v => v[0] == 2 && v[1] == 0)
+                )
+                    return [2, 0];
             }
             if (score > bestScore) {
                 bestScore = score;
