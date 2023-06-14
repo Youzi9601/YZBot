@@ -4,7 +4,7 @@ require("colors");
 
 const CI = process.env.CI;
 if (CI) {
-    console.log(`[#${client.shard.ids}] ` + 'CI檢查完畢');
+    console.log(`[#${ client.shard.ids }] ` + 'CI檢查完畢');
     process.exit(0);
 }
 
@@ -71,7 +71,7 @@ const tran = (locale, file) => {
     const locale_data_propValue = propName.split('.').reduce((o, i) => o ? o[i] : undefined, locale_data);
     const tw_data_propValue = propName.split('.').reduce((o, i) => o ? o[i] : undefined, tw_data);
 
-    return locale_data_propValue || tw_data_propValue || `<translate:${file}:null>`;
+    return locale_data_propValue || tw_data_propValue || `<translate:${ file }:null>`;
 };
 client.language_data = (locale, file) => tran(locale, file);
 
@@ -101,7 +101,7 @@ module.exports.client = bot();
 
 // Hendlers
 ["prefix", "application_commands", "modals", "events", "database", "languages_loader", "plugins_loader-client"].forEach((file) => {
-    require(`./handlers/${file}`)(client, config);
+    require(`./handlers/${ file }`)(client, config);
 });
 
 // 登錄機器人
@@ -116,15 +116,15 @@ client.login(AuthenticationToken)
 process
     .on('unhandledRejection', async (err, promise) => {
         client.console('Error', `[ANTI-CRASH] unhandledRejection 未處理的拒絕： ${ err }`.red);
-        client.console('Error', { promise:  err });
+        client.console('Error', { promise: err });
     })
     .on('uncaughtException', async (err, promise) => {
         client.console('Error', `[ANTI-CRASH] uncaughtException 未處理的拒絕： ${ err }`.red);
-        client.console('Error', { promise:  err });
+        client.console('Error', { promise: err });
     })
     .on('exit', async (code) => {
         //
-        console.log(`[#${client.shard.ids}]  關機｜退出代碼: ${ code }`);
+        console.log(`[#${ client.shard.ids }]  關機｜退出代碼: ${ code }`);
     });
 
 
