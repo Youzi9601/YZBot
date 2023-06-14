@@ -50,7 +50,7 @@ module.exports = async (mode, client, message, player) => {
             const row = new ActionRowBuilder();
             for (let j = 0; j < 3; j++) {
                 const button = new ButtonBuilder().setCustomId(
-                    `ttt-${message.createdTimestamp}-${i}_${j}`,
+                    `ttt-${ message.createdTimestamp }-${ i }_${ j }`,
                 );
                 if (board[i][j] == EMPTY)
                     button.setLabel(EMPTY).setStyle(ButtonStyle.Secondary);
@@ -72,11 +72,11 @@ module.exports = async (mode, client, message, player) => {
 
         await message.edit({
             content: [
-                `:x: ${userMention(player.p1.id)} vs :o: ${userMention(player.p2.id)}`,
-                `${translations["content_now"]} ${currentPlayer == PLAYER_X
+                `:x: ${ userMention(player.p1.id) } vs :o: ${ userMention(player.p2.id) }`,
+                `${ translations["content_now"] } ${ currentPlayer == PLAYER_X
                     ? userMention(player.p1.id)
-                    : userMention(player.p2.id)}`,
-                `${translations["mode"]}${translations[mode.replace(change_str, "")]}`,
+                    : userMention(player.p2.id) }`,
+                `${ translations["mode"] }${ translations[mode.replace(change_str, "")] }`,
             ].join("\n"),
             embeds: [],
             components: rows,
@@ -100,12 +100,12 @@ module.exports = async (mode, client, message, player) => {
 
     // 檢查是否結束
     function isGameOver(temp_board = board) {
-    // 檢查行
+        // 檢查行
         for (let i = 0; i < 3; i++) {
             if (
                 temp_board[i][0] !== EMPTY &&
-        temp_board[i][0] === temp_board[i][1] &&
-        temp_board[i][0] === temp_board[i][2]
+                temp_board[i][0] === temp_board[i][1] &&
+                temp_board[i][0] === temp_board[i][2]
             ) {
                 return true;
             }
@@ -115,8 +115,8 @@ module.exports = async (mode, client, message, player) => {
         for (let j = 0; j < 3; j++) {
             if (
                 temp_board[0][j] !== EMPTY &&
-        temp_board[0][j] === temp_board[1][j] &&
-        temp_board[0][j] === temp_board[2][j]
+                temp_board[0][j] === temp_board[1][j] &&
+                temp_board[0][j] === temp_board[2][j]
             ) {
                 return true;
             }
@@ -125,16 +125,16 @@ module.exports = async (mode, client, message, player) => {
         // 檢查對角線
         if (
             temp_board[0][0] !== EMPTY &&
-      temp_board[0][0] === temp_board[1][1] &&
-      temp_board[0][0] === temp_board[2][2]
+            temp_board[0][0] === temp_board[1][1] &&
+            temp_board[0][0] === temp_board[2][2]
         ) {
             return true;
         }
 
         if (
             temp_board[0][2] !== EMPTY &&
-      temp_board[0][2] === temp_board[1][1] &&
-      temp_board[0][2] === temp_board[2][0]
+            temp_board[0][2] === temp_board[1][1] &&
+            temp_board[0][2] === temp_board[2][0]
         ) {
             return true;
         }
@@ -240,56 +240,143 @@ module.exports = async (mode, client, message, player) => {
                 // 防大三角
             } else if (
                 round == 2 &&
-                // 1 9
-        ((board[0][0] == opponentPlayer && board[2][2] == opponentPlayer) ||
-        // 3 7
-        (board[2][0] == opponentPlayer && board[0][2] == opponentPlayer))
+                (
+                    // o!-
+                    // ---
+                    // --o
+                    (board[0][0] == opponentPlayer && board[2][2] == opponentPlayer) ||
+                    // -!o
+                    // ---
+                    // o--
+                    (board[2][0] == opponentPlayer && board[0][2] == opponentPlayer)
+                )
             ) {
-                // console.log(moves.some(v => v[0] == 0 && v[1] == 1));
-                // 2
                 if (moves.some(v => v[0] == 0 && v[1] == 1)) return [0, 1];
+
                 // 防缺角
             } else if (round == 2) {
-                if (
-                    board[1][0] == opponentPlayer &&
-          board[0][1] == opponentPlayer &&
-          moves.some(v => v[0] == 0 && v[1] == 0)
-                )
-                    return [0, 0];
+
+                // !o-
+                // o--
+                // ---
                 if (
                     board[0][1] == opponentPlayer &&
-          board[1][2] == opponentPlayer &&
-          moves.some(v => v[0] == 0 && v[1] == 2)
+                    board[1][0] == opponentPlayer &&
+                    moves.some(v => v[0] == 0 && v[1] == 0)
+                )
+                    return [0, 0];
+                // -o!
+                // --o
+                // ---
+                if (
+                    board[0][1] == opponentPlayer &&
+                    board[1][2] == opponentPlayer &&
+                    moves.some(v => v[0] == 0 && v[1] == 2)
                 )
                     return [0, 2];
+                // ---
+                // --o
+                // -o!
                 if (
                     board[1][2] == opponentPlayer &&
-          board[2][1] == opponentPlayer &&
-          moves.some(v => v[0] == 2 && v[1] == 2)
+                    board[2][1] == opponentPlayer &&
+                    moves.some(v => v[0] == 2 && v[1] == 2)
                 )
                     return [2, 2];
+                // ---
+                // o--
+                // !o-
                 if (
+                    board[1][0] == opponentPlayer &&
                     board[2][1] == opponentPlayer &&
-          board[1][0] == opponentPlayer &&
-          moves.some(v => v[0] == 2 && v[1] == 0)
+                    moves.some(v => v[0] == 2 && v[1] == 0)
                 )
                     return [2, 0];
 
+                // ---
+                // -o-
+                // ---
                 if (board[1][1] == opponentPlayer) {
+                    // --!
+                    // -o-
+                    // --o
                     if (board[2][2] == opponentPlayer) return [0, 2];
                 }
+
+                // o--
+                // ---
+                // !o-
                 if (
                     board[0][0] == opponentPlayer &&
-          board[2][1] == opponentPlayer &&
-          moves.some(v => v[0] == 2 && v[1] == 0)
+                    board[2][1] == opponentPlayer &&
+                    moves.some(v => v[0] == 2 && v[1] == 0)
                 )
                     return [2, 0];
+                // !-o
+                // o--
+                // ---
                 if (
                     board[1][0] == opponentPlayer &&
-              board[0][2] == opponentPlayer &&
-              moves.some(v => v[0] == 0 && v[1] == 0)
+                    board[0][2] == opponentPlayer &&
+                    moves.some(v => v[0] == 0 && v[1] == 0)
                 )
                     return [0, 0];
+                // -o!
+                // ---
+                // --o
+                if (
+                    board[0][1] == opponentPlayer &&
+                    board[2][2] == opponentPlayer &&
+                    moves.some(v => v[0] == 0 && v[1] == 2)
+                )
+                    return [0, 2];
+                // ---
+                // --o
+                // o-!
+                if (
+                    board[1][2] == opponentPlayer &&
+                    board[2][0] == opponentPlayer &&
+                    moves.some(v => v[0] == 2 && v[1] == 2)
+                )
+                    return [2, 2];
+
+                // --o
+                // ---
+                // -o!
+                if (
+                    board[0][2] == opponentPlayer &&
+                    board[2][1] == opponentPlayer &&
+                    moves.some(v => v[0] == 2 && v[1] == 2)
+                )
+                    return [2, 2];
+                // ---
+                // o--
+                // !-o
+                if (
+                    board[1][0] == opponentPlayer &&
+                    board[2][2] == opponentPlayer &&
+                    moves.some(v => v[0] == 2 && v[1] == 0)
+                )
+                    return [2, 0];
+                // !o
+                // ---
+                // o--
+                if (
+                    board[0][1] == opponentPlayer &&
+                    board[2][0] == opponentPlayer &&
+                    moves.some(v => v[0] == 0 && v[1] == 0)
+                )
+                    return [0, 0];
+                // o-!
+                // --o
+                // ---
+                if (
+                    board[0][0] == opponentPlayer &&
+                    board[1][2] == opponentPlayer &&
+                    moves.some(v => v[0] == 0 && v[1] == 2)
+                )
+                    return [0, 2];
+
             }
             if (score > bestScore) {
                 bestScore = score;
@@ -301,17 +388,17 @@ module.exports = async (mode, client, message, player) => {
     }
 
     function willWin(temp_player, row, col) {
-    // Check rows
+        // Check rows
         if (
             (board[row][0] === temp_player &&
-        board[row][1] === temp_player &&
-        board[row][2] === EMPTY) ||
-      (board[row][0] === temp_player &&
-        board[row][1] === EMPTY &&
-        board[row][2] === temp_player) ||
-      (board[row][0] === EMPTY &&
-        board[row][1] === temp_player &&
-        board[row][2] === temp_player)
+                board[row][1] === temp_player &&
+                board[row][2] === EMPTY) ||
+            (board[row][0] === temp_player &&
+                board[row][1] === EMPTY &&
+                board[row][2] === temp_player) ||
+            (board[row][0] === EMPTY &&
+                board[row][1] === temp_player &&
+                board[row][2] === temp_player)
         ) {
             return true;
         }
@@ -319,14 +406,14 @@ module.exports = async (mode, client, message, player) => {
         // Check columns
         if (
             (board[0][col] === temp_player &&
-        board[1][col] === temp_player &&
-        board[2][col] === EMPTY) ||
-      (board[0][col] === temp_player &&
-        board[1][col] === EMPTY &&
-        board[2][col] === temp_player) ||
-      (board[0][col] === EMPTY &&
-        board[1][col] === temp_player &&
-        board[2][col] === temp_player)
+                board[1][col] === temp_player &&
+                board[2][col] === EMPTY) ||
+            (board[0][col] === temp_player &&
+                board[1][col] === EMPTY &&
+                board[2][col] === temp_player) ||
+            (board[0][col] === EMPTY &&
+                board[1][col] === temp_player &&
+                board[2][col] === temp_player)
         ) {
             return true;
         }
@@ -334,25 +421,25 @@ module.exports = async (mode, client, message, player) => {
         // Check diagonals
         if (
             (row === col &&
-        ((board[0][0] === temp_player &&
-          board[1][1] === temp_player &&
-          board[2][2] === EMPTY) ||
-          (board[0][0] === temp_player &&
-            board[1][1] === EMPTY &&
-            board[2][2] === temp_player) ||
-          (board[0][0] === EMPTY &&
-            board[1][1] === temp_player &&
-            board[2][2] === temp_player))) ||
-      (row + col === 2 &&
-        ((board[0][2] === temp_player &&
-          board[1][1] === temp_player &&
-          board[2][0] === EMPTY) ||
-          (board[0][2] === temp_player &&
-            board[1][1] === EMPTY &&
-            board[2][0] === temp_player) ||
-          (board[0][2] === EMPTY &&
-            board[1][1] === temp_player &&
-            board[2][0] === temp_player)))
+                ((board[0][0] === temp_player &&
+                    board[1][1] === temp_player &&
+                    board[2][2] === EMPTY) ||
+                    (board[0][0] === temp_player &&
+                        board[1][1] === EMPTY &&
+                        board[2][2] === temp_player) ||
+                    (board[0][0] === EMPTY &&
+                        board[1][1] === temp_player &&
+                        board[2][2] === temp_player))) ||
+            (row + col === 2 &&
+                ((board[0][2] === temp_player &&
+                    board[1][1] === temp_player &&
+                    board[2][0] === EMPTY) ||
+                    (board[0][2] === temp_player &&
+                        board[1][1] === EMPTY &&
+                        board[2][0] === temp_player) ||
+                    (board[0][2] === EMPTY &&
+                        board[1][1] === temp_player &&
+                        board[2][0] === temp_player)))
         ) {
             return true;
         }
@@ -423,7 +510,7 @@ module.exports = async (mode, client, message, player) => {
 
     // 整個遊戲程式
     async function playGame() {
-    // 重製棋盤
+        // 重製棋盤
         initializeBoard();
 
         // 由 O 纖手
@@ -435,14 +522,14 @@ module.exports = async (mode, client, message, player) => {
         }
 
         await printBoard();
-        const customids = `ttt-${message.createdTimestamp}-`;
+        const customids = `ttt-${ message.createdTimestamp }-`;
         // 創建蒐集等待兩位玩家都完成準備
         const collector_inGame = message.channel.createMessageComponentCollector({
             filter: async button => {
                 if (
                     (button.user.id === player.p1.user.id ||
-            button.user.id === player.p2.user.id) &&
-          button.customId.includes(customids)
+                        button.user.id === player.p2.user.id) &&
+                    button.customId.includes(customids)
                 ) {
                     return true;
                 } else return false;
@@ -454,7 +541,7 @@ module.exports = async (mode, client, message, player) => {
             if (
                 !(
                     (currentPlayer == PLAYER_X && button.user.id == player.p1.id) ||
-          (currentPlayer == PLAYER_O && button.user.id == player.p2.id)
+                    (currentPlayer == PLAYER_O && button.user.id == player.p2.id)
                 )
             )
                 return await button.reply({
@@ -509,7 +596,7 @@ module.exports = async (mode, client, message, player) => {
                     const row_ac = new ActionRowBuilder();
                     for (let j = 0; j < 3; j++) {
                         const button_ac = new ButtonBuilder().setCustomId(
-                            `ttt-${message.createdTimestamp}-${i}_${j}`,
+                            `ttt-${ message.createdTimestamp }-${ i }_${ j }`,
                         );
                         if (board[i][j] == EMPTY)
                             button_ac
@@ -534,13 +621,12 @@ module.exports = async (mode, client, message, player) => {
 
                 await message.edit({
                     content: [
-                        `:x: ${userMention(player.p1.id)} vs :o: ${userMention(
+                        `:x: ${ userMention(player.p1.id) } vs :o: ${ userMention(
                             player.p2.id,
-                        )}`,
-                        `${translations["mode"]}${translations[
-                            mode.replace(change_str, "")
-                        ]}`,
-                        `${wins}`,
+                        ) }`,
+                        `${ translations["mode"]
+                        } \`${ translations[mode.replace(change_str, "")] }\``,
+                        `${ wins }`,
                     ].join("\n"),
                     components: rows,
                 });
