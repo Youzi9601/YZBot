@@ -38,15 +38,15 @@ module.exports = async (client) => {
 
     for (let file of events) {
 
-        let pull = require(`${__dirname}/../../../../${file}`.replaceAll('\\', '/'));
+        let pull = require(`${ __dirname }/../../../../${ file }`.replaceAll('\\', '/'));
 
         if (pull.name) {
             if (pull.disabled)
                 continue;
             player.events.on(pull.name, (...args) => pull.execute(client, ...args));
-            client.console('Log', `[Music - EVENTS] 加載了一個文件： ${pull.name}`.brightGreen);
+            client.console('Log', `[+Music - EVENTS] 加載了一個文件： ${ pull.name }`.brightGreen);
         } else {
-            client.console('Log', `[Music - EVENTS] 無法加載文件 ${file}。缺少別名或是執行內容。`.red);
+            client.console('Log', `[+Music - EVENTS] 無法加載文件 ${ file }。缺少別名或是執行內容。`.red);
             continue;
         }
 
