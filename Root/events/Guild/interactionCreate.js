@@ -145,8 +145,13 @@ module.exports = {
         // Buttons:
         if (interaction.isButton()) {
             const button = client.button_commands.get(interaction.customId);
-
-            if (!button) {
+            const regex_button = client.button_commands.forEach((regex, _) => {
+                if (typeof regex != 'string')
+                    if (regex.test(interaction.customId)) {
+                        return client.button_commands.get(regex);
+                    }
+            })[0];
+            if (!button && !regex_button) {
                 // 等待並檢查是否有其他內建按鈕執行過了
                 await wait(2500);
                 if (interaction.replied || interaction.deferred || !interaction.isRepliable()) return;
@@ -167,7 +172,11 @@ module.exports = {
 
             client.console('Log', `${ interaction.user.tag } 於 ${ interaction.guild.name } (${ interaction.guild.id }) #${ interaction.channel.name } (${ interaction.channel.id }) 使用按鈕：${ interaction.customId }`);
             try {
-                await button.run(client, interaction, client.config, client.db);
+                if (button)
+                    await button.run(client, interaction, client.config, client.db);
+                if (regex_button)
+                    await regex_button.run(client, interaction, client.config, client.db);
+
             } catch (error) {
                 client.console('Error', `執行按鈕時發生錯誤：`);
                 client.console('Error', { promise: error });

@@ -15,8 +15,8 @@ module.exports = async (client) => {
     for (let file of plugins) {
 
         try {
-            require(`${__dirname}/../../${file}`.replaceAll('\\', '/'))(client);
-            client.console('Log', `[處理 - PLUGINS] 加載了一個文件： ${file}`.brightGreen);
+            require(`${ __dirname }/../../${ file }`.replaceAll('\\', '/'))(client);
+            client.console('Log', `[處理 - PLUGINS] 加載了一個文件： ${ file }`.brightGreen);
 
         } catch (error) {
             client.console('Log', `[處理 - PLUGINS] 無法加載文件 ${ file }。`.red);

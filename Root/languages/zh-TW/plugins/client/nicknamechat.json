@@ -1,0 +1,8 @@
+{
+    "select-chose_action": "操作選單",
+    "content-chose_action": "請選擇一個操作",
+    "select-whoseMsg": "[管理]查看是誰發送的",
+    "select-deleteMsg": "刪除自己的匿名訊息",
+    "select-editMsg": "編輯自己的匿名訊息",
+    "select-replyMsg": "回覆該訊息"
+}

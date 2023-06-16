@@ -1,15 +1,17 @@
 const { EmbedBuilder } = require("discord.js");
 
-/**
- *
- * @param {import('./../../bot').client} client
- * @param {import("discord.js").ChatInputCommandInteraction} interaction
- * @param {import("../../../Config")} config
- * @param {import("quick.db").QuickDB} db
- * @returns "?"
- */
+
 module.exports = {
     id: "myModal",
+    disabled: true,
+    /**
+     *
+     * @param {import('./../../bot').client} client
+     * @param {import("discord.js").ModalSubmitInteraction} interaction
+     * @param {import("../../../Config")} config
+     * @param {import("quick.db").QuickDB} db
+     * @returns "?"
+     */
     run: async (_client, interaction, _config, _db) => {
 
         return await interaction.reply({
