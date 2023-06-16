@@ -17,9 +17,9 @@
     "dev": "npm i -g npm-check-updates eslint",
     "check": "npm run update && npm run lint",
     "reset": "echo \"刪除所有命令\" && node reset.js",
-    "update_patch": "npm version patch && echo \"版本漏洞修正\"",
-    "update_minor": "npm version minor && echo \"版本小更新\"",
-    "update_major": "npm version major && echo \"版本總更新\"",
+    "update_patch": "npm version patch && git push --tags && echo \"版本漏洞修正\"",
+    "update_minor": "npm version minor && git push --tags && echo \"版本小更新\"",
+    "update_major": "npm version major && git push --tags && echo \"版本總更新\"",
     "beta_run": "node test.js"
   },
   "repository": {
