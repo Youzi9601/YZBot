@@ -1,4 +1,5 @@
 const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time, PermissionsBitField } = require('discord.js');
+const { readFile, readFileSync } = require('fs');
 
 module.exports = { load };
 /**
@@ -75,7 +76,7 @@ async function load(client, interaction, config, db) {
             }
              */
     // 返回訊息
-    interaction.reply({ embeds: [userinfo], components: [row], ephemeral:true });
+    interaction.reply({ embeds: [userinfo], components: [row], ephemeral: true });
     // #endregion
     const filter = i => i.customId === `slash-info_user-${interaction.createdTimestamp}`;
     const collector = interaction.channel.createMessageComponentCollector(
@@ -94,6 +95,7 @@ async function load(client, interaction, config, db) {
         const join_at = Math.floor(collector_member.joinedAt.getTime() / 1000);
         const type = collector_interaction.values[0];
         let embed;
+        let content = '';
         if (type == 'normal') {
             embed = new EmbedBuilder()
                 .setTitle('成員資訊')
@@ -268,14 +270,16 @@ async function load(client, interaction, config, db) {
                 const total = Object.values(cpu.times).reduce(
                     (acc, tv) => acc + tv, 0,
                 );
-                    // Normalize the one returned by process.cpuUsage()
-                    // (microseconds VS miliseconds)
+                // Normalize the one returned by process.cpuUsage()
+                // (microseconds VS miliseconds)
                 const usage = process.cpuUsage();
                 const currentCPUUsage = (usage.user + usage.system) * 1000;
 
                 // Find out the percentage used for this specific CPU
                 const perc = Math.round((currentCPUUsage / total * 100) / 100);
 
+                const whatIsNew_file = readFileSync('WhatIsNew.md', 'utf-8')
+                content = `${whatIsNew_file}`;
                 //
                 embed = new EmbedBuilder()
                     .setTitle('成員資訊')
@@ -389,6 +393,7 @@ async function load(client, interaction, config, db) {
         // 編輯訊息
         collector_interaction.update({
             embeds: [embed],
+            content,
         });
     },
     );

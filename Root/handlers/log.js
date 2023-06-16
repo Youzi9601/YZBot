@@ -18,7 +18,7 @@ module.exports = (type = 'Log', input = {
 }) => {
 
     // console
-    const log_prefix = `[${ moment().format('YYYY-MM-DD HH:mm:ss') }] [#${ require('./../bot').client.shard.ids }|${ type }]  `;
+    const log_prefix = `[${moment().format('YYYY-MM-DD HH:mm:ss')}] [#${require('./../bot').client.shard.ids}|${type}]  `;
 
     if (typeof input == 'string') {
         console[type.toLowerCase()](log_prefix + (input.includes('\n') ? '\n' : '') + input);
@@ -33,11 +33,12 @@ module.exports = (type = 'Log', input = {
         if (!input.client)
             input.client = require('./../bot').client;
         const id = input?.client?.config?.guild?.Channels?.report;
-        if (id) {
+        if (id && input.client.isReady) {
 
+            console.log(input.client);
             const embed = new EmbedBuilder()
                 .setTitle('❌ 發生了錯誤')
-                .setDescription(`\`\`\`\n${ input.promise }\n${ input.promise?.stack ?? '未提供堆疊(位置)' }\`\`\``)
+                .setDescription(`\`\`\`\n${input.promise}\n${input.promise?.stack ?? '未提供堆疊(位置)'}\`\`\``)
                 .setColor(0xf24e43)
                 .setFooter({
                     text: input.client.user.username,
@@ -50,7 +51,7 @@ module.exports = (type = 'Log', input = {
                 const channel = c.channels.cache.get(channelId);
                 if (channel) {
                     await channel.send({
-                        content: `${ content }`,
+                        content: `${content}`,
                         embeds: embeds,
                     });
                     return true;
