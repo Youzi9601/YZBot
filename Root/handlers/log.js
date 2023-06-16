@@ -33,7 +33,7 @@ module.exports = (type = 'Log', input = {
         if (!input.client)
             input.client = require('./../bot').client;
         const id = input?.client?.config?.guild?.Channels?.report;
-        if (id && input.client.isReady) {
+        if (id && input.client.isReady && input.client.user) {
 
             console.log(input.client);
             const embed = new EmbedBuilder()
