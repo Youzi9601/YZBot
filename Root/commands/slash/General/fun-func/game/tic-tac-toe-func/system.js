@@ -377,6 +377,16 @@ module.exports = async (mode, client, message, player) => {
                 )
                     return [0, 2];
 
+                // o-!
+                // -o-
+                // --x
+                if (
+                    board[1][1] == opponentPlayer &&
+                    board[0][0] == opponentPlayer &&
+                    moves.some(v => v[0] == 0 && v[1] == 2)
+                )
+                    return [0, 2];
+
             }
             if (score > bestScore) {
                 bestScore = score;
