@@ -278,7 +278,7 @@ async function load(client, interaction, config, db) {
                 // Find out the percentage used for this specific CPU
                 const perc = Math.round((currentCPUUsage / total * 100) / 100);
 
-                const whatIsNew_file = readFileSync('WhatIsNew.md', 'utf-8')
+                const whatIsNew_file = readFileSync('WhatIsNew.md', 'utf-8');
                 content = `${whatIsNew_file}`;
                 //
                 embed = new EmbedBuilder()
