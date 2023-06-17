@@ -16,17 +16,6 @@ module.exports = {
         if (message.channel.type == ChannelType.DM
         || message.channel.type == ChannelType.GroupDM) {
             return;
-        /*
-        await message.reply({
-            embeds: [
-                {
-                    title: '機器人不支援私信、群組喔！',
-                    description: `${ message.client.user.tag } 無法在這裡執行與接收指令，只可傳送相關事情`,
-                    color: `000000`,
-                },
-            ],
-        })
-        */
         }
 
         const all_prefix = client.config.prefix;
@@ -48,30 +37,9 @@ module.exports = {
 
             if (command) {
 
-                /*
-                const row = new ActionRowBuilder()
-                    .addComponents(
-                        new ButtonBuilder()
-                            .setCustomId('delete')
-                            .setLabel('刪除回應')
-                            .setStyle(ButtonStyle.Danger),
-                    );
-                */
-
                 if (command.permissions) {
                     if (!message.member.permissions.has(PermissionsBitField.resolve(command.permissions || []))) {
                         return;
-                        /*
-                        return await message.reply({
-                            embeds: [
-                                new EmbedBuilder()
-                                    .setDescription(`🚫抱歉，您無權使用此命令。`)
-                                    .setColor(0xf24e43),
-                            ],
-                            components: [row],
-
-                        });
-                        */
                     }
                 }
 
@@ -79,17 +47,6 @@ module.exports = {
                     if (client.config?.developers) {
                         if (!client.config.developers.some(ID => message.member.id.includes(ID))) {
                             return;
-                            /*
-                            return await message.reply({
-                                embeds: [
-                                    new EmbedBuilder()
-                                        .setDescription(`🚫 抱歉，只有開發者可以使用此命令！`)
-                                    // 允許的用戶:\n**${allowedUsers.join(", ")}**
-                                        .setColor(0xf24e43),
-                                ],
-                                components: [row],
-                            });
-                            */
                         }
                     }
                 }
@@ -107,6 +64,4 @@ module.exports = {
 
 
     },
-
-
 };
