@@ -28,7 +28,7 @@ module.exports = {
         .setDMPermission(false)
         .toJSON(),
     type: ['Music'],
-    cooldown: 5000,
+    cooldown: 5,
     OnlyRunOnGuilds: true,
     disabled: false, // 記得改成false再來執行
     /**

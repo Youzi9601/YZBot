@@ -28,7 +28,7 @@ module.exports = {
     clientPermissions: ['SendMessages'],
     OnlyRunOnGuilds: true,
     type: ['Main', 'General'],
-    cooldown: 10000,
+    cooldown: 10,
     /**
      *
      * @param {import('./../../../bot').client} client

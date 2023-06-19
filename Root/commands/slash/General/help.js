@@ -13,7 +13,7 @@ module.exports = {
     clientPermissions: ['SendMessages'],
     OnlyRunOnGuilds: true,
     disabled: false, // 記得改成false再來執行這側是
-    cooldown: 10000,
+    cooldown: 10,
 
     /**
      *

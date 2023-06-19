@@ -6,7 +6,7 @@ module.exports = {
         .setType(ApplicationCommandType.Message)
         .toJSON(),
     disabled: false, // 記得改成false再來執行這程式
-    cooldown: 10000,
+    cooldown: 10,
 
     /**
      *

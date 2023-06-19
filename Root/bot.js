@@ -49,7 +49,7 @@ client.config = config;
 // Console 日誌紀錄
 client.console = require('./handlers/log');
 
-// 語言設定
+// 語言處理
 client.language = new Collection();
 /**
  * 語言檔案設定與取得
@@ -75,6 +75,8 @@ const tran = (locale, file) => {
 };
 client.language_data = (locale, file) => tran(locale, file);
 
+// 冷卻系統架構
+client.cooldowns = new Collection();
 
 /**
  * Client 定義
@@ -89,7 +91,8 @@ client.language_data = (locale, file) => tran(locale, file);
  * button_commands: Collection,
  * selectmenu_commands: Collection,
  * modals: Collection,
- * events: Collection
+ * events: Collection,
+ * cooldowns: Collection,
  * }}
  */
 const bot = () => {

@@ -16,12 +16,12 @@ module.exports = {
                         .setName('lang')
                         .setDescription('語言')
                         .setChoices(
-                            [
-                                {
-                                    name: '繁體中文',
-                                    value: 'zh-TW',
-                                },
-                            ],
+
+                            {
+                                name: '繁體中文',
+                                value: 'zh-TW',
+                            },
+
                         ),
                 ),
         )

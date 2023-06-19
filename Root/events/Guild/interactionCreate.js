@@ -1,4 +1,5 @@
-const { EmbedBuilder, Events } = require("discord.js");
+const { EmbedBuilder, Events, Collection, time } = require("discord.js");
+const humanizeDuration = require('humanize-duration');
 const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
@@ -18,6 +19,55 @@ module.exports = {
 
             client.console('Log', `${ interaction.user.tag } 於 ${ interaction.guild.name } (${ interaction.guild.id }) #${ interaction.channel.name } (${ interaction.channel.id }) 運行命令：${ interaction }`);
             try {
+                // 冷卻系統
+                const { cooldowns } = client;
+
+                if (!cooldowns.has(command.data.name)) {
+                    cooldowns.set(command.data.name, new Collection());
+                }
+
+                const now = Date.now();
+                const timestamps = cooldowns.get(command.data.name);
+                const defaultCooldownDuration = 3;
+                const cooldownAmount = (command.cooldown ?? defaultCooldownDuration) * 1000;
+
+                if (timestamps.has(interaction.user.id)) {
+                    const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
+
+                    if (now < expirationTime) {
+                        // 時間
+                        const human_time = humanizeDuration(cooldownAmount, {
+                            conjunction: ', ',
+                            language: 'zh_TW',
+                        });
+                        return interaction.reply({
+                            embeds: [
+                                new EmbedBuilder()
+                                    .setAuthor({
+                                        name: interaction.member.user.tag,
+                                        iconURL: interaction.member.user.displayAvatarURL({ dynamic: true }) || interaction.member.user.defaultAvatarURL,
+                                    })
+                                    .setFooter({
+                                        text: client.user.username,
+                                        iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
+                                    })
+                                    .setTimestamp()
+                                    .setColor(0xf24e43)
+                                    .setDescription(
+                                        `你目前處於冷卻狀態，請等待\`${human_time}\`！\n直到 ${time(Math.round(expirationTime / 1000))} ！`,
+                                    ),
+                            ],
+                            allowedMentions: {
+                                repliedUser: false,
+                            },
+                            ephemeral: true,
+                        });
+                    }
+                }
+
+                timestamps.set(interaction.user.id, now);
+                setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
+
                 // 檢查命令相關許可
                 if (
                     await require('./../../handlers/commandoptions/loadCommandOptions')(client, interaction, client.config, client.db, command, 'Normal')

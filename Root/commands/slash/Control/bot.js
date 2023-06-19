@@ -100,7 +100,7 @@ module.exports = {
     OnlyRunOnGuilds: true,
     disabled: false, // 是否不使用此檔案
     type: ['Control'],
-    cooldown: 5000,
+    cooldown: 5,
     /**
      *
      * @param {import('./../../../bot').client} client

@@ -11,7 +11,7 @@ module.exports = {
         .toJSON(),
     type: ['Manage'],
     OnlyRunOnGuilds: true,
-    cooldown: 3000,
+    cooldown: 3,
     disabled: true,
     /**
      *

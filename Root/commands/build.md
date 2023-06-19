@@ -89,7 +89,7 @@ module.exports = {
 	returnOnlyRunOnGuilds: true, //
 	ownerOnly: false, // 限定機器人所有者使用
 	returnOwnerOnly: true, //
-	cooldown: 0, // 命令冷卻時間，（毫秒，1000ms = 1s ）
+	cooldown: 3, // 命令冷卻時間，預設3秒，（秒，1s = 1000ms ）
 	returnCooldown: true, // 是否返回冷卻錯誤
 	returnNoErrors: false, // 是否返回任何錯誤，true將會使任何錯誤都不會返回，並覆蓋掉 return 系列設定。
 

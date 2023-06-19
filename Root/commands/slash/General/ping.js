@@ -10,7 +10,7 @@ module.exports = {
         .setDMPermission(false)
         .toJSON(),
     type: ['Main', 'General'],
-    cooldown: 5000,
+    cooldown: 5,
     /**
      *
      * @param {import('./../../../bot').client} client

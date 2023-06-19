@@ -8,7 +8,8 @@
   */
 module.exports = async function(client, interaction, config, db, command, type = 'Normal') {
     if (await require('./OnlyRunOnGuilds')(client, interaction, config, db, command)) return;
-    else if (await require('./Cooldown')(client, interaction, config, db, command, type)) return;
+    // 此系統因為涉及過多的資料庫儲存所以將廢除
+    // else if (await require('./Cooldown')(client, interaction, config, db, command, type)) return;
 
     // owner
     else if (await require('./OwnerOnly')(client, interaction, config, db, command)) return;
