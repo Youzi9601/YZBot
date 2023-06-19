@@ -124,13 +124,15 @@ module.exports = {
 
                     const embeds = [];
                     let k = 10;
-                    const guilds = client.guilds.cache.map(g => {
+                    await client.guilds.fetch();
+                    const guilds = client.guilds.cache.map(async g => {
+                        g.members = await g.members.fetch();
                         return {
                             name: g.name,
                             id: g.id,
                             memberCount: g.memberCount,
-                            member: g.members.cache.filter((m) => !m.user.bot).size,
-                            bot: g.members.cache.filter((m) => m.user.bot).size,
+                            member: g.members.cache.filter((m) => m.user.bot === false).size,
+                            bot: g.members.cache.filter((m) => m.user.bot === true).size,
                         };
                     });
                     // defining each Pages
