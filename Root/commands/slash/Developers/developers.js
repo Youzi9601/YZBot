@@ -126,7 +126,7 @@ module.exports = {
                     let k = 10;
                     await client.guilds.fetch();
                     const guilds = client.guilds.cache.map(async g => {
-                        g.members = await g.members.fetch();
+                        await g.members.fetch();
                         return {
                             name: g.name,
                             id: g.id,
