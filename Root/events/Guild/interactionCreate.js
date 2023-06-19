@@ -196,11 +196,11 @@ module.exports = {
         if (interaction.isButton()) {
             const button = client.button_commands.get(interaction.customId);
             const regex_button = client.button_commands.forEach((regex, _) => {
-                if (typeof regex != 'string')
-                    if (regex.test(interaction.customId)) {
+                if (`${regex}`.includes('regex-'))
+                    if (new RegExp(regex.replace('regex-', '')).test(interaction.customId)) {
                         return client.button_commands.get(regex);
                     }
-            })[0];
+            });
             if (!button && !regex_button) {
                 // 等待並檢查是否有其他內建按鈕執行過了
                 await wait(2500);
@@ -225,7 +225,7 @@ module.exports = {
                 if (button)
                     await button.run(client, interaction, client.config, client.db);
                 if (regex_button)
-                    await regex_button.run(client, interaction, client.config, client.db);
+                    await regex_button[0].run(client, interaction, client.config, client.db);
 
             } catch (error) {
                 client.console('Error', `執行按鈕時發生錯誤：`);

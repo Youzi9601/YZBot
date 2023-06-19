@@ -116,7 +116,7 @@ module.exports = async (client, config) => {
             client.button_commands.set(pull.name, pull);
             client.console('Log', `[處理 - 按鈕命令] 加載了一個文件：${ pull.name } (#${ client.button_commands.size })`.brightGreen);
         } else if (pull.regex) {
-            client.button_commands.set(pull.regex, pull);
+            client.button_commands.set('regex-' + pull.regex.toString(), pull);
             client.console('Log', `[處理 - 按鈕命令] 加載了一個文件：${ pull.regex } (#${ client.button_commands.size })`.brightGreen);
         } else {
             client.console('Log', `[處理 - 按鈕命令] 無法加載文件 ${ file }，缺少了按鈕命令名稱值。`.red);
