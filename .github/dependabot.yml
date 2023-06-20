@@ -17,4 +17,4 @@ updates:
       - "npm"
       - "dependencies"
     milestone: 2
-    open-pull-requests: 10
+    open-pull-requests-limit: 10
