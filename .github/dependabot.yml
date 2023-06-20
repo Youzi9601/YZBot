@@ -9,3 +9,12 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    commit-message:
+      prefix: "[依賴項更新] "
+      prefix-development: "[開發依賴項更新] "
+      include: "scope"
+    labels:
+      - "npm"
+      - "dependencies"
+    milestone: 2
+    open-pull-requests: 10
