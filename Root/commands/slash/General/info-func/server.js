@@ -1,4 +1,4 @@
-const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time } = require('discord.js');
+const { ComponentType, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder, time, ChannelType } = require('discord.js');
 
 module.exports = { load };
 /**
@@ -72,7 +72,7 @@ async function load(client, interaction, config, db) {
 
 
     // 返回訊息
-    interaction.reply({ embeds: [serverinfo], components: [row], ephemeral:true });
+    interaction.reply({ embeds: [serverinfo], components: [row], ephemeral: true });
     // #endregion
 
     const filter = i => i.customId === `slash-info_server-${interaction.createdTimestamp}`;
@@ -99,7 +99,8 @@ async function load(client, interaction, config, db) {
                 iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
             })
             .setTimestamp();
-        const guild = collector_interaction.guild;
+        const guild = await collector_interaction.guild.fetch();
+        const members = await guild.members.fetch()
 
         if (type == 'normal') {
             collect_serverinfo.data.description = '\`\`\`一般\`\`\`';
@@ -146,20 +147,20 @@ async function load(client, interaction, config, db) {
                     },
                     {
                         name: '成員',
-                        value: `\`\`\`${guild.members.cache.filter((m) => !m.user.bot).size} 人\`\`\``,
+                        value: `\`\`\`${members.filter((m) => !m.user.bot).size} 人\`\`\``,
                         inline: true,
                     },
                     {
                         name: '機器人',
-                        value: `\`\`\`${guild.members.cache.filter((m) => m.user.bot).size} 人\`\`\``,
+                        value: `\`\`\`${members.filter((m) => m.user.bot).size} 人\`\`\``,
                         inline: true,
                     },
                 ],
             );
         } else if (type == 'roles') {
             collect_serverinfo.data.description = '\`\`\`身分組\`\`\`';
-
-            const roles_tag = guild.roles.cache
+            const roles = await guild.roles.fetch();
+            const roles_tag = roles
                 .filter(role =>
                     role.name != '@everyone' && !role.tags.botId,
                 )
@@ -187,48 +188,50 @@ async function load(client, interaction, config, db) {
                 ],
             );
         } else if (type == 'channels') {
+            const channels = await guild.channels.fetch();
+        
             collect_serverinfo.data.description = '\`\`\`頻道\`\`\`';
 
             collect_serverinfo.setFields(
                 [
                     {
-                        name: `合計${guild.channels.cache.size}個頻道`,
+                        name: `合計${channels.size}個頻道`,
                         value: '\u200B',
                         inline: false,
                     },
                     {
                         name: '文字頻道',
-                        value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_TEXT').size}個\`\`\``,
+                        value: `\`\`\`${channels.filter((c) => c.type == ChannelType.GuildText).size}個\`\`\``,
                         inline: true,
                     },
                     {
                         name: '語音頻道',
-                        value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_VOICE').size}個\`\`\``,
+                        value: `\`\`\`${channels.filter((c) => c.type == ChannelType.GuildVoice).size}個\`\`\``,
                         inline: true,
                     },
                     {
                         name: '類別頻道',
-                        value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_CATEGORY').size}個\`\`\``,
+                        value: `\`\`\`${channels.filter((c) => c.type == ChannelType.GuildCategory).size}個\`\`\``,
                         inline: true,
                     },
                     {
                         name: '公告頻道',
-                        value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_NEWS').size}個\`\`\``,
+                        value: `\`\`\`${channels.filter((c) => c.type == ChannelType.GuildAnnouncement).size}個\`\`\``,
                         inline: true,
                     },
                     {
                         name: '舞台頻道',
-                        value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_STAGE_VOICE').size}個\`\`\``,
+                        value: `\`\`\`${channels.filter((c) => c.type == ChannelType.GuildStageVoice).size}個\`\`\``,
                         inline: true,
                     },
                     {
                         name: '討論串',
-                        value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_NEWS_THREAD' || c.type == 'GUILD_PUBLIC_THREAD' || c.type == 'GUILD_PRIVATE_THREAD').size}個\`\`\``,
+                        value: `\`\`\`${channels.filter((c) => c.type == ChannelType.PrivateThread || c.type == ChannelType.PublicThread).size}個\`\`\``,
                         inline: true,
                     },
                     {
-                        name: '商店頻道',
-                        value: `\`\`\`${guild.channels.cache.filter((c) => c.type == 'GUILD_STORE').size}個\`\`\``,
+                        name: '論壇頻道',
+                        value: `\`\`\`${channels.filter((c) => c.type == ChannelType.GuildForum).size}個\`\`\``,
                         inline: true,
                     },
                     {
@@ -255,27 +258,29 @@ async function load(client, interaction, config, db) {
                 ],
             );
         } else if (type == 'emojis-stikers') {
+            const emojis = await guild.emojis.fetch();
+            const stickers = await guild.stickers.fetch();
             collect_serverinfo.data.description = '\`\`\`表情符號與貼圖\`\`\`';
 
             collect_serverinfo.setFields([
                 {
-                    name: `表情符號共${guild.emojis.cache.size}個`,
+                    name: `表情符號共${emojis.size}個`,
                     value: '\u200B',
                     inline: false,
                 },
                 {
                     name: '可使用',
-                    value: `\`\`\`${guild.emojis.cache.filter(e => e.available == true).size}個 \`\`\``,
+                    value: `\`\`\`${emojis.filter(e => e.available == true).size}個 \`\`\``,
                     inline: true,
                 },
                 {
                     name: '一般',
-                    value: `\`\`\`${guild.emojis.cache.filter(e => e.animated == false).size}個 \`\`\``,
+                    value: `\`\`\`${emojis.filter(e => e.animated == false).size}個 \`\`\``,
                     inline: true,
                 },
                 {
                     name: '動態',
-                    value: `\`\`\`${guild.emojis.cache.filter(e => e.animated == true).size}個 \`\`\``,
+                    value: `\`\`\`${emojis.filter(e => e.animated == true).size}個 \`\`\``,
                     inline: true,
                 },
                 {
@@ -284,13 +289,13 @@ async function load(client, interaction, config, db) {
                     inline: false,
                 },
                 {
-                    name: `貼圖共${guild.stickers.cache.size}個`,
+                    name: `貼圖共${stickers.size}個`,
                     value: '\u200B',
                     inline: false,
                 },
                 {
                     name: '可使用',
-                    value: `\`\`\`${guild.stickers.cache.filter(s => s.available).size}個\`\`\``,
+                    value: `\`\`\`${stickers.filter(s => s.available).size}個\`\`\``,
                     inline: true,
                 },
             ],
