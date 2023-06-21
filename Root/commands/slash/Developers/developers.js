@@ -124,23 +124,29 @@ module.exports = {
 
                     const embeds = [];
                     let k = 10;
-                    await client.guilds.fetch();
-                    const guilds = client.guilds.cache.map(async g => {
-                        await g.members.fetch();
+                    const guilds_data = await client.guilds.fetch();
+                    const guildsPromises = guilds_data.map(async (oauth2guild) => {
+                        const guild = await oauth2guild.fetch();
+                        const members = await guild.members.fetch();
+                        
                         return {
-                            name: g.name,
-                            id: g.id,
-                            memberCount: g.memberCount,
-                            member: g.members.cache.filter((m) => m.user.bot === false).size,
-                            bot: g.members.cache.filter((m) => m.user.bot === true).size,
+                            name: guild.name,
+                            id: guild.id,
+                            memberCount: guild.memberCount,
+                            member: members.filter((m) => !m.user.bot).size,
+                            bot: members.filter((m) => m.user.bot).size,
                         };
                     });
+
+                    const guilds = await Promise.all(guildsPromises);
+
+
                     // defining each Pages
                     for (let i = 0; i < guilds.length; i += 10) {
                         const qus = guilds;
                         const current = qus.slice(i, k);
                         let j = i + 1;
-                        const info = current.map((g) => `**${ j++ }.** \n\`\`\`${ String(g.name) } ( ${ g.id } )\n>  ${ g.memberCount }人(${ g.member }真人/${ g.bot }機器人)\`\`\` `).join('\n');
+                        const info = current.map((g) => `**${j++}.** \n\`\`\`${String(g.name)} ( ${g.id} )\n>  ${g.memberCount}人(${g.member}真人/${g.bot}機器人)\`\`\` `).join('\n');
                         const embed = new EmbedBuilder()
                             .setFooter({
                                 text: client.user.username,
@@ -148,10 +154,10 @@ module.exports = {
                             })
                             .setTimestamp()
                             .setColor(0x0098d9)
-                            .setDescription(`${ info }`);
+                            .setDescription(`${info}`);
                         if (i < 10) {
                             embed.setTitle(`📑 **伺服器列表**`);
-                            embed.setDescription(`${ info }`);
+                            embed.setDescription(`${info}`);
                         }
                         embeds.push(embed);
                         k += 10; // Raise k to 10
@@ -159,7 +165,7 @@ module.exports = {
                     embeds[embeds.length - 1] = embeds[embeds.length - 1]
                         .setFooter(
                             {
-                                text: `\n${ guilds.length } 個伺服器`,
+                                text: `\n${guilds.length} 個伺服器`,
                             },
                         );
                     let pages = [];
@@ -173,9 +179,9 @@ module.exports = {
                         .addOptions(
                             pages.map((page, index) => {
                                 const Obj = {};
-                                Obj.label = `第 ${ index + 1 } 頁`;
-                                Obj.value = `${ index }`;
-                                Obj.description = `第 ${ index + 1 }/${ pages.length } 頁！`;
+                                Obj.label = `第 ${index + 1} 頁`;
+                                Obj.value = `${index}`;
+                                Obj.description = `第 ${index + 1}/${pages.length} 頁！`;
                                 return Obj;
                             }),
                         );
@@ -200,7 +206,7 @@ module.exports = {
                         embeds: [
                             new EmbedBuilder()
                                 .setColor(0xf24e43)
-                                .setDescription(`\`\`\`${ error }\`\`\``)
+                                .setDescription(`\`\`\`${error}\`\`\``)
                                 .setFooter({
                                     text: client.user.username,
                                     iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
@@ -238,15 +244,15 @@ module.exports = {
                             // 進退變動 加入
                             interaction.reply(
                                 '```diff' +
-                                `\n+ 機器人邀請已生成！ ${ guild.name } (${ guild.id }) (擁有者： ${ owner.user.tag } ${ guild.ownerId }) ` +
+                                `\n+ 機器人邀請已生成！ ${guild.name} (${guild.id}) (擁有者： ${owner.user.tag} ${guild.ownerId}) ` +
                                 '\n```' +
-                                `https://discord.gg/${ invite_code }`,
+                                `https://discord.gg/${invite_code}`,
                             );
                         });
                     // end
 
                 } catch (err) {
-                    interaction.reply({ content: `生成邀請時發生錯誤： \`${ err.message }\`` });
+                    interaction.reply({ content: `生成邀請時發生錯誤： \`${err.message}\`` });
                 }
             } else if (subcommand == 'leave') {
                 const id = interaction.options.getString('id');
@@ -257,9 +263,9 @@ module.exports = {
                     }
 
                     await guild.leave();
-                    interaction.reply({ content: `成功離開 **${ guild.name }**，少了\`${ guild.memberCount }\`位成員。` });
+                    interaction.reply({ content: `成功離開 **${guild.name}**，少了\`${guild.memberCount}\`位成員。` });
                 } catch (err) {
-                    interaction.reply({ content: `離開伺服器時發生錯誤： \`${ err.message }\`` });
+                    interaction.reply({ content: `離開伺服器時發生錯誤： \`${err.message}\`` });
                 }
             } else if (subcommand == 'shout-out') {
                 const title = interaction.options.getString('title') || '開發者通知';
@@ -287,14 +293,14 @@ module.exports = {
                         const ownerid = g.ownerId;
                         const user = c.users.cache.get(ownerid);
                         // 設定嵌入訊息
-                        embed_msg.footer.text = `給 ${ g.name } 的擁有者`;
+                        embed_msg.footer.text = `給 ${g.name} 的擁有者`;
                         if (g.iconURL())
                             embed_msg.footer.icon_url = g.iconURL();
                         // 創建私信
                         await user.createDM()
                             .then(async (dm) => {
                                 await dm.sendTyping();
-                                await dm.send({ embeds:[embed_msg] });
+                                await dm.send({ embeds: [embed_msg] });
                             })
                             .catch(e => {
                                 console.error(e);
@@ -314,7 +320,7 @@ module.exports = {
                 client.user.setPresence({
                     activities: [
                         {
-                            name: `${ client.user.username } 關機中...`,
+                            name: `${client.user.username} 關機中...`,
                             type: 'LISTENING',
                             // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                         },
@@ -327,7 +333,7 @@ module.exports = {
                 client.user.setPresence({
                     activities: [
                         {
-                            name: `暫停服務 - ${ client.user.username }`,
+                            name: `暫停服務 - ${client.user.username}`,
                             type: 'LISTENING',
                             // ${client.guilds.cache.size}個伺服器&${client.users.cache.size}個使用者
                         },
@@ -357,38 +363,38 @@ module.exports = {
                 }
 
                 const msg = '```' +
-                        Today.getFullYear() +
-                        ' 年 ' +
-                        (Today.getMonth() + 1) +
-                        ' 月 ' +
-                        day +
-                        ' 日 ' +
-                        hours +
-                        ' 時 ' +
-                        Today.getMinutes() +
-                        ' 分 ' +
-                        Today.getSeconds() +
-                        ' 秒' +
-                        ' 機器人關機```';
-                const uptime = `${ humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
+                    Today.getFullYear() +
+                    ' 年 ' +
+                    (Today.getMonth() + 1) +
+                    ' 月 ' +
+                    day +
+                    ' 日 ' +
+                    hours +
+                    ' 時 ' +
+                    Today.getMinutes() +
+                    ' 分 ' +
+                    Today.getSeconds() +
+                    ' 秒' +
+                    ' 機器人關機```';
+                const uptime = `${humanizeDuration((Math.round(client.uptime / 1000) * 1000), {
                     conjunction: ' ',
                     language: 'zh_TW',
-                }) } `;
+                })} `;
                 const embed = {
                     color: 0x808080,
                     description: timer_msg + ' ' + msg,
                     author: {
-                        name: `${ client.user.username } - 機器人運作資訊`,
+                        name: `${client.user.username} - 機器人運作資訊`,
                         iconURL: client.user.avatarURL({ dynamic: true }),
                     },
                     fields: [
-                        { name: '版本:', value: `v${ require('../../../../package.json').version }`, inline: true },
-                        { name: 'Discord.js:', value: `${ require('discord.js').version }`, inline: true },
-                        { name: 'Node.js', value: `${ process.version }`, inline: true },
+                        { name: '版本:', value: `v${require('../../../../package.json').version}`, inline: true },
+                        { name: 'Discord.js:', value: `${require('discord.js').version}`, inline: true },
+                        { name: 'Node.js', value: `${process.version}`, inline: true },
                         { name: '\u200B', value: '\u200B', inline: false },
                         {
                             name: '運行時間:',
-                            value: `${ uptime }`,
+                            value: `${uptime}`,
                             inline: true,
                         },
                     ],
