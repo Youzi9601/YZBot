@@ -128,7 +128,7 @@ module.exports = {
                     const guildsPromises = guilds_data.map(async (oauth2guild) => {
                         const guild = await oauth2guild.fetch();
                         const members = await guild.members.fetch();
-                        
+
                         return {
                             name: guild.name,
                             id: guild.id,

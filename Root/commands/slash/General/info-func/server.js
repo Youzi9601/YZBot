@@ -100,7 +100,7 @@ async function load(client, interaction, config, db) {
             })
             .setTimestamp();
         const guild = await collector_interaction.guild.fetch();
-        const members = await guild.members.fetch()
+        const members = await guild.members.fetch();
 
         if (type == 'normal') {
             collect_serverinfo.data.description = '\`\`\`一般\`\`\`';
@@ -189,7 +189,7 @@ async function load(client, interaction, config, db) {
             );
         } else if (type == 'channels') {
             const channels = await guild.channels.fetch();
-        
+
             collect_serverinfo.data.description = '\`\`\`頻道\`\`\`';
 
             collect_serverinfo.setFields(
