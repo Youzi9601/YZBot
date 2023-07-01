@@ -100,7 +100,7 @@ client.cooldowns = new Collection();
  * selectmenu_commands: Collection,
  * modals: Collection,
  * events: Collection,
- * cooldowns: Collection,
+ * cooldowns: Collection<String, Collection<String, Number>>,
  * }}
  */
 const bot = () => {
