@@ -6,18 +6,18 @@ const { EmbedBuilder } = require('discord.js');
  * @param {import('discord.js').ChatInputCommandInteraction} interaction
  * @param {import('./../../handlers/database/db_function')} db
  */
-module.exports = async function(client, interaction, config, db, command) {
+module.exports = async function (client, interaction, config, db, command) {
     // bypass
     if (config.developers.some(id => interaction.member.user.id == id)) return false;
     //
-    if (!command.onlyChannels) return false;
-    if (command.onlyChannels.some(id => id == interaction.channel.id)) return false;
+    if (!command.setting.options.onlyChannels) return false;
+    if (command.setting.options.onlyChannels.some(id => id == interaction.channel.id)) return false;
     else {
         const onlyChannels = [];
-        command.onlyChannels.forEach(id => {
-            onlyChannels.push(`<#${id}>`);
+        command.setting.options.onlyChannels.forEach(id => {
+            onlyChannels.push(`<#${ id }>`);
         });
-        if (command.returnOnlyChannels == false || command.returnNoErrors) return true;
+        if (command.setting.options.returnOnlyChannels == false || command.setting.options.returnNoErrors) return true;
         else interaction.reply({
             embeds: [new EmbedBuilder()
                 .setAuthor({
@@ -30,7 +30,7 @@ module.exports = async function(client, interaction, config, db, command) {
                     iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
                 })
                 .setTimestamp()
-                .setDescription(`此命令只能在這些頻道中運行。\n• ${onlyChannels.join('\n• ')}`)],
+                .setDescription(`此命令只能在這些頻道中運行。\n• ${ onlyChannels.join('\n• ') }`)],
             allowedMentions: {
                 repliedUser: false,
             },

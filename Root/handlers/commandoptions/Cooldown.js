@@ -13,8 +13,8 @@ const { EmbedBuilder, Collection, time } = require('discord.js');
  * @param {import('./../../handlers/database/db_function')} db
  * @param {*} command
  */
-module.exports = async function(client, interaction, config, db, command) {
-    if (!command.cooldown) return false;
+module.exports = async function (client, interaction, config, db, command) {
+    if (!command.setting.options.cooldown) return false;
     const { cooldowns } = client;
 
     if (!cooldowns.has(command.data.name)) {
@@ -24,7 +24,7 @@ module.exports = async function(client, interaction, config, db, command) {
     const now = Date.now();
     const timestamps = cooldowns.get(command.data.name);
     const defaultCooldownDuration = 3;
-    const cooldownAmount = (command.cooldown ?? defaultCooldownDuration) * 1000;
+    const cooldownAmount = (command.setting.options.cooldown ?? defaultCooldownDuration) * 1000;
 
     // 時間
     const human_time = humanizeDuration(cooldownAmount, {
@@ -36,7 +36,7 @@ module.exports = async function(client, interaction, config, db, command) {
     const interactionType = 'Normal';
     const currentTime = Date.now();
     const user = interaction.member.user;
-    const cooldown = command.cooldown;
+    const cooldown = command.setting.options.cooldown;
     let data = await db.get(
         client,
         'CooldownSystem',
@@ -60,25 +60,25 @@ module.exports = async function(client, interaction, config, db, command) {
         const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
 
         if (now > expirationTime) {
-        /*
-        if (!data[command.data.name]) {
-            data[command.data.name] = {};
-        }
-        if (!data[command.data.name][interactionType ?? 'Normal']) {
-            data[command.data.name][interactionType ?? 'Normal'] = {};
-        }
-        data[command.data.name][interactionType ?? 'Normal'][user.id] = currentTime;
-        await db.set(
-            client,
-            'CooldownSystem',
-            `${interaction.guild.id}`,
-            data,
-        );
-        */
+            /*
+            if (!data[command.data.name]) {
+                data[command.data.name] = {};
+            }
+            if (!data[command.data.name][interactionType ?? 'Normal']) {
+                data[command.data.name][interactionType ?? 'Normal'] = {};
+            }
+            data[command.data.name][interactionType ?? 'Normal'][user.id] = currentTime;
+            await db.set(
+                client,
+                'CooldownSystem',
+                `${interaction.guild.id}`,
+                data,
+            );
+            */
             timestamps.set(interaction.user.id, now);
             setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
             return false;
-        } else if (command.returnCooldown == false || command.returnNoErrors) {
+        } else if (command.setting.options.returnCooldown == false || command.setting.options.returnNoErrors) {
             return true;
         } else {
             interaction.reply({
@@ -95,7 +95,7 @@ module.exports = async function(client, interaction, config, db, command) {
                         .setTimestamp()
                         .setColor(0xf24e43)
                         .setDescription(
-                            `你目前處於冷卻狀態，請等待\`${human_time}\`！\n直到 ${time(expirationTime)} ！`,
+                            `你目前處於冷卻狀態，請等待\`${ human_time }\`！\n直到 ${ time(expirationTime) } ！`,
                         ),
                 ],
                 allowedMentions: {

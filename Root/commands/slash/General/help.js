@@ -10,11 +10,14 @@ module.exports = {
         .setDMPermission(false)
         .toJSON(),
     type: ['Main', 'General'],
-    clientPermissions: ['SendMessages'],
-    OnlyRunOnGuilds: true,
-    disabled: false, // 記得改成false再來執行這側是
-    cooldown: 10,
-
+    disabled: false,
+    setting: {
+        options: {
+            clientPermissions: ['SendMessages'],
+            OnlyRunOnGuilds: true,
+            cooldown: 10,
+        },
+    },
     /**
      *
      * @param {import('./../../../bot').client} client
@@ -28,15 +31,15 @@ module.exports = {
         const translations = client.language_data(interaction.locale, 'commands/slash/General/help');
 
         // let client_commands = interaction.client.application.commands.cache
-        // const contextmenu_user_commands = client.contextmenu_user_commands
-        // const contextmenu_message_commands = client.contextmenu_message_commands
-        // const prefix_commands = client.prefix_commands
+        // const contextmenu.user = client.commands.contextmenu.user
+        // const contextmenu.message = client.commands.contextmenu.message
+        // const message_prefix = client.commands.message_prefix
 
-        const commands = interaction.client.slash_commands;
+        const commands = interaction.client.commands.slash;
         const data = {};
         const category = client.command_category;
 
-        const applications = (await client.application.commands.fetch());
+        const applications = (await client.application.commands.fetch()).concat(await interaction.guild.commands.fetch());
 
         // 處理結構化
         commands.forEach(command => {
@@ -48,7 +51,7 @@ module.exports = {
                     id = c.id;
             });
 
-            const commandName = `</${command.data.name}:${id}>`;
+            const commandName = `</${ command.data.name }:${ id ?? '0' }>`;
             const currentCommand = data[commandName] = {
                 description: command.data.description,
                 options: [],
@@ -62,18 +65,18 @@ module.exports = {
                     if (option.type === 1 || option.type === 2) return;
                     let optionName = option.name;
                     if (option.required) {
-                        optionName = `<${optionName}>`;
+                        optionName = `<${ optionName }>`;
                     } else {
-                        optionName = `[${optionName}]`;
+                        optionName = `[${ optionName }]`;
                     }
-                    currentCommand.options.push(`\`${optionName} (${option.description})\``);
+                    currentCommand.options.push(`\`${ optionName } (${ option.description })\``);
                 });
             }
 
             // 如果是子指令
             if (command.data.options && command.data.options.some(option => option.type === 1)) {
                 command.data.options.filter(option => option.type === 1).forEach(subCommandData => {
-                    const subCommandName = `</${command.data.name} ${subCommandData.name}:${id}>`;
+                    const subCommandName = `</${ command.data.name } ${ subCommandData.name }:${ id ?? '0' }>`;
                     const currentSubCommand = currentCommand.subcommands[subCommandName] = {
                         description: subCommandData.description,
                         options: [],
@@ -83,11 +86,11 @@ module.exports = {
                         subCommandData.options.forEach(option => {
                             let optionName = option.name;
                             if (option.required) {
-                                optionName = `<${optionName}>`;
+                                optionName = `<${ optionName }>`;
                             } else {
-                                optionName = `[${optionName}]`;
+                                optionName = `[${ optionName }]`;
                             }
-                            currentSubCommand.options.push(`\`${optionName} (${option.description})\``);
+                            currentSubCommand.options.push(`\`${ optionName } (${ option.description })\``);
                         });
                     }
                 });
@@ -96,7 +99,7 @@ module.exports = {
             // 如果是子群組指令
             if (command.data.options && command.data.options.some(option => option.type === 2)) {
                 command.data.options.filter(option => option.type === 2).forEach(subGroupCommandData => {
-                    const subGroupCommandName = `</${command.data.name} ${subGroupCommandData.name}:${id}>`;
+                    const subGroupCommandName = `</${ command.data.name } ${ subGroupCommandData.name }:${ id ?? '0' }>`;
                     const currentSubGroupCommand = currentCommand.subcommandgroups[subGroupCommandName] = {
                         description: subGroupCommandData.description,
                         subcommands: {},
@@ -104,7 +107,7 @@ module.exports = {
 
                     if (subGroupCommandData.options) {
                         subGroupCommandData.options.filter(option => option.type === 1).forEach(subCommandData => {
-                            const subCommandName = `</${command.data.name} ${subGroupCommandData.name} ${subCommandData.name}:${id}>`;
+                            const subCommandName = `</${ command.data.name } ${ subGroupCommandData.name } ${ subCommandData.name }:${ id ?? '0' }>`;
                             const currentSubCommand = currentSubGroupCommand.subcommands[subCommandName] = {
                                 description: subCommandData.description,
                                 options: [],
@@ -114,11 +117,11 @@ module.exports = {
                                 subCommandData.options.forEach(option => {
                                     let optionName = option.name;
                                     if (option.required) {
-                                        optionName = `<${optionName}>`;
+                                        optionName = `<${ optionName }>`;
                                     } else {
-                                        optionName = `[${optionName}]`;
+                                        optionName = `[${ optionName }]`;
                                     }
-                                    currentSubCommand.options.push(`\`${optionName} (${option.description})\``);
+                                    currentSubCommand.options.push(`\`${ optionName } (${ option.description })\``);
                                 });
                             }
                         });
@@ -146,7 +149,7 @@ module.exports = {
             selectmenu.addOptions(
                 {
                     label: category_language[t],
-                    description: `${translations["selectmenu_option_description"]}`.replace('{{type}}', category_language[t]),
+                    description: `${ translations["selectmenu_option_description"] }`.replace('{{type}}', category_language[t]),
                     value: t,
                 },
             );
@@ -156,36 +159,36 @@ module.exports = {
         // 處理文字
         let helpMessage = '';
         for (const [commandName, commandData] of Object.entries(data)) {
-            helpMessage += `${commandName} | ${commandData.description}\n`;
+            helpMessage += `${ commandName } | ${ commandData.description }\n`;
             if (commandData.options.length > 0 && commandData.options.length < 8) {
-                helpMessage += `> └ ${commandData.options.join(', ')}\n`;
+                helpMessage += `> └ ${ commandData.options.join(', ') }\n`;
             }
             for (const [subCommandName, subCommandData] of Object.entries(commandData.subcommands)) {
-                helpMessage += `> ├ ${subCommandName} | ${subCommandData.description}\n`;
+                helpMessage += `> ├ ${ subCommandName } | ${ subCommandData.description }\n`;
                 if (subCommandData.options.length > 0 && subCommandData.options.length < 8) {
-                    helpMessage += `> │ └ ${subCommandData.options.join(', ')}\n`;
+                    helpMessage += `> │ └ ${ subCommandData.options.join(', ') }\n`;
                 }
             }
             for (const [subCommandGroupName, subCommandGroupData] of Object.entries(commandData.subcommandgroups)) {
                 helpMessage += `> ├ ${ subCommandGroupName } | ${ subCommandGroupData.description }\n`;
                 for (const [subCommandName, subCommandData] of Object.entries(subCommandGroupData.subcommands)) {
-                    helpMessage += `> │ ├ ${subCommandName} | ${subCommandData.description}\n`;
+                    helpMessage += `> │ ├ ${ subCommandName } | ${ subCommandData.description }\n`;
                     if (subCommandData.options.length > 0 && subCommandData.options.length < 8) {
-                        helpMessage += `> │ │ └ ${subCommandData.options.join(', ')}\n`;
+                        helpMessage += `> │ │ └ ${ subCommandData.options.join(', ') }\n`;
                     }
                 }
 
             }
             helpMessage += '\n';
         }
-        embed.setDescription(`${translations["embed_description"]}\n\n${helpMessage}`);
+        embed.setDescription(`${ translations["embed_description"] }\n\n${ helpMessage }`);
 
 
         // 處理交互列
         const row = new ActionRowBuilder()
             .addComponents(selectmenu);
 
-        await interaction.reply({ embeds:[embed], components:[row] });
+        await interaction.reply({ embeds: [embed], components: [row] });
 
     },
 };

@@ -44,8 +44,8 @@ module.exports = {
     get: async (_client, tablename = 'json', name) => {
         const DataBase = getModel(tablename, name);
         // 取得資料
-        const cooldownData = await DataBase.findOne({ id:  `${name}` });
-        const result = JSON.parse(cooldownData?.data || "{}");
+        const gettedData = await DataBase.findOne({ id:  `${name}` });
+        const result = JSON.parse(gettedData?.data || "{}");
         return result;
     },
 };

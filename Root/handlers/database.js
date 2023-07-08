@@ -9,7 +9,6 @@ require('colors');
 module.exports = async (client) => {
     const mongo = process.env.database_MongoDB || client.config.database.MongoDB;
 
-    let db;
     let db_type;
 
     switch (client.config.database.use) {

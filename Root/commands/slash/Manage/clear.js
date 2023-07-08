@@ -10,8 +10,15 @@ module.exports = {
         .setDMPermission(false)
         .toJSON(),
     type: ['Manage'],
-    OnlyRunOnGuilds: true,
-    cooldown: 3,
+    setting: {
+        guild: {
+            use: true,
+        },
+        options: {
+            OnlyRunOnGuilds: true,
+            cooldown: 3,
+        },
+    },
     disabled: true,
     /**
      *
@@ -25,7 +32,7 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true });
 
         return await interaction.editReply({
-            content:'owo? 這沒做完喔',
+            content: 'owo? 這沒做完喔',
             ephemeral: true,
         });
     },

@@ -21,7 +21,7 @@ module.exports = {
             });
         }
 
-        const command = client.prefix_commands.get(args[0].toLowerCase());
+        const command = client.commands.message_prefix.get(args[0].toLowerCase());
 
         if (!command) {
             return await message.reply({
@@ -36,7 +36,7 @@ module.exports = {
         return await message.reply({
             embeds: [
                 new EmbedBuilder()
-                    .setTitle(`Command Information: ${command.config.name.toUpperCase()}`)
+                    .setTitle(`Command Information: ${ command.config.name.toUpperCase() }`)
                     .addFields(
                         { name: 'Description:', value: command.config.description || "No Description was provided." },
                         { name: 'Usage:', value: command.config.usage ? codeBlock('txt', command.config.usage) : "No Usage was provided." },

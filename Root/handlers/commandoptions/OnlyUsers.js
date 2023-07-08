@@ -6,18 +6,18 @@ const { EmbedBuilder } = require('discord.js');
  * @param {import('discord.js').ChatInputCommandInteraction} interaction
  * @param {import('./../../handlers/database/db_function')} db
  */
-module.exports = async function(client, interaction, config, db, command) {
+module.exports = async function (client, interaction, config, db, command) {
     // bypass
     if (config.developers.some(id => interaction.member.user.id == id)) return false;
     //
-    if (!command.onlyUsers) return false;
-    if (command.onlyUsers.some(i => i == interaction.member.user.id)) return false;
+    if (!command.setting.options.onlyUsers) return false;
+    if (command.setting.options.onlyUsers.some(i => i == interaction.member.user.id)) return false;
     else {
         const onlyUsers = [];
-        command.onlyUsers.forEach(id => {
-            onlyUsers.push(`<@${id}>`);
+        command.setting.options.onlyUsers.forEach(id => {
+            onlyUsers.push(`<@${ id }>`);
         });
-        if (command.returnOnlyUsers == false || command.returnNoErrors) return true;
+        if (command.setting.options.returnOnlyUsers == false || command.setting.options.returnNoErrors) return true;
         else interaction.reply({
             embeds: [new EmbedBuilder()
                 .setAuthor({
@@ -30,7 +30,7 @@ module.exports = async function(client, interaction, config, db, command) {
                     iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
                 })
                 .setTimestamp()
-                .setDescription(`此命令只能由這些人運行。\n• ${onlyUsers.join('\n• ')}`)],
+                .setDescription(`此命令只能由這些人運行。\n• ${ onlyUsers.join('\n• ') }`)],
             allowedMentions: {
                 repliedUser: false,
             },

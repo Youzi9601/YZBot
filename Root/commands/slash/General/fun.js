@@ -75,9 +75,16 @@ module.exports = {
         .toJSON(),
     type: ["Fun"],
     disabled: false, // 是否不使用此檔案
-    OnlyRunOnGuilds: true,
-    clientPermissions: ['SendMessages'], // 機器人需要這些權限
-    userPermissions: [], // 使用者需要這些權限
+    setting: {
+        guild: {
+            use: true,
+        },
+        options: {
+            OnlyRunOnGuilds: true,
+            clientPermissions: ['SendMessages'], // 機器人需要這些權限
+            userPermissions: [], // 使用者需要這些權限
+        },
+    },
 
     /**
    *

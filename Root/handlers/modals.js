@@ -18,10 +18,10 @@ module.exports = (client, config) => {
 
         if (pull.disabled) continue;
         if (pull.id) {
-            client.modals.set(pull.id, pull);
-            client.console('Log', `[處理 - MODALS] 加載了一個文件: ${file} (#${client.modals.size})`.brightGreen);
+            client.commands.modals.set(pull.id, pull);
+            client.console('Log', `[處理 - MODALS] 加載了一個文件: ${ file } (#${ client.commands.modals.size })`.brightGreen);
         } else {
-            client.console('Log', `[處理 - MODALS] 無法加載文件 ${file}。缺少表單 ID。`.red);
+            client.console('Log', `[處理 - MODALS] 無法加載文件 ${ file }。缺少表單 ID。`.red);
             continue;
         }
     }

@@ -14,7 +14,7 @@ module.exports = {
 
         // Slash:
         if (interaction.isChatInputCommand()) {
-            const command = client.slash_commands.get(interaction.commandName);
+            const command = client.commands.slash.get(interaction.commandName);
             if (!command) return;
 
             client.console('Log', `${ interaction.user.tag } 於 ${ interaction.guild.name } (${ interaction.guild.id }) #${ interaction.channel.name } (${ interaction.channel.id }) 運行命令：${ interaction }`);
@@ -29,7 +29,7 @@ module.exports = {
                 const now = Date.now();
                 const timestamps = cooldowns.get(command.data.name);
                 const defaultCooldownDuration = 3;
-                const cooldownAmount = (command.cooldown ?? defaultCooldownDuration) * 1000;
+                const cooldownAmount = (command.setting.options.cooldown ?? defaultCooldownDuration) * 1000;
 
                 if (timestamps.has(interaction.user.id)) {
                     const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
@@ -54,7 +54,7 @@ module.exports = {
                                     .setTimestamp()
                                     .setColor(0xf24e43)
                                     .setDescription(
-                                        `你目前處於冷卻狀態，請等待\`${human_time}\`！\n直到 ${time(Math.round(expirationTime / 1000))} ！`,
+                                        `你目前處於冷卻狀態，請等待\`${ human_time }\`！\n直到 ${ time(Math.round(expirationTime / 1000)) } ！`,
                                     ),
                             ],
                             allowedMentions: {
@@ -83,7 +83,7 @@ module.exports = {
         }
         // Slash Autocomplete:
         if (interaction.isAutocomplete()) {
-            const command = client.slash_commands.get(interaction.commandName);
+            const command = client.commands.slash.get(interaction.commandName);
             if (!command || !command?.autocomplete) {
                 if (interaction.responded) return;
                 return await interaction.respond([{ name: `錯誤：查無此回應命令\`${ interaction.commandName }\`之結果`, value: 'error' }]);
@@ -99,7 +99,7 @@ module.exports = {
 
         // Users:
         if (interaction.isUserContextMenuCommand()) {
-            const command = client.contextmenu_user_commands.get(interaction.commandName);
+            const command = client.commands.contextmenu.user.get(interaction.commandName);
 
             if (!command) {
                 if (interaction.replied || interaction.deferred || !interaction.isRepliable()) return;
@@ -131,7 +131,7 @@ module.exports = {
 
         // Message:
         if (interaction.isMessageContextMenuCommand()) {
-            const command = client.contextmenu_message_commands.get(interaction.commandName);
+            const command = client.commands.contextmenu.message.get(interaction.commandName);
 
             if (!command) {
                 if (interaction.replied || interaction.deferred || !interaction.isRepliable()) return;
@@ -163,7 +163,7 @@ module.exports = {
 
         // Modals:
         if (interaction.isModalSubmit()) {
-            const modal = client.modals.get(interaction.customId);
+            const modal = client.commands.modals.get(interaction.customId);
 
             if (!modal) {
                 if (interaction.replied || interaction.deferred || !interaction.isRepliable()) return;
@@ -194,11 +194,11 @@ module.exports = {
 
         // Buttons:
         if (interaction.isButton()) {
-            const button = client.button_commands.get(interaction.customId);
-            const regex_button = client.button_commands.forEach((regex, _) => {
-                if (`${regex}`.includes('regex-'))
+            const button = client.commands.button_commands.get(interaction.customId);
+            const regex_button = client.commands.button_commands.forEach((regex, _) => {
+                if (`${ regex }`.includes('regex-'))
                     if (new RegExp(regex.replace('regex-', '')).test(interaction.customId)) {
-                        return client.button_commands.get(regex);
+                        return client.commands.button_commands.get(regex);
                     }
             });
             if (!button && !regex_button) {
@@ -237,7 +237,7 @@ module.exports = {
 
         // Buttons:
         if (interaction.isAnySelectMenu()) {
-            const selectmenu = client.selectmenu_commands.get(interaction.customId);
+            const selectmenu = client.commands.selectmenu_commands.get(interaction.customId);
 
             if (!selectmenu) {
                 // 等待並檢查是否有其他內建按鈕執行過了

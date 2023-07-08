@@ -1,4 +1,4 @@
-const { Client, Partials, Collection, GatewayIntentBits } = require('discord.js');
+const { Client, Partials, Collection, GatewayIntentBits, ApplicationCommand } = require('discord.js');
 const config = require('../Config');
 require("colors");
 
@@ -44,13 +44,17 @@ if (!AuthenticationToken) {
 }
 
 // Handler:
-client.prefix_commands = new Collection();
-client.slash_commands = new Collection();
-client.contextmenu_user_commands = new Collection();
-client.contextmenu_message_commands = new Collection();
-client.button_commands = new Collection();
-client.selectmenu_commands = new Collection();
-client.modals = new Collection();
+client.commands = {
+    message_prefix: new Collection(),
+    slash: new Collection(),
+    contextmenu: {
+        user: new Collection(),
+        message: new Collection(),
+    },
+    button_commands: new Collection(),
+    selectmenu_commands: new Collection(),
+    modals: new Collection(),
+};
 client.events = new Collection();
 // 設定
 client.config = config;
@@ -92,15 +96,27 @@ client.cooldowns = new Collection();
  * language_data: tran,
  * console: import('./handlers/log'),
  * config: import('./../Config'),
- * prefix_commands: Collection,
- * slash_commands: Collection,
- * contextmenu_user_commands: Collection,
- * contextmenu_message_commands: Collection,
- * button_commands: Collection,
- * selectmenu_commands: Collection,
- * modals: Collection,
+ * commands: {
+ *      message_prefix: Collection,
+ *      slash: Collection,
+ *      contextmenu: {
+ *          user: Collection,
+ *          message: Collection,
+ *      },
+ *      button_commands: Collection,
+ *      selectmenu_commands: Collection,
+ *      modals: Collection,
+ *      data: {
+ *          global: Array<ApplicationCommand>,
+ *          guild: Array<ApplicationCommand>,
+ *          developer: Array<ApplicationCommand>,
+ *          premium: Array<ApplicationCommand>,
+ *      }
+ * },
+ * command_category: [],
  * events: Collection,
  * cooldowns: Collection<String, Collection<String, Number>>,
+ * db: import('./handlers/database/db_function'),
  * }}
  */
 const bot = () => {
@@ -111,7 +127,7 @@ module.exports.client = bot();
 
 
 // Hendlers
-["prefix", "application_commands", "modals", "events", "database", "languages_loader", "plugins_loader-client"].forEach((file) => {
+["languages_loader", "database", "events", "prefix", "application_commands", "modals", "plugins_loader-client"].forEach((file) => {
     require(`./handlers/${ file }`)(client, config);
 });
 
@@ -120,7 +136,7 @@ client.login(AuthenticationToken)
     .catch((err) => {
         client.console('Error', "[CRASH] 連接到您的機器人時出了點問題...");
         client.console('Error', "[CRASH] 來自 Discord API 的錯誤：" + err);
-        return process.exit();
+        return process.exit(1);
     });
 
 // 處理錯誤：

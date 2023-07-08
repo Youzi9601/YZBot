@@ -1,6 +1,5 @@
-const { PermissionsBitField, Routes, REST, User } = require('discord.js');
-const fs = require("fs");
-const colors = require("colors");
+const { Routes, REST } = require('discord.js');
+require("colors");
 const { glob } = require('glob');
 
 /**
@@ -10,9 +9,15 @@ const { glob } = require('glob');
  * @returns "?"
  */
 module.exports = async (client, config) => {
+
     client.console('Log', ">>> 應用程序命令處理程序：".blue);
 
-    let commands = [];
+    let commands = {
+        global: [], // 全區
+        guild: [], // 全部的伺服器
+        developer: [], // 開發者
+        premium: [], // 高階會員
+    };
 
     // Slash commands handler:
     client.console('Log', '[!] 開始加載斜杠命令...'.yellow);
@@ -40,10 +45,22 @@ module.exports = async (client, config) => {
                 continue;
             }
             // 執行註冊
-            client.slash_commands.set(pull.data.name, pull);
-            client.console('Log', `[處理 - 斜線命令] 加載了一個文件: ${ pull.data.name } (#${ client.slash_commands.size })`.brightGreen);
+            client.commands.slash.set(pull.data.name, pull);
+            client.console('Log', `[處理 - 斜線命令] 加載了一個文件: ${ pull.data.name } (#${ client.commands.slash.size })`.brightGreen);
 
-            commands.push(pull.data);
+            if (!pull.setting?.guild || pull.setting.guild.use == false) {
+                // 全區
+                commands.global.push(pull.data);
+            } else if (pull.setting.guild.premium == true) {
+                // 高級
+                commands.premium.push(pull.data);
+            } else if (pull.setting.guild.developer == true) {
+                // 開發者
+                commands.developer.push(pull.data);
+            } else {
+                // 伺服器
+                commands.guild.push(pull.data);
+            }
 
         } else {
             client.console('Log', `[處理 - 斜線命令] 無法加載文件 ${ file }，缺少斜線命令名稱值或描述。`.red);
@@ -67,10 +84,22 @@ module.exports = async (client, config) => {
 
         if (pull.disabled) continue;
         if (pull.data.name) {
-            client.contextmenu_user_commands.set(pull.data.name, pull);
-            client.console('Log', `[處理 - 成員互動命令] 加載了一個文件： ${ pull.data.name } (#${ client.contextmenu_user_commands.size })`.brightGreen);
+            client.commands.contextmenu.user.set(pull.data.name, pull);
+            client.console('Log', `[處理 - 成員互動命令] 加載了一個文件： ${ pull.data.name } (#${ client.commands.contextmenu.user.size })`.brightGreen);
 
-            commands.push(pull.data);
+            if (!pull.setting?.guild || pull.setting.guild.use == false) {
+                // 全區
+                commands.global.push(pull.data);
+            } else if (pull.setting.guild.premium == true) {
+                // 高級
+                commands.premium.push(pull.data);
+            } else if (pull.setting.guild.developer == true) {
+                // 開發者
+                commands.developer.push(pull.data);
+            } else {
+                // 伺服器
+                commands.guild.push(pull.data);
+            }
 
         } else {
             client.console('Log', `[處理 - 成員互動命令] 無法加載文件 ${ file }，缺少的成員命令名稱值或類型不是 2。`.red);
@@ -90,10 +119,22 @@ module.exports = async (client, config) => {
 
         if (pull.disabled) continue;
         if (pull.data.name) {
-            client.contextmenu_message_commands.set(pull.data.name, pull);
-            client.console('Log', `[處理 - 訊息互動命令] 加載了一個文件：${ pull.data.name } (#${ client.contextmenu_message_commands.size })`.brightGreen);
+            client.commands.contextmenu.message.set(pull.data.name, pull);
+            client.console('Log', `[處理 - 訊息互動命令] 加載了一個文件：${ pull.data.name } (#${ client.commands.contextmenu.message.size })`.brightGreen);
 
-            commands.push(pull.data);
+            if (!pull.setting?.guild || pull.setting.guild.use == false) {
+                // 全區
+                commands.global.push(pull.data);
+            } else if (pull.setting.guild.premium == true) {
+                // 高級
+                commands.premium.push(pull.data);
+            } else if (pull.setting.guild.developer == true) {
+                // 開發者
+                commands.developer.push(pull.data);
+            } else {
+                // 伺服器
+                commands.guild.push(pull.data);
+            }
 
         } else {
             client.console('Log', `[處理 - 訊息互動命令] 無法加載文件 ${ file }，缺少的訊息命令名稱值或類型不是 3。`.red);
@@ -113,11 +154,11 @@ module.exports = async (client, config) => {
 
         if (pull.disabled) continue;
         if (pull.name) {
-            client.button_commands.set(pull.name, pull);
-            client.console('Log', `[處理 - 按鈕命令] 加載了一個文件：${ pull.name } (#${ client.button_commands.size })`.brightGreen);
+            client.commands.button_commands.set(pull.name, pull);
+            client.console('Log', `[處理 - 按鈕命令] 加載了一個文件：${ pull.name } (#${ client.commands.button_commands.size })`.brightGreen);
         } else if (pull.regex) {
-            client.button_commands.set('regex-' + pull.regex.toString(), pull);
-            client.console('Log', `[處理 - 按鈕命令] 加載了一個文件：${ pull.regex } (#${ client.button_commands.size })`.brightGreen);
+            client.commands.button_commands.set('regex-' + pull.regex.toString(), pull);
+            client.console('Log', `[處理 - 按鈕命令] 加載了一個文件：${ pull.regex } (#${ client.commands.button_commands.size })`.brightGreen);
         } else {
             client.console('Log', `[處理 - 按鈕命令] 無法加載文件 ${ file }，缺少了按鈕命令名稱值。`.red);
             continue;
@@ -136,8 +177,8 @@ module.exports = async (client, config) => {
 
         if (pull.disabled) continue;
         if (pull.name) {
-            client.selectmenu_commands.set(pull.name, pull);
-            client.console('Log', `[處理 - 選單命令] 加載了一個文件：${ pull.name } (#${ client.selectmenu_commands.size })`.brightGreen);
+            client.commands.selectmenu_commands.set(pull.name, pull);
+            client.console('Log', `[處理 - 選單命令] 加載了一個文件：${ pull.name } (#${ client.commands.selectmenu_commands.size })`.brightGreen);
         } else {
             client.console('Log', `[處理 - 選單命令] 無法加載文件 ${ file }，缺少了選單命令名稱值。`.red);
             continue;
@@ -148,11 +189,12 @@ module.exports = async (client, config) => {
 
 
     // Registering all the application commands:
+    client.commands.data = commands;
     if (!config.bot.clientID) {
         client.console('Log', "[CRASH]您需要在 config.js 中提供您的機器人 ID！".red + "\n");
         return process.exit();
     }
-
+    /*
     // 交給shard id #0 的機器人來執行註冊命令
     if (client.shard.ids == 0) {
         const rest = new REST({ version: '10' }).setToken(config.bot.token || process.env.token);
@@ -163,7 +205,7 @@ module.exports = async (client, config) => {
             try {
                 await rest.put(
                     Routes.applicationCommands(config.bot.clientID),
-                    { body: commands },
+                    { body: commands.global },
                 );
 
                 client.console('Log', '[HANDLER] 已成功註冊所有應用程序命令。'.brightGreen);
@@ -172,4 +214,39 @@ module.exports = async (client, config) => {
             }
         })();
     }
+    */
+    function waitForReady() {
+        return new Promise(resolve => {
+            if (client.isReady()) {
+                resolve();
+            } else client.once('ready', () => {
+                resolve();
+            });
+        });
+    }
+    await waitForReady();
+    client.console('Log', '[HANDLER] 開始註冊所有應用程序命令。'.yellow);
+    // 設定全區命令
+    if (commands.global.length > 0)
+        await client.application.commands.set(commands.global);
+    // 設定伺服器命令 & 高級命令 & 開發者命令
+    if (commands.guild.length > 0)
+        (await client.guilds.fetch()).forEach(async g => {
+            const guild = await g.fetch();
+            // 預設
+            let c = commands.guild;
+            // 開發者
+            if (g.id == client.config.guild.ServerID)
+                c = [...c, ...commands.developer];
+
+            // 高級
+            if ((require('./../../Storage/premium.json') || []).includes(g.id))
+                c = [...c, ...commands.premium];
+            await guild.commands.set(c);
+            client.console('Log', `[HANDLER - BUILDIING] ${ guild.id }`.brightGreen);
+
+
+        });
+    client.console('Log', '[HANDLER] 已成功註冊所有應用程序命令。'.brightGreen);
+
 };

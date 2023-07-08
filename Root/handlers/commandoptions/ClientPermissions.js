@@ -6,12 +6,12 @@ const { EmbedBuilder } = require('discord.js');
  * @param {import('discord.js').ChatInputCommandInteraction} interaction
  * @param {import('./../../handlers/database/db_function')} db
  */
-module.exports = async function(client, interaction, config, db, command) {
-    if (!command.clientPermissions) return false;
+module.exports = async function (client, interaction, config, db, command) {
+    if (!command.setting.options.clientPermissions) return false;
     const missing = [];
     const language = client.language_data(interaction.locale, 'discord#Permissions');
 
-    command.clientPermissions.forEach(i => {
+    command.setting.options.clientPermissions.forEach(i => {
         if (!interaction.guild.members.me.permissions.has(i)) missing.push(language[i]);
     });
     if (missing.length == 0) return false;
@@ -29,7 +29,7 @@ module.exports = async function(client, interaction, config, db, command) {
                     iconURL: client.user.displayAvatarURL() || client.user.defaultAvatarURL,
                 })
                 .setTimestamp()
-                .setDescription(`我需要這些權限才能運行此命令。\n• ${missing.join('\n• ')}`)],
+                .setDescription(`我需要這些權限才能運行此命令。\n• ${ missing.join('\n• ') }`)],
             allowedMentions: {
                 repliedUser: false,
             },

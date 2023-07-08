@@ -95,12 +95,19 @@ module.exports = {
         )
         .setDMPermission(false)
         .toJSON(),
-    clientPermissions: ["ReadMessageHistory", "ViewChannel", "SendMessages", "ManageWebhooks"], // 待設定機器人的權限
-    userPermissions:['Administrator'],
-    OnlyRunOnGuilds: true,
+    setting: {
+        guild: {
+            use: true, // 為伺服器命令，將會於加入時註冊，並且只於單一伺服器中執行
+        },
+        options: {
+            clientPermissions: ["ReadMessageHistory", "ViewChannel", "SendMessages", "ManageWebhooks"], // 待設定機器人的權限
+            userPermissions: ['Administrator'],
+            OnlyRunOnGuilds: true,
+            cooldown: 5,
+        },
+    },
     disabled: false, // 是否不使用此檔案
     type: ['Control'],
-    cooldown: 5,
     /**
      *
      * @param {import('./../../../bot').client} client

@@ -10,7 +10,7 @@ module.exports = {
     owner: false,
     disabled: true,
     run: async (client, message, args, prefix) => {
-        const commands = client.prefix_commands.map(command => `${prefix}${command.config.name}`);
+        const commands = client.commands.message_prefix.map(command => `${ prefix }${ command.config.name }`);
 
         return await message.reply(
             {
@@ -29,7 +29,7 @@ module.exports = {
                         .setDescription(commands.join(', '))
                         .setFooter(
                             {
-                                text: `→ Use ${prefix}info for a command info.`,
+                                text: `→ Use ${ prefix }info for a command info.`,
                             },
                         )
                         .setColor('Blue'),

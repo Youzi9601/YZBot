@@ -67,32 +67,45 @@ module.exports = {
 		.toJSON(), // 這行特別重要，用於轉化為JSON
 	type: "類別名稱",
 	disabled: false, // 是否不使用此檔案
-	anyClientPermission: [], // 需要機器人有任意一個權限
-	returnAnyClientPermissions: true, //是否返此錯誤
-	anyUserPermission: [], // 需要使用者有任意一個權限
-	returnAnyUserPermissions: true, //
-	clientPermissions: [], // 機器人需要這些權限
-	returnClientPermissions: true,
-	userPermissions: [], // 使用者需要這些權限
-	returnUserPermissions: true, //
-	requiredAnyRole: [], //
-	returnRequiredAnyRole: true, //
-	requiredRoles: [], //
-	returnRequiredRoles: true, //
-	onlyChannels: [], //
-	returnOnlyChannels: true, //
-	onlyGuilds: [], //
-	returnOnlyGuilds: true, //
-	onlyUsers: [], //
-	returnOnlyUsers: true, //
-	OnlyRunOnGuilds: false, // 限制只能於伺服器中使用該命令
-	returnOnlyRunOnGuilds: true, //
-	ownerOnly: false, // 限定機器人所有者使用
-	returnOwnerOnly: true, //
-	cooldown: 3, // 命令冷卻時間，預設3秒，（秒，1s = 1000ms ）
-	returnCooldown: true, // 是否返回冷卻錯誤
-	returnNoErrors: false, // 是否返回任何錯誤，true將會使任何錯誤都不會返回，並覆蓋掉 return 系列設定。
-
+	setting: {
+		guild: {
+			use: true, // 為伺服器命令，將會於加入時註冊，並且只於單一伺服器中執行
+			premium: false, // 是否為高級伺服器命令
+			developer: false, // 是否為開發者伺服器命令
+		},
+		options:{
+			// 任意條件
+			anyClientPermission: [], // 需要機器人有任意一個權限
+			returnAnyClientPermissions: true, //是否返此錯誤
+			anyUserPermission: [], // 需要使用者有任意一個權限
+			returnAnyUserPermissions: true, //
+			// 必須條件
+			clientPermissions: [], // 機器人需要這些權限
+			returnClientPermissions: true,
+			userPermissions: [], // 使用者需要這些權限
+			returnUserPermissions: true, //
+			requiredAnyRole: [], //
+			returnRequiredAnyRole: true, //
+			requiredRoles: [], //
+			returnRequiredRoles: true, //
+			// 限定條件
+			onlyChannels: [], //
+			returnOnlyChannels: true, //
+			onlyGuilds: [], //
+			returnOnlyGuilds: true, //
+			onlyUsers: [], //
+			returnOnlyUsers: true, //
+			OnlyRunOnGuilds: false, // 限制只能於伺服器中使用該命令
+			returnOnlyRunOnGuilds: true, //
+			ownerOnly: false, // 限定機器人所有者使用
+			returnOwnerOnly: true, //
+			// 冷卻條件
+			cooldown: 3, // 命令冷卻時間，預設3秒，（秒，1s = 1000ms ）
+			returnCooldown: true, // 是否返回冷卻錯誤
+			// 錯誤返回
+			returnNoErrors: false, // 是否返回任何錯誤，true將會使任何錯誤都不會返回，並覆蓋掉 return 系列設定。
+		},
+	},
 	/**
 	 *
 	 * @param {import('discord.js').Client} client

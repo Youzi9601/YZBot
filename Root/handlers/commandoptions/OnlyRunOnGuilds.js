@@ -6,9 +6,9 @@ const { EmbedBuilder } = require('discord.js');
  * @param {import('discord.js').ChatInputCommandInteraction} interaction
  * @param {import('./../../handlers/database/db_function')} db
  */
-module.exports = async function(client, interaction, config, db, command) {
-    if (!command.OnlyRunOnGuilds) return false;
-    if (command.returnOnlyRunOnGuilds == false || command.returnNoErrors)
+module.exports = async function (client, interaction, config, db, command) {
+    if (!command.setting.options.OnlyRunOnGuilds) return false;
+    if (command.setting.options.returnOnlyRunOnGuilds == false || command.setting.options.returnNoErrors)
         return true;
     // 判斷是否於guild執行
     if (interaction.inGuild() == false) {

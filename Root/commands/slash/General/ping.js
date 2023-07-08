@@ -10,7 +10,11 @@ module.exports = {
         .setDMPermission(false)
         .toJSON(),
     type: ['Main', 'General'],
-    cooldown: 5,
+    setting: {
+        options: {
+            cooldown: 5,
+        },
+    },
     /**
      *
      * @param {import('./../../../bot').client} client
@@ -30,7 +34,7 @@ module.exports = {
             .setTimestamp()
             .setTitle('🏓| Pong! 機器人狀態')
             .setDescription([
-                `🏠| Websocket 延遲: ${client.ws.ping}ms`,
+                `🏠| Websocket 延遲: ${ client.ws.ping }ms`,
                 `🤖| 機器人延遲: ${ Math.abs(Date.now() - interaction.createdTimestamp) }ms`,
                 `#${ client.shard.ids }區 `,
                 '',

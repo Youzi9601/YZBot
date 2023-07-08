@@ -18,5 +18,6 @@ json.sqlite.code.js
 ##忽略的設定檔：
 Storage/**/*.json
 Storage/*.json
+!Storage/premium.json
 #Root/Language/
 #無

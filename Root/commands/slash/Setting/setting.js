@@ -28,6 +28,12 @@ module.exports = {
         .setDMPermission(false)
         .toJSON(),
     type: ['Setting'],
+    setting: {
+        guild: {
+            use: true,
+        },
+        options: {},
+    },
     disabled: true,
     /**
      *

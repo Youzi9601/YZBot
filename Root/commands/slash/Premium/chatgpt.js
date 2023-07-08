@@ -19,6 +19,13 @@ module.exports = {
         .setDMPermission(false)
         .toJSON(),
     type: ['Premium'],
+    setting: {
+        guild: {
+            use: true,
+            premium: true,
+        },
+        options: {},
+    },
     disabled: true,
     /**
      *

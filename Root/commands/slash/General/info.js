@@ -25,10 +25,17 @@ module.exports = {
                 .setDescription('取得此伺服器的資訊'),
         )
         .toJSON(),
-    clientPermissions: ['SendMessages'],
-    OnlyRunOnGuilds: true,
+    setting: {
+        guild: {
+            use: true,
+        },
+        options: {
+            clientPermissions: ['SendMessages'],
+            OnlyRunOnGuilds: true,
+            cooldown: 10,
+        },
+    },
     type: ['Main', 'General'],
-    cooldown: 10,
     /**
      *
      * @param {import('./../../../bot').client} client

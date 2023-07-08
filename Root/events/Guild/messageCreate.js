@@ -14,7 +14,7 @@ module.exports = {
         if (message.author.bot) return;
 
         if (message.channel.type == ChannelType.DM
-        || message.channel.type == ChannelType.GroupDM) {
+            || message.channel.type == ChannelType.GroupDM) {
             return;
         }
 
@@ -31,7 +31,7 @@ module.exports = {
             const cmd = args.shift().toLowerCase();
             if (cmd.length == 0) return;
 
-            const command = client.prefix_commands.get(cmd);
+            const command = client.commands.message_prefix.get(cmd);
 
             if (!command) return;
 

@@ -6,18 +6,18 @@ const { EmbedBuilder } = require('discord.js');
  * @param {import('discord.js').ChatInputCommandInteraction} interaction
  * @param {import('./../../handlers/database/db_function')} db
  */
-module.exports = async function(client, interaction, config, db, command) {
+module.exports = async function (client, interaction, config, db, command) {
     // bypass
     if (config.developers.some(id => interaction.member.user.id == id)) return false;
     //
-    if (!command.onlyGuilds) return false;
-    if (command.onlyGuilds.some((id) => id == interaction.guild.id)) return false;
+    if (!command.setting.options.onlyGuilds) return false;
+    if (command.setting.options.onlyGuilds.some((id) => id == interaction.guild.id)) return false;
     else {
         const onlyGuilds = [];
-        command.onlyGuilds.forEach((id) => {
+        command.setting.options.onlyGuilds.forEach((id) => {
             onlyGuilds.push(client.guilds.cache.get(id).name);
         });
-        if (command.returnOnlyGuilds == false || command.returnNoErrors)
+        if (command.setting.options.returnOnlyGuilds == false || command.setting.options.returnNoErrors)
             return true;
         else
             interaction.reply({
@@ -34,7 +34,7 @@ module.exports = async function(client, interaction, config, db, command) {
                         })
                         .setTimestamp()
                         .setDescription(
-                            `此命令只能在這些公會中運行。\n• ${onlyGuilds.join('\n• ')}`,
+                            `此命令只能在這些公會中運行。\n• ${ onlyGuilds.join('\n• ') }`,
                         ),
                 ],
                 allowedMentions: {

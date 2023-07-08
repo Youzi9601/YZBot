@@ -12,8 +12,9 @@ module.exports = {
      * @param {Object} value JSON資料內容
      */
     set: async (_client, tablename = 'json', name, value) => {
-        await readTable(tablename);
-        const filePath = `Storage/${tablename}/${name}.json`;
+        if (tablename != 'json')
+            await readTable(tablename);
+        const filePath = `Storage/${ tablename == 'json' ? '' : `${ tablename }/` }${ name }.json`;
         await fs.promises.writeFile(filePath, JSON.stringify(value, undefined, 4));
         return;
     },
@@ -26,7 +27,7 @@ module.exports = {
      */
     get: async (_client, tablename = 'json', name) => {
         await readTable(tablename);
-        const filePath = `Storage/${ tablename }/${ name }.json`;
+        const filePath = `Storage/${ tablename == 'json' ? '' : `${ tablename }/` }${ name }.json`;
         if (!fs.existsSync(filePath)) {
             // 如果檔案不存在，使用 fs.writeFile 生成一個空白檔案
             await fs.promises.writeFile(filePath, '{}', (err) => {

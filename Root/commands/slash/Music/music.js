@@ -28,8 +28,15 @@ module.exports = {
         .setDMPermission(false)
         .toJSON(),
     type: ['Music'],
-    cooldown: 5,
-    OnlyRunOnGuilds: true,
+    setting: {
+        guild: {
+            use: true,
+        },
+        options: {
+            cooldown: 5,
+            OnlyRunOnGuilds: true,
+        },
+    },
     disabled: false, // 記得改成false再來執行
     /**
      *
@@ -73,8 +80,8 @@ module.exports = {
 
             return interaction.respond(
                 results.tracks.slice(0, 25).map((t) => ({
-                    name: `${t.title.split("").length >= 50 ? `${t.title.slice(0, 50)}...` : t.title} (${t.author.split("").length >= 25 ? `${t.author.slice(0, 25)}...` : t.author} - ${t.source})`,
-                    value: `${t.url.split("").length >= 99 ? t.title.slice(0, 99) : t.url}`,
+                    name: `${ t.title.split("").length >= 50 ? `${ t.title.slice(0, 50) }...` : t.title } (${ t.author.split("").length >= 25 ? `${ t.author.slice(0, 25) }...` : t.author } - ${ t.source })`,
+                    value: `${ t.url.split("").length >= 99 ? t.title.slice(0, 99) : t.url }`,
                 })),
             );
         }
