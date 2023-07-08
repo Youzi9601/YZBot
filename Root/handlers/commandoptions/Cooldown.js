@@ -13,7 +13,7 @@ const { EmbedBuilder, Collection, time } = require('discord.js');
  * @param {import('./../../handlers/database/db_function')} db
  * @param {*} command
  */
-module.exports = async function (client, interaction, config, db, command) {
+module.exports = async function(client, interaction, config, db, command) {
     if (!command.setting.options.cooldown) return false;
     const { cooldowns } = client;
 

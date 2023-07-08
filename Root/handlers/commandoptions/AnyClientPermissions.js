@@ -6,7 +6,7 @@ const { EmbedBuilder } = require('discord.js');
  * @param {import('discord.js').ChatInputCommandInteraction} interaction
  * @param {import('./../../handlers/database/db_function')} db
  */
-module.exports = async function (client, interaction, config, db, command) {
+module.exports = async function(client, interaction, config, db, command) {
     if (!command.setting.options.anyClientPermission) return false;
     if (command.setting.options.anyClientPermission.some(i => interaction.guild.members.me.permissions.has(i))) return false;
     else {

@@ -6,7 +6,7 @@ const { EmbedBuilder } = require('discord.js');
  * @param {import('discord.js').ChatInputCommandInteraction} interaction
  * @param {import('./../../handlers/database/db_function')} db
  */
-module.exports = async function (client, interaction, config, db, command) {
+module.exports = async function(client, interaction, config, db, command) {
     if (!command.setting.options.clientPermissions) return false;
     const missing = [];
     const language = client.language_data(interaction.locale, 'discord#Permissions');
