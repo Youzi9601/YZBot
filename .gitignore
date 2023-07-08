@@ -1,4 +1,5 @@
 # Node rules:
+
 ##忽略資料夾：
 node_modules/
 .vscode/
@@ -7,6 +8,7 @@ logs/*.log
 Root/webs/public
 Root/webs/routes
 Root/webs/views
+
 ##忽略檔案：
 #package-lock.json
 *.zip
@@ -15,6 +17,9 @@ json.sqlite
 eula.txt
 test*.js
 json.sqlite.code.js
+.replit
+replit.nix
+
 ##忽略的設定檔：
 Storage/**/*.json
 Storage/*.json
