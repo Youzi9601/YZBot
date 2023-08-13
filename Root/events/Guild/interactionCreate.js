@@ -12,6 +12,9 @@ module.exports = {
      */
     async execute(client, interaction) {
 
+        // 攔截無效且無法回應的交互
+        if (!interaction.isRepliable()) return;
+
         // Slash:
         if (interaction.isChatInputCommand()) {
             const command = client.commands.slash.get(interaction.commandName);
