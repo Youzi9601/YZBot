@@ -38,7 +38,12 @@ manager.on('shardCreate', shard => {
 
         if (process.exitCode === null) {
             console.warn("警告: 分片 #" + shard.id + " 以 null 錯誤代碼退出。這可能是缺少可用系統內存的結果。確保分配了足夠的內存以繼續。");
-
+            manager.shards.forEach(s => {
+                s.eval('process.exit(0)');
+                s.kill();
+                uptime.set(s.id, 'death');
+            });
+            exit(0);
         } else if (process.exitCode != 1) {
             console.info("執行關閉 分片 #" + shard.id + " 以非 1(程序錯誤) 代碼退出。將關閉整個機器人&分片系統！");
             manager.shards.forEach(s => {
@@ -47,7 +52,6 @@ manager.on('shardCreate', shard => {
                 uptime.set(s.id, 'death');
             });
             exit(0);
-
         }
     });
     shard.on('reconnecting', async (event) => {
