@@ -162,7 +162,7 @@ async function load(client, interaction, config, db) {
             const roles = await guild.roles.fetch();
             const roles_tag = roles
                 .filter(role =>
-                    role.name != '@everyone' && !role.tags.botId,
+                    role.name != '@everyone' && !role.tags?.botId,
                 )
                 .map(
                     role => `<@&${role.id}>`,
