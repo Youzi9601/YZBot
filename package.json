@@ -61,7 +61,7 @@
     "fs-extra": "^11.2.0",
     "glob": "^10.3.3",
     "html-entities": "^2.4.0",
-    "humanize-duration": "^3.29.0",
+    "humanize-duration": "^3.31.0",
     "mathjs": "^12.4.0",
     "moment": "^2.29.4",
     "mongoose": "^8.1.1",
