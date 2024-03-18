@@ -60,7 +60,7 @@
     "fs": "^0.0.1-security",
     "fs-extra": "^11.2.0",
     "glob": "^10.3.3",
-    "html-entities": "^2.4.0",
+    "html-entities": "^2.5.2",
     "humanize-duration": "^3.29.0",
     "mathjs": "^12.4.0",
     "moment": "^2.29.4",
