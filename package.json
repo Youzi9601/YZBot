@@ -59,7 +59,7 @@
     "ffmpeg-static": "^5.2.0",
     "fs": "^0.0.1-security",
     "fs-extra": "^11.2.0",
-    "glob": "^10.3.3",
+    "glob": "^10.4.3",
     "html-entities": "^2.4.0",
     "humanize-duration": "^3.29.0",
     "mathjs": "^12.4.0",
